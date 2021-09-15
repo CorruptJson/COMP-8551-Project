@@ -1,3 +1,0 @@
-﻿  glad.c
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
-  COMP-8551-Project.vcxproj -> C:\Users\Admin_Think541\Documents\C++\COMP-8551-Project\x64\Debug\COMP-8551-Project.exe
