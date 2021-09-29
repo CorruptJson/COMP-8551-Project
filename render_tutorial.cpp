@@ -49,7 +49,7 @@ GLFWwindow* setupGLFW() {
 }
 
 // called in main()
-int renderTutorial() {
+int RenderTutorial() {
     GLFWwindow* window = setupGLFW();
     if (window == NULL) {
         glfwTerminate();
