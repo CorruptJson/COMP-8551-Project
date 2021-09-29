@@ -1,5 +1,5 @@
 
-#include "rendertutorial.h"
+#include "RenderTutorial.h"
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
@@ -49,7 +49,7 @@ GLFWwindow* setupGLFW() {
 }
 
 // called in main()
-int renderTutorial() {
+int RenderTutorial() {
     GLFWwindow* window = setupGLFW();
     if (window == NULL) {
         glfwTerminate();

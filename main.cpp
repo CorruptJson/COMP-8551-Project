@@ -1,7 +1,7 @@
 #include <iostream>
-#include "rendertutorial.h"
+#include "RenderTutorial.h"
 
 int main() {
-    renderTutorial();
+    RenderTutorial();
     return 0;
 }
