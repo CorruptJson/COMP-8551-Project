@@ -5,4 +5,4 @@
 
 GLFWwindow* setupGLFW();
 
-int RenderTutorial();
+int renderTutorial();
