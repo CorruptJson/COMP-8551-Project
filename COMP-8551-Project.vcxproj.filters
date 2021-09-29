@@ -33,13 +33,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="rendertutorial.cpp">
+    <ClCompile Include="RenderTutorial.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,7 +47,7 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rendertutorial.h">
+    <ClInclude Include="RenderTutorial.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
