@@ -1,6 +1,7 @@
 #include <iostream>
 #include "RenderTutorial.h"
 
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()

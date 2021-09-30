@@ -51,7 +51,7 @@
     <ClCompile Include="ChunkManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ChunkManagerAbstract.cpp">
+    <ClCompile Include="protoChunkManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
   </ItemGroup>
@@ -66,6 +66,15 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SigArch.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkManagerAbstract.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="tempPosition.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="protoChunkManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
