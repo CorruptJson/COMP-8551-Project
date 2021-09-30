@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ChunkManager.cpp" />
+    <ClCompile Include="ChunkManagerAbstract.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="RenderTutorial.cpp" />
@@ -153,7 +155,9 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EntityID.h" />
     <ClInclude Include="RenderTutorial.h" />
+    <ClInclude Include="SigArch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
