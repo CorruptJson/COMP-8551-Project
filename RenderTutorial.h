@@ -3,6 +3,11 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+extern GLFWwindow* window;
+
 GLFWwindow* setupGLFW();
 
-int RenderTutorial();
+int renderTutorialInit();
+int renderTutorialUpdate();
+int renderTutorialTeardown();
+

@@ -20,6 +20,8 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
 "}\n\0";
 
+GLFWwindow* window;
+
 GLFWwindow* setupGLFW() {
     // glfw helps with creating windows, contexts
     // and receiving inputs and events
@@ -48,10 +50,12 @@ GLFWwindow* setupGLFW() {
     return window;
 }
 
-// called in main()
-int RenderTutorial() {
-    GLFWwindow* window = setupGLFW();
-    if (window == NULL) {
+
+int renderTutorialInit() {
+
+    window = setupGLFW();
+    if (window == NULL)
+    {
         glfwTerminate();
         return -1;
     }
@@ -59,6 +63,11 @@ int RenderTutorial() {
     // glad handle the opengl code
     // init it
     gladLoadGL();
+    return 0;
+}
+
+// called in main()
+int renderTutorialUpdate() {
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -78,17 +87,15 @@ int RenderTutorial() {
     // => swap them
     glfwSwapBuffers(window);
 
+    return 0;
+}
 
-    // keep the window open if it's not supposed to close
-    while (!glfwWindowShouldClose(window)) {
-        // tell glfw to keep track of window resize 
-        // and input events
-        glfwPollEvents();
-    }
+int renderTutorialTeardown() {
 
     // cleanup
     glfwDestroyWindow(window);
     // call this to destroy glfw
     glfwTerminate();
     return 0;
-}
+};
+
