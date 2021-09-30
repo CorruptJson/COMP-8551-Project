@@ -4,6 +4,6 @@
 class ChunkManagerAbstract
 {
     public:
-        virtual EntityID AllocateNewEntity(SigArch sa) = 0;
-        virtual void DeallocateEntity(EntityID id) = 0;
+        virtual EntityID allocateNewEntity(SigArch sa) = 0;
+        virtual void deallocateEntity(EntityID id) = 0;
 };
