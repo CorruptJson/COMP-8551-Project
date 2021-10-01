@@ -1,5 +1,4 @@
-
-#include "RenderTutorial.h"
+#include "./RenderTutorial.h"
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them

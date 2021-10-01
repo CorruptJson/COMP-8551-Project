@@ -42,10 +42,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="rendering\glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTutorial.cpp">
+    <ClCompile Include="rendering\RenderTutorial.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="protoChunkManager.cpp">
@@ -59,7 +59,7 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderTutorial.h">
+    <ClInclude Include="rendering\RenderTutorial.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="tempPosition.h">
