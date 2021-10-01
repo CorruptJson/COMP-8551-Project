@@ -54,6 +54,9 @@
     <ClCompile Include="ChunkManagerAbstract.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
     <ClCompile Include="Box2DTutorial.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -70,6 +73,9 @@
     </ClInclude>
     <ClInclude Include="SigArch.h">
       <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Box2DTutorial.h">
       <Filter>Header Files\Physics</Filter>

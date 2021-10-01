@@ -1,5 +1,8 @@
 #include <iostream>
 #include "RenderTutorial.h"
+#include "Box2DTutorial.h"
+
+Box2DTutorial* box2DTutorial;
 
 // gets called once when engine starts
 // put initilization code here
@@ -7,6 +10,8 @@ int initialize()
 {
     // when the engine starts
     renderTutorialInit();
+    box2DTutorial = new Box2DTutorial();
+    box2DTutorial->GravityExample();
 
     return 0;
 }
@@ -17,6 +22,7 @@ int runEngine()
 {
     // check input
     // run physics
+    box2DTutorial->Update();
     // run ECS
     // render
     renderTutorialUpdate();
@@ -31,6 +37,8 @@ int teardown()
 {
     // when the engine closes
     renderTutorialTeardown();
+
+    delete box2DTutorial;
 
     return 0;
 }
