@@ -1,6 +1,8 @@
 #include <iostream>
 #include "RenderTutorial.h"
+#include "protoChunkManager.h"
 
+ChunkManager* chunkManager;
 
 // gets called once when engine starts
 // put initilization code here
@@ -8,6 +10,8 @@ int initialize()
 {
     // when the engine starts
     renderTutorialInit();
+
+    chunkManager = new ProtoChunkManager();
 
     return 0;
 }
@@ -32,6 +36,8 @@ int teardown()
 {
     // when the engine closes
     renderTutorialTeardown();
+
+    delete chunkManager;
 
     return 0;
 }

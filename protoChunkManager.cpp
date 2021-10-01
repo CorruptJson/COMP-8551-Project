@@ -2,7 +2,7 @@
 
 
 // finds an index for a new entity, creates a new EntityID
-EntityID protoChunkManager::allocateNewEntity(SigArch sa)
+EntityID ProtoChunkManager::allocateNewEntity(SigArch sa)
 {
     for (int i = 0; i < active.size(); i++)
     {
@@ -12,24 +12,25 @@ EntityID protoChunkManager::allocateNewEntity(SigArch sa)
             EntityID id = { 0,i,0 };
             return id;
         }
-    }
-    active.push_back(true);
+    }    
     EntityID id = { 0,active.size(),0 };
+    active.push_back(true);
+    positions.push_back(TempPosition());
     return id;
 };
 
 // finds an index for a new entity, creates a new EntityID, and sets the position
-EntityID protoChunkManager::allocateNewEntity(SigArch sa, TempPosition pos)
+EntityID ProtoChunkManager::allocateNewEntity(SigArch sa, TempPosition pos)
 {
     EntityID id = allocateNewEntity(sa);
-    setPosition(id, pos);
+    setEntityPosition(id, pos);
     return id;
 }
 
 // sets entity index as inactive
-void protoChunkManager::deallocateEntity(EntityID id) 
+void ProtoChunkManager::deallocateEntity(EntityID id)
 {
-    if (id.index >= active.size())
+    if (id.index >= active.size() || active[id.index] == false)
     {
         std::cout << "tried to deallocate entity that does not exist, index: " << id.index << std::endl;
         return;
@@ -38,9 +39,9 @@ void protoChunkManager::deallocateEntity(EntityID id)
 };
 
 // set the position of the entity
-void protoChunkManager::setPosition(EntityID id, TempPosition pos)
+void ProtoChunkManager::setEntityPosition(EntityID id, TempPosition pos)
 {
-    if (id.index >= active.size())
+    if (id.index >= active.size() || active[id.index] == false)
     {
         std::cout << "tried to set possition for entity that does not exist, index: " << id.index << std::endl;
         return;
@@ -49,9 +50,9 @@ void protoChunkManager::setPosition(EntityID id, TempPosition pos)
 }
 
 // get the position of the entity
-TempPosition protoChunkManager::getEntityPosition(EntityID id) 
+TempPosition ProtoChunkManager::getEntityPosition(EntityID id)
 {
-    if (id.index >= active.size())
+    if (id.index >= active.size() || active[id.index] == false)
     {
         std::cout << "tried to access possition for entity that does not exist, index: " << id.index << std::endl;
         TempPosition p = { -1,-1 };

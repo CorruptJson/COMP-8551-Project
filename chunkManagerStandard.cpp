@@ -1,8 +1,8 @@
-#include "chunkManagerAbstract.h"
+#include "chunkManager.h"
 #include <exception>
 
 // dont use this yet, kay?
-class ChunkManager: public ChunkManagerAbstract
+class ChunkManagerStandard: public ChunkManager
 {
 private:
     int currEntities = 0;

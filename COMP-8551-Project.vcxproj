@@ -145,7 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChunkManager.cpp" />
+    <ClCompile Include="chunkManagerStandard.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="protoChunkManager.cpp" />
@@ -155,7 +155,7 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="chunkManagerAbstract.h" />
+    <ClInclude Include="chunkManager.h" />
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="RenderTutorial.h" />
