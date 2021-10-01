@@ -4,6 +4,7 @@
 #include "SigArch.h"
 #include "tempPosition.h"
 
+// abstract class interface
 class ChunkManager
 {
 public:

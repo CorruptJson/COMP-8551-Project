@@ -3,6 +3,7 @@
 #include <vector>
 #include <iostream>
 
+
 class ProtoChunkManager : public ChunkManager
 {
     int currEntities = 0;
