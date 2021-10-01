@@ -19,6 +19,14 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
 "}\n\0";
 
+// Vertices coordinates
+const GLfloat vertices[] =
+{
+	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
+	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
+	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f // Upper corner
+};
+
 GLFWwindow* window;
 
 GLFWwindow* setupGLFW() {
@@ -65,8 +73,110 @@ int renderTutorialInit() {
     return 0;
 }
 
+GLuint createShaderProgram() {
+	// shaders are OpenGL objects => we need to init them
+	// and store a reference to them so we can use them later
+
+	// init an empty shader and store the ref OpenGL returns
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+	// first param is the pointer/ID that we will use the as ref
+	// to the shader (the one we create above), 1 is the number of strings
+	// we are storing the shader in, &vertexShaderSource is a pointer
+	// to the shader code string, and NULL is unimportant
+	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	glCompileShader(vertexShader);
+
+	// do the same thing for the fragment shader
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+
+	// first param is the pointer/ID that we will use the as ref
+	// to the shader, 1 is the number of strings
+	// we are storing the shader in, &fragmentShaderSource is a pointer
+	// to the shader code string, and NULL is unimportant
+	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glCompileShader(fragmentShader);
+
+	// now that we have the shaders, we have to create and 
+	// a "shader program" and attach them so it can work
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	// link the program to the rendering pipeline
+	glLinkProgram(shaderProgram);
+
+    // clean up and delete the shader refs
+	// we already compile and link them to the program
+	// so we don't need them anymore
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+	return shaderProgram;
+}
+
 // called in main()
 int renderTutorialUpdate() {
+
+	// make the shader program
+	// see function for more details
+	GLuint shaderProgram = createShaderProgram();
+
+	// create a vertex array
+    // setting up 
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
+
+    // tell OpenGL to use this VAO (set it as active)
+    glBindVertexArray(VAO);
+
+	// create a vertex buffer object
+	// which is a buffer object for containing vertices
+	GLuint VBO;
+
+	// first param is how many 3D object we have (we have 1)
+	// second param is a reference to the VBO id/ref
+	// This is similar to GLuint VBO = glGenBuffers(1);
+	// except we use refs
+	glGenBuffers(1, &VBO); // gen == generate
+
+	// now we need to bind the VBO so OpenGL knows to draw it
+	// How "binding" works is it sets an object to the current object.
+	// OpenGL can only draw one thing at a time (state machine), so
+	// we have to tell it to draw the current object. Binding sets
+	// an object (specified via the ref created by GLuint) to
+	// be the current object
+	// GL_ARRAY_BUFFER is the type of buffer that we want to bind
+	// VBO is the ID/ref of the buffer we are binding (the actual
+	// value is use here rather than a ref to it)
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	// now that we tell OpenGL what the current buffer is,
+	// we have to put data into it. Think of it as giving
+	// someone a bucket without anything inside it. They
+	// know that they need to draw using that specific bucket
+	// but they can't do it without anything inside the bucket (no data).
+
+	// First is the type of buffer we are using
+	// second is the size of the input
+	// third is the vertices which is the actual input
+	// finally is how we want the buffer to be used. This will help OpenGL
+	// optimize the usage. STATIC belongs to three types: STREAM, STATIC, and
+	// DYNAMIC. 
+	// STREAM means the vertices will be modified once and will be used a few times
+	// STATIC means the vertices will be modified once and will be used many many times
+	// DYNAMIC means the vertices will be modified many times and will be used many many times
+	// 
+	// DRAW belongs to 3 types: READ, DRAW, and COPY
+	// DRAW means the vertices will be modified and used to be draw an image on the screen
+	// the other ones are not stated but can be inferred by the name.
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // create vertex attrib pointer
+    // tell OpenGL how to intepret the vertex data that 
+    // we pass in. In memory, it just know we give it a chunk
+    // of bytes => tell it how many bytes make a vertex
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -80,6 +190,10 @@ int renderTutorialUpdate() {
     // this is for the foreground color.
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
+
+    glUseProgram(shaderProgram);
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
