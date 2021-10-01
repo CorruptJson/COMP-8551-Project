@@ -145,19 +145,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ChunkManager.cpp" />
-    <ClCompile Include="ChunkManagerAbstract.cpp" />
+    <ClCompile Include="chunkManagerStandard.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="protoChunkManager.cpp" />
     <ClCompile Include="RenderTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="chunkManager.h" />
     <ClInclude Include="EntityID.h" />
+    <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
+    <ClInclude Include="tempPosition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
