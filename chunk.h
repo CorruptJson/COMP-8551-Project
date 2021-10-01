@@ -12,12 +12,23 @@ class Chunk
 private:
     int chunkID;
     SigArch sigarch;
-    int currEnts;
+    int currEnts = 0;
     std::unordered_map<char const*, void*> componentArrays;
     int versions[ENTS_PER_CHUNK];
     int entToDat[ENTS_PER_CHUNK];
     int datToEnt[ENTS_PER_CHUNK];
 public:
+
+    Chunk(int chunkID,SigArch sigarch)
+    {
+        this->chunkID = chunkID;
+        this->sigarch = sigarch;
+
+        const std::type_info &test = typeid(SigArch);
+
+        // create array for each component type in sig arch?
+    }
+
     int currEnts()
     {
         return currEnts;
@@ -90,6 +101,10 @@ public:
     T* getComponentArray()
     {
         char const* type = typeid(T).name();
+        if (componentArrays.find(type) == m.end)
+        {
+            // type is not in chunk component type array map
+        }
         void* arr = componentArrays[type];
         T* compArr = std::static_pointer_cast<T*>(arr);
         return compArr;

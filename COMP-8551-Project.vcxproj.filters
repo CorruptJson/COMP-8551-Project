@@ -62,12 +62,6 @@
     <ClInclude Include="RenderTutorial.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="EntityID.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="SigArch.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="tempPosition.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -75,6 +69,18 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="chunkManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="entityID.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="sigArch.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="chunk.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkManagerStandard.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
