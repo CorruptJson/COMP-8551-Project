@@ -1,4 +1,8 @@
 #include "./RenderTutorial.h"
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
+
+using namespace std;
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
@@ -7,24 +11,49 @@
 // Vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
+"layout(location = 1) in vec3 aColor;\n"
+"layout(location = 2) in vec2 aTexCoord;\n"
+"out vec3 ourColor;\n"
+"out vec2 TexCoord;\n"
 "void main()\n"
 "{\n"
 "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+"   ourColor = aColor;\n"
+"   TexCoord = aTexCoord;\n"
 "}\0";
+
 //Fragment Shader source code
 const char* fragmentShaderSource = "#version 330 core\n"
 "out vec4 FragColor;\n"
+"in vec3 ourColor;\n"
+"in vec2 TexCoord;\n"
+"uniform sampler2D ourTexture;\n"
 "void main()\n"
 "{\n"
-"   FragColor = vec4(0.8f, 0.3f, 0.02f, 1.0f);\n"
+"   FragColor = texture(ourTexture, TexCoord);\n"
 "}\n\0";
 
 // Vertices coordinates
-const GLfloat vertices[] =
-{
-	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f // Upper corner
+//const GLfloat vertices[] =
+//{
+//	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
+//	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
+//	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f // Upper corner
+//};
+
+// this also contains the colors and texture coords
+const GLfloat vertices[] = {
+    // positions          // colors           // texture coords
+     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+};
+
+float texCoords[] = {
+    0.0f, 0.0f,  // lower-left corner  
+    1.0f, 0.0f,  // lower-right corner
+    0.5f, 1.0f   // top-center corner
 };
 
 GLFWwindow* window;
@@ -114,6 +143,9 @@ GLuint createShaderProgram() {
 	return shaderProgram;
 }
 
+void readImageFile() {
+}
+
 // called in main()
 int renderTutorialUpdate() {
 
@@ -175,8 +207,46 @@ int renderTutorialUpdate() {
     // tell OpenGL how to intepret the vertex data that 
     // we pass in. In memory, it just know we give it a chunk
     // of bytes => tell it how many bytes make a vertex
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // it helps to see the image at "Applying Texture"
+    // here: https://learnopengl.com/Getting-started/Textures
+    // first param is the input index of the vertex shader (see the first few lines).
+    // `aPos` is located at location 0 so we want to set the pointer for this
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    // do the same thing for the color
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    // do the same thing for the texture
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+    glEnableVertexAttribArray(2);
+
+    // make the textures, set up is similar to buffers
+    GLuint texture;
+    glGenTextures(1, &texture);
+
+    int width, height, amountOfChannels;
+    stbi_uc* data = stbi_load("resources/wall.jpg", &width, &height, &amountOfChannels, 0);
+
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        cout << "Failed to load texture" << endl;
+    }
+
+    stbi_image_free(data); // delete the data
+
+    // set the texture wrapping/filtering options (on the currently bound texture object)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    // bind the texture (tell OpenGL that it's the cur tex)
+    glBindTexture(GL_TEXTURE_2D, texture);
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -193,7 +263,9 @@ int renderTutorialUpdate() {
 
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
