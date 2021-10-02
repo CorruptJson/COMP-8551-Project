@@ -1,15 +1,13 @@
 #pragma once
+#include <unordered_map>
 #include "chunkManager.h"
-#include <vector>
-#include <iostream>
 
 
 class ProtoChunkManager : public ChunkManager
 {
-    int currEntities = 0;
-    std::vector<bool> active = {};
-    std::vector<TempPosition> positions = {};
 
+private:
+    std::unordered_map<char const*, int> typeNum;
 public:
 
     EntityID allocateNewEntity(SigArch sa) override;
@@ -19,4 +17,13 @@ public:
 
     // finds an index for a new entity, creates a new EntityID, and sets the position
     EntityID allocateNewEntity(SigArch sa, TempPosition pos);
+
+    template<typename T, typename... Args>
+    EntityID assignNewEntity()
+    {
+        SigArch sigarch;
+    }
+
+
+
 };

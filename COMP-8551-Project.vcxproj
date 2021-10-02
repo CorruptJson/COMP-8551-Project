@@ -155,11 +155,13 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="chunk.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="EntityID.h" />
+    <ClInclude Include="chunkManagerStandard.h" />
+    <ClInclude Include="entityID.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="RenderTutorial.h" />
-    <ClInclude Include="SigArch.h" />
+    <ClInclude Include="sigArch.h" />
     <ClInclude Include="tempPosition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
