@@ -1,7 +1,8 @@
 #pragma once
 
-#include "Libraries/include/box2d/box2d.h"
 #include <iostream>
+#include "Libraries/include/box2d/box2d.h"
+#include "ContactListener.h"
 
 class Box2DTutorial {
 public:
@@ -18,5 +19,6 @@ private:
 
     b2Vec2* gravity;
     b2World* world;
+    ContactListener* contactListener;
     b2Body* body;
 };

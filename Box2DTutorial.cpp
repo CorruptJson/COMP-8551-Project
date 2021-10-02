@@ -5,6 +5,9 @@ Box2DTutorial::Box2DTutorial() {
     gravity = new b2Vec2(0.0f, -9.8f);
     world = new b2World(*gravity);
     world->SetAllowSleeping(false);
+
+    contactListener = new ContactListener();
+    world->SetContactListener(contactListener);
 }
 
 void Box2DTutorial::GravityExample() {
@@ -47,6 +50,7 @@ void Box2DTutorial::Update() {
 }
 
 Box2DTutorial::~Box2DTutorial() {
-    delete gravity;
-    delete world;
+    if (gravity) delete gravity;
+    if (world) delete world;
+    if (contactListener) delete contactListener;
 }
