@@ -244,6 +244,10 @@ int renderTutorialUpdate() {
     GLuint texture;
     glGenTextures(1, &texture);
 
+    // bind the texture (tell OpenGL that it's the cur tex)
+    //note* needs to be above any texture functions so that it is applied to the binded texture
+    glBindTexture(GL_TEXTURE_2D, texture);
+
     int width, height, amountOfChannels;
     stbi_uc* data = stbi_load("resources/wall.jpg", &width, &height, &amountOfChannels, 0);
 
@@ -262,9 +266,6 @@ int renderTutorialUpdate() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-    // bind the texture (tell OpenGL that it's the cur tex)
-    glBindTexture(GL_TEXTURE_2D, texture);
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
