@@ -56,6 +56,11 @@ float texCoords[] = {
     0.5f, 1.0f   // top-center corner
 };
 
+GLuint indices[] = {
+    0, 1, 3, //indices to create the first triangle
+    1, 2, 3 //indices to create the second triangle
+};
+
 GLFWwindow* window;
 
 GLFWwindow* setupGLFW() {
@@ -161,6 +166,11 @@ int renderTutorialUpdate() {
     // tell OpenGL to use this VAO (set it as active)
     glBindVertexArray(VAO);
 
+    //create element buffer object
+    //a buffer that stores indices that OpenGl uses to decide the vertices to draw
+    GLuint EBO;
+    glGenBuffers(1, &EBO);
+
 	// create a vertex buffer object
 	// which is a buffer object for containing vertices
 	GLuint VBO;
@@ -202,6 +212,14 @@ int renderTutorialUpdate() {
 	// DRAW means the vertices will be modified and used to be draw an image on the screen
 	// the other ones are not stated but can be inferred by the name.
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
+    //this tells OpenGL to make use of the EBO when making a draw call
+    //if the EBO is missing and the drawelements is called nothing will be drawn
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+
+    //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // create vertex attrib pointer
     // tell OpenGL how to intepret the vertex data that 
@@ -264,6 +282,7 @@ int renderTutorialUpdate() {
     glUseProgram(shaderProgram);
     glBindVertexArray(VAO);
 
+    //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     //glDrawArrays(GL_TRIANGLES, 0, 3);
 
