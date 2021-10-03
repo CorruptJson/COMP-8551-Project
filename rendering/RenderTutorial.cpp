@@ -1,6 +1,9 @@
 #include "./RenderTutorial.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 
@@ -154,6 +157,8 @@ void readImageFile() {
 // called in main()
 int renderTutorialUpdate() {
 
+    //checking if glm is added
+    glm::mat4 transf = glm::mat4(1.0f);
 	// make the shader program
 	// see function for more details
 	GLuint shaderProgram = createShaderProgram();
