@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="rendering\Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp" />
     <ClCompile Include="rendering\glad.c" />
     <ClCompile Include="Main.cpp" />
@@ -155,7 +156,11 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <ClInclude Include="chunk.h" />
+=======
+    <ClInclude Include="rendering\Camera.h" />
+>>>>>>> b6820e8... Add in model view matrices uniforms
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="entityID.h" />

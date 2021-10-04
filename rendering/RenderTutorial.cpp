@@ -5,7 +5,10 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+Camera camera;
+
 using namespace std;
+using namespace glm;
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
@@ -18,11 +21,14 @@ const char* vertexShaderSource = "#version 330 core\n"
 "layout(location = 2) in vec2 aTexCoord;\n"
 "out vec3 ourColor;\n"
 "out vec2 TexCoord;\n"
+"uniform mat4 modelViewProjectionMatrix;\n"
+"uniform mat4 modelViewMatrix;\n"
 "void main()\n"
 "{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
 "   ourColor = aColor;\n"
 "   TexCoord = aTexCoord;\n"
+"// Set gl_Position with transformed vertex position\n"
+"   gl_Position = modelViewProjectionMatrix * vec4(aPos, 1);\n"
 "}\0";
 
 //Fragment Shader source code
@@ -64,6 +70,11 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
+mat4 modelMatrix = translate(mat4(1.0), vec3(1, 0, 0));
+
+const int numOfUniforms = 2;
+GLuint uniforms[numOfUniforms];
+
 GLFWwindow* window;
 
 GLFWwindow* setupGLFW() {
@@ -96,7 +107,6 @@ GLFWwindow* setupGLFW() {
 
 
 int renderTutorialInit() {
-
     window = setupGLFW();
     if (window == NULL)
     {
@@ -107,6 +117,8 @@ int renderTutorialInit() {
     // glad handle the opengl code
     // init it
     gladLoadGL();
+
+    Camera camera(0.0, 0.0, 0.0, 0.0);
     return 0;
 }
 
@@ -148,17 +160,19 @@ GLuint createShaderProgram() {
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
 
-	return shaderProgram;
-}
+    // load the uniforms
+    // see the uniforms defined in the vertex shader 
+    uniforms[0] = glGetUniformLocation(shaderProgram, "modelViewProjectionMatrix");
+    uniforms[1] = glGetUniformLocation(shaderProgram, "modelViewMatrix");
 
-void readImageFile() {
+	return shaderProgram;
 }
 
 // called in main()
 int renderTutorialUpdate() {
-
     //checking if glm is added
     glm::mat4 transf = glm::mat4(1.0f);
+
 	// make the shader program
 	// see function for more details
 	GLuint shaderProgram = createShaderProgram();
@@ -169,6 +183,7 @@ int renderTutorialUpdate() {
 	glGenVertexArrays(1, &VAO);
 
     // tell OpenGL to use this VAO (set it as active)
+    // need to do this before put data into the VAO
     glBindVertexArray(VAO);
 
     //create element buffer object
@@ -253,8 +268,8 @@ int renderTutorialUpdate() {
     //note* needs to be above any texture functions so that it is applied to the binded texture
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    int width, height, amountOfChannels;
-    stbi_uc* data = stbi_load("resources/wall.jpg", &width, &height, &amountOfChannels, 0);
+    int width, height, amountOfColorChannels;
+    stbi_uc* data = stbi_load("resources/wall.jpg", &width, &height, &amountOfColorChannels, 0);
 
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
@@ -286,11 +301,13 @@ int renderTutorialUpdate() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shaderProgram);
-    glBindVertexArray(VAO);
+
+    // pass in the uniforms value
+    glUniformMatrix4fv(uniforms[0], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(uniforms[1], 1, 0, value_ptr(modelMatrix));
 
     //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
