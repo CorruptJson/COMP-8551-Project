@@ -21,14 +21,14 @@ const char* vertexShaderSource = "#version 330 core\n"
 "layout(location = 2) in vec2 aTexCoord;\n"
 "out vec3 ourColor;\n"
 "out vec2 TexCoord;\n"
-"uniform mat4 modelViewProjectionMatrix;\n"
-"uniform mat4 modelViewMatrix;\n"
+"uniform mat4 modelMatrix;\n"
+"uniform mat4 viewMatrix;\n"
 "void main()\n"
 "{\n"
 "   ourColor = aColor;\n"
 "   TexCoord = aTexCoord;\n"
 "// Set gl_Position with transformed vertex position\n"
-"   gl_Position = modelViewProjectionMatrix * vec4(aPos, 1);\n"
+"   gl_Position = viewMatrix * modelMatrix * vec4(aPos, 1);\n"
 "}\0";
 
 //Fragment Shader source code
@@ -70,10 +70,12 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-mat4 modelMatrix = translate(mat4(1.0), vec3(1, 0, 0));
+mat4 modelMatrix = mat4(1.0);
 
 const int numOfUniforms = 2;
 GLuint uniforms[numOfUniforms];
+
+int cameraMoveCounter = 2;
 
 GLFWwindow* window;
 
@@ -162,8 +164,8 @@ GLuint createShaderProgram() {
 
     // load the uniforms
     // see the uniforms defined in the vertex shader 
-    uniforms[0] = glGetUniformLocation(shaderProgram, "modelViewProjectionMatrix");
-    uniforms[1] = glGetUniformLocation(shaderProgram, "modelViewMatrix");
+    uniforms[0] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    uniforms[1] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
 	return shaderProgram;
 }
@@ -302,9 +304,15 @@ int renderTutorialUpdate() {
 
     glUseProgram(shaderProgram);
 
+    // calculate the modelViewMatrix
+    //if (cameraMoveCounter > 0) {
+    //    cameraMoveCounter--;
+    //}
+    camera.moveCamera(0.001, 0.0);
+
     // pass in the uniforms value
     glUniformMatrix4fv(uniforms[0], 1, 0, value_ptr(modelMatrix));
-    glUniformMatrix4fv(uniforms[1], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(uniforms[1], 1, 0, value_ptr(camera.getViewMatrix()));
 
     //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
