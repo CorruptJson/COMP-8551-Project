@@ -42,10 +42,10 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="rendering\glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTutorial.cpp">
+    <ClCompile Include="rendering\RenderTutorial.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="protoChunkManager.cpp">
@@ -54,12 +54,15 @@
     <ClCompile Include="chunkManagerStandard.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="rendering\Camera.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderTutorial.h">
+    <ClInclude Include="rendering\RenderTutorial.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="tempPosition.h">
@@ -82,6 +85,9 @@
     </ClInclude>
     <ClInclude Include="chunkManagerStandard.h">
       <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\Camera.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

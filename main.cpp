@@ -1,5 +1,5 @@
 #include <iostream>
-#include "RenderTutorial.h"
+#include "./rendering/RenderTutorial.h"
 #include "protoChunkManager.h"
 
 ChunkManager* chunkManager;
