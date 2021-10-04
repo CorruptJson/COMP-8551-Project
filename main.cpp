@@ -1,5 +1,6 @@
 #include <iostream>
 #include "RenderTutorial.h"
+#include "coordinator.h"
 
 // gets called once when engine starts
 // put initilization code here
@@ -39,6 +40,9 @@ int main() {
 
     initialize();
 
+    Coordinator coordinator;
+    coordinator.initializeCoordinator();
+
     // keep the window open if it's not supposed to close
     while (!glfwWindowShouldClose(window))
     {
@@ -46,6 +50,7 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
+        coordinator.runSystemUpdates();
     }    
 
     teardown();

@@ -54,6 +54,15 @@
     <ClCompile Include="ChunkManagerAbstract.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
+    <ClCompile Include="system_manager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="test_system.cpp">
+      <Filter>Source Files\MainSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="coordinator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -66,6 +75,18 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SigArch.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="system_manager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="system.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="test_system.h">
+      <Filter>Header Files\MainSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
