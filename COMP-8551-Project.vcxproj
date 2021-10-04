@@ -156,22 +156,14 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <ClInclude Include="chunk.h" />
-=======
     <ClInclude Include="rendering\Camera.h" />
->>>>>>> b6820e8... Add in model view matrices uniforms
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="entityID.h" />
     <ClInclude Include="protoChunkManager.h" />
-<<<<<<< HEAD
-    <ClInclude Include="RenderTutorial.h" />
-    <ClInclude Include="sigArch.h" />
-=======
     <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
->>>>>>> 416d03f... Moved rendering files into its own folder
     <ClInclude Include="tempPosition.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
