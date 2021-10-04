@@ -42,15 +42,7 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "   FragColor = texture(ourTexture, TexCoord);\n"
 "}\n\0";
 
-// Vertices coordinates
-//const GLfloat vertices[] =
-//{
-//	-0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower left corner
-//	0.5f, -0.5f * float(sqrt(3)) / 3, 0.0f, // Lower right corner
-//	0.0f, 0.5f * float(sqrt(3)) * 2 / 3, 0.0f // Upper corner
-//};
-
-// this also contains the colors and texture coords
+// Vertices data: coordinates, colors and texture coords
 const GLfloat vertices[] = {
     // positions          // colors           // texture coords
      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
@@ -59,24 +51,33 @@ const GLfloat vertices[] = {
     -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
 };
 
-float texCoords[] = {
-    0.0f, 0.0f,  // lower-left corner  
-    1.0f, 0.0f,  // lower-right corner
-    0.5f, 1.0f   // top-center corner
-};
-
+// for the element buffer object (EBO)
 GLuint indices[] = {
     0, 1, 3, //indices to create the first triangle
     1, 2, 3 //indices to create the second triangle
 };
 
+// the object's matrix
 mat4 modelMatrix = mat4(1.0);
 
-const int numOfUniforms = 2;
-GLuint uniforms[numOfUniforms];
+// the shaders uniforms we are using
+// uniforms are extra data that we pass in
+// manually to the shaders. They stay 
+// the same in both vertex and fragment shaders.
+enum UNIFORMS {
+    MODEL_MATRIX_LOCATION,
+    VIEW_MATRIX_LOCATION,
+    NUM_OF_UNIFORMS
+};
 
-int cameraMoveCounter = 2;
+// store the locations of the shaders uniforms
+GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
+// make the shader program
+// see function for more details
+GLuint shaderProgram;
+
+// a pointer to the context
 GLFWwindow* window;
 
 GLFWwindow* setupGLFW() {
@@ -104,26 +105,12 @@ GLFWwindow* setupGLFW() {
     // tell glfw that the window we just create will
     // be used to draw on
     glfwMakeContextCurrent(window);
+
     return window;
 }
 
-
-int renderTutorialInit() {
-    window = setupGLFW();
-    if (window == NULL)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    // glad handle the opengl code
-    // init it
-    gladLoadGL();
-
-    Camera camera(0.0, 0.0, 0.0, 0.0);
-    return 0;
-}
-
+// Create the shader program by loading 
+// the shaders
 GLuint createShaderProgram() {
 	// shaders are OpenGL objects => we need to init them
 	// and store a reference to them so we can use them later
@@ -164,35 +151,40 @@ GLuint createShaderProgram() {
 
     // load the uniforms
     // see the uniforms defined in the vertex shader 
-    uniforms[0] = glGetUniformLocation(shaderProgram, "modelMatrix");
-    uniforms[1] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    // we get their locations here
+    uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
 	return shaderProgram;
 }
 
-// called in main()
-int renderTutorialUpdate() {
-    //checking if glm is added
-    glm::mat4 transf = glm::mat4(1.0f);
+/// <summary>
+/// Initialize the Render tutorial.
+/// </summary>
+/// <returns></returns>
+int renderTutorialInit() {
+    window = setupGLFW();
+    if (window == NULL)
+    {
+        glfwTerminate();
+        return -1;
+    }
 
-	// make the shader program
-	// see function for more details
-	GLuint shaderProgram = createShaderProgram();
+    // glad handle the opengl code
+    // init it
+    gladLoadGL();
 
-	// create a vertex array
-    // setting up 
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
+    Camera camera(0.0, 0.0, 0.0, 0.0);
+    shaderProgram = createShaderProgram();
 
-    // tell OpenGL to use this VAO (set it as active)
-    // need to do this before put data into the VAO
-    glBindVertexArray(VAO);
+    // enable transparency for the images
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    return 0;
+}
 
-    //create element buffer object
-    //a buffer that stores indices that OpenGl uses to decide the vertices to draw
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-
+// load the vertex data for the object
+void loadVertexData() {
 	// create a vertex buffer object
 	// which is a buffer object for containing vertices
 	GLuint VBO;
@@ -235,6 +227,14 @@ int renderTutorialUpdate() {
 	// the other ones are not stated but can be inferred by the name.
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+}
+
+void loadVertexIndices() {
+    //create element buffer object
+    //a buffer that stores indices that OpenGl uses to decide the vertices to draw
+    GLuint EBO;
+    glGenBuffers(1, &EBO);
+
     //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
     //this tells OpenGL to make use of the EBO when making a draw call
     //if the EBO is missing and the drawelements is called nothing will be drawn
@@ -242,6 +242,62 @@ int renderTutorialUpdate() {
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+}
+
+void loadTexture() {
+    // make the textures, set up is similar to buffers
+    GLuint texture;
+    glGenTextures(1, &texture);
+
+    // bind the texture (tell OpenGL that it's the cur tex)
+    //note* needs to be above any texture functions so that it is applied to the binded texture
+    glBindTexture(GL_TEXTURE_2D, texture);
+
+    int width, height, amountOfColorChannels;
+    stbi_set_flip_vertically_on_load(true);
+    stbi_uc* data = stbi_load("resources/turtles.png", &width, &height, &amountOfColorChannels, STBI_rgb_alpha);
+
+    if (data) {
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+    }
+    else {
+        cout << "Failed to load texture" << endl;
+    }
+
+    stbi_image_free(data); // delete the data
+
+    // set the texture wrapping/filtering options (on the currently bound texture object)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+}
+
+void loadUniforms() {
+    // pass in the uniforms value
+    glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
+}
+
+// called in main()
+int renderTutorialUpdate() {
+    // calculate the modelViewMatrix
+    camera.moveCamera(0.01, 0.0);
+
+	// create a vertex array
+    // setting up 
+	GLuint VAO;
+	glGenVertexArrays(1, &VAO);
+    // tell OpenGL to use this VAO (set it as active)
+    // need to do this before put data into the VAO
+    glBindVertexArray(VAO);
+
+    // load the data
+    loadVertexData();
+    loadVertexIndices();
+    loadTexture();
 
     // create vertex attrib pointer
     // tell OpenGL how to intepret the vertex data that 
@@ -262,33 +318,6 @@ int renderTutorialUpdate() {
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
     glEnableVertexAttribArray(2);
 
-    // make the textures, set up is similar to buffers
-    GLuint texture;
-    glGenTextures(1, &texture);
-
-    // bind the texture (tell OpenGL that it's the cur tex)
-    //note* needs to be above any texture functions so that it is applied to the binded texture
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    int width, height, amountOfColorChannels;
-    stbi_uc* data = stbi_load("resources/wall.jpg", &width, &height, &amountOfColorChannels, 0);
-
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else {
-        cout << "Failed to load texture" << endl;
-    }
-
-    stbi_image_free(data); // delete the data
-
-    // set the texture wrapping/filtering options (on the currently bound texture object)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
     // tell opengl the size of the viewport (window)
     // we are drawing on
     // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
@@ -303,16 +332,7 @@ int renderTutorialUpdate() {
     glClear(GL_COLOR_BUFFER_BIT);
 
     glUseProgram(shaderProgram);
-
-    // calculate the modelViewMatrix
-    //if (cameraMoveCounter > 0) {
-    //    cameraMoveCounter--;
-    //}
-    camera.moveCamera(0.001, 0.0);
-
-    // pass in the uniforms value
-    glUniformMatrix4fv(uniforms[0], 1, 0, value_ptr(modelMatrix));
-    glUniformMatrix4fv(uniforms[1], 1, 0, value_ptr(camera.getViewMatrix()));
+    loadUniforms();
 
     //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
