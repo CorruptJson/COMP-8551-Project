@@ -157,14 +157,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunk.h" />
+    <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="EntityCoordinator.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="rendering\Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
-    <ClInclude Include="entityID.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="tempPosition.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

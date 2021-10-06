@@ -1,34 +1,34 @@
 #include "protoChunkManager.h"
-
+#include "Types.h"
 
 // finds an index for a new entity, creates a new EntityID
-EntityID ProtoChunkManager::allocateNewEntity(SigArch sa)
+ChunkAddress ProtoChunkManager::allocateNewEntity(Entity entityID, )
 {
     for (int i = 0; i < active.size(); i++)
     {
         if (active[i] == false)
         {
             active[i] = true;
-            EntityID id = { 0,i,0 };
+            ChunkAddress id = { 0,i,0 };
             return id;
         }
     }    
-    EntityID id = { 0,active.size(),0 };
+    ChunkAddress id = { 0,active.size(),0 };
     active.push_back(true);
     positions.push_back(TempPosition());
     return id;
 };
 
 // finds an index for a new entity, creates a new EntityID, and sets the position
-EntityID ProtoChunkManager::allocateNewEntity(SigArch sa, TempPosition pos)
+ChunkAddress ProtoChunkManager::allocateNewEntity(SigArch sa, TempPosition pos)
 {
-    EntityID id = allocateNewEntity(sa);
+    ChunkAddress id = allocateNewEntity(sa);
     setEntityPosition(id, pos);
     return id;
 }
 
 // sets entity index as inactive
-void ProtoChunkManager::deallocateEntity(EntityID id)
+void ProtoChunkManager::deallocateEntity(ChunkAddress id)
 {
     if (id.index >= active.size() || active[id.index] == false)
     {
@@ -39,7 +39,7 @@ void ProtoChunkManager::deallocateEntity(EntityID id)
 };
 
 // set the position of the entity
-void ProtoChunkManager::setEntityPosition(EntityID id, TempPosition pos)
+void ProtoChunkManager::setEntityPosition(ChunkAddress id, TempPosition pos)
 {
     if (id.index >= active.size() || active[id.index] == false)
     {
@@ -50,7 +50,7 @@ void ProtoChunkManager::setEntityPosition(EntityID id, TempPosition pos)
 }
 
 // get the position of the entity
-TempPosition ProtoChunkManager::getEntityPosition(EntityID id)
+TempPosition ProtoChunkManager::getEntityPosition(ChunkAddress id)
 {
     if (id.index >= active.size() || active[id.index] == false)
     {

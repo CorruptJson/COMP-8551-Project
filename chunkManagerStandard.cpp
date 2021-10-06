@@ -10,17 +10,17 @@ private:
 
 public:
 
-    EntityID allocateNewEntity(SigArch sa) override 
+    ChunkAddress allocateNewEntity(SigArch sa) override
     {
         throw std::exception("not implemented");
     };
 
-    void deallocateEntity(EntityID id) override 
+    void deallocateEntity(ChunkAddress id) override
     {
         throw std::exception("not implemented");
     };
 
-    TempPosition getEntityPosition(EntityID id) override
+    TempPosition getEntityPosition(ChunkAddress id) override
     {
         throw std::exception("not implemented");
     };

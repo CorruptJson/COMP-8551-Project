@@ -1,6 +1,6 @@
 #pragma once
 
-#include "EntityID.h"
+#include "Types.h"
 #include "SigArch.h"
 #include "tempPosition.h"
 
