@@ -420,6 +420,6 @@ FodyWeavers.xsd
 
 
 # Extras
-lib/
+lib/*
 !/Libraries/lib/glfw.lib
 !/Libraries/lib/box2d.lib
