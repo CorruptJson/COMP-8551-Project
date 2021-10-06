@@ -108,4 +108,12 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

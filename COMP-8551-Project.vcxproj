@@ -175,6 +175,10 @@
     <ClInclude Include="tempPosition.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png" />
+    <Image Include="wall.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

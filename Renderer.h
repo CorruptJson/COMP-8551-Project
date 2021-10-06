@@ -14,6 +14,27 @@ public:
     int update();
     int teardown();
 private:
-    GLuint createShaderProgram();
+    // the vertex array object
+    GLuint VAO; 
+
+     // the vertex buffer object contains the 
+    // vertex data
+    GLuint vertexBuffer;
+
+    // the element buffer object contains the vertex indices
+    GLuint indicesBuffer;
+
+    // the texture contains the texture buffer
+    GLuint textureBuffer;
+
+    // the default shader program
+    GLuint defaultShaderProgram;
+
+    GLuint createDefaultShaderProgram();
+    void initBuffers();
+    void loadVertexData();
+    void loadIndicesData();
+    void loadTexture(const char *spriteSheetName);
+    void loadUniforms(mat4 modelMatrix);
 };
 

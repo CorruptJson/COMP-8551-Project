@@ -4,6 +4,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "EntityCoordinator.h"
+#include "renderComponent.h"
 
 Camera camera;
 
@@ -54,8 +56,13 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-// the object's matrix
-mat4 modelMatrix = mat4(1.0);
+// the objects matrix
+mat4 modelMatrix1 = mat4(1.0);
+mat4 modelMatrix2 = translate(mat4(1.0), vec3(0, -1, 0));
+mat4 matrices[]{
+    modelMatrix1,
+    modelMatrix2
+};
 
 // the shaders uniforms we are using
 // uniforms are extra data that we pass in
@@ -70,9 +77,28 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
-// make the shader program
-// see function for more details
-GLuint shaderProgram;
+RenderComponent renderComp1{
+    "defaultVertexShader.vsf",
+    "defaultFragmentShader.fsf",
+    "turtles.png",
+    0,
+    0,
+    1,
+    1
+};
+RenderComponent renderComp2{
+    "defaultVertexShader.vsf",
+    "defaultFragmentShader.fsf",
+    "wall.jpg",
+    0,
+    0,
+    1,
+    1
+};
+RenderComponent components[] {
+    renderComp1,
+    renderComp2
+};
 
 // a pointer to the context
 GLFWwindow* window;
@@ -94,7 +120,13 @@ int Renderer::init() {
     gladLoadGL();
 
     Camera camera(0.0, 0.0, 0.0, 0.0);
-    shaderProgram = createShaderProgram();
+    defaultShaderProgram = createDefaultShaderProgram();
+    initBuffers();
+
+    // tell opengl the size of the viewport (window)
+    // we are drawing on
+    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
+    glViewport(0, 0, 800, 800);
 
     // enable transparency for the images
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -133,7 +165,7 @@ GLFWwindow* Renderer::setupGLFW() {
 
 // Create the shader program by loading 
 // the shaders
-GLuint Renderer::createShaderProgram() {
+GLuint Renderer::createDefaultShaderProgram() {
 	// shaders are OpenGL objects => we need to init them
 	// and store a reference to them so we can use them later
 
@@ -180,18 +212,24 @@ GLuint Renderer::createShaderProgram() {
 	return shaderProgram;
 }
 
-// load the vertex data for the object
-void loadVertexData() {
-	// create a vertex buffer object
-	// which is a buffer object for containing vertices
-	GLuint VBO;
+// make the OpenGL buffers like VBO, VAO, EBO and
+// textures
+void Renderer::initBuffers() {
+    // create the VBO buffer by passing it the private
+    // instance variable
 
 	// first param is how many 3D object we have (we have 1)
 	// second param is a reference to the VBO id/ref
 	// This is similar to GLuint VBO = glGenBuffers(1);
 	// except we use refs
-	glGenBuffers(1, &VBO); // gen == generate
+	glGenBuffers(1, &vertexBuffer); // gen == generate
+    glGenBuffers(1, &indicesBuffer);
+    glGenTextures(1, &textureBuffer);
+	glGenVertexArrays(1, &VAO);
+}
 
+// load the vertex data for the object
+void Renderer::loadVertexData() {
 	// now we need to bind the VBO so OpenGL knows to draw it
 	// How "binding" works is it sets an object to the current object.
 	// OpenGL can only draw one thing at a time (state machine), so
@@ -201,7 +239,7 @@ void loadVertexData() {
 	// GL_ARRAY_BUFFER is the type of buffer that we want to bind
 	// VBO is the ID/ref of the buffer we are binding (the actual
 	// value is use here rather than a ref to it)
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
 	// now that we tell OpenGL what the current buffer is,
 	// we have to put data into it. Think of it as giving
@@ -226,34 +264,25 @@ void loadVertexData() {
 
 }
 
-void loadVertexIndices() {
-    //create element buffer object
-    //a buffer that stores indices that OpenGl uses to decide the vertices to draw
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-
+void Renderer::loadIndicesData() {
     //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
     //this tells OpenGL to make use of the EBO when making a draw call
     //if the EBO is missing and the drawelements is called nothing will be drawn
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 }
 
-void loadTexture() {
-    // make the textures, set up is similar to buffers
-    GLuint texture;
-    glGenTextures(1, &texture);
-
+void Renderer::loadTexture(const char *spriteSheetName) {
     // bind the texture (tell OpenGL that it's the cur tex)
     //note* needs to be above any texture functions so that it is applied to the binded texture
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, textureBuffer);
 
     int width, height, amountOfColorChannels;
     stbi_set_flip_vertically_on_load(true);
-    stbi_uc* data = stbi_load("resources/turtles.png", &width, &height, &amountOfColorChannels, STBI_rgb_alpha);
+    stbi_uc* data = stbi_load(spriteSheetName, &width, &height, &amountOfColorChannels, STBI_rgb_alpha);
 
     if (data) {
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
@@ -272,7 +301,7 @@ void loadTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void loadUniforms() {
+void Renderer::loadUniforms(mat4 modelMatrix) {
     // pass in the uniforms value
     glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
     glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
@@ -281,58 +310,54 @@ void loadUniforms() {
 // called in main()
 int Renderer::update() {
     // calculate the modelViewMatrix
-    camera.moveCamera(0.01, 0.0);
-
-	// create a vertex array
-    // setting up 
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
-    // tell OpenGL to use this VAO (set it as active)
-    // need to do this before put data into the VAO
-    glBindVertexArray(VAO);
-
-    // load the data
-    loadVertexData();
-    loadVertexIndices();
-    loadTexture();
-
-    // create vertex attrib pointer
-    // tell OpenGL how to intepret the vertex data that 
-    // we pass in. In memory, it just know we give it a chunk
-    // of bytes => tell it how many bytes make a vertex
-    // it helps to see the image at "Applying Texture"
-    // here: https://learnopengl.com/Getting-started/Textures
-    // first param is the input index of the vertex shader (see the first few lines).
-    // `aPos` is located at location 0 so we want to set the pointer for this
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // do the same thing for the color
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // do the same thing for the texture
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-
-    // tell opengl the size of the viewport (window)
-    // we are drawing on
-    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
-    glViewport(0, 0, 800, 800);
+    //camera.moveCamera(0.01, 0.0);
 
     // set background color (gray)
     glClearColor(128 / 255.0f, 128 / 255.0f, 128 / 255.0f, 1.0f);
+
     // recall that OpenGL works using buffers
-    // so first, set up the buffers by cleaning them out
     // this is for the foreground color.
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glUseProgram(shaderProgram);
-    loadUniforms();
+    for (int i = 0; i < sizeof(components) / sizeof(components[0]); i++) {
+        RenderComponent component = components[i];
+        mat4 modelMatrix = matrices[i];
 
-    //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // tell OpenGL to use this VAO (set it as active)
+        // need to do this before put data into the VAO
+        glBindVertexArray(VAO);
+
+        // load the data
+        loadVertexData();
+        loadIndicesData();
+        loadTexture(component.spriteName);
+
+        // create vertex attrib pointer
+        // tell OpenGL how to intepret the vertex data that 
+        // we pass in. In memory, it just know we give it a chunk
+        // of bytes => tell it how many bytes make a vertex
+        // it helps to see the image at "Applying Texture"
+        // here: https://learnopengl.com/Getting-started/Textures
+        // first param is the input index of the vertex shader (see the first few lines).
+        // `aPos` is located at location 0 so we want to set the pointer for this
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // do the same thing for the color
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+        // do the same thing for the texture
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+        glUseProgram(defaultShaderProgram);
+        loadUniforms(modelMatrix);
+
+        //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    }
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color

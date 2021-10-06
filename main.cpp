@@ -3,6 +3,7 @@
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "tempPosition.h"
+#include "renderComponent.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
@@ -23,10 +24,14 @@ int initialize()
 
     coordinator.Init();
     coordinator.RegisterComponent<TempPosition>();
+    coordinator.RegisterComponent<RenderComponent>();
 
     Signature signature;
     signature.set(coordinator.GetComponentType<TempPosition>());
-    coordinator.AddComponent(entity1);
+
+    entity1 = coordinator.CreateEntity();
+
+    //coordinator.AddComponent(entity1, renderComp1);
 
     //chunkManager = new ProtoChunkManager();
 
@@ -75,10 +80,6 @@ int main() {
     std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << "y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
     std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity2).x << "y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
     
-
-
-    
-
     // keep the window open if it's not supposed to close
     while (!glfwWindowShouldClose(window))
     {
