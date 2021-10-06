@@ -37,42 +37,72 @@
     <Filter Include="Header Files\ECS">
       <UniqueIdentifier>{9fdc1b15-1fc0-430f-8a5b-cbd3ddc0fbda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Components">
+      <UniqueIdentifier>{73e85bd4-2942-47f7-91ec-909d2dd097ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="glad.c">
+    <ClCompile Include="rendering\glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="RenderTutorial.cpp">
+    <ClCompile Include="rendering\RenderTutorial.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="ChunkManager.cpp">
+    <ClCompile Include="protoChunkManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="ChunkManagerAbstract.cpp">
+    <ClCompile Include="chunkManagerStandard.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="Box2DTutorial.cpp">
-      <Filter>Source Files\Physics</Filter>
+    <ClCompile Include="rendering\Camera.cpp">
+      <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="RenderTutorial.h">
+    <ClInclude Include="rendering\RenderTutorial.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="EntityID.h">
+    <ClInclude Include="protoChunkManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="SigArch.h">
+    <ClInclude Include="chunkManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Box2DTutorial.h">
-      <Filter>Header Files\Physics</Filter>
+    <ClInclude Include="sigArch.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="chunk.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="chunkManagerStandard.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="rendering\Camera.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentArray.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityCoordinator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="tempPosition.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
