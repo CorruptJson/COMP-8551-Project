@@ -12,7 +12,7 @@ EntityID ProtoChunkManager::allocateNewEntity(SigArch sa)
             EntityID id = { 0,i,0 };
             return id;
         }
-    }    
+    }
     EntityID id = { 0,active.size(),0 };
     active.push_back(true);
     positions.push_back(TempPosition());

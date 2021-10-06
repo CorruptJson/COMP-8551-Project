@@ -2,7 +2,7 @@
 #include <exception>
 
 // dont use this yet, kay?
-class ChunkManagerStandard: public ChunkManager
+class ChunkManagerStandard : public ChunkManager
 {
 private:
     int currEntities = 0;
@@ -10,12 +10,12 @@ private:
 
 public:
 
-    EntityID allocateNewEntity(SigArch sa) override 
+    EntityID allocateNewEntity(SigArch sa) override
     {
         throw std::exception("not implemented");
     };
 
-    void deallocateEntity(EntityID id) override 
+    void deallocateEntity(EntityID id) override
     {
         throw std::exception("not implemented");
     };
