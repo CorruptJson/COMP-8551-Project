@@ -4,7 +4,19 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
+#include <box2d/box2d.h>
+// Pseudo code idea for adding Physics
+// instead of creating every entities with all data, details should be added later on 
+// (no mass for entity, just transforms)
+// Engtity makeGameobject(SpriteSheet spriteID, Vector2 size, mass){
+// Entity e = EntityManager.Create();
+// e.addComponent<Position>();
+// e.addComponent<PhysicsConnection>(size);
+// e.addComponent<Render>(spriteID, size);
+//
+// Physics.initializeEntity(e);
+// return e;
+//}
 Camera camera;
 
 using namespace std;

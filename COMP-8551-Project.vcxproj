@@ -145,6 +145,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Box2DTutorial.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="rendering\Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp" />
     <ClCompile Include="rendering\glad.c" />
@@ -156,7 +159,10 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
+    <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="rendering\Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
