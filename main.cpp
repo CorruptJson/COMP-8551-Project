@@ -1,5 +1,5 @@
 #include <iostream>
-#include "./rendering/RenderTutorial.h"
+#include "Renderer.h"
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "tempPosition.h"
@@ -7,6 +7,9 @@
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
 
+Renderer renderer;
+
+// test entities
 Entity entity1;
 Entity entity2;
 
@@ -16,13 +19,14 @@ Entity entity2;
 int initialize()
 {
     // when the engine starts
-    renderTutorialInit();
+    renderer.init();
 
     coordinator.Init();
     coordinator.RegisterComponent<TempPosition>();
 
     Signature signature;
     signature.set(coordinator.GetComponentType<TempPosition>());
+    coordinator.AddComponent(entity1);
 
     //chunkManager = new ProtoChunkManager();
 
@@ -37,7 +41,7 @@ int runEngine()
     // run physics
     // run ECS
     // render
-    renderTutorialUpdate();
+    renderer.update();
 
     return 0;
 }
@@ -48,7 +52,7 @@ int runEngine()
 int teardown()
 {
     // when the engine closes
-    renderTutorialTeardown();
+    renderer.teardown();
 
     //delete chunkManager;
 

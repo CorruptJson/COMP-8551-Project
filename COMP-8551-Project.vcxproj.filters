@@ -45,10 +45,7 @@
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\glad.c">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="rendering\RenderTutorial.cpp">
+    <ClCompile Include="glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="protoChunkManager.cpp">
@@ -57,7 +54,10 @@
     <ClCompile Include="chunkManagerStandard.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\Camera.cpp">
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,9 +65,6 @@
     <None Include=".editorconfig" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rendering\RenderTutorial.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="protoChunkManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -83,7 +80,7 @@
     <ClInclude Include="chunkManagerStandard.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="rendering\Camera.h">
+    <ClInclude Include="Camera.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
@@ -102,6 +99,12 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="tempPosition.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="renderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

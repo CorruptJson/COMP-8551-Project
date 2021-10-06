@@ -145,16 +145,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="rendering\Camera.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="rendering\glad.c" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="protoChunkManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="rendering\RenderTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -165,11 +165,12 @@
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="rendering\Camera.h" />
+    <ClInclude Include="renderComponent.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
-    <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="tempPosition.h" />
     <ClInclude Include="Types.h" />

@@ -1,4 +1,4 @@
-#include "./RenderTutorial.h"
+#include "Renderer.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
@@ -6,9 +6,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Camera camera;
-
-using namespace std;
-using namespace glm;
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
@@ -80,7 +77,32 @@ GLuint shaderProgram;
 // a pointer to the context
 GLFWwindow* window;
 
-GLFWwindow* setupGLFW() {
+/// <summary>
+/// Initialize the Render tutorial.
+/// </summary>
+/// <returns></returns>
+int Renderer::init() {
+    window = Renderer::setupGLFW();
+    if (window == NULL)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    // glad handle the opengl code
+    // init it
+    gladLoadGL();
+
+    Camera camera(0.0, 0.0, 0.0, 0.0);
+    shaderProgram = createShaderProgram();
+
+    // enable transparency for the images
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+    return 0;
+}
+
+GLFWwindow* Renderer::setupGLFW() {
     // glfw helps with creating windows, contexts
     // and receiving inputs and events
     // init this to call its function
@@ -111,7 +133,7 @@ GLFWwindow* setupGLFW() {
 
 // Create the shader program by loading 
 // the shaders
-GLuint createShaderProgram() {
+GLuint Renderer::createShaderProgram() {
 	// shaders are OpenGL objects => we need to init them
 	// and store a reference to them so we can use them later
 
@@ -156,31 +178,6 @@ GLuint createShaderProgram() {
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
 	return shaderProgram;
-}
-
-/// <summary>
-/// Initialize the Render tutorial.
-/// </summary>
-/// <returns></returns>
-int renderTutorialInit() {
-    window = setupGLFW();
-    if (window == NULL)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    // glad handle the opengl code
-    // init it
-    gladLoadGL();
-
-    Camera camera(0.0, 0.0, 0.0, 0.0);
-    shaderProgram = createShaderProgram();
-
-    // enable transparency for the images
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    return 0;
 }
 
 // load the vertex data for the object
@@ -263,7 +260,7 @@ void loadTexture() {
         glGenerateMipmap(GL_TEXTURE_2D);
     }
     else {
-        cout << "Failed to load texture" << endl;
+        std::cout << "Failed to load texture" << std::endl;
     }
 
     stbi_image_free(data); // delete the data
@@ -282,7 +279,7 @@ void loadUniforms() {
 }
 
 // called in main()
-int renderTutorialUpdate() {
+int Renderer::update() {
     // calculate the modelViewMatrix
     camera.moveCamera(0.01, 0.0);
 
@@ -345,8 +342,7 @@ int renderTutorialUpdate() {
     return 0;
 }
 
-int renderTutorialTeardown() {
-
+int Renderer::teardown() {
     // cleanup
     glfwDestroyWindow(window);
     // call this to destroy glfw
