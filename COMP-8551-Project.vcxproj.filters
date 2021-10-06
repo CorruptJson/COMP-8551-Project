@@ -60,6 +60,15 @@
     <ClCompile Include="rendering\Camera.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="coordinator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="system_manager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="test_system.cpp">
+      <Filter>Source Files\MainSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -103,6 +112,18 @@
     </ClInclude>
     <ClInclude Include="tempPosition.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="system_manager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="system.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="test_system.h">
+      <Filter>Header Files\MainSystem</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

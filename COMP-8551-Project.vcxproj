@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="rendering\Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -155,6 +156,8 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="rendering\RenderTutorial.cpp" />
+    <ClCompile Include="system_manager.cpp" />
+    <ClCompile Include="test_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -162,6 +165,7 @@
   <ItemGroup>
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
@@ -171,7 +175,10 @@
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
+    <ClInclude Include="system.h" />
+    <ClInclude Include="system_manager.h" />
     <ClInclude Include="tempPosition.h" />
+    <ClInclude Include="test_system.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

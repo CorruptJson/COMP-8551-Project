@@ -60,10 +60,10 @@ int teardown()
 int main() {
     initialize();
 
-/*
-    Coordinator coordinator;
-    coordinator.initializeCoordinator();
-*/
+
+    Coordinator systemCoordinator;
+    systemCoordinator.initializeCoordinator();
+
     //entity test
     
     entity1 = coordinator.CreateEntity();
@@ -87,7 +87,7 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
-        //coordinator.runSystemUpdates();
+        systemCoordinator.runSystemUpdates();
     }    
 
     teardown();
