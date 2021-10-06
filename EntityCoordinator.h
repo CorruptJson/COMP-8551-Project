@@ -1,6 +1,7 @@
 #pragma once
 
 #include <memory>
+#include <array>
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "Types.h"
@@ -77,6 +78,11 @@ public:
         return mComponentManager->GetComponentType<T>();
     }
 
+
+    template<typename T>
+    std::array<T, MAX_ENTITIES>& GetComponentArray () {
+        return mComponentManager->GetComponentArray<T>() -> GetComponentArray();
+    }
 
     // System methods
     /*

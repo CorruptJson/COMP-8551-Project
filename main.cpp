@@ -66,13 +66,13 @@ int main() {
     
     coordinator.AddComponent(entity1, TempPosition{ 1, 6 });
     coordinator.AddComponent(entity2, TempPosition{ 3, 3 });
+    std::cout << coordinator.GetComponentArray<TempPosition>()[0].x;
+    coordinator.GetComponentArray<TempPosition>()[0].x = 37;
+    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << " y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
+    std::cout << "entity 2 x: " << coordinator.GetComponent<TempPosition>(entity2).x << " y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
 
-
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << "y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity2).x << "y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
     
-
-
+    std::cout << coordinator.GetComponentArray<TempPosition>()[0].x;
     
 
     // keep the window open if it's not supposed to close
