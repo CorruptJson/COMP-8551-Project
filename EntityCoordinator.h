@@ -4,7 +4,7 @@
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "Types.h"
-#include "protoChunkManager.h"
+//#include "protoChunkManager.h"
 class EntityCoordinator
 {
 public:
@@ -13,7 +13,7 @@ public:
         // Create pointers to each manager
         mComponentManager = std::make_unique<ComponentManager>();
         mEntityManager = std::make_unique<EntityManager>();
-        mChunkManager = std::make_unique<ProtoChunkManager>();
+        //mChunkManager = std::make_unique<ProtoChunkManager>();
 
     }
 
@@ -30,7 +30,7 @@ public:
 
         mComponentManager->EntityDestroyed(entity);
 
-        mSystemManager->EntityDestroyed(entity);
+
     }
 
 
@@ -50,7 +50,7 @@ public:
         signature.set(mComponentManager->GetComponentType<T>(), true);
         mEntityManager->SetSignature(entity, signature);
 
-        mSystemManager->EntitySignatureChanged(entity, signature);
+        //mSystemManager->EntitySignatureChanged(entity, signature);
     }
 
     template<typename T>
@@ -62,7 +62,7 @@ public:
         signature.set(mComponentManager->GetComponentType<T>(), false);
         mEntityManager->SetSignature(entity, signature);
 
-        mSystemManager->EntitySignatureChanged(entity, signature);
+        //mSystemManager->EntitySignatureChanged(entity, signature);
     }
 
     template<typename T>
@@ -79,6 +79,7 @@ public:
 
 
     // System methods
+    /*
     template<typename T>
     std::shared_ptr<T> RegisterSystem()
     {
@@ -90,9 +91,10 @@ public:
     {
         mSystemManager->SetSignature<T>(signature);
     }
+    */
 
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
-    std::unique_ptr<ProtoChunkManager> mChunkManager;
+    //std::unique_ptr<ProtoChunkManager> mChunkManager;
 };
