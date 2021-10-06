@@ -1,6 +1,17 @@
 #include <iostream>
-#include "RenderTutorial.h"
+//#include "RenderTutorial.h"
 #include "coordinator.h"
+#include "./rendering/RenderTutorial.h"
+//#include "protoChunkManager.h"
+#include "EntityCoordinator.h"
+#include "tempPosition.h"
+
+//ChunkManager* chunkManager;
+EntityCoordinator coordinator;
+
+Entity entity1;
+Entity entity2;
+
 
 // gets called once when engine starts
 // put initilization code here
@@ -8,6 +19,14 @@ int initialize()
 {
     // when the engine starts
     renderTutorialInit();
+
+    coordinator.Init();
+    coordinator.RegisterComponent<TempPosition>();
+
+    Signature signature;
+    signature.set(coordinator.GetComponentType<TempPosition>());
+
+    //chunkManager = new ProtoChunkManager();
 
     return 0;
 }
@@ -33,15 +52,33 @@ int teardown()
     // when the engine closes
     renderTutorialTeardown();
 
+    //delete chunkManager;
+
     return 0;
 }
 
 int main() {
-
     initialize();
 
+/*
     Coordinator coordinator;
     coordinator.initializeCoordinator();
+*/
+    //entity test
+    
+    entity1 = coordinator.CreateEntity();
+    entity2 = coordinator.CreateEntity();
+    
+    coordinator.AddComponent(entity1, TempPosition{ 1, 6 });
+    coordinator.AddComponent(entity2, TempPosition{ 3, 3 });
+
+
+    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << "y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
+    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity2).x << "y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
+    
+
+
+    
 
     // keep the window open if it's not supposed to close
     while (!glfwWindowShouldClose(window))
@@ -50,7 +87,7 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
-        coordinator.runSystemUpdates();
+        //coordinator.runSystemUpdates();
     }    
 
     teardown();
