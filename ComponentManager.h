@@ -61,6 +61,21 @@ public:
         }
     }
 
+    template<typename T>
+    void SetSignatureBit(T component, Signature& sig)
+    {
+        const char* typeName = typeid(component).name();    
+        auto find = mComponentTypes.find(typeName);
+        if (find == mComponentTypes.end())
+        {
+            // this component does not exist?
+            std::cout << "component not registered?" << std::endl;
+            return;
+        }
+        int type = find->second;
+        sig.set(type, true);
+    }
+
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};

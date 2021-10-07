@@ -101,7 +101,7 @@ public:
     T* getComponentArray()
     {
         char const* type = typeid(T).name();
-        if (componentArrays.find(type) == m.end)
+        if (componentArrays.find(type) == componentArrays.end)
         {
             // type is not in chunk component type array map
         }

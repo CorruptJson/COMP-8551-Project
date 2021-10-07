@@ -36,7 +36,9 @@ int initialize()
     SigArch sa;
     ChunkAddress ca = { 0,0,0 };
     chunkManager->identifyComponents(tp,sa,ca);
-
+    std::cout << std::endl;
+    chunkManager->getSigFromComponents(tp, ca);
+    std::cout << std::endl;
     return 0;
 }
 
