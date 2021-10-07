@@ -61,6 +61,11 @@ public:
         }
     }
 
+    ComponentType GetComponentType(const char* typeName)
+    {
+        return mComponentTypes[typeName];
+    }
+
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};

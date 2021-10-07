@@ -1,8 +1,8 @@
 #include <iostream>
 #include "./rendering/RenderTutorial.h"
-//#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "tempPosition.h"
+#include "chunkManager.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;

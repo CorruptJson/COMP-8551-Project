@@ -93,6 +93,11 @@ public:
     }
     */
 
+    ComponentManager& GetComponentManager()
+    {
+        return *mComponentManager;
+    }
+
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
