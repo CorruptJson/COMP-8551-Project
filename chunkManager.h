@@ -38,18 +38,18 @@ public:
     void identifyComponents(T component)
     {
         const char* typeName = typeid(component).name();
-        ComponentType type = entCoord.mComponentManager;
+        ComponentType type = entCoord->GetComponentManager().GetComponentType<T>();
 
-        std::cout << "type name: " << typeName << " type num:" << type << std::endl;
+        std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
     }
 
     template<typename T, typename... Args>
     void identifyComponents(T component, Args... args)
     {
         const char* typeName = typeid(component).name();
-        ComponentType type = entCoord.mComponentManager;
+        ComponentType type = entCoord->GetComponentManager().GetComponentType<T>();
 
-        std::cout << "type name: " << typeName << " type num:" << type << std::endl;
+        std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
 
         identifyComponents(args...);
     }

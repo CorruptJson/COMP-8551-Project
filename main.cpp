@@ -6,6 +6,7 @@
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
+ChunkManager* chunkManager;
 
 Entity entity1;
 Entity entity2;
@@ -14,17 +15,27 @@ Entity entity2;
 // gets called once when engine starts
 // put initilization code here
 int initialize()
-{
+{  
+
     // when the engine starts
     renderTutorialInit();
 
     coordinator.Init();
     coordinator.RegisterComponent<TempPosition>();
 
+    chunkManager = new ChunkManager(&coordinator);
+
     Signature signature;
     signature.set(coordinator.GetComponentType<TempPosition>());
 
-    //chunkManager = new ProtoChunkManager();
+    // thompson testing
+    coordinator.RegisterComponent<SigArch>();
+    coordinator.RegisterComponent<ChunkAddress>();
+
+    TempPosition tp = { 1, 1 };
+    SigArch sa;
+    ChunkAddress ca = { 0,0,0 };
+    chunkManager->identifyComponents(tp,sa,ca);
 
     return 0;
 }
@@ -50,7 +61,7 @@ int teardown()
     // when the engine closes
     renderTutorialTeardown();
 
-    //delete chunkManager;
+    delete chunkManager;
 
     return 0;
 }
