@@ -99,6 +99,11 @@ public:
     }
     */
 
+    uint32_t GetEntityCount()
+    {
+        return mEntityManager->GetEntityCount();
+    }
+
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
