@@ -12,11 +12,11 @@ class ProtoChunkManager : public ChunkManager
 
 public:
 
-    EntityID allocateNewEntity(SigArch sa) override;
-    void deallocateEntity(EntityID id) override;
-    TempPosition getEntityPosition(EntityID id) override;
-    virtual void setEntityPosition(EntityID id, TempPosition pos) override;
+    ChunkAddress allocateNewEntity(SigArch sa) override;
+    void deallocateEntity(ChunkAddress id) override;
+    TempPosition getEntityPosition(ChunkAddress id) override;
+    virtual void setEntityPosition(ChunkAddress id, TempPosition pos) override;
 
-    // finds an index for a new entity, creates a new EntityID, and sets the position
-    EntityID allocateNewEntity(SigArch sa, TempPosition pos);
+    // finds an index for a new entity, creates a new ChunkAddress, and sets the position
+    ChunkAddress allocateNewEntity(SigArch sa, TempPosition pos);
 };

@@ -3,7 +3,7 @@
 #include<unordered_map>
 #include <memory>
 #include "sigArch.h"
-#include "entityID.h"
+#include "types.h"
 
 const int ENTS_PER_CHUNK = 32;
 
@@ -34,9 +34,9 @@ public:
         return currEnts;
     }
 
-    EntityID assignNewEntity()
+    ChunkAddress assignNewEntity()
     {
-        EntityID id;
+        ChunkAddress id;
         if (currEnts == ENTS_PER_CHUNK)
         {
             id.chunkID = -1;
@@ -61,7 +61,7 @@ public:
         return id;
     }
 
-    void releaseEntity(EntityID id)
+    void releaseEntity(ChunkAddress id)
     {
         int dataIndex = entToDat[id.index];
         int lastIndex = currEnts - 1;
@@ -81,7 +81,7 @@ public:
     }
 
     template<typename T>
-    T& getComponentReference(EntityID id)
+    T& getComponentReference(ChunkAddress id)
     {
         if (id.index >= ENTS_PER_CHUNK)
         {
