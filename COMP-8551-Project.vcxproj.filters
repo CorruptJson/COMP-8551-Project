@@ -40,6 +40,12 @@
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{73e85bd4-2942-47f7-91ec-909d2dd097ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{0ca5a731-8c3c-4127-8fe1-b9ae5774107c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{d9f9a96f-b3f4-44f6-9fb0-473f0b3b6a50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -59,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="file_manager.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +118,9 @@
     </ClInclude>
     <ClInclude Include="SpriteInfo.h">
       <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="file_manager.h">
+      <Filter>Header Files\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

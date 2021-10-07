@@ -1,11 +1,11 @@
 #include "Renderer.h"
-#define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "EntityCoordinator.h"
 #include "renderComponent.h"
+#include "file_manager.h"
 
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
@@ -297,35 +297,27 @@ void Renderer::loadTexture(const char *spriteName) {
 
     const auto& result = sprites.find(spriteName);
 
+    SpriteInfo *info;
     // if not found
-    SpriteInfo info;
     if (result == sprites.end()) {
         // read the image from the file and store it
-        int width, height, colorChannelsAmount;
-        stbi_uc* data = stbi_load(spriteName, &width, &height, &colorChannelsAmount, STBI_rgb_alpha);
-        if (!data) {
+        info = FileManager::readImageFile(spriteName);
+        if (info == NULL) {
             std::cout << "Failed to load texture" << std::endl;
             return;
         }
 
-        SpriteInfo newSprite {
-            height,
-            width,
-            colorChannelsAmount,
-            data
-        };
-        sprites[spriteName] = newSprite;
-        info = newSprite;
+        sprites[spriteName] = *info;
 
-        // delete the data
+        // delete the data if needed
         //stbi_image_free(data); 
     }
     else {
         // take the sprite info from the sprites map
-        info = sprites[spriteName];
+        info = &(sprites[spriteName]);
     }
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info.data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info->width, info->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info->data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
