@@ -172,6 +172,7 @@
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
+    <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="tempPosition.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>

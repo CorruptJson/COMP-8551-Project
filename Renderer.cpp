@@ -118,9 +118,20 @@ int Renderer::init() {
     // init it
     gladLoadGL();
 
+    // init other OpenGL stuff
     Camera camera(0.0, 0.0, 0.0, 0.0);
     defaultShaderProgram = createDefaultShaderProgram();
-    initBuffers();
+
+    // create all the OpenGL buffers at the start so we can
+    // reuse them
+	// first param is how many 3D object we have (we have 1)
+	// second param is a reference to the VBO id/ref
+	// This is similar to GLuint VBO = glGenBuffers(1);
+	// except we use refs
+	glGenBuffers(1, &vertexBuffer); // gen == generate
+    glGenBuffers(1, &indicesBuffer);
+    glGenTextures(1, &textureBuffer);
+	glGenVertexArrays(1, &vertexAttribs);
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -130,6 +141,11 @@ int Renderer::init() {
     // enable transparency for the images
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
+
+    // function for using stbi
+    // this is because OpenGL's y-axis starts from bottoms up
+    // however, images have y-axis starts top down
+    stbi_set_flip_vertically_on_load(true);
 
     return 0;
 }
@@ -227,22 +243,6 @@ GLuint Renderer::createDefaultShaderProgram() {
 	return shaderProgram;
 }
 
-// make the OpenGL buffers like VBO, VAO, EBO and
-// textures
-void Renderer::initBuffers() {
-    // create the VBO buffer by passing it the private
-    // instance variable
-
-	// first param is how many 3D object we have (we have 1)
-	// second param is a reference to the VBO id/ref
-	// This is similar to GLuint VBO = glGenBuffers(1);
-	// except we use refs
-	glGenBuffers(1, &vertexBuffer); // gen == generate
-    glGenBuffers(1, &indicesBuffer);
-    glGenTextures(1, &textureBuffer);
-	glGenVertexArrays(1, &VAO);
-}
-
 // load the vertex data for the object
 void Renderer::loadVertexData() {
 	// now we need to bind the VBO so OpenGL knows to draw it
@@ -290,24 +290,43 @@ void Renderer::loadIndicesData() {
 
 }
 
-void Renderer::loadTexture(const char *spriteSheetName) {
+void Renderer::loadTexture(const char *spriteName) {
     // bind the texture (tell OpenGL that it's the cur tex)
     //note* needs to be above any texture functions so that it is applied to the binded texture
     glBindTexture(GL_TEXTURE_2D, textureBuffer);
 
-    int width, height, amountOfColorChannels;
-    stbi_set_flip_vertically_on_load(true);
-    stbi_uc* data = stbi_load(spriteSheetName, &width, &height, &amountOfColorChannels, STBI_rgb_alpha);
+    const auto& result = sprites.find(spriteName);
 
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+    // if not found
+    SpriteInfo info;
+    if (result == sprites.end()) {
+        // read the image from the file and store it
+        int width, height, colorChannelsAmount;
+        stbi_uc* data = stbi_load(spriteName, &width, &height, &colorChannelsAmount, STBI_rgb_alpha);
+        if (!data) {
+            std::cout << "Failed to load texture" << std::endl;
+            return;
+        }
+
+        SpriteInfo newSprite {
+            height,
+            width,
+            colorChannelsAmount,
+            data
+        };
+        sprites[spriteName] = newSprite;
+        info = newSprite;
+
+        // delete the data
+        //stbi_image_free(data); 
     }
     else {
-        std::cout << "Failed to load texture" << std::endl;
+        // take the sprite info from the sprites map
+        info = sprites[spriteName];
     }
 
-    stbi_image_free(data); // delete the data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info.data);
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -341,14 +360,15 @@ int Renderer::update() {
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
-        glBindVertexArray(VAO);
+        glBindVertexArray(vertexAttribs);
 
         // load the data
         loadVertexData();
         loadIndicesData();
         loadTexture(component.spriteName);
 
-        // create vertex attrib pointer
+        // create vertex attrib pointers
+        // has to do this after loading data into buffers
         // tell OpenGL how to intepret the vertex data that 
         // we pass in. In memory, it just know we give it a chunk
         // of bytes => tell it how many bytes make a vertex
@@ -366,7 +386,6 @@ int Renderer::update() {
         // do the same thing for the texture
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
         glEnableVertexAttribArray(2);
-
         glUseProgram(defaultShaderProgram);
         loadUniforms(modelMatrix);
 
