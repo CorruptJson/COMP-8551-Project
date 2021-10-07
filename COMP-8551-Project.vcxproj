@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunk.h" />

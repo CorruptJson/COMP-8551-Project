@@ -1,19 +1,14 @@
 #include "Renderer.h"
-#include <stb/stb_image.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "EntityCoordinator.h"
-#include "renderComponent.h"
-#include "file_manager.h"
+#include <string>
 
+const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
 // from a file
 // 
 // Vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
+"layout(location = 0) in vec3 aPos;\n"
 "layout(location = 1) in vec3 aColor;\n"
 "layout(location = 2) in vec2 aTexCoord;\n"
 "out vec3 ourColor;\n"
@@ -202,6 +197,7 @@ GLuint Renderer::createDefaultShaderProgram() {
 
 	// init an empty shader and store the ref OpenGL returns
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    //const char *vertexShaderSource2 = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader (the one we create above), 1 is the number of strings
@@ -240,6 +236,7 @@ GLuint Renderer::createDefaultShaderProgram() {
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
+    //delete vertexShaderSource;
 	return shaderProgram;
 }
 
@@ -378,10 +375,10 @@ int Renderer::update() {
         // do the same thing for the texture
         glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
         glEnableVertexAttribArray(2);
+
         glUseProgram(defaultShaderProgram);
         loadUniforms(modelMatrix);
 
-        //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 

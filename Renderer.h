@@ -2,15 +2,23 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
-#include "Camera.h"
 #include <map>
+#include "Camera.h"
 #include "SpriteInfo.h"
+#include "EntityCoordinator.h"
+#include "renderComponent.h"
+#include "file_manager.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <stb/stb_image.h>
 
 extern GLFWwindow* window;
 
 class Renderer
 {
 public:
+    static const char *DEFAULT_VERT_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init();
     int update();
