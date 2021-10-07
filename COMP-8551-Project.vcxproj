@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -145,7 +145,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="rendering\Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -156,8 +155,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="rendering\RenderTutorial.cpp" />
-    <ClCompile Include="system_manager.cpp" />
-    <ClCompile Include="test_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -165,20 +162,16 @@
   <ItemGroup>
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
-    <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="rendering\Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
-    <ClInclude Include="system.h" />
-    <ClInclude Include="system_manager.h" />
-    <ClInclude Include="tempPosition.h" />
-    <ClInclude Include="test_system.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

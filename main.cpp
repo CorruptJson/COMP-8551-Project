@@ -1,10 +1,12 @@
 #include <iostream>
 //#include "RenderTutorial.h"
 #include "coordinator.h"
+#include <vector>
 #include "./rendering/RenderTutorial.h"
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
-#include "tempPosition.h"
+#include "Transform.h"
+#include "Types.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
@@ -12,24 +14,41 @@ EntityCoordinator coordinator;
 Entity entity1;
 Entity entity2;
 
-
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {
     // when the engine starts
     renderTutorialInit();
-
+    
     coordinator.Init();
-    coordinator.RegisterComponent<TempPosition>();
-
     Signature signature;
-    signature.set(coordinator.GetComponentType<TempPosition>());
+
+
+    coordinator.RegisterComponent<Transform>();
+    signature.set(coordinator.GetComponentType<Transform>());
 
     //chunkManager = new ProtoChunkManager();
 
     return 0;
 }
+
+
+
+
+
+// Use for now to make entities with components
+Entity CreateStandardEntity() {
+    Entity e = coordinator.CreateEntity();
+
+    coordinator.AddComponent<Transform>(e, Transform{});
+
+    return e;
+
+}
+
+
+
 
 // the main update function
 // game loop will be put here eventually
@@ -65,22 +84,23 @@ int main() {
     systemCoordinator.initializeCoordinator();
 
     //entity test
-    
-    entity1 = coordinator.CreateEntity();
-    entity2 = coordinator.CreateEntity();
-    
-    coordinator.AddComponent(entity1, TempPosition{ 1, 6 });
-    coordinator.AddComponent(entity2, TempPosition{ 3, 3 });
+
+    entity1 = CreateStandardEntity();
+    entity2 = CreateStandardEntity();
 
 
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << "y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity2).x << "y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
-    
+    coordinator.GetComponent<Transform>(entity1).Position = { 1, 6 };
+    coordinator.GetComponent<Transform>(entity2).Position = { 3, 3 };
 
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
 
     
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
-    // keep the window open if it's not supposed to close
+
+
     while (!glfwWindowShouldClose(window))
     {
         // tell glfw to keep track of window resize 

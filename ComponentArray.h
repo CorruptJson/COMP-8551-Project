@@ -65,6 +65,10 @@ public:
         }
     }
 
+    std::array<T, MAX_ENTITIES>& GetComponentArray() {
+        return mComponentArray;
+    }
+
 private:
     std::array<T, MAX_ENTITIES> mComponentArray{};
     std::unordered_map<Entity, size_t> mEntityToIndexMap{};

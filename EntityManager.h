@@ -51,6 +51,11 @@ public:
 		return mSignatures[entity];
 	}
 
+    uint32_t GetEntityCount()
+    {
+        return mLivingEntityCount;
+    }
+
 private:
 	std::queue<Entity> mAvailableEntities{};
 	std::array<Signature, MAX_ENTITIES> mSignatures{};
