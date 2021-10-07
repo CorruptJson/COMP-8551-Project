@@ -91,10 +91,11 @@ int main() {
     std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
 
     
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x;
-    
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
-    // keep the window open if it's not supposed to close
+
+
     while (!glfwWindowShouldClose(window))
     {
         // tell glfw to keep track of window resize 
