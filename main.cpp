@@ -36,7 +36,7 @@ int initialize()
 
 
 // Use for now to make entities with components
-Entity CreateEntity() {
+Entity CreateStandardEntity() {
     Entity e = coordinator.CreateEntity();
 
     coordinator.AddComponent<Transform>(e, Transform{});
@@ -80,8 +80,8 @@ int main() {
 
     //entity test
 
-    entity1 = CreateEntity();
-    entity2 = CreateEntity();
+    entity1 = CreateStandardEntity();
+    entity2 = CreateStandardEntity();
 
 
     coordinator.GetComponent<Transform>(entity1).Position = { 1, 6 };
