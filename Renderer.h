@@ -9,7 +9,7 @@ extern GLFWwindow* window;
 class Renderer
 {
 public:
-    static GLFWwindow* setupGLFW();
+    static GLFWwindow* setupGLFW(int *width, int *height);
     int init();
     int update();
     int teardown();
@@ -29,6 +29,8 @@ private:
 
     // the default shader program
     GLuint defaultShaderProgram;
+
+    Camera camera;
 
     GLuint createDefaultShaderProgram();
     void initBuffers();

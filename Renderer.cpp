@@ -7,8 +7,6 @@
 #include "EntityCoordinator.h"
 #include "renderComponent.h"
 
-Camera camera;
-
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
 // from a file
@@ -108,7 +106,8 @@ GLFWwindow* window;
 /// </summary>
 /// <returns></returns>
 int Renderer::init() {
-    window = Renderer::setupGLFW();
+    int width, height;
+    window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
     {
         glfwTerminate();
@@ -126,15 +125,16 @@ int Renderer::init() {
     // tell opengl the size of the viewport (window)
     // we are drawing on
     // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
-    glViewport(0, 0, 800, 800);
+    glViewport(0, 0, width, height);
 
     // enable transparency for the images
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
+
     return 0;
 }
 
-GLFWwindow* Renderer::setupGLFW() {
+GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     // glfw helps with creating windows, contexts
     // and receiving inputs and events
     // init this to call its function
@@ -149,8 +149,22 @@ GLFWwindow* Renderer::setupGLFW() {
     // core profile is a preset list of functions that opengl can init
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    // Make a window with size 800x800 with name of "OpenGLTutorial"
-    GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGLTutorial", NULL, NULL);
+    // Find the main monitor and its screen size
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* monitorInfo = glfwGetVideoMode(monitor);
+
+    // use this to make the window match screen size but still in windowed mode
+    //*width = monitorInfo->width;
+    //*height = monitorInfo->height;
+
+    // make a small width and a height for ease of testing
+    *width = 1000;
+    *height = 1000;
+
+    // Make a window with size 800x800 with name of "Chunky Soup"
+    // pass in monitor for the 3rd param if we want it to be full screen
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
+    //glfwSetWindowPos(window, 0, 0);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
@@ -160,6 +174,7 @@ GLFWwindow* Renderer::setupGLFW() {
     // be used to draw on
     glfwMakeContextCurrent(window);
 
+    delete monitor, monitorInfo;
     return window;
 }
 
