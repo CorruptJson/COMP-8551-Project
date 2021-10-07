@@ -110,7 +110,7 @@
     <ClInclude Include="EntityCoordinator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="tempPosition.h">
+    <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
