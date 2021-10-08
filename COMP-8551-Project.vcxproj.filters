@@ -92,9 +92,6 @@
     <ClInclude Include="chunk.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="chunkManagerStandard.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
@@ -118,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="componentInfo.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SpriteInfo.h">
       <Filter>Header Files\Rendering</Filter>

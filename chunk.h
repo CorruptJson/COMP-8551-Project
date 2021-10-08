@@ -1,11 +1,11 @@
 #pragma once
-#include<vector>
-#include<unordered_map>
+#include <vector>
+#include <unordered_map>
 #include <memory>
 #include "sigArch.h"
-#include "entityID.h"
+#include "Types.h"
 
-const int ENTS_PER_CHUNK = 32;
+const int ENTITIES_PER_CHUNK = 32;
 
 class Chunk
 {
@@ -14,30 +14,49 @@ private:
     SigArch sigarch;
     int currEnts = 0;
     std::unordered_map<char const*, void*> componentArrays;
-    int versions[ENTS_PER_CHUNK];
-    int entToDat[ENTS_PER_CHUNK];
-    int datToEnt[ENTS_PER_CHUNK];
+    int versions[ENTITIES_PER_CHUNK];
+    int entToDat[ENTITIES_PER_CHUNK];
+    int datToEnt[ENTITIES_PER_CHUNK];
+
 public:
 
+    template<typename T, typename ... args>
     Chunk(int chunkID,SigArch sigarch)
     {
         this->chunkID = chunkID;
         this->sigarch = sigarch;
 
         const std::type_info &test = typeid(SigArch);
-
+        
         // create array for each component type in sig arch?
+        addComponentArray<T, args...>();
     }
 
-    int currEnts()
+    template<typename T>
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName,new T[ENTITIES_PER_CHUNK]);
+    }
+
+    template<typename T, typename ... args>
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
+
+        addComponentArray<args...>();
+    }
+
+    int getCurrEnts()
     {
         return currEnts;
     }
 
-    EntityID assignNewEntity()
+    ChunkAddress assignNewEntity()
     {
-        EntityID id;
-        if (currEnts == ENTS_PER_CHUNK)
+        ChunkAddress id;
+        if (currEnts == ENTITIES_PER_CHUNK)
         {
             id.chunkID = -1;
             id.index = -1;
@@ -45,7 +64,7 @@ public:
             return id;
         }
 
-        for (int i = 0; i < ENTS_PER_CHUNK; i++)
+        for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
         {
             if (entToDat[i] == -1)
             {
@@ -61,7 +80,7 @@ public:
         return id;
     }
 
-    void releaseEntity(EntityID id)
+    void releaseEntity(ChunkAddress id)
     {
         int dataIndex = entToDat[id.index];
         int lastIndex = currEnts - 1;
@@ -81,14 +100,14 @@ public:
     }
 
     template<typename T>
-    T& getComponentReference(EntityID id)
+    T& getComponentReference(ChunkAddress id)
     {
-        if (id.index >= ENTS_PER_CHUNK)
+        if (id.index >= ENTITIES_PER_CHUNK)
         {
             // throw error
         }
         int datIndex = entToDat[id.index];
-        if (datIndex >= ENTS_PER_CHUNK)
+        if (datIndex >= ENTITIES_PER_CHUNK)
         {
             // throw error
         }
@@ -101,7 +120,7 @@ public:
     T* getComponentArray()
     {
         char const* type = typeid(T).name();
-        if (componentArrays.find(type) == m.end)
+        if (componentArrays.find(type) == componentArrays.end)
         {
             // type is not in chunk component type array map
         }
