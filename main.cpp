@@ -1,16 +1,21 @@
 #include <iostream>
-#include "./rendering/RenderTutorial.h"
+#include <vector>
+#include "Renderer.h"
+//#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
-#include "tempPosition.h"
-#include "chunkManager.h"
+#include "Transform.h"
+#include "RenderComponent.h"
+#include "Types.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
 ChunkManager* chunkManager;
 
+Renderer renderer;
+
+// test entities
 Entity entity1;
 Entity entity2;
-
 
 // gets called once when engine starts
 // put initilization code here
@@ -18,15 +23,19 @@ int initialize()
 {  
 
     // when the engine starts
-    renderTutorialInit();
-
+    renderer.init();
     coordinator.Init();
     coordinator.RegisterComponent<TempPosition>();
 
     chunkManager = new ChunkManager(&coordinator);
 
     Signature signature;
-    signature.set(coordinator.GetComponentType<TempPosition>());
+
+    coordinator.RegisterComponent<Transform>();
+    signature.set(coordinator.GetComponentType<Transform>());
+
+    coordinator.RegisterComponent<RenderComponent>();
+    signature.set(coordinator.GetComponentType<RenderComponent>());
 
     // thompson testing
     coordinator.RegisterComponent<SigArch>();
@@ -42,6 +51,24 @@ int initialize()
     return 0;
 }
 
+
+
+
+
+// Use for now to make entities with components
+Entity CreateStandardEntity() {
+    Entity e = coordinator.CreateEntity();
+
+    coordinator.AddComponent<Transform>(e, Transform{});
+    coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
+
+    return e;
+
+}
+
+
+
+
 // the main update function
 // game loop will be put here eventually
 int runEngine()
@@ -50,7 +77,7 @@ int runEngine()
     // run physics
     // run ECS
     // render
-    renderTutorialUpdate();
+    renderer.update(&coordinator);
 
     return 0;
 }
@@ -61,7 +88,7 @@ int runEngine()
 int teardown()
 {
     // when the engine closes
-    renderTutorialTeardown();
+    renderer.teardown();
 
     delete chunkManager;
 
@@ -73,22 +100,39 @@ int main() {
 
 
     //entity test
+
+    entity1 = CreateStandardEntity();
+    entity2 = CreateStandardEntity();
+
+    coordinator.GetComponent<Transform>(entity1).Position = { 0, 0 };
+    coordinator.GetComponent<RenderComponent>(entity1) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "turtles.png",
+        0,
+        0,
+        1,
+        1
+    };
+
+    coordinator.GetComponent<Transform>(entity2).Position = { 0, 0 };
+    coordinator.GetComponent<RenderComponent>(entity2) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "wall.jpg",
+        0,
+        0,
+        1,
+        1
+    };
+
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
+
     
-    entity1 = coordinator.CreateEntity();
-    entity2 = coordinator.CreateEntity();
-    
-    coordinator.AddComponent(entity1, TempPosition{ 1, 6 });
-    coordinator.AddComponent(entity2, TempPosition{ 3, 3 });
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
-
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity1).x << "y: " << coordinator.GetComponent<TempPosition>(entity1).y << std::endl;
-    std::cout << "entity 1 x: " << coordinator.GetComponent<TempPosition>(entity2).x << "y: " << coordinator.GetComponent<TempPosition>(entity2).y << std::endl;
-    
-
-
-    
-
-    // keep the window open if it's not supposed to close
     while (!glfwWindowShouldClose(window))
     {
         // tell glfw to keep track of window resize 

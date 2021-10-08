@@ -101,4 +101,12 @@ private:
 
         return std::static_pointer_cast<ComponentArray<T>>(mComponentArrays[typeName]);
     }
+
+private:
+    std::unordered_map<const char*, ComponentType> mComponentTypes{};
+    std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
+    ComponentType mNextComponentType{};
+
+
+    
 };
