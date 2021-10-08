@@ -1,10 +1,12 @@
 #include <iostream>
 #include <vector>
 #include "Renderer.h"
+#include "PhysicsWorld.h"
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "Transform.h"
 #include "RenderComponent.h"
+#include "PhysicsComponent.h"
 #include "Types.h"
 
 //ChunkManager* chunkManager;
@@ -12,6 +14,7 @@ EntityCoordinator coordinator;
 ChunkManager* chunkManager;
 
 Renderer renderer;
+PhysicsWorld* physicsWorld;
 
 // test entities
 Entity entity1;
@@ -25,6 +28,7 @@ int initialize()
     // when the engine starts
     renderer.init();
     coordinator.Init();
+    physicsWorld = new PhysicsWorld();
 
     chunkManager = new ChunkManager();
 
@@ -36,6 +40,9 @@ int initialize()
     coordinator.RegisterComponent<RenderComponent>();
     signature.set(coordinator.GetComponentType<RenderComponent>());
 
+    coordinator.RegisterComponent<PhysicsComponent>();
+    signature.set(coordinator.GetComponentType<PhysicsComponent>());
+
     return 0;
 }
 
@@ -45,6 +52,9 @@ Entity CreateStandardEntity() {
 
     coordinator.AddComponent<Transform>(e, Transform{});
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
+    coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
+
+    
 
     return e;
 }
@@ -70,8 +80,10 @@ int teardown()
 {
     // when the engine closes
     renderer.teardown();
-
+    
     delete chunkManager;
+
+    delete physicsWorld;
 
     return 0;
 }
@@ -95,6 +107,7 @@ int main() {
         1,
         1
     };
+    physicsWorld->AddObject(coordinator.GetComponent<PhysicsComponent>(entity1));
 
     coordinator.GetComponent<Transform>(entity2).Position = { 0, 0 };
     coordinator.GetComponent<RenderComponent>(entity2) = {
