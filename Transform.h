@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-
+#include "Libraries/include/box2d/box2d.h"
 
 struct Position
 {
@@ -27,6 +27,11 @@ public:
     void setPosition(float x, float y);
     void translate(float x, float y);
 
+    void setPhysicsBody(b2Body* newBody);
+    b2Body* getPhysicsBody();
+
+    void update();
+
     Scale getScale();
     void setScale(float x, float y);
 
@@ -40,6 +45,8 @@ private:
     Scale scale;
     Rotation rotation;
     glm::mat4 modelMatrix;
+
+    b2Body* body;
 
     // for optimizing matrix creation
     // reset after every getModelMatrix()
