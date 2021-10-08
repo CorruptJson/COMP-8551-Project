@@ -145,25 +145,44 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Box2DTutorial.cpp" />
-    <ClCompile Include="ChunkManager.cpp" />
-    <ClCompile Include="ChunkManagerAbstract.cpp" />
-    <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="chunkManagerStandard.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="RenderTutorial.cpp" />
+    <ClCompile Include="protoChunkManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultFragShader.fs" />
+    <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Box2DTutorial.h" />
-    <ClInclude Include="ContactListener.h" />
-    <ClInclude Include="EntityID.h" />
-    <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="RenderTutorial.h" />
+    <ClInclude Include="chunk.h" />
+    <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="EntityCoordinator.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="file_manager.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Camera.h" />
+    <ClInclude Include="chunkManager.h" />
+    <ClInclude Include="chunkManagerStandard.h" />
+    <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
+    <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png" />
+    <Image Include="wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
