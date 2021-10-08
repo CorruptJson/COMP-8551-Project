@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +169,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="file_manager.h" />
-    <ClInclude Include="renderComponent.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
@@ -176,6 +177,7 @@
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>

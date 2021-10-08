@@ -2,38 +2,9 @@
 #include <string>
 
 const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
-// shader code => tutorial provide
-// inline code. In reality, we should parse them
-// from a file
-// 
-// Vertex Shader source code
-const char* vertexShaderSource = "#version 330 core\n"
-"layout(location = 0) in vec3 aPos;\n"
-"layout(location = 1) in vec3 aColor;\n"
-"layout(location = 2) in vec2 aTexCoord;\n"
-"out vec3 ourColor;\n"
-"out vec2 TexCoord;\n"
-"uniform mat4 modelMatrix;\n"
-"uniform mat4 viewMatrix;\n"
-"void main()\n"
-"{\n"
-"   ourColor = aColor;\n"
-"   TexCoord = aTexCoord;\n"
-"// Set gl_Position with transformed vertex position\n"
-"   gl_Position = viewMatrix * modelMatrix * vec4(aPos, 1);\n"
-"}\0";
+const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"in vec3 ourColor;\n"
-"in vec2 TexCoord;\n"
-"uniform sampler2D ourTexture;\n"
-"void main()\n"
-"{\n"
-"   FragColor = texture(ourTexture, TexCoord);\n"
-"}\n\0";
-
 // Vertices data: coordinates, colors and texture coords
 const GLfloat vertices[] = {
     // positions          // colors           // texture coords
@@ -88,10 +59,10 @@ RenderComponent renderComp2{
     1,
     1
 };
-RenderComponent components[] {
-    renderComp1,
-    renderComp2
-};
+//RenderComponent components[] {
+//    renderComp1,
+//    renderComp2
+//};
 
 // a pointer to the context
 GLFWwindow* window;
@@ -197,24 +168,45 @@ GLuint Renderer::createDefaultShaderProgram() {
 
 	// init an empty shader and store the ref OpenGL returns
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    //const char *vertexShaderSource2 = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
+    std::string vertShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
+    const char* vertCStr = vertShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader (the one we create above), 1 is the number of strings
 	// we are storing the shader in, &vertexShaderSource is a pointer
-	// to the shader code string, and NULL is unimportant
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	// to the shader code string, and NULL is the length that we will
+    // read from the vertCStr => NULL means we keep reading until we see
+    // a NUL EOF char.
+	glShaderSource(vertexShader, 1, &vertCStr, NULL);
 	glCompileShader(vertexShader);
+
+    // check for success
+    int success;
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
 
 	// do the same thing for the fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    std::string fragShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_FRAG_SHADER_NAME);
+    const char* fragCStr = fragShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader, 1 is the number of strings
 	// we are storing the shader in, &fragmentShaderSource is a pointer
 	// to the shader code string, and NULL is unimportant
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glShaderSource(fragmentShader, 1, &fragCStr, NULL);
 	glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
 
 	// now that we have the shaders, we have to create and 
 	// a "shader program" and attach them so it can work
@@ -236,7 +228,6 @@ GLuint Renderer::createDefaultShaderProgram() {
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
-    //delete vertexShaderSource;
 	return shaderProgram;
 }
 
@@ -331,7 +322,7 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 }
 
 // called in main()
-int Renderer::update() {
+int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
@@ -343,7 +334,8 @@ int Renderer::update() {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    for (int i = 0; i < sizeof(components) / sizeof(components[0]); i++) {
+    std::array<RenderComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<RenderComponent>();
+    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
         RenderComponent component = components[i];
         mat4 modelMatrix = matrices[i];
 
