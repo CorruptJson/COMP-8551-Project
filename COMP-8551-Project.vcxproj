@@ -125,7 +125,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -147,30 +147,50 @@
   <ItemGroup>
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
-    <ClCompile Include="rendering\Camera.cpp" />
-    <ClCompile Include="chunkManagerStandard.cpp" />
-    <ClCompile Include="rendering\glad.c" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="chunkManagerStandard.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="protoChunkManager.cpp" />
-    <ClCompile Include="rendering\RenderTutorial.cpp" />
+    <ClCompile Include="protoChunkManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultFragShader.fs" />
+    <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
+    <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="componentInfo.h" />
     <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="EntityCoordinator.h" />
+    <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="file_manager.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="rendering\Camera.h" />
+    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="chunkManagerStandard.h" />
-    <ClInclude Include="entityID.h" />
     <ClInclude Include="protoChunkManager.h" />
-    <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
-    <ClInclude Include="tempPosition.h" />
+    <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="Transform.h" />
+    <ClInclude Include="Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png" />
+    <Image Include="wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
