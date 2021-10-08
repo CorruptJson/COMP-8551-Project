@@ -71,9 +71,9 @@ public:
     }
 
     template<typename T>
-    void SetSignatureBit(T component, Signature& sig)
+    void SetSignatureBit(Signature& sig)
     {
-        const char* typeName = typeid(component).name();    
+        const char* typeName = typeid(T).name();    
         auto find = mComponentTypes.find(typeName);
         if (find == mComponentTypes.end())
         {

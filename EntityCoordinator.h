@@ -15,6 +15,7 @@ public:
         // Create pointers to each manager
         mComponentManager = std::make_unique<ComponentManager>();
         mEntityManager = std::make_unique<EntityManager>();
+        mChunkManager = std::make_unique<ChunkManager>();
         //mChunkManager = std::make_unique<ProtoChunkManager>();
 
     }
@@ -24,6 +25,15 @@ public:
     Entity CreateEntity()
     {
         return mEntityManager->CreateEntity();
+    }
+
+    template<typename T, typename... Args>
+    ChunkAddress CreateEntityChunked(const char* spriteSheet)
+    {
+        Signature sig;
+        recursiveSetSig<T,Args...>(sig);
+        ChunkAddress ca = mChunkManager->assignNewEntity<T,Args...>(sig, spriteSheet);
+        return ca;
     }
 
     void DestroyEntity(Entity entity)
@@ -109,16 +119,16 @@ public:
     }
 
     template<typename T>
-    void recursiveSetSig(Signature& sig, T component)
+    void recursiveSetSig(Signature& sig)
     {
-        mComponentManager->SetSignatureBit(component, sig);
+        mComponentManager->SetSignatureBit<T>(sig);
     }
 
     template<typename T, typename... Args>
-    void recursiveSetSig(Signature& sig, T component, Args... args)
+    void recursiveSetSig(Signature& sig)
     {
-        mComponentManager->SetSignatureBit(component, sig);
-        recursiveSetSig(sig, args...);
+        mComponentManager->SetSignatureBit<T>(sig);
+        recursiveSetSig<Args...>(sig);
     }
 
     std::string SignatureToString(Signature sig)
@@ -134,23 +144,23 @@ public:
     // test functions that list out components passed as arguments
 
     template<typename T>
-    void identifyComponents(T component)
+    void identifyComponents()
     {
-        const char* typeName = typeid(component).name();
+        const char* typeName = typeid(T).name();
         ComponentType type = mComponentManager->GetComponentType<T>();
 
         std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
     }
 
     template<typename T, typename... Args>
-    void identifyComponents(T component, Args... args)
+    void identifyComponents()
     {
-        const char* typeName = typeid(component).name();
+        const char* typeName = typeid(T).name();
         ComponentType type = mComponentManager->GetComponentType<T>();
 
         std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
 
-        identifyComponents(args...);
+        identifyComponents<Args...>();
     }
 
     ComponentManager& GetComponentManager()
@@ -166,5 +176,5 @@ public:
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
-    //std::unique_ptr<ProtoChunkManager> mChunkManager;
+    std::unique_ptr<ChunkManager> mChunkManager;
 };

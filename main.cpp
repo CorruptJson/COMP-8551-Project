@@ -9,7 +9,6 @@
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
-ChunkManager* chunkManager;
 
 Renderer renderer;
 
@@ -26,15 +25,25 @@ int initialize()
     renderer.init();
     coordinator.Init();
 
-    chunkManager = new ChunkManager();
 
-    Signature signature;
+
+    return 0;
+}
+
+int test(){
+
+    coordinator.identifyComponents<Transform, RenderComponent>();
 
     coordinator.RegisterComponent<Transform>();
-    signature.set(coordinator.GetComponentType<Transform>());
-
+    coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
-    signature.set(coordinator.GetComponentType<RenderComponent>());
+    const char* c1 = "sprite1";
+    const char* c2 = "sprite2";
+
+    coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
+    coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
+    coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
+    coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
 
     return 0;
 }
@@ -71,14 +80,12 @@ int teardown()
     // when the engine closes
     renderer.teardown();
 
-    delete chunkManager;
-
     return 0;
 }
 
 int main() {
     initialize();
-
+    test();
 
     //entity test
 
