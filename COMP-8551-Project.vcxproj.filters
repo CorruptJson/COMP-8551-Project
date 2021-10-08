@@ -142,5 +142,8 @@
     <Image Include="wall.jpg">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="game_sprites.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

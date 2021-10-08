@@ -9,8 +9,7 @@ struct RenderComponent {
 
     // store the sprite information
     // such as offsets and width/height
+    int index;
     float offsetX;
     float offsetY;
-    float spriteWidth;
-    float spriteHeight;
 };

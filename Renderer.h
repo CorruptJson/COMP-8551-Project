@@ -58,5 +58,7 @@ private:
     void loadIndicesData();
     void loadTexture(const char *spriteName);
     void loadUniforms(mat4 modelMatrix);
+    void loadImages();
+    void updateTexCoord(int index, const char* spriteName);
 };
 
