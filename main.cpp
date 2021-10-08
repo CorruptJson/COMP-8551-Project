@@ -39,10 +39,6 @@ int initialize()
     return 0;
 }
 
-
-
-
-
 // Use for now to make entities with components
 Entity CreateStandardEntity() {
     Entity e = coordinator.CreateEntity();
@@ -51,10 +47,7 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
 
     return e;
-
 }
-
-
 
 
 // the main update function

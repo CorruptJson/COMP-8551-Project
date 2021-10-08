@@ -85,13 +85,6 @@ public:
         sig.set(type, true);
     }
 
-private:
-    std::unordered_map<const char*, ComponentType> mComponentTypes{};
-    std::unordered_map<const char*, uint> mComponentInfo;
-    std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
-    ComponentType mNextComponentType{};
-
-
     template<typename T>
     std::shared_ptr<ComponentArray<T>> GetComponentArray()
     {
@@ -104,9 +97,7 @@ private:
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
+    std::unordered_map<const char*, uint> mComponentInfo;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
-    ComponentType mNextComponentType{};
-
-
-    
+    ComponentType mNextComponentType{};    
 };

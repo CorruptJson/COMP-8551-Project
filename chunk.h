@@ -20,32 +20,33 @@ private:
 
 public:
 
-    //template<typename T, typename ... args>
-    //Chunk(int chunkID,SigArch sigarch)
-    //{
-    //    this->chunkID = chunkID;
-    //    this->sigarch = sigarch;
+    template<typename T, typename ... args>
+    Chunk(int chunkID,SigArch sigarch)
+    {
+        this->chunkID = chunkID;
+        this->sigarch = sigarch;
 
-    //    const std::type_info &test = typeid(SigArch);
-    //    
-    //    // create array for each component type in sig arch?
-    //}
+        const std::type_info &test = typeid(SigArch);
+        
+        // create array for each component type in sig arch?
+        addComponentArray<T, args...>();
+    }
 
-    //template<typename T>
-    //void addComponentArray()
-    //{
-    //    char const* typeName = typeid(T).name();
-    //    componentArrays.insert(typeName,new T[ENTITIES_PER_CHUNK]);
-    //}
+    template<typename T>
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName,new T[ENTITIES_PER_CHUNK]);
+    }
 
-    //template<typename T, typename ... args>
-    //void addComponentArray()
-    //{
-    //    char const* typeName = typeid(T).name();
-    //    componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
+    template<typename T, typename ... args>
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
 
-    //    addComponentArray<...args>();
-    //}
+        addComponentArray<args...>();
+    }
 
     int getCurrEnts()
     {
