@@ -7,6 +7,7 @@
 #include "SpriteInfo.h"
 #include "EntityCoordinator.h"
 #include "RenderComponent.h"
+#include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
