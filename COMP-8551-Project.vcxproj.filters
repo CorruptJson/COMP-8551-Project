@@ -92,9 +92,6 @@
     <ClInclude Include="chunk.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="chunkManagerStandard.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>

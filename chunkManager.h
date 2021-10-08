@@ -5,28 +5,21 @@
 #include <unordered_map>
 #include <vector>
 #include "Types.h"
-#include "SigArch.h"
-#include "tempPosition.h"
-#include "EntityCoordinator.h"
 #include "chunk.h"
-
-
-
 
 class ChunkManager
 {
 private:
-    EntityCoordinator* entCoord;
     std::unordered_map<Signature, std::vector<Chunk>> chunksPerSig;
 
 public:
 
-    ChunkManager(EntityCoordinator* entCoord)
+    ChunkManager()
     {
-        this->entCoord = entCoord;
+
     }
 
-    ChunkAddress allocateNewEntity(Signature sig)
+    ChunkAddress assignNewEntity(Signature sig)
     {
         auto find = chunksPerSig.find(sig);
         //Chunk* c;
@@ -36,12 +29,7 @@ public:
         }
     };
 
-    void deallocateEntity(ChunkAddress id)
-    {
-        throw std::exception("function not implemented");
-    };
-
-    TempPosition getEntityPosition(ChunkAddress id)
+    void releaseEntity(ChunkAddress id)
     {
         throw std::exception("function not implemented");
     };

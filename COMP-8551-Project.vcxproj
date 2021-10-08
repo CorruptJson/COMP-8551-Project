@@ -174,7 +174,6 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />

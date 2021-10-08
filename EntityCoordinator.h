@@ -4,6 +4,7 @@
 #include <array>
 #include "ComponentManager.h"
 #include "EntityManager.h"
+#include "chunkManager.h"
 #include "Types.h"
 
 class EntityCoordinator

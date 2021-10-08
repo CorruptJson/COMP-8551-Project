@@ -25,9 +25,8 @@ int initialize()
     // when the engine starts
     renderer.init();
     coordinator.Init();
-    coordinator.RegisterComponent<TempPosition>();
 
-    chunkManager = new ChunkManager(&coordinator);
+    chunkManager = new ChunkManager();
 
     Signature signature;
 
@@ -37,17 +36,6 @@ int initialize()
     coordinator.RegisterComponent<RenderComponent>();
     signature.set(coordinator.GetComponentType<RenderComponent>());
 
-    // thompson testing
-    coordinator.RegisterComponent<SigArch>();
-    coordinator.RegisterComponent<ChunkAddress>();
-
-    TempPosition tp = { 1, 1 };
-    SigArch sa;
-    ChunkAddress ca = { 0,0,0 };
-    chunkManager->identifyComponents(tp,sa,ca);
-    std::cout << std::endl;
-    chunkManager->getSigFromComponents(tp, ca);
-    std::cout << std::endl;
     return 0;
 }
 
