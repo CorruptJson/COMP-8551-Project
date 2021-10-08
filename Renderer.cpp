@@ -59,10 +59,10 @@ RenderComponent renderComp2{
     1,
     1
 };
-RenderComponent components[] {
-    renderComp1,
-    renderComp2
-};
+//RenderComponent components[] {
+//    renderComp1,
+//    renderComp2
+//};
 
 // a pointer to the context
 GLFWwindow* window;
@@ -228,7 +228,6 @@ GLuint Renderer::createDefaultShaderProgram() {
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
-    //delete vertexShaderSource;
 	return shaderProgram;
 }
 
@@ -323,7 +322,7 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 }
 
 // called in main()
-int Renderer::update() {
+int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
@@ -335,7 +334,8 @@ int Renderer::update() {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    for (int i = 0; i < sizeof(components) / sizeof(components[0]); i++) {
+    std::array<RenderComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<RenderComponent>();
+    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
         RenderComponent component = components[i];
         mat4 modelMatrix = matrices[i];
 

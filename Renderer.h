@@ -6,7 +6,7 @@
 #include "Camera.h"
 #include "SpriteInfo.h"
 #include "EntityCoordinator.h"
-#include "renderComponent.h"
+#include "RenderComponent.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -22,7 +22,7 @@ public:
     static const char *DEFAULT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init();
-    int update();
+    int update(EntityCoordinator* coordinator);
     int teardown();
 private:
     // the vertex array object (VAO)
