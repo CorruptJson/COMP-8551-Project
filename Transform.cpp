@@ -1,9 +1,7 @@
 #include "Transform.h"
 
 // public 
-Transform::Transform() {
-    Transform(0, 0, 0, 1, 1);
-}
+Transform::Transform() : Transform(0, 0, 0, 1, 1) { }
 Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, float yScale=1) {
     position = {
         xPos,
@@ -78,8 +76,9 @@ glm::mat4 Transform::getModelMatrix() {
     else if (positionChanged) {
         translateModelMatrix();
     }
+    // no change? no matrix calc
 
-    // reset 
+    // reset for next call
     positionChanged = false;
     rotationChanged = false;
     scaleChanged = false;

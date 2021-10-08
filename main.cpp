@@ -48,7 +48,6 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
 
     return e;
-
 }
 
 
@@ -108,6 +107,7 @@ int main() {
         1,
         1
     };
+    coordinator.GetComponent<Transform>(entity2).translate(0, -1);
 
     std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity1).getPosition().y << std::endl;
     std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity2).getPosition().y << std::endl;

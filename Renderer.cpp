@@ -20,13 +20,6 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-// the objects matrix
-mat4 modelMatrix1 = mat4(1.0);
-mat4 modelMatrix2 = translate(mat4(1.0), vec3(0, -1, 0));
-mat4 matrices[]{
-    modelMatrix1,
-    modelMatrix2
-};
 
 // the shaders uniforms we are using
 // uniforms are extra data that we pass in
@@ -41,28 +34,6 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
-RenderComponent renderComp1{
-    "defaultVertexShader.vsf",
-    "defaultFragmentShader.fsf",
-    "turtles.png",
-    0,
-    0,
-    1,
-    1
-};
-RenderComponent renderComp2{
-    "defaultVertexShader.vsf",
-    "defaultFragmentShader.fsf",
-    "wall.jpg",
-    0,
-    0,
-    1,
-    1
-};
-//RenderComponent components[] {
-//    renderComp1,
-//    renderComp2
-//};
 
 // a pointer to the context
 GLFWwindow* window;
@@ -334,10 +305,11 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::array<RenderComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<RenderComponent>();
+    std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
+    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-        RenderComponent component = components[i];
-        mat4 modelMatrix = matrices[i];
+        RenderComponent component = renderComps[i];
+        mat4 modelMatrix = transforms[i].getModelMatrix();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
