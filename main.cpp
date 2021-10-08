@@ -9,6 +9,7 @@
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
+ChunkManager* chunkManager;
 
 Renderer renderer;
 
@@ -19,10 +20,14 @@ Entity entity2;
 // gets called once when engine starts
 // put initilization code here
 int initialize()
-{
+{  
+
     // when the engine starts
     renderer.init();
     coordinator.Init();
+
+    chunkManager = new ChunkManager();
+
     Signature signature;
 
     coordinator.RegisterComponent<Transform>();
@@ -31,14 +36,8 @@ int initialize()
     coordinator.RegisterComponent<RenderComponent>();
     signature.set(coordinator.GetComponentType<RenderComponent>());
 
-    //chunkManager = new ProtoChunkManager();
-
     return 0;
 }
-
-
-
-
 
 // Use for now to make entities with components
 Entity CreateStandardEntity() {
@@ -48,10 +47,7 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
 
     return e;
-
 }
-
-
 
 
 // the main update function
@@ -75,7 +71,7 @@ int teardown()
     // when the engine closes
     renderer.teardown();
 
-    //delete chunkManager;
+    delete chunkManager;
 
     return 0;
 }
