@@ -44,7 +44,7 @@ int initialize()
 Entity CreateStandardEntity() {
     Entity e = coordinator.CreateEntity();
 
-    coordinator.AddComponent<Transform>(e, Transform{});
+    coordinator.AddComponent<Transform>(e, Transform());
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
 
     return e;
@@ -89,7 +89,6 @@ int main() {
     entity1 = CreateStandardEntity();
     entity2 = CreateStandardEntity();
 
-    coordinator.GetComponent<Transform>(entity1).Position = { 0, 0 };
     coordinator.GetComponent<RenderComponent>(entity1) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -100,7 +99,6 @@ int main() {
         1
     };
 
-    coordinator.GetComponent<Transform>(entity2).Position = { 0, 0 };
     coordinator.GetComponent<RenderComponent>(entity2) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -111,11 +109,11 @@ int main() {
         1
     };
 
-    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
-    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity1).getPosition().y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity2).getPosition().y << std::endl;
 
     
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
     while (!glfwWindowShouldClose(window))
