@@ -10,33 +10,29 @@ const int ENTITIES_PER_CHUNK = 32;
 class Chunk
 {
 private:
-    int chunkID;
-    SigArch sigarch;
+    int chunkID = -1;
+    Signature sig;
+    const char* spriteSheet;
     int currEnts = 0;
-    std::unordered_map<char const*, void*> componentArrays;
-    int versions[ENTITIES_PER_CHUNK];
-    int entToDat[ENTITIES_PER_CHUNK];
-    int datToEnt[ENTITIES_PER_CHUNK];
+    std::unordered_map<char const*, void*> componentArrays{};
+    int versions[ENTITIES_PER_CHUNK]{};
+    int entToDat[ENTITIES_PER_CHUNK]{};
+    int datToEnt[ENTITIES_PER_CHUNK]{};
 
-public:
+    Chunk(){}
 
-    template<typename T, typename ... args>
-    Chunk(int chunkID,SigArch sigarch)
-    {
+    Chunk(Signature sig, int chunkID, const char* spriteSheet)
+    {        
+        this->sig = sig;
         this->chunkID = chunkID;
-        this->sigarch = sigarch;
-
-        const std::type_info &test = typeid(SigArch);
-        
-        // create array for each component type in sig arch?
-        addComponentArray<T, args...>();
+        this->spriteSheet = spriteSheet;
     }
 
     template<typename T>
     void addComponentArray()
     {
         char const* typeName = typeid(T).name();
-        componentArrays.insert(typeName,new T[ENTITIES_PER_CHUNK]);
+        componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
     }
 
     template<typename T, typename ... args>
@@ -46,6 +42,22 @@ public:
         componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
 
         addComponentArray<args...>();
+    }
+
+public:
+
+    template<typename T, typename ... args>
+    static friend Chunk* createChunk(int chunkID, Signature sig, const char* spriteSheet)
+    {
+        Chunk* chunk = new Chunk(chunkID, sig,spriteSheet);
+        chunk->addComponentArray<T, args...>();
+
+        return chunk;
+    }
+
+    const char* SpriteSheet()
+    {
+        return spriteSheet;
     }
 
     int getCurrEnts()
@@ -127,5 +139,13 @@ public:
         void* arr = componentArrays[type];
         T* compArr = std::static_pointer_cast<T*>(arr);
         return compArr;
+    }
+
+    ~Chunk()
+    {
+        for (auto ca : componentArrays)
+        {
+            delete ca.second;
+        }
     }
 };

@@ -148,14 +148,8 @@
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="chunkManagerStandard.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="protoChunkManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
