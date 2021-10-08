@@ -1,10 +1,4 @@
 #include <iostream>
-<<<<<<< HEAD
-#include "RenderTutorial.h"
-#include "Box2DTutorial.h"
-
-Box2DTutorial* box2DTutorial;
-=======
 #include <vector>
 #include "Renderer.h"
 //#include "protoChunkManager.h"
@@ -21,18 +15,12 @@ Renderer renderer;
 // test entities
 Entity entity1;
 Entity entity2;
->>>>>>> dd0d92de87fe11c71a564f0b8534b312062fed01
 
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {
     // when the engine starts
-<<<<<<< HEAD
-    renderTutorialInit();
-    box2DTutorial = new Box2DTutorial();
-    box2DTutorial->GravityExample();
-=======
     renderer.init();
     coordinator.Init();
     Signature signature;
@@ -44,7 +32,6 @@ int initialize()
     signature.set(coordinator.GetComponentType<RenderComponent>());
 
     //chunkManager = new ProtoChunkManager();
->>>>>>> dd0d92de87fe11c71a564f0b8534b312062fed01
 
     return 0;
 }
@@ -73,7 +60,6 @@ int runEngine()
 {
     // check input
     // run physics
-    box2DTutorial->Update();
     // run ECS
     // render
     renderer.update(&coordinator);
@@ -90,8 +76,6 @@ int teardown()
     renderer.teardown();
 
     //delete chunkManager;
-
-    delete box2DTutorial;
 
     return 0;
 }
