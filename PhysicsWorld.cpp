@@ -28,7 +28,7 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
       
         b2Body* body = world->CreateBody(&bodyDef);
 
-        printf("X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
+        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
 
         if (body) {
 
@@ -56,10 +56,10 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 void PhysicsWorld::Update() {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
+
         b2Body* bodies = world->GetBodyList();
         b2Body* bodyA = bodies->GetNext();
-        printf("X-Pos: %0.2f Y-Pos %0.2f\n", bodyA->GetPosition().x, bodyA->GetPosition().y);
-
+        printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", bodyA->GetPosition().x, bodyA->GetPosition().y);
     }
 }
 
