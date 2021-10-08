@@ -36,6 +36,21 @@ void Transform::translate(float x, float y) {
     positionChanged = true;
 }
 
+void Transform::setPhysicsBody(b2Body* newBody) {
+    body = newBody;
+}
+
+b2Body* Transform::getPhysicsBody() {
+    return body;
+}
+
+void Transform::update() {
+    if (body && body->GetType() != b2_staticBody) {
+        b2Vec2 position = body->GetPosition();
+        setPosition(position.x, position.y);
+    }
+}
+
 Scale Transform::getScale() {
     return scale;
 }

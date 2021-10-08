@@ -97,7 +97,7 @@ int main() {
     entity2 = CreateStandardEntity();
 
     // turtle
-    coordinator.GetComponent<Transform>(entity1).setPosition(0, 1);
+    coordinator.GetComponent<Transform>(entity1).setPosition(0, 1.2);
     coordinator.GetComponent<RenderComponent>(entity1) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Types.h"
+#include "Transform.h"
 #include "PhysicsComponent.h"
 #include "ContactListener.h"
 #include "EntityCoordinator.h"

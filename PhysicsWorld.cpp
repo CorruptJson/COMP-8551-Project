@@ -1,5 +1,7 @@
 #include "PhysicsWorld.h"
 
+b2Body* test;
+
 PhysicsWorld::PhysicsWorld() {
 
     // Initialization
@@ -14,6 +16,8 @@ PhysicsWorld::PhysicsWorld() {
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     std::array<PhysicsComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<PhysicsComponent>();
+    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
+
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
         PhysicsComponent component = components[i];
         b2BodyType type = component.bodyType;
@@ -21,8 +25,10 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
         b2BodyDef bodyDef;
         bodyDef.type = type;
         bodyDef.position.Set(component.x, component.y);
-
+      
         b2Body* body = world->CreateBody(&bodyDef);
+
+        printf("X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
 
         if (body) {
 
@@ -38,6 +44,9 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
             body->CreateFixture(&fixtureDef);
 
             // need some way to pass the body to the entity so it can update in rendering
+
+            transforms[i].setPhysicsBody(body);
+
         }
     
     }
@@ -47,6 +56,9 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 void PhysicsWorld::Update() {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
+        b2Body* bodies = world->GetBodyList();
+        b2Body* bodyA = bodies->GetNext();
+        printf("X-Pos: %0.2f Y-Pos %0.2f\n", bodyA->GetPosition().x, bodyA->GetPosition().y);
 
     }
 }
@@ -54,5 +66,5 @@ void PhysicsWorld::Update() {
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;
     if (world) delete world;
-    //if (contactListener) delete contactListener;
+    if (contactListener) delete contactListener;
 }
