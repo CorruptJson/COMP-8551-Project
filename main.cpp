@@ -54,8 +54,6 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
     coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
 
-    
-
     return e;
 }
 
@@ -66,6 +64,7 @@ int runEngine()
 {
     // check input
     // run physics
+    physicsWorld->Update();
     // run ECS
     // render
     renderer.update(&coordinator);
@@ -97,7 +96,8 @@ int main() {
     entity1 = CreateStandardEntity();
     entity2 = CreateStandardEntity();
 
-    coordinator.GetComponent<Transform>(entity1).Position = { 0, 0 };
+    // turtle
+    coordinator.GetComponent<Transform>(entity1).Position = { 0, 6 };
     coordinator.GetComponent<RenderComponent>(entity1) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -107,8 +107,17 @@ int main() {
         1,
         1
     };
-    physicsWorld->AddObject(coordinator.GetComponent<PhysicsComponent>(entity1));
+    coordinator.GetComponent<PhysicsComponent>(entity1) = {
+        b2_dynamicBody,
+        coordinator.GetComponent<RenderComponent>(entity1).spriteHeight / 2,
+        coordinator.GetComponent<RenderComponent>(entity1).spriteWidth / 2,
+        coordinator.GetComponent<Transform>(entity1).Position.x,
+        coordinator.GetComponent<Transform>(entity1).Position.y,
+        1.0f,
+        0.0f
+    };
 
+    // ground
     coordinator.GetComponent<Transform>(entity2).Position = { 0, 0 };
     coordinator.GetComponent<RenderComponent>(entity2) = {
         "defaultVertShader.vs",
@@ -119,6 +128,16 @@ int main() {
         1,
         1
     };
+    coordinator.GetComponent<PhysicsComponent>(entity2) = {
+        b2_staticBody,
+        coordinator.GetComponent<RenderComponent>(entity2).spriteHeight / 2,
+        coordinator.GetComponent<RenderComponent>(entity2).spriteWidth / 2,
+        coordinator.GetComponent<Transform>(entity2).Position.x,
+        coordinator.GetComponent<Transform>(entity2).Position.y,
+        1.0f,
+        0.0f
+    };
+    physicsWorld->AddObjects(&coordinator);
 
     std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
     std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;

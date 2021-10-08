@@ -5,7 +5,12 @@
 struct PhysicsComponent {
     b2BodyType bodyType;
 
-    b2BodyDef bodyDef;
-    b2PolygonShape shape;
-    b2FixtureDef fixtureDef;
+    float halfHeight;
+    float halfWidth;
+
+    float x;
+    float y;
+
+    float density;
+    float friction;
 };
