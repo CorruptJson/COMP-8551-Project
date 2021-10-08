@@ -2,18 +2,9 @@
 #include <string>
 
 const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
+const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"in vec3 ourColor;\n"
-"in vec2 TexCoord;\n"
-"uniform sampler2D ourTexture;\n"
-"void main()\n"
-"{\n"
-"   FragColor = texture(ourTexture, TexCoord);\n"
-"}\n\0";
-
 // Vertices data: coordinates, colors and texture coords
 const GLfloat vertices[] = {
     // positions          // colors           // texture coords
@@ -200,13 +191,22 @@ GLuint Renderer::createDefaultShaderProgram() {
 
 	// do the same thing for the fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    std::string fragShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_FRAG_SHADER_NAME);
+    const char* fragCStr = fragShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader, 1 is the number of strings
 	// we are storing the shader in, &fragmentShaderSource is a pointer
 	// to the shader code string, and NULL is unimportant
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glShaderSource(fragmentShader, 1, &fragCStr, NULL);
 	glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
 
 	// now that we have the shaders, we have to create and 
 	// a "shader program" and attach them so it can work

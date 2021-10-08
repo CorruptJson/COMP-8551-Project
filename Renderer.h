@@ -19,6 +19,7 @@ class Renderer
 {
 public:
     static const char *DEFAULT_VERT_SHADER_NAME;
+    static const char *DEFAULT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init();
     int update();
