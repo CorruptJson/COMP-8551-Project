@@ -50,7 +50,7 @@ int initialize()
 Entity CreateStandardEntity() {
     Entity e = coordinator.CreateEntity();
 
-    coordinator.AddComponent<Transform>(e, Transform{});
+    coordinator.AddComponent<Transform>(e, Transform());
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
     coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
 
@@ -97,7 +97,7 @@ int main() {
     entity2 = CreateStandardEntity();
 
     // turtle
-    coordinator.GetComponent<Transform>(entity1).Position = { 0, 6 };
+    coordinator.GetComponent<Transform>(entity1).setPosition(0, 1);
     coordinator.GetComponent<RenderComponent>(entity1) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -111,14 +111,15 @@ int main() {
         b2_dynamicBody,
         coordinator.GetComponent<RenderComponent>(entity1).spriteHeight / 2,
         coordinator.GetComponent<RenderComponent>(entity1).spriteWidth / 2,
-        coordinator.GetComponent<Transform>(entity1).Position.x,
-        coordinator.GetComponent<Transform>(entity1).Position.y,
+        coordinator.GetComponent<Transform>(entity1).getPosition().x,
+        coordinator.GetComponent<Transform>(entity1).getPosition().y,
         1.0f,
         0.0f
     };
 
+
     // ground
-    coordinator.GetComponent<Transform>(entity2).Position = { 0, 0 };
+    coordinator.GetComponent<Transform>(entity2).setPosition(0, -1);
     coordinator.GetComponent<RenderComponent>(entity2) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -132,18 +133,20 @@ int main() {
         b2_staticBody,
         coordinator.GetComponent<RenderComponent>(entity2).spriteHeight / 2,
         coordinator.GetComponent<RenderComponent>(entity2).spriteWidth / 2,
-        coordinator.GetComponent<Transform>(entity2).Position.x,
-        coordinator.GetComponent<Transform>(entity2).Position.y,
+        coordinator.GetComponent<Transform>(entity2).getPosition().x,
+        coordinator.GetComponent<Transform>(entity2).getPosition().y,
         1.0f,
         0.0f
     };
     physicsWorld->AddObjects(&coordinator);
 
-    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
-    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
+    //coordinator.GetComponent<Transform>(entity2).translate(0, -1);
+
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity1).getPosition().y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity2).getPosition().y << std::endl;
 
     
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
     while (!glfwWindowShouldClose(window))

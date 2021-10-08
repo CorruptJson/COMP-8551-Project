@@ -21,8 +21,6 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
         b2BodyDef bodyDef;
         bodyDef.type = type;
         bodyDef.position.Set(component.x, component.y);
-        printf("BODY A X-Pos: %0.2f Y-Pos %0.2f\n", component.x, component.y);
-
 
         b2Body* body = world->CreateBody(&bodyDef);
 
