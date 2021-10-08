@@ -4,7 +4,7 @@
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "Types.h"
-//#include "protoChunkManager.h"
+
 class EntityCoordinator
 {
 public:
@@ -32,7 +32,6 @@ public:
 
 
     }
-
 
     // Component methods
     template<typename T>

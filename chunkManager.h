@@ -2,15 +2,22 @@
 
 #include <iostream>
 #include <exception>
+#include <unordered_map>
+#include <vector>
 #include "Types.h"
 #include "SigArch.h"
 #include "tempPosition.h"
 #include "EntityCoordinator.h"
+#include "chunk.h"
+
+
+
 
 class ChunkManager
 {
 private:
     EntityCoordinator* entCoord;
+    std::unordered_map<Signature, std::vector<Chunk>> chunksPerSig;
 
 public:
 
@@ -19,9 +26,14 @@ public:
         this->entCoord = entCoord;
     }
 
-    ChunkAddress allocateNewEntity(SigArch sa)
+    ChunkAddress allocateNewEntity(Signature sig)
     {
-        throw std::exception("function not implemented");
+        auto find = chunksPerSig.find(sig);
+        //Chunk* c;
+        if (find == chunksPerSig.end())
+        {
+            // make new chunk
+        }
     };
 
     void deallocateEntity(ChunkAddress id)

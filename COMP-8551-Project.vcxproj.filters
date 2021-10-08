@@ -92,5 +92,8 @@
     <ClInclude Include="tempPosition.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="componentInfo.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

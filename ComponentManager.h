@@ -2,10 +2,10 @@
 
 #include "ComponentArray.h"
 #include "Types.h"
+//#include "componentInfo.h"
 #include <any>
 #include <memory>
 #include <unordered_map>
-
 
 class ComponentManager
 {
@@ -19,6 +19,9 @@ public:
 
         mComponentTypes.insert({ typeName, mNextComponentType });
         mComponentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
+
+        Signature sig;
+        //ComponentInfo info(mNextComponentType);
 
         ++mNextComponentType;
     }
@@ -62,6 +65,12 @@ public:
     }
 
     template<typename T>
+    void MakeSignature()
+    {
+
+    }
+
+    template<typename T>
     void SetSignatureBit(T component, Signature& sig)
     {
         const char* typeName = typeid(component).name();    
@@ -78,6 +87,7 @@ public:
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
+    std::unordered_map<const char*, uint> mComponentInfo;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
     ComponentType mNextComponentType{};
 

@@ -156,6 +156,7 @@
   <ItemGroup>
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="componentInfo.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
