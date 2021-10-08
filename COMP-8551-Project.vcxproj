@@ -145,19 +145,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="rendering\Camera.cpp" />
+    <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="chunkManagerStandard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="rendering\glad.c" />
+    <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="protoChunkManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="rendering\RenderTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunk.h" />
@@ -165,14 +167,20 @@
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
-    <ClInclude Include="Transform.h" />
-    <ClInclude Include="rendering\Camera.h" />
+    <ClInclude Include="file_manager.h" />
+    <ClInclude Include="renderComponent.h" />
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
-    <ClInclude Include="rendering\RenderTutorial.h" />
     <ClInclude Include="SigArch.h" />
+    <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="Types.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png" />
+    <Image Include="wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

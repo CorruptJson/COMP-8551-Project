@@ -40,15 +40,18 @@
     <Filter Include="Header Files\Components">
       <UniqueIdentifier>{73e85bd4-2942-47f7-91ec-909d2dd097ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Util">
+      <UniqueIdentifier>{0ca5a731-8c3c-4127-8fe1-b9ae5774107c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Util">
+      <UniqueIdentifier>{d9f9a96f-b3f4-44f6-9fb0-473f0b3b6a50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\glad.c">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="rendering\RenderTutorial.cpp">
+    <ClCompile Include="glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="protoChunkManager.cpp">
@@ -57,17 +60,23 @@
     <ClCompile Include="chunkManagerStandard.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="rendering\Camera.cpp">
+    <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="file_manager.cpp">
+      <Filter>Source Files\Util</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultVertShader.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="rendering\RenderTutorial.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
     <ClInclude Include="protoChunkManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -83,7 +92,7 @@
     <ClInclude Include="chunkManagerStandard.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="rendering\Camera.h">
+    <ClInclude Include="Camera.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
@@ -104,5 +113,25 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="renderComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteInfo.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="file_manager.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="turtles.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

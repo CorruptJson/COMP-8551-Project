@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "./rendering/RenderTutorial.h"
+#include "Renderer.h"
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "Transform.h"
@@ -9,6 +9,9 @@
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
 
+Renderer renderer;
+
+// test entities
 Entity entity1;
 Entity entity2;
 
@@ -17,14 +20,17 @@ Entity entity2;
 int initialize()
 {
     // when the engine starts
-    renderTutorialInit();
-    
+    renderer.init();
     coordinator.Init();
     Signature signature;
 
 
     coordinator.RegisterComponent<Transform>();
     signature.set(coordinator.GetComponentType<Transform>());
+
+    entity1 = coordinator.CreateEntity();
+
+    //coordinator.AddComponent(entity1, renderComp1);
 
     //chunkManager = new ProtoChunkManager();
 
@@ -56,7 +62,7 @@ int runEngine()
     // run physics
     // run ECS
     // render
-    renderTutorialUpdate();
+    renderer.update();
 
     return 0;
 }
@@ -67,7 +73,7 @@ int runEngine()
 int teardown()
 {
     // when the engine closes
-    renderTutorialTeardown();
+    renderer.teardown();
 
     //delete chunkManager;
 
@@ -83,7 +89,6 @@ int main() {
     entity1 = CreateStandardEntity();
     entity2 = CreateStandardEntity();
 
-
     coordinator.GetComponent<Transform>(entity1).Position = { 1, 6 };
     coordinator.GetComponent<Transform>(entity2).Position = { 3, 3 };
 
@@ -93,8 +98,6 @@ int main() {
     
     std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
-
-
 
     while (!glfwWindowShouldClose(window))
     {

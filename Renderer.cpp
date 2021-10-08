@@ -1,22 +1,14 @@
-#include "./RenderTutorial.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb/stb_image.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Renderer.h"
+#include <string>
 
-Camera camera;
-
-using namespace std;
-using namespace glm;
-
+const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 // shader code => tutorial provide
 // inline code. In reality, we should parse them
 // from a file
 // 
 // Vertex Shader source code
 const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
+"layout(location = 0) in vec3 aPos;\n"
 "layout(location = 1) in vec3 aColor;\n"
 "layout(location = 2) in vec2 aTexCoord;\n"
 "out vec3 ourColor;\n"
@@ -57,8 +49,13 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-// the object's matrix
-mat4 modelMatrix = mat4(1.0);
+// the objects matrix
+mat4 modelMatrix1 = mat4(1.0);
+mat4 modelMatrix2 = translate(mat4(1.0), vec3(0, -1, 0));
+mat4 matrices[]{
+    modelMatrix1,
+    modelMatrix2
+};
 
 // the shaders uniforms we are using
 // uniforms are extra data that we pass in
@@ -73,14 +70,82 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
-// make the shader program
-// see function for more details
-GLuint shaderProgram;
+RenderComponent renderComp1{
+    "defaultVertexShader.vsf",
+    "defaultFragmentShader.fsf",
+    "turtles.png",
+    0,
+    0,
+    1,
+    1
+};
+RenderComponent renderComp2{
+    "defaultVertexShader.vsf",
+    "defaultFragmentShader.fsf",
+    "wall.jpg",
+    0,
+    0,
+    1,
+    1
+};
+RenderComponent components[] {
+    renderComp1,
+    renderComp2
+};
 
 // a pointer to the context
 GLFWwindow* window;
 
-GLFWwindow* setupGLFW() {
+/// <summary>
+/// Initialize the Render tutorial.
+/// </summary>
+/// <returns></returns>
+int Renderer::init() {
+    int width, height;
+    window = Renderer::setupGLFW(&width, &height);
+    if (window == NULL)
+    {
+        glfwTerminate();
+        return -1;
+    }
+
+    // glad handle the opengl code
+    // init it
+    gladLoadGL();
+
+    // init other OpenGL stuff
+    Camera camera(0.0, 0.0, 0.0, 0.0);
+    defaultShaderProgram = createDefaultShaderProgram();
+
+    // create all the OpenGL buffers at the start so we can
+    // reuse them
+	// first param is how many 3D object we have (we have 1)
+	// second param is a reference to the VBO id/ref
+	// This is similar to GLuint VBO = glGenBuffers(1);
+	// except we use refs
+	glGenBuffers(1, &vertexBuffer); // gen == generate
+    glGenBuffers(1, &indicesBuffer);
+    glGenTextures(1, &textureBuffer);
+	glGenVertexArrays(1, &vertexAttribs);
+
+    // tell opengl the size of the viewport (window)
+    // we are drawing on
+    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
+    glViewport(0, 0, width, height);
+
+    // enable transparency for the images
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+
+    // function for using stbi
+    // this is because OpenGL's y-axis starts from bottoms up
+    // however, images have y-axis starts top down
+    stbi_set_flip_vertically_on_load(true);
+
+    return 0;
+}
+
+GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     // glfw helps with creating windows, contexts
     // and receiving inputs and events
     // init this to call its function
@@ -95,8 +160,22 @@ GLFWwindow* setupGLFW() {
     // core profile is a preset list of functions that opengl can init
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-    // Make a window with size 800x800 with name of "OpenGLTutorial"
-    GLFWwindow* window = glfwCreateWindow(800, 800, "OpenGLTutorial", NULL, NULL);
+    // Find the main monitor and its screen size
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* monitorInfo = glfwGetVideoMode(monitor);
+
+    // use this to make the window match screen size but still in windowed mode
+    //*width = monitorInfo->width;
+    //*height = monitorInfo->height;
+
+    // make a small width and a height for ease of testing
+    *width = 1000;
+    *height = 1000;
+
+    // Make a window with size 800x800 with name of "Chunky Soup"
+    // pass in monitor for the 3rd param if we want it to be full screen
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
+    //glfwSetWindowPos(window, 0, 0);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
@@ -106,17 +185,19 @@ GLFWwindow* setupGLFW() {
     // be used to draw on
     glfwMakeContextCurrent(window);
 
+    delete monitor, monitorInfo;
     return window;
 }
 
 // Create the shader program by loading 
 // the shaders
-GLuint createShaderProgram() {
+GLuint Renderer::createDefaultShaderProgram() {
 	// shaders are OpenGL objects => we need to init them
 	// and store a reference to them so we can use them later
 
 	// init an empty shader and store the ref OpenGL returns
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    //const char *vertexShaderSource2 = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader (the one we create above), 1 is the number of strings
@@ -155,46 +236,12 @@ GLuint createShaderProgram() {
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
+    //delete vertexShaderSource;
 	return shaderProgram;
 }
 
-/// <summary>
-/// Initialize the Render tutorial.
-/// </summary>
-/// <returns></returns>
-int renderTutorialInit() {
-    window = setupGLFW();
-    if (window == NULL)
-    {
-        glfwTerminate();
-        return -1;
-    }
-
-    // glad handle the opengl code
-    // init it
-    gladLoadGL();
-
-    Camera camera(0.0, 0.0, 0.0, 0.0);
-    shaderProgram = createShaderProgram();
-
-    // enable transparency for the images
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-    return 0;
-}
-
 // load the vertex data for the object
-void loadVertexData() {
-	// create a vertex buffer object
-	// which is a buffer object for containing vertices
-	GLuint VBO;
-
-	// first param is how many 3D object we have (we have 1)
-	// second param is a reference to the VBO id/ref
-	// This is similar to GLuint VBO = glGenBuffers(1);
-	// except we use refs
-	glGenBuffers(1, &VBO); // gen == generate
-
+void Renderer::loadVertexData() {
 	// now we need to bind the VBO so OpenGL knows to draw it
 	// How "binding" works is it sets an object to the current object.
 	// OpenGL can only draw one thing at a time (state machine), so
@@ -204,7 +251,7 @@ void loadVertexData() {
 	// GL_ARRAY_BUFFER is the type of buffer that we want to bind
 	// VBO is the ID/ref of the buffer we are binding (the actual
 	// value is use here rather than a ref to it)
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
 	// now that we tell OpenGL what the current buffer is,
 	// we have to put data into it. Think of it as giving
@@ -229,44 +276,46 @@ void loadVertexData() {
 
 }
 
-void loadVertexIndices() {
-    //create element buffer object
-    //a buffer that stores indices that OpenGl uses to decide the vertices to draw
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-
+void Renderer::loadIndicesData() {
     //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
     //this tells OpenGL to make use of the EBO when making a draw call
     //if the EBO is missing and the drawelements is called nothing will be drawn
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
 }
 
-void loadTexture() {
-    // make the textures, set up is similar to buffers
-    GLuint texture;
-    glGenTextures(1, &texture);
-
+void Renderer::loadTexture(const char *spriteName) {
     // bind the texture (tell OpenGL that it's the cur tex)
     //note* needs to be above any texture functions so that it is applied to the binded texture
-    glBindTexture(GL_TEXTURE_2D, texture);
+    glBindTexture(GL_TEXTURE_2D, textureBuffer);
 
-    int width, height, amountOfColorChannels;
-    stbi_set_flip_vertically_on_load(true);
-    stbi_uc* data = stbi_load("resources/turtles.png", &width, &height, &amountOfColorChannels, STBI_rgb_alpha);
+    const auto& result = sprites.find(spriteName);
 
-    if (data) {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
+    SpriteInfo *info;
+    // if not found
+    if (result == sprites.end()) {
+        // read the image from the file and store it
+        info = FileManager::readImageFile(spriteName);
+        if (info == NULL) {
+            std::cout << "Failed to load texture" << std::endl;
+            return;
+        }
+
+        sprites[spriteName] = *info;
+
+        // delete the data if needed
+        //stbi_image_free(data); 
     }
     else {
-        cout << "Failed to load texture" << endl;
+        // take the sprite info from the sprites map
+        info = &(sprites[spriteName]);
     }
 
-    stbi_image_free(data); // delete the data
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info->width, info->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info->data);
+    glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -275,67 +324,63 @@ void loadTexture() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void loadUniforms() {
+void Renderer::loadUniforms(mat4 modelMatrix) {
     // pass in the uniforms value
     glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
     glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
 }
 
 // called in main()
-int renderTutorialUpdate() {
+int Renderer::update() {
     // calculate the modelViewMatrix
-    camera.moveCamera(0.01, 0.0);
-
-	// create a vertex array
-    // setting up 
-	GLuint VAO;
-	glGenVertexArrays(1, &VAO);
-    // tell OpenGL to use this VAO (set it as active)
-    // need to do this before put data into the VAO
-    glBindVertexArray(VAO);
-
-    // load the data
-    loadVertexData();
-    loadVertexIndices();
-    loadTexture();
-
-    // create vertex attrib pointer
-    // tell OpenGL how to intepret the vertex data that 
-    // we pass in. In memory, it just know we give it a chunk
-    // of bytes => tell it how many bytes make a vertex
-    // it helps to see the image at "Applying Texture"
-    // here: https://learnopengl.com/Getting-started/Textures
-    // first param is the input index of the vertex shader (see the first few lines).
-    // `aPos` is located at location 0 so we want to set the pointer for this
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    // do the same thing for the color
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    // do the same thing for the texture
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
-
-    // tell opengl the size of the viewport (window)
-    // we are drawing on
-    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
-    glViewport(0, 0, 800, 800);
+    //camera.moveCamera(0.01, 0.0);
 
     // set background color (gray)
     glClearColor(128 / 255.0f, 128 / 255.0f, 128 / 255.0f, 1.0f);
+
     // recall that OpenGL works using buffers
-    // so first, set up the buffers by cleaning them out
     // this is for the foreground color.
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glUseProgram(shaderProgram);
-    loadUniforms();
+    for (int i = 0; i < sizeof(components) / sizeof(components[0]); i++) {
+        RenderComponent component = components[i];
+        mat4 modelMatrix = matrices[i];
 
-    //we bind the ebo before the draw call to indicate to OpenGL that we want to use it
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        // tell OpenGL to use this VAO (set it as active)
+        // need to do this before put data into the VAO
+        glBindVertexArray(vertexAttribs);
+
+        // load the data
+        loadVertexData();
+        loadIndicesData();
+        loadTexture(component.spriteName);
+
+        // create vertex attrib pointers
+        // has to do this after loading data into buffers
+        // tell OpenGL how to intepret the vertex data that 
+        // we pass in. In memory, it just know we give it a chunk
+        // of bytes => tell it how many bytes make a vertex
+        // it helps to see the image at "Applying Texture"
+        // here: https://learnopengl.com/Getting-started/Textures
+        // first param is the input index of the vertex shader (see the first few lines).
+        // `aPos` is located at location 0 so we want to set the pointer for this
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
+
+        // do the same thing for the color
+        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
+
+        // do the same thing for the texture
+        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+        glEnableVertexAttribArray(2);
+
+        glUseProgram(defaultShaderProgram);
+        loadUniforms(modelMatrix);
+
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    }
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
@@ -345,8 +390,7 @@ int renderTutorialUpdate() {
     return 0;
 }
 
-int renderTutorialTeardown() {
-
+int Renderer::teardown() {
     // cleanup
     glfwDestroyWindow(window);
     // call this to destroy glfw
