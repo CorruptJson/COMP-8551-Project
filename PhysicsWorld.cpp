@@ -54,15 +54,21 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 }
 
 void PhysicsWorld::Update(EntityCoordinator* coordinator) {
-    std::array<PhysicsComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<PhysicsComponent>();
-    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
-
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
         b2Body* body = world->GetBodyList();
 
+        // skip static bodies
+        while (body->GetType() != b2_dynamicBody) {
+            body = body->GetNext();
+        }
+
         for (int i = 0; i < coordinator->GetEntityCount(); i++) {
+            if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody)
+            {
+                continue;
+            }
             coordinator->GetComponentArray<Transform>()[i].setPosition(body->GetPosition().x, body->GetPosition().y);
             body = body->GetNext();
         }
