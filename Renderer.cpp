@@ -1,12 +1,11 @@
 #include "Renderer.h"
-#include <string>
 
 const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
-const GLfloat vertices[] = {
+GLfloat vertices[] = {
     // positions          // colors           // texture coords
      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
@@ -55,9 +54,11 @@ int Renderer::init() {
     // init it
     gladLoadGL();
 
+
     // init other OpenGL stuff
     Camera camera(0.0, 0.0, 0.0, 0.0);
     defaultShaderProgram = createDefaultShaderProgram();
+    loadImages();
 
     // create all the OpenGL buffers at the start so we can
     // reuse them
@@ -79,12 +80,58 @@ int Renderer::init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
+    return 0;
+}
+
+// Load all images that we need into the sprites map
+// This allows us to specify their row and column number
+// Also accomodate future sprite loading.
+void Renderer::loadImages() {
+    // read config data
+    struct ImgConfig {
+        const char* name;
+        int row;
+        int column;
+    };
+    ImgConfig configs[]{
+        {
+            "turtles.png",
+            1,
+            1
+        },
+        {
+            "wall.jpg",
+            1,
+            1
+        },
+        {
+            "game_sprites.png",
+            4,
+            4
+        }
+    };
+
+
     // function for using stbi
     // this is because OpenGL's y-axis starts from bottoms up
     // however, images have y-axis starts top down
     stbi_set_flip_vertically_on_load(true);
 
-    return 0;
+    for (ImgConfig config : configs) {
+        // read the image from the file and store it
+        SpriteInfo* info = FileManager::readImageFile(config.name);
+        if (info == NULL) {
+            std::cout << "Failed to load texture" << std::endl;
+            return;
+        }
+
+        info->row = config.row;
+        info->column = config.column;
+        sprites[config.name] = *info;
+
+        // delete the data if needed
+        //stbi_image_free(data); 
+    }
 }
 
 GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
@@ -256,27 +303,15 @@ void Renderer::loadTexture(const char *spriteName) {
 
     const auto& result = sprites.find(spriteName);
 
-    SpriteInfo *info;
     // if not found
     if (result == sprites.end()) {
-        // read the image from the file and store it
-        info = FileManager::readImageFile(spriteName);
-        if (info == NULL) {
-            std::cout << "Failed to load texture" << std::endl;
-            return;
-        }
-
-        sprites[spriteName] = *info;
-
-        // delete the data if needed
-        //stbi_image_free(data); 
+        std::cout << "Couldn't find image matching name: " << spriteName << std::endl;
+        return;
     }
-    else {
-        // take the sprite info from the sprites map
-        info = &(sprites[spriteName]);
-    }
+    // take the sprite info from the sprites map
+    SpriteInfo info = sprites[spriteName];
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info->width, info->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info->data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info.data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
@@ -290,6 +325,31 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
     // pass in the uniforms value
     glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
     glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
+}
+
+// update the tex coord vertex data so it draws 
+// specific section of a spritesheet
+void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
+    SpriteInfo info = sprites[spriteName];
+
+    // find the height and width of each cell in the spritesheet
+    const float SPRITESHEET_HEIGHT = 1;
+    const float SPRITESHEET_WIDTH = 1;
+    float cellHeight = SPRITESHEET_HEIGHT / info.row;
+    float cellWidth = SPRITESHEET_WIDTH / info.column;
+
+    // coordinates of the texture coords in the vertices array
+    vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
+    vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+
+    vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
+    vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+
+    vertices[22] = cellWidth * comp.colIndex; // bottom left x
+    vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+
+    vertices[30] = cellWidth * comp.colIndex; // top left x
+    vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
 }
 
 // called in main()
@@ -314,6 +374,9 @@ int Renderer::update(EntityCoordinator* coordinator) {
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
         glBindVertexArray(vertexAttribs);
+
+        //calculate the tex coord from the component.index
+        updateTexCoord(component, component.spriteName);
 
         // load the data
         loadVertexData();

@@ -176,6 +176,7 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="game_sprites.png" />
     <Image Include="turtles.png" />
     <Image Include="wall.jpg" />
   </ItemGroup>
