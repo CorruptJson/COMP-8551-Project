@@ -64,7 +64,7 @@ int runEngine()
 {
     // check input
     // run physics
-    physicsWorld->Update();
+    physicsWorld->Update(&coordinator);
     // run ECS
     // render
     renderer.update(&coordinator);
