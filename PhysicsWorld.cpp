@@ -53,13 +53,27 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
     
 }
 
-void PhysicsWorld::Update() {
+void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
-        b2Body* bodies = world->GetBodyList();
-        b2Body* bodyA = bodies->GetNext();
-        printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", bodyA->GetPosition().x, bodyA->GetPosition().y);
+        b2Body* body = world->GetBodyList();
+
+        // skip static bodies
+        while (body->GetType() != b2_dynamicBody) {
+            body = body->GetNext();
+        }
+
+        for (int i = 0; i < coordinator->GetEntityCount(); i++) {
+            if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody)
+            {
+                continue;
+            }
+            coordinator->GetComponentArray<Transform>()[i].setPosition(body->GetPosition().x, body->GetPosition().y);
+            body = body->GetNext();
+        }
+
+        //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
     }
 }
 

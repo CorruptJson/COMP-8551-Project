@@ -12,7 +12,7 @@ public:
     ~PhysicsWorld();
 
     void AddObjects(EntityCoordinator* coordinator);
-    void Update();
+    void Update(EntityCoordinator* coordinator);
 private:
     const float timeStep = 1.0f / 60.0f;
     const int velocityIterations = 10;
