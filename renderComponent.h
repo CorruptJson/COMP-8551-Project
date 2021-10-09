@@ -7,9 +7,10 @@ struct RenderComponent {
     // store the name of the spritesheet
     const char *spriteName;
 
-    // store the sprite information
-    // such as offsets and width/height
-    int index;
-    float offsetX;
-    float offsetY;
+    // store the sprite position within
+    // the spritesheet
+    // column increases from 0 to 1 left to right
+    // row increasese from 0 to 1 top to bottom
+    int rowIndex;
+    int colIndex;
 };

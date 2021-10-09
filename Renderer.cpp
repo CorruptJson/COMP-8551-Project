@@ -1,5 +1,4 @@
 #include "Renderer.h"
-#include <string>
 
 const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
@@ -91,8 +90,8 @@ void Renderer::loadImages() {
     // read config data
     struct ImgConfig {
         const char* name;
-        int column;
         int row;
+        int column;
     };
     ImgConfig configs[]{
         {
@@ -330,8 +329,27 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
-void Renderer::updateTexCoord(int index, const char* spriteName) {
+void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     SpriteInfo info = sprites[spriteName];
+
+    // find the height and width of each cell in the spritesheet
+    const float SPRITESHEET_HEIGHT = 1;
+    const float SPRITESHEET_WIDTH = 1;
+    float cellHeight = SPRITESHEET_HEIGHT / info.row;
+    float cellWidth = SPRITESHEET_WIDTH / info.column;
+
+    // coordinates of the texture coords in the vertices array
+    vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
+    vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+
+    vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
+    vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+
+    vertices[22] = cellWidth * comp.colIndex; // bottom left x
+    vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+
+    vertices[30] = cellWidth * comp.colIndex; // top left x
+    vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
 }
 
 // called in main()
@@ -350,21 +368,20 @@ int Renderer::update(EntityCoordinator* coordinator) {
     std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
     std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-        //vertices[6] = 0.0f;
         RenderComponent component = renderComps[i];
         mat4 modelMatrix = transforms[i].getModelMatrix();
-
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
         glBindVertexArray(vertexAttribs);
 
+        //calculate the tex coord from the component.index
+        updateTexCoord(component, component.spriteName);
+
         // load the data
         loadVertexData();
         loadIndicesData();
         loadTexture(component.spriteName);
-
-        //calculate the tex coord from the component.index
 
         // create vertex attrib pointers
         // has to do this after loading data into buffers

@@ -91,6 +91,7 @@ int main() {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "turtles.png",
+        0,
         0
     };
     coordinator.GetComponent<Transform>(turtle).translate(-0.5, 0);
@@ -99,14 +100,17 @@ int main() {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "wall.jpg",
+        0,
         0
     };
     coordinator.GetComponent<Transform>(wall).translate(0, -1);
+    coordinator.GetComponent<Transform>(wall).setScale(2, 1);
 
     coordinator.GetComponent<RenderComponent>(dude) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "game_sprites.png",
+        2,
         0
     };
     coordinator.GetComponent<Transform>(dude).translate(0.5, 0);
