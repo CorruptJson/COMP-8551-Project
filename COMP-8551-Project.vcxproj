@@ -145,6 +145,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Archetype.cpp" />
+    <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -158,6 +160,8 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Archetype.h" />
+    <ClInclude Include="ArchetypeManager.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="componentInfo.h" />

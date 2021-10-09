@@ -37,6 +37,13 @@ public:
     }
 
     template<typename T>
+    ComponentType NEW_GetComponentType()
+    {
+        static const ComponentType typeID = typeCounter++;
+        return typeID;
+    }
+
+    template<typename T>
     void AddComponent(Entity entity, T component)
     {
         GetComponentArray<T>()->InsertData(entity, component);
@@ -97,7 +104,8 @@ public:
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
-    std::unordered_map<const char*, uint> mComponentInfo;
+    std::unordered_map<ComponentType, ComponentSize> mComponentSizes;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
-    ComponentType mNextComponentType{};    
+    ComponentType mNextComponentType{};   
+    ComponentType typeCounter = 0;
 };

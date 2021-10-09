@@ -33,18 +33,28 @@ int initialize()
 
 int test(){
 
-    coordinator.identifyComponents<Transform, RenderComponent>();
+   // coordinator.identifyComponents<Transform, RenderComponent>();
 
-    coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
     const char* c1 = "sprite1";
     const char* c2 = "sprite2";
 
-    coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
-    coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
-    coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
-    coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
+
+
+    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
+    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
+    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
+    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
+
+    //coordinator.GetArchetype({
+    //    '0',
+    //    '1'
+    //    });
+
+    std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
+    std::cout << "type of renderComponent: " << unsigned(coordinator.NEW_GetComponentType<RenderComponent>()) << std::endl;
+    std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
 
     return 0;
 }

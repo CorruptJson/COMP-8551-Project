@@ -4,6 +4,7 @@
 #include <memory>
 #include "sigArch.h"
 #include "Types.h"
+#include "Archetype.h"
 
 const int ENTITIES_PER_CHUNK = 32;
 
@@ -12,6 +13,7 @@ class Chunk
 private:
     int chunkID = -1;
     Signature sig;
+    Archetype arch;
     const char* spriteSheet;
     int currEnts = 0;
     std::unordered_map<char const*, void*> componentArrays{};
@@ -19,13 +21,12 @@ private:
     int entToDat[ENTITIES_PER_CHUNK]{};
     int datToEnt[ENTITIES_PER_CHUNK]{};
 
-    Chunk(){}
-
-    Chunk(Signature sig, int chunkID, const char* spriteSheet)
+    Chunk(Signature sig, int chunkID, const char* spriteSheet, Archetype arch)
     {        
         this->sig = sig;
         this->chunkID = chunkID;
         this->spriteSheet = spriteSheet;
+        this->arch = arch;
     }
 
     template<typename T>
@@ -46,14 +47,15 @@ private:
 
 public:
 
-    template<typename T, typename ... args>
-    static friend Chunk* createChunk(int chunkID, Signature sig, const char* spriteSheet)
-    {
-        Chunk* chunk = new Chunk(chunkID, sig,spriteSheet);
-        chunk->addComponentArray<T, args...>();
+    //template<typename T, typename ... args>
+    //static friend Chunk* createChunk(int chunkID, Signature sig, const char* spriteSheet)
+    //{
+    //    Chunk* chunk = new Chunk(chunkID, sig,spriteSheet);
+    //    chunk->addComponentArray<T, args...>();
 
-        return chunk;
-    }
+    //    return chunk;
+    //}
+    Chunk() = delete;
 
     const char* SpriteSheet()
     {
