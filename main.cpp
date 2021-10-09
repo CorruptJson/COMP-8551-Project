@@ -14,8 +14,9 @@ ChunkManager* chunkManager;
 Renderer renderer;
 
 // test entities
-Entity entity1;
-Entity entity2;
+Entity turtle;
+Entity wall;
+Entity dude;
 
 // gets called once when engine starts
 // put initilization code here
@@ -82,32 +83,40 @@ int main() {
 
     //entity test
 
-    entity1 = CreateStandardEntity();
-    entity2 = CreateStandardEntity();
+    turtle = CreateStandardEntity();
+    wall = CreateStandardEntity();
+    dude = CreateStandardEntity();
 
-    coordinator.GetComponent<RenderComponent>(entity1) = {
+    coordinator.GetComponent<RenderComponent>(turtle) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "turtles.png",
         0,
-        0,
-        1,
-        1
+        0
     };
+    coordinator.GetComponent<Transform>(turtle).translate(-0.5, 0);
 
-    coordinator.GetComponent<RenderComponent>(entity2) = {
+    coordinator.GetComponent<RenderComponent>(wall) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "wall.jpg",
         0,
-        0,
-        1,
-        1
+        0
     };
-    coordinator.GetComponent<Transform>(entity2).translate(0, -1);
+    coordinator.GetComponent<Transform>(wall).translate(0, -1);
+    coordinator.GetComponent<Transform>(wall).setScale(2, 1);
 
-    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity1).getPosition().y << std::endl;
-    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).getPosition().x << " y: " << coordinator.GetComponent<Transform>(entity2).getPosition().y << std::endl;
+    coordinator.GetComponent<RenderComponent>(dude) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "game_sprites.png",
+        2,
+        0
+    };
+    coordinator.GetComponent<Transform>(dude).translate(0.5, 0);
+
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
 
     
     std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;

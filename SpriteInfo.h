@@ -4,6 +4,8 @@
 struct SpriteInfo {
     int height;
     int width;
+    int row;
+    int column;
     int colorChannelsAmount;
     stbi_uc *data;
 };
