@@ -6,54 +6,51 @@
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
 #include "Transform.h"
+#include "RenderComponent.h"
 #include "Types.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
+ChunkManager* chunkManager;
 
 Renderer renderer;
 
 // test entities
-Entity entity1;
-Entity entity2;
+Entity turtle;
+Entity wall;
+Entity dude;
 
 // gets called once when engine starts
 // put initilization code here
 int initialize()
-{
+{  
+
     // when the engine starts
     renderer.init();
     coordinator.Init();
-    Signature signature;
 
+    chunkManager = new ChunkManager();
+
+    Signature signature;
 
     coordinator.RegisterComponent<Transform>();
     signature.set(coordinator.GetComponentType<Transform>());
 
-    entity1 = coordinator.CreateEntity();
-
-    //coordinator.AddComponent(entity1, renderComp1);
-
-    //chunkManager = new ProtoChunkManager();
+    coordinator.RegisterComponent<RenderComponent>();
+    signature.set(coordinator.GetComponentType<RenderComponent>());
 
     return 0;
 }
-
-
-
-
 
 // Use for now to make entities with components
 Entity CreateStandardEntity() {
     Entity e = coordinator.CreateEntity();
 
-    coordinator.AddComponent<Transform>(e, Transform{});
+    coordinator.AddComponent<Transform>(e, Transform());
+    coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
 
     return e;
-
 }
-
-
 
 
 // the main update function
@@ -64,7 +61,7 @@ int runEngine()
     // run physics
     // run ECS
     // render
-    renderer.update();
+    renderer.update(&coordinator);
 
     return 0;
 }
@@ -77,7 +74,7 @@ int teardown()
     // when the engine closes
     renderer.teardown();
 
-    //delete chunkManager;
+    delete chunkManager;
 
     return 0;
 }
@@ -91,17 +88,43 @@ int main() {
 
     //entity test
 
-    entity1 = CreateStandardEntity();
-    entity2 = CreateStandardEntity();
+    turtle = CreateStandardEntity();
+    wall = CreateStandardEntity();
+    dude = CreateStandardEntity();
 
-    coordinator.GetComponent<Transform>(entity1).Position = { 1, 6 };
-    coordinator.GetComponent<Transform>(entity2).Position = { 3, 3 };
+    coordinator.GetComponent<RenderComponent>(turtle) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "turtles.png",
+        0,
+        0
+    };
+    coordinator.GetComponent<Transform>(turtle).translate(-0.5, 0);
 
-    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(entity1).Position.x << " y: " << coordinator.GetComponent<Transform>(entity1).Position.y << std::endl;
-    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(entity2).Position.x << " y: " << coordinator.GetComponent<Transform>(entity2).Position.y << std::endl;
+    coordinator.GetComponent<RenderComponent>(wall) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "wall.jpg",
+        0,
+        0
+    };
+    coordinator.GetComponent<Transform>(wall).translate(0, -1);
+    coordinator.GetComponent<Transform>(wall).setScale(2, 1);
+
+    coordinator.GetComponent<RenderComponent>(dude) = {
+        "defaultVertShader.vs",
+        "defaultFragShader.fs",
+        "game_sprites.png",
+        2,
+        0
+    };
+    coordinator.GetComponent<Transform>(dude).translate(0.5, 0);
+
+    std::cout << "entity1 x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
+    std::cout << "entity2 x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
 
     
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].Position.x << std::endl;
+    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
     while (!glfwWindowShouldClose(window))

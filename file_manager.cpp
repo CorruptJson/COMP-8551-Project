@@ -13,28 +13,26 @@ SpriteInfo* FileManager::readImageFile(const char* fileName) {
     return &sprite;
 }
 
-const char* FileManager::readTextFile(const char* fileName) {
-    std::fstream file;
-    file.open(fileName, std::ios::in);
+std::string FileManager::readTextFile(const char* fileName) {
+    std::ifstream file;
+    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    try {
+        file.open(fileName);
+        std::stringstream strStream;
 
-    if (file) {
-        // get file length
-        file.seekg(0, file.end);
-        int length = file.tellg();
-        file.seekg(0, file.beg); 
-
-        char* buffer = new char [length];
-        file.read(buffer, length);
+        // read the file into the stream
+        strStream << file.rdbuf();
         file.close();
 
-        return buffer;
+        // convert the stream into a string
+        return strStream.str();
     }
-    else {
+    catch (std::ifstream::failure e) {
         std::string fileNameStr(fileName);
         throw std::invalid_argument("Couldn't read file: " + fileNameStr);
     }
 }
 
-const char* FileManager::readShaderFile(const char* fileName) {
+std::string FileManager::readShaderFile(const char* fileName) {
     return readTextFile(fileName);
 }

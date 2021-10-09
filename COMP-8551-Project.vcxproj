@@ -156,29 +156,33 @@
     <ClCompile Include="protoChunkManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
+    <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="componentInfo.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="file_manager.h" />
-    <ClInclude Include="renderComponent.h" />
+    <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="chunkManagerStandard.h" />
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="game_sprites.png" />
     <Image Include="turtles.png" />
     <Image Include="wall.jpg" />
   </ItemGroup>

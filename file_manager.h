@@ -1,12 +1,13 @@
 #pragma once
 #include <fstream>
-#include "SpriteInfo.h"
 #include <iostream>
 #include <string>
+#include <sstream>
+#include "SpriteInfo.h"
 
 namespace FileManager
 {
     SpriteInfo* readImageFile(const char* fileName);
-    const char* readTextFile(const char* fileName);
-    const char* readShaderFile(const char* fileName);
+    std::string readTextFile(const char* fileName);
+    std::string readShaderFile(const char* fileName);
 }

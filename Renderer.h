@@ -6,7 +6,8 @@
 #include "Camera.h"
 #include "SpriteInfo.h"
 #include "EntityCoordinator.h"
-#include "renderComponent.h"
+#include "RenderComponent.h"
+#include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -19,9 +20,10 @@ class Renderer
 {
 public:
     static const char *DEFAULT_VERT_SHADER_NAME;
+    static const char *DEFAULT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init();
-    int update();
+    int update(EntityCoordinator* coordinator);
     int teardown();
 private:
     // the vertex array object (VAO)
@@ -56,5 +58,7 @@ private:
     void loadIndicesData();
     void loadTexture(const char *spriteName);
     void loadUniforms(mat4 modelMatrix);
+    void loadImages();
+    void updateTexCoord(RenderComponent comp, const char* spriteName);
 };
 

@@ -1,15 +1,37 @@
 #pragma once
 
-#include "EntityID.h"
-#include "SigArch.h"
-#include "tempPosition.h"
+#include <iostream>
+#include <exception>
+#include <unordered_map>
+#include <vector>
+#include "Types.h"
+#include "chunk.h"
 
-// abstract class interface
 class ChunkManager
 {
+private:
+    std::unordered_map<Signature, std::vector<Chunk>> chunksPerSig;
+
 public:
-    virtual EntityID allocateNewEntity(SigArch sa) = 0;
-    virtual void deallocateEntity(EntityID id) = 0;
-    virtual TempPosition getEntityPosition(EntityID id) = 0;
-    virtual void setEntityPosition(EntityID id, TempPosition pos) = 0;
+
+    ChunkManager()
+    {
+
+    }
+
+    ChunkAddress assignNewEntity(Signature sig)
+    {
+        auto find = chunksPerSig.find(sig);
+        //Chunk* c;
+        if (find == chunksPerSig.end())
+        {
+            // make new chunk
+        }
+    };
+
+    void releaseEntity(ChunkAddress id)
+    {
+        throw std::exception("function not implemented");
+    };
+
 };

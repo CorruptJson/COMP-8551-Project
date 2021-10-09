@@ -46,6 +46,9 @@
     <Filter Include="Header Files\Util">
       <UniqueIdentifier>{d9f9a96f-b3f4-44f6-9fb0-473f0b3b6a50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Components">
+      <UniqueIdentifier>{57a685da-d156-4a14-be44-7f15b76eb63c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -69,10 +72,16 @@
     <ClCompile Include="file_manager.cpp">
       <Filter>Source Files\Util</Filter>
     </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
     <None Include="DefaultVertShader.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="DefaultFragShader.fs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -87,9 +96,6 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="chunk.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="chunkManagerStandard.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
@@ -110,14 +116,14 @@
     <ClInclude Include="EntityCoordinator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="renderComponent.h">
+    <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="componentInfo.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SpriteInfo.h">
       <Filter>Header Files\Rendering</Filter>
@@ -125,12 +131,18 @@
     <ClInclude Include="file_manager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="turtles.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="wall.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="game_sprites.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

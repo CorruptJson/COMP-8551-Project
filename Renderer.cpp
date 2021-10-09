@@ -1,41 +1,11 @@
 #include "Renderer.h"
-#include <string>
 
 const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
-// shader code => tutorial provide
-// inline code. In reality, we should parse them
-// from a file
-// 
-// Vertex Shader source code
-const char* vertexShaderSource = "#version 330 core\n"
-"layout(location = 0) in vec3 aPos;\n"
-"layout(location = 1) in vec3 aColor;\n"
-"layout(location = 2) in vec2 aTexCoord;\n"
-"out vec3 ourColor;\n"
-"out vec2 TexCoord;\n"
-"uniform mat4 modelMatrix;\n"
-"uniform mat4 viewMatrix;\n"
-"void main()\n"
-"{\n"
-"   ourColor = aColor;\n"
-"   TexCoord = aTexCoord;\n"
-"// Set gl_Position with transformed vertex position\n"
-"   gl_Position = viewMatrix * modelMatrix * vec4(aPos, 1);\n"
-"}\0";
+const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"in vec3 ourColor;\n"
-"in vec2 TexCoord;\n"
-"uniform sampler2D ourTexture;\n"
-"void main()\n"
-"{\n"
-"   FragColor = texture(ourTexture, TexCoord);\n"
-"}\n\0";
-
 // Vertices data: coordinates, colors and texture coords
-const GLfloat vertices[] = {
+GLfloat vertices[] = {
     // positions          // colors           // texture coords
      0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
      0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
@@ -49,13 +19,6 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-// the objects matrix
-mat4 modelMatrix1 = mat4(1.0);
-mat4 modelMatrix2 = translate(mat4(1.0), vec3(0, -1, 0));
-mat4 matrices[]{
-    modelMatrix1,
-    modelMatrix2
-};
 
 // the shaders uniforms we are using
 // uniforms are extra data that we pass in
@@ -70,28 +33,6 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
-RenderComponent renderComp1{
-    "defaultVertexShader.vsf",
-    "defaultFragmentShader.fsf",
-    "turtles.png",
-    0,
-    0,
-    1,
-    1
-};
-RenderComponent renderComp2{
-    "defaultVertexShader.vsf",
-    "defaultFragmentShader.fsf",
-    "wall.jpg",
-    0,
-    0,
-    1,
-    1
-};
-RenderComponent components[] {
-    renderComp1,
-    renderComp2
-};
 
 // a pointer to the context
 GLFWwindow* window;
@@ -113,9 +54,11 @@ int Renderer::init() {
     // init it
     gladLoadGL();
 
+
     // init other OpenGL stuff
     Camera camera(0.0, 0.0, 0.0, 0.0);
     defaultShaderProgram = createDefaultShaderProgram();
+    loadImages();
 
     // create all the OpenGL buffers at the start so we can
     // reuse them
@@ -137,12 +80,58 @@ int Renderer::init() {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
+    return 0;
+}
+
+// Load all images that we need into the sprites map
+// This allows us to specify their row and column number
+// Also accomodate future sprite loading.
+void Renderer::loadImages() {
+    // read config data
+    struct ImgConfig {
+        const char* name;
+        int row;
+        int column;
+    };
+    ImgConfig configs[]{
+        {
+            "turtles.png",
+            1,
+            1
+        },
+        {
+            "wall.jpg",
+            1,
+            1
+        },
+        {
+            "game_sprites.png",
+            4,
+            4
+        }
+    };
+
+
     // function for using stbi
     // this is because OpenGL's y-axis starts from bottoms up
     // however, images have y-axis starts top down
     stbi_set_flip_vertically_on_load(true);
 
-    return 0;
+    for (ImgConfig config : configs) {
+        // read the image from the file and store it
+        SpriteInfo* info = FileManager::readImageFile(config.name);
+        if (info == NULL) {
+            std::cout << "Failed to load texture" << std::endl;
+            return;
+        }
+
+        info->row = config.row;
+        info->column = config.column;
+        sprites[config.name] = *info;
+
+        // delete the data if needed
+        //stbi_image_free(data); 
+    }
 }
 
 GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
@@ -197,24 +186,45 @@ GLuint Renderer::createDefaultShaderProgram() {
 
 	// init an empty shader and store the ref OpenGL returns
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    //const char *vertexShaderSource2 = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
+    std::string vertShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_VERT_SHADER_NAME);
+    const char* vertCStr = vertShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader (the one we create above), 1 is the number of strings
 	// we are storing the shader in, &vertexShaderSource is a pointer
-	// to the shader code string, and NULL is unimportant
-	glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+	// to the shader code string, and NULL is the length that we will
+    // read from the vertCStr => NULL means we keep reading until we see
+    // a NUL EOF char.
+	glShaderSource(vertexShader, 1, &vertCStr, NULL);
 	glCompileShader(vertexShader);
+
+    // check for success
+    int success;
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
 
 	// do the same thing for the fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    std::string fragShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_FRAG_SHADER_NAME);
+    const char* fragCStr = fragShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
 	// to the shader, 1 is the number of strings
 	// we are storing the shader in, &fragmentShaderSource is a pointer
 	// to the shader code string, and NULL is unimportant
-	glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+	glShaderSource(fragmentShader, 1, &fragCStr, NULL);
 	glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
 
 	// now that we have the shaders, we have to create and 
 	// a "shader program" and attach them so it can work
@@ -236,7 +246,6 @@ GLuint Renderer::createDefaultShaderProgram() {
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
 
-    //delete vertexShaderSource;
 	return shaderProgram;
 }
 
@@ -294,27 +303,15 @@ void Renderer::loadTexture(const char *spriteName) {
 
     const auto& result = sprites.find(spriteName);
 
-    SpriteInfo *info;
     // if not found
     if (result == sprites.end()) {
-        // read the image from the file and store it
-        info = FileManager::readImageFile(spriteName);
-        if (info == NULL) {
-            std::cout << "Failed to load texture" << std::endl;
-            return;
-        }
-
-        sprites[spriteName] = *info;
-
-        // delete the data if needed
-        //stbi_image_free(data); 
+        std::cout << "Couldn't find image matching name: " << spriteName << std::endl;
+        return;
     }
-    else {
-        // take the sprite info from the sprites map
-        info = &(sprites[spriteName]);
-    }
+    // take the sprite info from the sprites map
+    SpriteInfo info = sprites[spriteName];
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info->width, info->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info->data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info.data);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
@@ -330,8 +327,33 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
     glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
 }
 
+// update the tex coord vertex data so it draws 
+// specific section of a spritesheet
+void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
+    SpriteInfo info = sprites[spriteName];
+
+    // find the height and width of each cell in the spritesheet
+    const float SPRITESHEET_HEIGHT = 1;
+    const float SPRITESHEET_WIDTH = 1;
+    float cellHeight = SPRITESHEET_HEIGHT / info.row;
+    float cellWidth = SPRITESHEET_WIDTH / info.column;
+
+    // coordinates of the texture coords in the vertices array
+    vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
+    vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+
+    vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
+    vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+
+    vertices[22] = cellWidth * comp.colIndex; // bottom left x
+    vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+
+    vertices[30] = cellWidth * comp.colIndex; // top left x
+    vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+}
+
 // called in main()
-int Renderer::update() {
+int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
@@ -343,13 +365,18 @@ int Renderer::update() {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    for (int i = 0; i < sizeof(components) / sizeof(components[0]); i++) {
-        RenderComponent component = components[i];
-        mat4 modelMatrix = matrices[i];
+    std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
+    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
+    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
+        RenderComponent component = renderComps[i];
+        mat4 modelMatrix = transforms[i].getModelMatrix();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
         glBindVertexArray(vertexAttribs);
+
+        //calculate the tex coord from the component.index
+        updateTexCoord(component, component.spriteName);
 
         // load the data
         loadVertexData();
