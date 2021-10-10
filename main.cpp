@@ -37,24 +37,21 @@ int test(){
 
     coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
-    const char* c1 = "sprite1";
-    const char* c2 = "sprite2";
 
+    Archetype arch = coordinator.GetArchetype({
+        coordinator.NEW_GetComponentType<Transform>(),
+        coordinator.NEW_GetComponentType<RenderComponent>()
+        });
 
-
-    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
-    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c1);
-    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
-    //coordinator.CreateEntityChunked<Transform, RenderComponent>(c2);
-
-    //coordinator.GetArchetype({
-    //    '0',
-    //    '1'
-    //    });
+    Spritesheet c1 = "sprite1";
+    Spritesheet c2 = "sprite2";
 
     std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
     std::cout << "type of renderComponent: " << unsigned(coordinator.NEW_GetComponentType<RenderComponent>()) << std::endl;
     std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
+
+    ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
+    std::cout << ca << std::endl;
 
     return 0;
 }

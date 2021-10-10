@@ -13,6 +13,6 @@ private:
 public:
     Archetype();
     Archetype(ArchetypeType type, std::vector<ComponentType> components);
-    ArchetypeType getType();
-    std::vector<ComponentType> getComponentTypes();
+    ArchetypeType getType() const;
+    const std::vector<ComponentType> getComponentTypes() const;
 };

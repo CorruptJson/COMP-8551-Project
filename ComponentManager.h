@@ -11,7 +11,10 @@
 
 class ComponentManager
 {
+    friend class EntityCoordinator;
+
 public:
+
     template<typename T>
     void RegisterComponent()
     {
@@ -103,6 +106,8 @@ public:
 
         return std::static_pointer_cast<ComponentArray<T>>(mComponentArrays[typeName]);
     }
+
+
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};

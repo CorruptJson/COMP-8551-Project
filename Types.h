@@ -1,6 +1,8 @@
 #pragma once
 #include <bitset>
 #include <unordered_map>
+#include <string>
+#include <iostream>
 
 // ECS
 using Entity = std::uint32_t;
@@ -31,5 +33,11 @@ struct ChunkAddress
     int index;
     int version;
 };
+
+inline std::ostream& operator<<(std::ostream& str, ChunkAddress const& ca)
+{
+    str << "chunk: " << ca.chunkID << ", index: " << ca.index << ", ver: " << ca.version;
+    return str;
+}
 
 

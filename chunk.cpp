@@ -1,3 +1,4 @@
+#include <iostream>
 #include "chunk.h"
 
 
@@ -14,6 +15,10 @@ Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, Componen
     this->chunkID = chunkID;
     this->spritesheet = spriteSheet;
     addComponentArrays(archetype, sizemap);
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        entToDat[i] = -1;
+    }
 }
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
@@ -57,28 +62,36 @@ int Chunk::getCurrEnts()
 ChunkAddress Chunk::assignNewEntity()
 {
     ChunkAddress id;
-    if (currEnts == ENTITIES_PER_CHUNK)
+    if (currEnts != ENTITIES_PER_CHUNK)
     {
-        id.chunkID = -1;
-        id.index = -1;
-        id.version = -1;
-        return id;
-    }
-
-    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
-    {
-        if (entToDat[i] == -1)
+        for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
         {
-            id.chunkID = chunkID;
-            id.index = i;
-            id.version = versions[i];
-            entToDat[i] = currEnts;
+            if (entToDat[i] == -1)
+            {
+                id.chunkID = chunkID;
+                id.index = i;
+                id.version = versions[i];
+                entToDat[i] = currEnts;
+
+                currEnts++;
+
+                return id;
+            }
         }
     }
+    else
+    {
+        std::cout << "chunk is full, ";
+    }
 
-    currEnts++;
+    id.chunkID = -1;
+    id.index = -1;
+    id.version = -1;
+
+    std::cout << "could not assign entity to chunk";
 
     return id;
+
 }
 
 void Chunk::releaseEntity(ChunkAddress id)

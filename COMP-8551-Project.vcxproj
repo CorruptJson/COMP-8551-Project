@@ -147,6 +147,8 @@
   <ItemGroup>
     <ClCompile Include="Archetype.cpp" />
     <ClCompile Include="ArchetypeManager.cpp" />
+    <ClCompile Include="chunk.cpp" />
+    <ClCompile Include="chunkManager.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />

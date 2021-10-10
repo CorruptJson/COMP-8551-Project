@@ -65,9 +65,9 @@ public:
         return mComponentManager->NEW_GetComponentType<T>();
     }
 
-    ChunkAddress NEW_CreateEntity(Archetype t, Spritesheet s)
+    ChunkAddress NEW_CreateEntity(Archetype arch, Spritesheet sprite)
     {
-
+        return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
 
 
