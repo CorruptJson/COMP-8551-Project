@@ -7,6 +7,8 @@
 #include <memory>
 #include <unordered_map>
 
+
+
 class ComponentManager
 {
 public:
@@ -104,7 +106,7 @@ public:
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
-    std::unordered_map<ComponentType, ComponentSize> mComponentSizes;
+    ComponentSizeMap mComponentSizes;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
     ComponentType mNextComponentType{};   
     ComponentType typeCounter = 0;

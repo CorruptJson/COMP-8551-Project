@@ -11,10 +11,16 @@ class ChunkManager
 {
 private:
     
+    std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
+    std::unordered_map<Spritesheet, Chunk*> chunksBySpritesheet;
+
     std::unordered_map<Signature, Chunk*> chunksPerSig;
     std::unordered_map<const char*, Chunk*> chunksPerSpritesheet;
     std::vector<Chunk*> allChunks;
     int currChunks = 0;
+
+
+    Chunk* createChunk(int chunkID, Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
 
     //template<typename T, typename... Args>
     //Chunk* createAndInitChunk(Signature sig,const char* spriteSheet)
@@ -30,9 +36,33 @@ private:
 
 public:
 
-    ChunkAddress assignNewEntity(Archetype a, SpriteSheet s)
+    ChunkAddress assignNewEntity(Archetype arch, Spritesheet sprite)
     {
+        // are there any chunks with this archetype and this sprite sheet
+        auto find = chunksByArch.find(arch.getType());
+        if (find != chunksByArch.end())
+        {
+            // yes
+            // now are there any such chunks with room for a new entity?
+            size_t bucketIndex = chunksByArch.bucket(arch.getType());
+            auto begin = chunksByArch.begin(bucketIndex);
+            auto end = chunksByArch.end(bucketIndex);
 
+            for (auto iterator = begin;iterator != end;iterator++)
+            {
+                Chunk* chunk = iterator->second;
+                if (chunk->GetSpritesheet() == sprite && chunk->getCurrEnts() < ENTITIES_PER_CHUNK)
+                {
+                    // yes, we found a valid chunk
+                    //chunk->assignNewEntity
+                    ChunkAddress ca;
+                    return ca;
+                }
+            }
+        }
+
+        // there are no non-empty chunks that match this archetype and sprite
+        // create chunk
     }
 
     //template<typename T, typename... Args>

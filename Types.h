@@ -1,15 +1,22 @@
 #pragma once
 #include <bitset>
+#include <unordered_map>
 
 // ECS
 using Entity = std::uint32_t;
 const Entity MAX_ENTITIES = 5000;
 using ComponentType = std::uint8_t;
-using ArchetypeType = std::uint16_t;
 using ComponentSize = std::uint8_t;
 const ComponentType MAX_COMPONENTS = 32;
+
+using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
+
+using ArchetypeType = std::uint16_t;
+
 using Signature = std::bitset<MAX_COMPONENTS>;
-using SpriteSheet = const char*;
+using Spritesheet = const char*;
+
+using Byte = unsigned char;
 
 //struct ComponentInfoStruct
 //{
