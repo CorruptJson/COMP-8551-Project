@@ -1,11 +1,11 @@
 #include "coordinator.h"
 
 void Coordinator::initializeCoordinator() {
-    systemManager.initializeSystemManager();
+    //systemManager.initializeSystemManager(this);
 }
 
 void Coordinator::runSystemUpdates(){
-    systemManager.preUpdate();
-    systemManager.update();
-    systemManager.postUpdate();
+    //systemManager.preUpdate();
+    //systemManager.update();
+    //systemManager.postUpdate();
 }

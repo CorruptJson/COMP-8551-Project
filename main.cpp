@@ -1,6 +1,5 @@
 #include <iostream>
 //#include "RenderTutorial.h"
-#include "coordinator.h"
 #include <vector>
 #include "Renderer.h"
 //#include "protoChunkManager.h"
@@ -82,15 +81,13 @@ int teardown()
 int main() {
     initialize();
 
-
-    Coordinator systemCoordinator;
-    systemCoordinator.initializeCoordinator();
-
     //entity test
 
     turtle = CreateStandardEntity();
     wall = CreateStandardEntity();
     dude = CreateStandardEntity();
+
+    coordinator.testEntity = CreateStandardEntity();
 
     coordinator.GetComponent<RenderComponent>(turtle) = {
         "defaultVertShader.vs",
@@ -133,7 +130,7 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
-        systemCoordinator.runSystemUpdates();
+        coordinator.runSystemUpdates();
     }    
 
     teardown();
