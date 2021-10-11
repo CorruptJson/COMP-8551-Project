@@ -47,6 +47,8 @@ private:
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
 
+
+    glm::mat4 projectionMatrix;
     Camera camera;
 
     // store the sprites that have been read
