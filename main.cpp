@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <string>
 #include "Renderer.h"
 //#include "protoChunkManager.h"
 #include "EntityCoordinator.h"
@@ -21,12 +22,9 @@ Entity dude;
 // put initilization code here
 int initialize()
 {  
-
     // when the engine starts
     renderer.init();
     coordinator.Init();
-
-
 
     return 0;
 }
@@ -49,6 +47,9 @@ int test(){
     std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
     std::cout << "type of renderComponent: " << unsigned(coordinator.NEW_GetComponentType<RenderComponent>()) << std::endl;
     std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
+
+    std::cout << "print arch test: " << std::endl;
+    std::cout << arch << std::endl;
 
     ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
     std::cout << ca << std::endl;

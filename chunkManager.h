@@ -25,7 +25,7 @@ public:
 
     ChunkAddress assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
 
-    void releaseEntity(ChunkAddress id);
+    void releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap);
 
     ~ChunkManager();
 };

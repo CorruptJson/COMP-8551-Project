@@ -23,7 +23,7 @@ Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, Componen
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
 {
-    std::vector<ComponentType> archComponents = t.getComponentTypes();
+    std::vector<ComponentType> archComponents = t.getComponentTypesArrayCopy();
     for (int i = 0; i < archComponents.size(); i++)
     {
         ComponentType ct = archComponents[i];
@@ -72,6 +72,7 @@ ChunkAddress Chunk::assignNewEntity()
                 id.index = i;
                 id.version = versions[i];
                 entToDat[i] = currEnts;
+                datToEnt[currEnts] = i;
 
                 currEnts++;
 
@@ -94,18 +95,24 @@ ChunkAddress Chunk::assignNewEntity()
 
 }
 
-void Chunk::releaseEntity(ChunkAddress id)
+void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
 {
-    int dataIndex = entToDat[id.index];
+    int releasedEntDataIndex = entToDat[id.index];
     int lastIndex = currEnts - 1;
-    if (dataIndex != lastIndex)
+    if (releasedEntDataIndex != lastIndex)
     {
         // move component data with index == lastIndex into dataIndex
+        // must swap data!
+        for (int i = 0; i < componentArrays.size(); i++)
+        {
+            //ComponentType type = arch.
+            //ComponentSize size = sizeMap[]
+        }
 
-        // then
+        // then swap indexes
         int entWithLastData = datToEnt[lastIndex];
-        datToEnt[dataIndex] = entWithLastData;
-        entToDat[entWithLastData] = dataIndex;
+        datToEnt[releasedEntDataIndex] = entWithLastData;
+        entToDat[entWithLastData] = releasedEntDataIndex;
     }
 
     entToDat[id.index] = -1;

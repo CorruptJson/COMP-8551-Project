@@ -47,7 +47,7 @@ public:
 
     ChunkAddress assignNewEntity();
 
-    void releaseEntity(ChunkAddress id);
+    void releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap);
 
     template<typename T>
     T& getComponentReference(ChunkAddress id);
