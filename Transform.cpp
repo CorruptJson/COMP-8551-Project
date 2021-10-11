@@ -50,7 +50,7 @@ void Transform::update() {
         //body->SetTransform(b2Vec2(position.x, position.y), 0);
         //setPosition(position.x, position.y);
 
-        printf("In transform X-Pos: %0.2f Y-Pos %0.2f\n", position.x, position.y);
+        //printf("In transform X-Pos: %0.2f Y-Pos %0.2f\n", position.x, position.y);
 
     }
 }

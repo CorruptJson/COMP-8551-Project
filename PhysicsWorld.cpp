@@ -63,17 +63,18 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         while (body->GetType() != b2_dynamicBody) {
             body = body->GetNext();
         }
-
-        for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-            if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody)
+        //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
+        for (int i = coordinator->GetEntityCount()-1; i >= 0; i--) {
+            if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody || body->GetType() != b2_dynamicBody)
             {
+                body = body->GetNext();
                 continue;
             }
             coordinator->GetComponentArray<Transform>()[i].setPosition(body->GetPosition().x, body->GetPosition().y);
+            //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
             body = body->GetNext();
         }
 
-        //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
     }
 }
 

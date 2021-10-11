@@ -100,7 +100,7 @@ int main() {
     dude = CreateStandardEntity();
 
     // turtle
-    //coordinator.GetComponent<Transform>(turtle).setPosition(0, 1.2);
+    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
     coordinator.GetComponent<Transform>(turtle).setScale(0.4, 0.4);
 
     coordinator.GetComponent<RenderComponent>(turtle) = {
@@ -112,10 +112,8 @@ int main() {
     };
     coordinator.GetComponent<PhysicsComponent>(turtle) = {
         b2_dynamicBody,
-        //coordinator.GetComponent<RenderComponent>(turtle).rowIndex / 2,
-        //coordinator.GetComponent<RenderComponent>(turtle).colIndex / 2,
-        0.5f,
-        0.5f,
+        0.5f * coordinator.GetComponent<Transform>(turtle).getScale().y,
+        0.5f * coordinator.GetComponent<Transform>(turtle).getScale().x,
         coordinator.GetComponent<Transform>(turtle).getPosition().x,
         coordinator.GetComponent<Transform>(turtle).getPosition().y,
         1.0f,
@@ -124,8 +122,6 @@ int main() {
 
 
     // ground
-    /*coordinator.GetComponent<Transform>(wall).setPosition(0, 1);*/
-    //coordinator.GetComponent<Transform>(wall).translate(-0.5, 0);
     coordinator.GetComponent<RenderComponent>(wall) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
@@ -136,17 +132,15 @@ int main() {
     coordinator.GetComponent<Transform>(wall).translate(0, -1);
     coordinator.GetComponent<Transform>(wall).setScale(2, 1);
  
-    //coordinator.GetComponent<PhysicsComponent>(wall) = {
-    //    b2_staticBody,
-    //    //coordinator.GetComponent<RenderComponent>(wall).rowIndex / 2,
-    //    //coordinator.GetComponent<RenderComponent>(wall).colIndex / 2,
-    //    1,
-    //    1,
-    //    coordinator.GetComponent<Transform>(wall).getPosition().x,
-    //    coordinator.GetComponent<Transform>(wall).getPosition().y,
-    //    1.0f,
-    //    0.0f
-    //};
+    coordinator.GetComponent<PhysicsComponent>(wall) = {
+        b2_staticBody,
+        0.5f * coordinator.GetComponent<Transform>(wall).getScale().y,
+        0.5f * coordinator.GetComponent<Transform>(wall).getScale().x,
+        coordinator.GetComponent<Transform>(wall).getPosition().x,
+        coordinator.GetComponent<Transform>(wall).getPosition().y,
+        1.0f,
+        0.0f
+    };
 
     coordinator.GetComponent<RenderComponent>(dude) = {
         "defaultVertShader.vs",
@@ -155,21 +149,20 @@ int main() {
         2,
         0
     };
-    //coordinator.GetComponent<PhysicsComponent>(dude) = {
-    //   b2_dynamicBody,
-    //    /*coordinator.GetComponent<RenderComponent>(wall).rowIndex / 2,
-    //   coordinator.GetComponent<RenderComponent>(dude).colIndex / 2,*/
-    //   1,
-    //   1,
-    //   coordinator.GetComponent<Transform>(dude).getPosition().x,
-    //   coordinator.GetComponent<Transform>(dude).getPosition().y,
-    //   1.0f,
-    //   0.0f
-    //};
+    coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
+    coordinator.GetComponent<PhysicsComponent>(dude) = {
+       b2_dynamicBody,
+       0.5f * coordinator.GetComponent<Transform>(dude).getScale().y,
+       0.5f * coordinator.GetComponent<Transform>(dude).getScale().x,
+       coordinator.GetComponent<Transform>(dude).getPosition().x,
+       coordinator.GetComponent<Transform>(dude).getPosition().y,
+       1.0f,
+       0.0f
+    };
     physicsWorld->AddObjects(&coordinator);
 
 
-    coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
+    
     std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
     std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
     std::cout << "Dude x: " << coordinator.GetComponent<Transform>(dude).getPosition().x << " y: " << coordinator.GetComponent<Transform>(dude).getPosition().y << std::endl;
