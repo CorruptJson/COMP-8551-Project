@@ -27,6 +27,7 @@ GLuint indices[] = {
 enum UNIFORMS {
     MODEL_MATRIX_LOCATION,
     VIEW_MATRIX_LOCATION,
+    PROJECTION_MATRIX_LOCATION,
     NUM_OF_UNIFORMS
 };
 
@@ -56,6 +57,17 @@ int Renderer::init() {
 
 
     // init other OpenGL stuff
+    float projectionWidth = 10;
+    float projectionHeight = 10;
+    float CENTER_X_COORD = 0;
+    float CENTER_Y_COORD = 0;
+    float LEFT_X_COORD = CENTER_X_COORD - projectionWidth / 2;
+    float RIGHT_X_COORD = CENTER_X_COORD + projectionWidth / 2;
+    float BOTTOM_Y_COORD = CENTER_Y_COORD - projectionHeight / 2;
+    float TOP_Y_COORD = CENTER_Y_COORD + projectionHeight / 2;
+    float EYE_NEAR = 0.f;
+    float EYE_FAR = -1.f;
+    projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
     Camera camera(0.0, 0.0, 0.0, 0.0);
     defaultShaderProgram = createDefaultShaderProgram();
     loadImages();
@@ -245,6 +257,7 @@ GLuint Renderer::createDefaultShaderProgram() {
     // we get their locations here
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
 
 	return shaderProgram;
 }
@@ -323,8 +336,9 @@ void Renderer::loadTexture(const char *spriteName) {
 
 void Renderer::loadUniforms(mat4 modelMatrix) {
     // pass in the uniforms value
-    glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
-    glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(uniformsLocation[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(uniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
 }
 
 // update the tex coord vertex data so it draws 
