@@ -112,6 +112,7 @@ public:
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
     ComponentSizeMap mComponentSizes;
+    std::unordered_map<const char*, glm::uint> mComponentInfo;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
     ComponentType mNextComponentType{};   
     ComponentType typeCounter = 0;

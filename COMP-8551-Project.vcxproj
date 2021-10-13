@@ -149,7 +149,10 @@
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
     <ClCompile Include="chunkManager.cpp" />
+    <ClCompile Include="Box2DTutorial.cpp" />
+    <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glad.c" />
@@ -164,13 +167,17 @@
   <ItemGroup>
     <ClInclude Include="Archetype.h" />
     <ClInclude Include="ArchetypeManager.h" />
+    <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="componentInfo.h" />
+    <ClInclude Include="ContactListener.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
