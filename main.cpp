@@ -39,6 +39,7 @@ int test(){
 
     coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
+    coordinator.RegisterComponent<PhysicsComponent>();
 
     Archetype arch = coordinator.GetArchetype({
         coordinator.NEW_GetComponentType<Transform>(),
@@ -57,10 +58,7 @@ int test(){
 
     ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
     std::cout << ca << std::endl;
-
-    coordinator.RegisterComponent<PhysicsComponent>();
-    signature.set(coordinator.GetComponentType<PhysicsComponent>());
-
+    
     return 0;
 }
 
@@ -98,8 +96,6 @@ int teardown()
 {
     // when the engine closes
     renderer.teardown();
-    
-    delete chunkManager;
 
     delete physicsWorld;
 
