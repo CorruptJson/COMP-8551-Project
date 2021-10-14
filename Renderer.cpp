@@ -27,6 +27,7 @@ GLuint indices[] = {
 enum UNIFORMS {
     MODEL_MATRIX_LOCATION,
     VIEW_MATRIX_LOCATION,
+    PROJECTION_MATRIX_LOCATION,
     NUM_OF_UNIFORMS
 };
 
@@ -56,6 +57,17 @@ int Renderer::init() {
 
 
     // init other OpenGL stuff
+    float projectionWidth = 4;
+    float projectionHeight = 4;
+    float CENTER_X_COORD = 0;
+    float CENTER_Y_COORD = 0;
+    float LEFT_X_COORD = CENTER_X_COORD - projectionWidth / 2;
+    float RIGHT_X_COORD = CENTER_X_COORD + projectionWidth / 2;
+    float BOTTOM_Y_COORD = CENTER_Y_COORD - projectionHeight / 2;
+    float TOP_Y_COORD = CENTER_Y_COORD + projectionHeight / 2;
+    float EYE_NEAR = 0.f;
+    float EYE_FAR = -1.f;
+    projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
     Camera camera(0.0, 0.0, 0.0, 0.0);
     defaultShaderProgram = createDefaultShaderProgram();
     loadImages();
@@ -68,7 +80,6 @@ int Renderer::init() {
 	// except we use refs
 	glGenBuffers(1, &vertexBuffer); // gen == generate
     glGenBuffers(1, &indicesBuffer);
-    glGenTextures(1, &textureBuffer);
 	glGenVertexArrays(1, &vertexAttribs);
 
     // tell opengl the size of the viewport (window)
@@ -90,8 +101,8 @@ void Renderer::loadImages() {
     // read config data
     struct ImgConfig {
         const char* name;
-        int row;
-        int column;
+        int rows;
+        int columns;
     };
     ImgConfig configs[]{
         {
@@ -119,19 +130,46 @@ void Renderer::loadImages() {
 
     for (ImgConfig config : configs) {
         // read the image from the file and store it
-        SpriteInfo* info = FileManager::readImageFile(config.name);
-        if (info == NULL) {
-            std::cout << "Failed to load texture" << std::endl;
+        SpriteInfo info;
+        int colChannels;
+        stbi_uc* imgData = FileManager::readImageFile(config.name, &info.width, &info.height, &colChannels);
+        if (!imgData) {
+            std::cout << "Failed to load texture: " << config.name << std::endl;
             return;
         }
 
-        info->row = config.row;
-        info->column = config.column;
-        sprites[config.name] = *info;
+        // create the texture buffer and store its id in info
+        info.id = createTexBuffer(info, imgData);
+        info.rows = config.rows;
+        info.columns = config.columns;
 
-        // delete the data if needed
-        //stbi_image_free(data); 
+        // store the new sprite
+        sprites[config.name] = info;
+
+        // delete the data
+        stbi_image_free(imgData); 
     }
+}
+
+GLuint Renderer::createTexBuffer(SpriteInfo info, stbi_uc* imgData) {
+    // create a texture buffer
+    GLuint id;
+    glGenTextures(1, &id);
+
+    // bind the texture (tell OpenGL that it's the cur tex)
+    //note* needs to be above any texture functions so that it is applied to the binded texture
+    glBindTexture(GL_TEXTURE_2D, id);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+    glGenerateMipmap(GL_TEXTURE_2D);
+
+    // set the texture wrapping/filtering options (on the currently bound texture object)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    return id;
 }
 
 GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
@@ -245,6 +283,7 @@ GLuint Renderer::createDefaultShaderProgram() {
     // we get their locations here
     uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
     uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
 
 	return shaderProgram;
 }
@@ -296,35 +335,23 @@ void Renderer::loadIndicesData() {
 
 }
 
-void Renderer::loadTexture(const char *spriteName) {
-    // bind the texture (tell OpenGL that it's the cur tex)
-    //note* needs to be above any texture functions so that it is applied to the binded texture
-    glBindTexture(GL_TEXTURE_2D, textureBuffer);
-
-    const auto& result = sprites.find(spriteName);
-
+void Renderer::loadTexture(const char* spriteName) {
     // if not found
-    if (result == sprites.end()) {
+    try {
+        SpriteInfo info = sprites[spriteName];
+        glBindTexture(GL_TEXTURE_2D, info.id);
+    }
+    catch (int e) {
         std::cout << "Couldn't find image matching name: " << spriteName << std::endl;
         return;
     }
-    // take the sprite info from the sprites map
-    SpriteInfo info = sprites[spriteName];
-
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, info.data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-
-    // set the texture wrapping/filtering options (on the currently bound texture object)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
 void Renderer::loadUniforms(mat4 modelMatrix) {
     // pass in the uniforms value
-    glUniformMatrix4fv(uniformsLocation[0], 1, 0, value_ptr(modelMatrix));
-    glUniformMatrix4fv(uniformsLocation[1], 1, 0, value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(uniformsLocation[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(uniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
 }
 
 // update the tex coord vertex data so it draws 
@@ -335,8 +362,8 @@ void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     // find the height and width of each cell in the spritesheet
     const float SPRITESHEET_HEIGHT = 1;
     const float SPRITESHEET_WIDTH = 1;
-    float cellHeight = SPRITESHEET_HEIGHT / info.row;
-    float cellWidth = SPRITESHEET_WIDTH / info.column;
+    float cellHeight = SPRITESHEET_HEIGHT / info.rows;
+    float cellWidth = SPRITESHEET_WIDTH / info.columns;
 
     // coordinates of the texture coords in the vertices array
     vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
@@ -370,6 +397,8 @@ int Renderer::update(EntityCoordinator* coordinator) {
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
         RenderComponent component = renderComps[i];
         mat4 modelMatrix = transforms[i].getModelMatrix();
+
+        transforms[i].update();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO

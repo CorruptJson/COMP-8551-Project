@@ -75,14 +75,14 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="system_manager.cpp">
-      <Filter>Source Files\ECS</Filter>
+    <ClCompile Include="PhysicsWorld.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="coordinator.cpp">
-      <Filter>Source Files\ECS</Filter>
+    <ClCompile Include="ContactListener.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="test_system.cpp">
-      <Filter>Source Files\MainSystem</Filter>
+    <ClCompile Include="Box2DTutorial.cpp">
+      <Filter>Source Files\Physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,17 +143,17 @@
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="system_manager.h">
-      <Filter>Header Files\ECS</Filter>
+    <ClInclude Include="Box2DTutorial.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="coordinator.h">
-      <Filter>Header Files\ECS</Filter>
+    <ClInclude Include="ContactListener.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="system.h">
-      <Filter>Header Files\ECS</Filter>
+    <ClInclude Include="PhysicsWorld.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
-    <ClInclude Include="test_system.h">
-      <Filter>Header Files\MainSystem</Filter>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

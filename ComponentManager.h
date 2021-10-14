@@ -97,7 +97,7 @@ public:
 
 private:
     std::unordered_map<const char*, ComponentType> mComponentTypes{};
-    //std::unordered_map<const char*, uint> mComponentInfo;
+    std::unordered_map<const char*, glm::uint> mComponentInfo;
     std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
     ComponentType mNextComponentType{};    
 };

@@ -11,6 +11,6 @@ struct RenderComponent {
     // the spritesheet
     // column increases from 0 to 1 left to right
     // row increasese from 0 to 1 top to bottom
-    int rowIndex;
-    int colIndex;
+    float rowIndex;
+    float colIndex;
 };

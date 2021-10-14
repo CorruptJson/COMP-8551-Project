@@ -40,13 +40,12 @@ private:
     // the element buffer object (EBO) contains the vertex indices
     GLuint indicesBuffer;
 
-    // the texture contains the texture buffer
-    GLuint textureBuffer;
-
     // the default shader program
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
 
+
+    glm::mat4 projectionMatrix;
     Camera camera;
 
     // store the sprites that have been read
@@ -56,7 +55,8 @@ private:
     GLuint createDefaultShaderProgram();
     void loadVertexData();
     void loadIndicesData();
-    void loadTexture(const char *spriteName);
+    GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
+    void loadTexture(const char* spriteName);
     void loadUniforms(mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, const char* spriteName);
