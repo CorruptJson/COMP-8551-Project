@@ -1,11 +1,16 @@
 #pragma once
 #include <stb/stb_image.h>
 
+// store information on a spritesheet
 struct SpriteInfo {
+    // pixel height and width
     int height;
     int width;
-    int row;
-    int column;
-    int colorChannelsAmount;
-    stbi_uc *data;
+
+    // info on the grid sizes
+    int rows;
+    int columns;
+
+    // opengl texture buffer id
+    GLuint id;
 };
