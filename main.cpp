@@ -8,6 +8,8 @@
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
 #include "Types.h"
+#include "InputTracker.h"
+#include "InputComponent.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
@@ -65,6 +67,7 @@ int runEngine()
 
 {
     // check input
+    
     // run physics
     physicsWorld->Update(&coordinator);
     // run ECS

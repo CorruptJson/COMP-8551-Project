@@ -148,6 +148,7 @@
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="InputTracker.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -176,6 +177,8 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputTracker.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RenderComponent.h" />
