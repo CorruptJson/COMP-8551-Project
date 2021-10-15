@@ -154,7 +154,7 @@
     </ClInclude>
     <ClInclude Include="ArchetypeManager.h">
       <Filter>Header Files\ECS</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="Box2DTutorial.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
@@ -166,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityQuery.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
