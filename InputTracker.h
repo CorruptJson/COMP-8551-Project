@@ -57,24 +57,24 @@ public:
     //};
     enum Key {
 
-        //// Space key
-        //SPACE = GLFW_KEY_SPACE,
+        // Space key
+        SPACE = GLFW_KEY_SPACE, //returns 32
 
-        //// All number keys
-        //ZERO = GLFW_KEY_0,
-        //ONE = GLFW_KEY_1,
-        //TWO = GLFW_KEY_2,
-        //THREE = GLFW_KEY_3,
-        //FOUR = GLFW_KEY_4,
-        //FIVE = GLFW_KEY_5,
-        //SIX = GLFW_KEY_6,
-        //SEVEN = GLFW_KEY_7,
-        //EIGHT = GLFW_KEY_8,
-        //NINE = GLFW_KEY_9,
-        //
+        // All number keys
+        ZERO = GLFW_KEY_0, //returns 48
+        ONE = GLFW_KEY_1,
+        TWO = GLFW_KEY_2,
+        THREE = GLFW_KEY_3,
+        FOUR = GLFW_KEY_4,
+        FIVE = GLFW_KEY_5,
+        SIX = GLFW_KEY_6,
+        SEVEN = GLFW_KEY_7,
+        EIGHT = GLFW_KEY_8,
+        NINE = GLFW_KEY_9, //returns 57
+        
 
         // All letter keys
-        A = GLFW_KEY_A,
+        A = GLFW_KEY_A, //returns 65
         B = GLFW_KEY_B,
         C = GLFW_KEY_C,
         D = GLFW_KEY_D,
@@ -99,18 +99,19 @@ public:
         W = GLFW_KEY_W,
         X = GLFW_KEY_X,
         Y = GLFW_KEY_Y,
-        Z = GLFW_KEY_Z,
+        Z = GLFW_KEY_Z, //returns 90
 
-        //// Arrow keys
-        //RIGHT = GLFW_KEY_RIGHT,
-        //LEFT = GLFW_KEY_LEFT,
-        //UP = GLFW_KEY_UP,
-        //DOWN = GLFW_KEY_DOWN,
+        // Arrow keys
+        RIGHT = GLFW_KEY_RIGHT, //returns 262
+        LEFT = GLFW_KEY_LEFT,
+        DOWN = GLFW_KEY_DOWN,
+        UP = GLFW_KEY_UP, //returns 265
 
         // Total number of keys
-        NUM_KEYS = Z - A + 1
         // NUM_KEYS = Z - A + 1 + 15
+        NUM_KEYS = (Z - A + 1) + (NINE - ZERO + 1) + (UP - RIGHT + 1) + 1
     };
+
 
     enum Mouse {
         MouseLeft = GLFW_MOUSE_BUTTON_1,
@@ -128,18 +129,18 @@ public:
         JUST_RELEASED
     };
 
-    bool isKeyDown(Key aKey) {}
-    bool isKeyJustDown(Key aKey) {}
-    bool isKeyReleased(Key aKey) {}
-    bool isKeyJustReleased(Key aKey) {}
+    bool isKeyDown(Key aKey);
+    bool isKeyJustDown(Key aKey);
+    bool isKeyReleased(Key aKey);
+    bool isKeyJustReleased(Key aKey);
 
 
-    bool isMouseDown(Mouse aMouseButton) {}
-    bool isMouseJustDown(Mouse aMouseButton) {}
-    bool isMouseReleased(Mouse aMouseButton) {}
-    bool isMouseJustReleased(Mouse aMouseButton) {}
+    bool isMouseDown(Mouse aMouseButton);
+    bool isMouseJustDown(Mouse aMouseButton);
+    bool isMouseReleased(Mouse aMouseButton);
+    bool isMouseJustReleased(Mouse aMouseButton);
 
-    void perFrameUpdate(GLFWwindow* window) {}
+    void perFrameUpdate(GLFWwindow* window);
 
 private:
 

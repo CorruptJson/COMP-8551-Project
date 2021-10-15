@@ -15,9 +15,10 @@ bool InputTracker::isMouseJustReleased(Mouse aMouseButton) { return mMouseState[
 
 void InputTracker::perFrameUpdate(GLFWwindow* window)
 {
-    for (char i = Key::A; i <= Key::Z; i++) // if i == 39 change it to 65 OR change the header file to contain an enum of vectors
+    int amountSubForPos = Key::SPACE;
+    for (char i = Key::SPACE; i <= Key::DOWN; i++)
     {
-        int vectorIndex = i - Key::A; // have to change this too
+        int vectorIndex = i - amountSubForPos;
         bool isKeyDown = glfwGetKey(window, i) == GLFW_PRESS;
 
         ButtonState lastKeyState = mKeyState[vectorIndex];
@@ -31,6 +32,19 @@ void InputTracker::perFrameUpdate(GLFWwindow* window)
             mKeyState[vectorIndex] = ButtonState::RELEASED;
         else if (!isKeyDown && (lastKeyState == ButtonState::DOWN || lastKeyState == ButtonState::JUST_DOWN))
             mKeyState[vectorIndex] = ButtonState::JUST_RELEASED;
+
+        if (i == Key::SPACE) {
+            i += 16 - 1;
+            amountSubForPos = Key::ZERO - mKeyState.size();
+        }
+        else if (i == Key::NINE) {
+            i += 8 - 1;
+            amountSubForPos = Key::A - mKeyState.size();
+        }
+        else if (i == Key::Z) {
+            i += 172 - 1;
+            amountSubForPos = Key::RIGHT - mKeyState.size();
+        }
 
     }
 
@@ -51,5 +65,6 @@ void InputTracker::perFrameUpdate(GLFWwindow* window)
         else if (!isMouseDown && (lastMouseState == ButtonState::DOWN || lastMouseState == ButtonState::JUST_DOWN))
             mMouseState[vectorIndex] = ButtonState::JUST_RELEASED;
     }
+
 
 }

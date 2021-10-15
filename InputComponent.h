@@ -2,7 +2,7 @@
 #include "InputTracker.h"
 
 struct InputComponent {
-    explicit InputComponent(InputTracker& aGlobalState) : mInputTracker(aGlobalState) {}
+    //explicit InputComponent(InputTracker aGlobalState) : mInputTracker(aGlobalState) {}
 
-    InputTracker& mInputTracker;
+    InputTracker mInputTracker;
 };
