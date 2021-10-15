@@ -23,7 +23,7 @@ ChunkAddress ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, C
         for (auto iterator = begin; iterator != end; iterator++)
         {
             Chunk* chunk = iterator->second;
-            if (chunk->GetSpritesheet() == sprite && chunk->getCurrEnts() < ENTITIES_PER_CHUNK)
+            if (chunk->GetSpritesheet() == sprite && chunk->getCurrEntCount() < ENTITIES_PER_CHUNK)
             {
                 // yes, we found a valid chunk
                 //chunk->assignNewEntity

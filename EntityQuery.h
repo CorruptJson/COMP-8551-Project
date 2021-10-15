@@ -2,29 +2,54 @@
 #include <iterator>
 #include <cstddef>
 #include <vector>
+#include "chunk.h"
 #include "Types.h"
 
-template <typename a = void, typename b = void, typename c = void, typename d = void, typename e = void,
-    typename f = void, typename g = void, typename h = void, typename i = void, typename j = void>
 class EntityQuery
 {
-public:
+private:
     // entity count
-    int entityCount;
-    // entities per each chunk
-    
-    // range in each chunk
+    int entityCount = 0;
 
+    // chunks
+    std::vector<Chunk*> chunks;
 
     // components query IDs
     std::vector<ComponentType> compTypes;
 
-    //struct Iterator
-    //{
-    //    using iterator_category = std::forward_iterator_tag;
-    //    using difference_type = std::ptrdiff_t;
-    //    using value_type = int;
-    //    using pointer = int*;
-    //    using reference = int&;
-    //};
+    void searchChunks(std::vector<Chunk*>& allChunks);
+
+public:
+
+    EntityQuery(std::vector<ComponentType>& _compTypes,std::vector<Chunk*>& allChunks);
+    int size();
+    int chunkCount();
+    Chunk* chunk(int i);
+
+    template<typename T>
+    std::unique_ptr<std::vector<T*>> getComponentArray(ComponentType type)
+    {
+        std::vector<T*> list;
+
+        for (int i = 0; i < chunks.size(); i++)
+        {
+            int chunkEnts = chunks[i]->getCurrEntCount();
+            T* compArray = chunks[i]->getComponentArray<T>();
+            for (int j = 0; j < chunkEnts; j++)
+            {
+                list.push_back(compArray);
+                compArray++;
+            }
+        }
+
+        return std::make_unique<
+    }
 };
+
+template<typename T>
+struct componentArray
+{
+    T* start;
+    int count;
+};
+

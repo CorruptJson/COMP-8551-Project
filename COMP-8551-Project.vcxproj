@@ -150,7 +150,9 @@
     <ClCompile Include="chunk.cpp" />
     <ClCompile Include="chunkManager.cpp" />
     <ClCompile Include="Box2DTutorial.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />

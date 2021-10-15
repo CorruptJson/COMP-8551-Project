@@ -54,7 +54,7 @@ Spritesheet Chunk::GetSpritesheet()
     return spritesheet;
 }
 
-int Chunk::getCurrEnts()
+int Chunk::getCurrEntCount()
 {
     return currEnts;
 }
@@ -121,33 +121,41 @@ void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
 }
 
 template<typename T>
-T& Chunk::getComponentReference(ChunkAddress id)
+T& Chunk::getComponentReference(ChunkAddress id,ComponentManager& cm)
 {
     if (id.index >= ENTITIES_PER_CHUNK)
     {
         // throw error
+        throw "getComponentReference: entity id index too large";
     }
     int datIndex = entToDat[id.index];
     if (datIndex >= ENTITIES_PER_CHUNK)
     {
         // throw error
+        throw "getComponentReference: entity data index too large";
     }
 
-    T* compArr = getComponentArray<T>();
+    T* compArr = getComponentArray<T>(cm);
     return compArr[datIndex];
 }
 
 template <typename T>
-T* Chunk::getComponentArray()
+T* Chunk::getComponentArray(ComponentManager cm)
 {
-    char const* type = typeid(T).name();
+    ComponentType type = cm.NEW_GetComponentType<T>();
     if (componentArrays.find(type) == componentArrays.end)
     {
         // type is not in chunk component type array map
+        throw "type is not in chunk component type array map";
     }
     void* arr = componentArrays[type];
     T* compArr = std::static_pointer_cast<T*>(arr);
     return compArr;
+}
+
+Archetype Chunk::getArchetype()
+{
+    return arch;
 }
 
 Chunk::~Chunk()

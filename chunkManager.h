@@ -9,6 +9,8 @@
 
 class ChunkManager
 {
+    friend class EntityCoordinator;
+
 private:
     
     std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
@@ -26,6 +28,11 @@ public:
     ChunkAddress assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
 
     void releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap);
+
+    template<typename T>
+    T& getComponentRef(ChunkAddress ca) {
+        return allChunks[ca.chunkID]->getComponentReference(ca);
+    };
 
     ~ChunkManager();
 };

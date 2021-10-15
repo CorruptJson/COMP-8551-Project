@@ -15,10 +15,19 @@ PhysicsWorld::PhysicsWorld() {
 
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
-    std::array<PhysicsComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<PhysicsComponent>();
-    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
+    //std::array<PhysicsComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<PhysicsComponent>();
+    //std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
 
-    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
+    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+            coordinator->GetComponentType<PhysicsComponent>(),
+            coordinator->GetComponentType<Transform>()
+        });
+
+    PhysicsComponent* physComponent;
+
+    //for(int j = 0; j < )
+
+    for (int i = 0; i < entityQuery->size(); i++) {
         PhysicsComponent component = components[i];
         b2BodyType type = component.bodyType;
 
@@ -63,6 +72,9 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         while (body->GetType() != b2_dynamicBody) {
             body = body->GetNext();
         }
+
+        EntityQuery<PhysicsComponent,Transform> eq = coo
+
         //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
         for (int i = coordinator->GetEntityCount()-1; i >= 0; i--) {
             if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody || body->GetType() != b2_dynamicBody)

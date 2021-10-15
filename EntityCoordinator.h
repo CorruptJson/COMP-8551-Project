@@ -3,19 +3,26 @@
 #include <memory>
 #include <array>
 #include "ComponentManager.h"
-#include "EntityManager.h"
+//#include "EntityManager.h"
 #include "chunkManager.h"
 #include "ArchetypeManager.h"
 #include "Types.h"
+#include "EntityQuery.h"
 
 class EntityCoordinator
 {
+private:
+    std::unique_ptr<ComponentManager> mComponentManager;
+    //std::unique_ptr<EntityManager> mEntityManager;
+    std::unique_ptr<ChunkManager> mChunkManager;
+    std::unique_ptr<ArchetypeManager> mArchetypeManager;
+
 public:
     void Init()
     {
         // Create pointers to each manager
         mComponentManager = std::make_unique<ComponentManager>();
-        mEntityManager = std::make_unique<EntityManager>();
+        //mEntityManager = std::make_unique<EntityManager>();
         mChunkManager = std::make_unique<ChunkManager>();
         mArchetypeManager = std::make_unique<ArchetypeManager>();
         //mChunkManager = std::make_unique<ProtoChunkManager>();
@@ -24,9 +31,14 @@ public:
 
 
     // Entity methods
-    Entity CreateEntity()
+    //Entity CreateEntity()
+    //{
+    //    return mEntityManager->CreateEntity();
+    //}
+
+    ChunkAddress NEW_CreateEntity(Archetype arch, Spritesheet sprite)
     {
-        return mEntityManager->CreateEntity();
+        return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
 
     Archetype GetArchetype(std::vector<ComponentType> compTypes)
@@ -43,13 +55,11 @@ public:
     //    return ca;
     //}
 
-    void DestroyEntity(Entity entity)
+    void DestroyEntity(ChunkAddress entity)
     {
-        mEntityManager->DestroyEntity(entity);
-
-        mComponentManager->EntityDestroyed(entity);
-
-
+        //mEntityManager->DestroyEntity(entity);
+        //mComponentManager->EntityDestroyed(entity);
+        mChunkManager->releaseEntity(entity);
     }
 
     // Component methods
@@ -65,53 +75,54 @@ public:
         return mComponentManager->NEW_GetComponentType<T>();
     }
 
-    ChunkAddress NEW_CreateEntity(Archetype arch, Spritesheet sprite)
-    {
-        return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
-    }
 
 
-    template<typename T>
-    void AddComponent(Entity entity, T component)
-    {
-        mComponentManager->AddComponent<T>(entity, component);
+    //template<typename T>
+    //void AddComponent(Entity entity, T component)
+    //{
+    //    mComponentManager->AddComponent<T>(entity, component);
 
-        auto signature = mEntityManager->GetSignature(entity);
-        signature.set(mComponentManager->GetComponentType<T>(), true);
-        mEntityManager->SetSignature(entity, signature);
+    //    auto signature = mEntityManager->GetSignature(entity);
+    //    signature.set(mComponentManager->GetComponentType<T>(), true);
+    //    mEntityManager->SetSignature(entity, signature);
 
-        //mSystemManager->EntitySignatureChanged(entity, signature);
-    }
+    //    //mSystemManager->EntitySignatureChanged(entity, signature);
+    //}
 
-    template<typename T>
-    void RemoveComponent(Entity entity)
-    {
-        mComponentManager->RemoveComponent<T>(entity);
+    //template<typename T>
+    //void RemoveComponent(Entity entity)
+    //{
+    //    mComponentManager->RemoveComponent<T>(entity);
 
-        auto signature = mEntityManager->GetSignature(entity);
-        signature.set(mComponentManager->GetComponentType<T>(), false);
-        mEntityManager->SetSignature(entity, signature);
+    //    auto signature = mEntityManager->GetSignature(entity);
+    //    signature.set(mComponentManager->GetComponentType<T>(), false);
+    //    mEntityManager->SetSignature(entity, signature);
 
-        //mSystemManager->EntitySignatureChanged(entity, signature);
-    }
+    //    //mSystemManager->EntitySignatureChanged(entity, signature);
+    //}
 
     template<typename T>
-    T& GetComponent(Entity entity)
+    T& GetComponent(ChunkAddress entity)
     {
-        return mComponentManager->GetComponent<T>(entity);
+        return mChunkManager->GetComponentRef(entity,mComponentManager);
     }
 
     template<typename T>
     ComponentType GetComponentType()
     {
-        return mComponentManager->GetComponentType<T>();
+        return mComponentManager->NEW_GetComponentType<T>();
     }
 
-
-    template<typename T>
-    std::array<T, MAX_ENTITIES>& GetComponentArray () {
-        return mComponentManager->GetComponentArray<T>() -> GetComponentArray();
+    
+    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes)
+    {
+        return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);        
     }
+
+    //template<typename T>
+    //std::array<T>& GetComponentArray () {
+    //    return mComponentManager->GetComponentArray<T>() -> GetComponentArray();
+    //}
 
     // System methods
     /*
@@ -128,14 +139,14 @@ public:
     }
     */
 
-    template<typename... Args>
-    void getSigFromComponents(Args... args)
-    {
-        Signature sig;
-        recursiveSetSig(sig, args...);
-        std::string sigString = SignatureToString(sig);
-        std::cout << "Recursive Set Sig is: " << sigString << std::endl;
-    }
+    //template<typename... Args>
+    //void getSigFromComponents(Args... args)
+    //{
+    //    Signature sig;
+    //    recursiveSetSig(sig, args...);
+    //    std::string sigString = SignatureToString(sig);
+    //    std::cout << "Recursive Set Sig is: " << sigString << std::endl;
+    //}
 
     //template<typename T>
     //void recursiveSetSig(Signature& sig)
@@ -150,15 +161,15 @@ public:
     //    recursiveSetSig<Args...>(sig);
     //}
 
-    std::string SignatureToString(Signature sig)
-    {
-        std::string s;
-        for (int i = sig.size() - 1; i >= 0; i--)
-        {
-            s += sig[i] ? '1' : '0';
-        }
-        return s;
-    }
+    //std::string SignatureToString(Signature sig)
+    //{
+    //    std::string s;
+    //    for (int i = sig.size() - 1; i >= 0; i--)
+    //    {
+    //        s += sig[i] ? '1' : '0';
+    //    }
+    //    return s;
+    //}
 
     // test functions that list out components passed as arguments
 
@@ -187,14 +198,8 @@ public:
         return *mComponentManager;
     }
 
-    uint32_t GetEntityCount()
-    {
-        return mEntityManager->GetEntityCount();
-    }
-
-private:
-    std::unique_ptr<ComponentManager> mComponentManager;
-    std::unique_ptr<EntityManager> mEntityManager;
-    std::unique_ptr<ChunkManager> mChunkManager;
-    std::unique_ptr<ArchetypeManager> mArchetypeManager;
+    //uint32_t GetEntityCount()
+    //{
+    //    return mEntityManager->GetEntityCount();
+    //}
 };

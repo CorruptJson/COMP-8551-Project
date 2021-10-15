@@ -41,23 +41,23 @@ int test(){
     coordinator.RegisterComponent<RenderComponent>();
     coordinator.RegisterComponent<PhysicsComponent>();
 
-    Archetype arch = coordinator.GetArchetype({
-        coordinator.NEW_GetComponentType<Transform>(),
-        coordinator.NEW_GetComponentType<RenderComponent>()
-        });
+    //Archetype arch = coordinator.GetArchetype({
+    //    coordinator.GetComponentType<Transform>(),
+    //    coordinator.GetComponentType<RenderComponent>()
+    //    });
 
-    Spritesheet c1 = "sprite1";
-    Spritesheet c2 = "sprite2";
+    //Spritesheet c1 = "sprite1";
+    //Spritesheet c2 = "sprite2";
 
-    std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
-    std::cout << "type of renderComponent: " << unsigned(coordinator.NEW_GetComponentType<RenderComponent>()) << std::endl;
-    std::cout << "type of transform: " << unsigned(coordinator.NEW_GetComponentType<Transform>()) << std::endl;
+    //std::cout << "type of transform: " << unsigned(coordinator.GetComponentType<Transform>()) << std::endl;
+    //std::cout << "type of renderComponent: " << unsigned(coordinator.GetComponentType<RenderComponent>()) << std::endl;
+    //std::cout << "type of transform: " << unsigned(coordinator.GetComponentType<Transform>()) << std::endl;
 
-    std::cout << "print arch test: " << std::endl;
-    std::cout << arch << std::endl;
+    //std::cout << "print arch test: " << std::endl;
+    //std::cout << arch << std::endl;
 
-    ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
-    std::cout << ca << std::endl;
+    //ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
+    //std::cout << ca << std::endl;
     
     return 0;
 }

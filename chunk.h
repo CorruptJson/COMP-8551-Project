@@ -5,6 +5,7 @@
 #include "sigArch.h"
 #include "Types.h"
 #include "Archetype.h"
+#include "ComponentManager.h"
 
 const int ENTITIES_PER_CHUNK = 32;
 
@@ -43,17 +44,19 @@ public:
 
     const char* GetSpritesheet();
 
-    int getCurrEnts();
+    int getCurrEntCount();
 
     ChunkAddress assignNewEntity();
 
-    void releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap);
+    void releaseEntity(ChunkAddress id);
 
     template<typename T>
     T& getComponentReference(ChunkAddress id);
 
     template <typename T>
     T* getComponentArray();
+
+    Archetype getArchetype();
 
     ~Chunk();
 };
