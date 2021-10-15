@@ -8,6 +8,7 @@
 #include "Transform.h"
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
+#include "TimerComponent.h"
 #include "Types.h"
 
 //ChunkManager* chunkManager;
@@ -30,6 +31,7 @@ int initialize()
     // when the engine starts
     renderer.init();
     coordinator.Init();
+
     physicsWorld = new PhysicsWorld();
 
     chunkManager = new ChunkManager();
@@ -44,6 +46,9 @@ int initialize()
 
     coordinator.RegisterComponent<PhysicsComponent>();
     signature.set(coordinator.GetComponentType<PhysicsComponent>());
+
+    coordinator.RegisterComponent<TimerComponent>();
+    signature.set(coordinator.GetComponentType<TimerComponent>());
 
     return 0;
 }
@@ -100,7 +105,9 @@ int main() {
     dude = CreateStandardEntity();
 
     //Temporary until entityqueries are implemented
-    coordinator.testEntity = CreateStandardEntity();
+    coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
+    coordinator.testEntity = &turtle;
+
     // turtle
     coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
     coordinator.GetComponent<Transform>(turtle).setScale(0.4, 0.4);

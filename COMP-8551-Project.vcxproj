@@ -126,6 +126,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Adam\Documents\GitHub\COMP-8551-Project\Libraries\include\glm;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,11 +143,13 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\Users\Adam\Documents\GitHub\COMP-8551-Project\Libraries\include\glm;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -159,6 +162,8 @@
     <ClCompile Include="protoChunkManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="system_manager.cpp" />
+    <ClCompile Include="test_system.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +177,7 @@
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="componentInfo.h" />
     <ClInclude Include="ContactListener.h" />
+    <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
@@ -185,6 +191,10 @@
     <ClInclude Include="protoChunkManager.h" />
     <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="system.h" />
+    <ClInclude Include="system_manager.h" />
+    <ClInclude Include="test_system.h" />
+    <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>

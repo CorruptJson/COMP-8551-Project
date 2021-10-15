@@ -10,7 +10,7 @@
 class EntityCoordinator
 {
 public:
-    Entity testEntity;
+    Entity* testEntity;
 
     void Init()
     {
@@ -168,32 +168,13 @@ public:
     }
 
     void runSystemUpdates() {
-        preUpdate();
-        update();
-        postUpdate();
-    }
-
-    void preUpdate() {
-        for (int i = 0; i < mSystemManager->getSystems().size(); i++) {
-            mSystemManager->getSystems()[i]->preUpdate();
-        }
-    }
-
-    void update() {
-        for (int i = 0; i < mSystemManager->getSystems().size(); i++) {
-            mSystemManager->getSystems()[i]->update();
-        }
-    }
-
-    void postUpdate() {
-        for (int i = 0; i < mSystemManager->getSystems().size(); i++) {
-            mSystemManager->getSystems()[i]->postUpdate();
-        }
+        mSystemManager->runUpdates();
     }
 
     void initializeSystemManager() {
-        //TestSystem* ts = new TestSystem{ this, 1 }
-        mSystemManager->addSystem<TestSystem>();
+        mSystemManager->coordinator = this;
+
+        mSystemManager->addSystem<TestSystem>(this);
     }
 
 private:

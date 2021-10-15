@@ -1,12 +1,13 @@
 #pragma once
 #include <iostream>
+
 using namespace std;
+class EntityCoordinator;
 class System {
 public:
-    int id = 0;
-    //EntityCoordinator* coordinator;
+    EntityCoordinator* coordinator;
     System() {};
-    System(int ID) :id{ ID }{};
+    System(EntityCoordinator* coord) :coordinator{ coord }{};
     virtual void preUpdate() {};
     virtual void update() {};
     virtual void postUpdate() {};
