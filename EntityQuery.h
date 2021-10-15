@@ -4,6 +4,7 @@
 #include <vector>
 #include "chunk.h"
 #include "Types.h"
+#include "ComponentManager.h"
 
 class EntityQuery
 {
@@ -30,6 +31,7 @@ public:
     std::unique_ptr<std::vector<T*>> getComponentArray(ComponentType type)
     {
         std::vector<T*> list;
+        //ComponentType type = ComponentManager::NEW_GetComponentType<T>();
 
         for (int i = 0; i < chunks.size(); i++)
         {

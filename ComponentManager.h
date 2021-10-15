@@ -58,6 +58,8 @@ public:
         return typeID;
     }
 
+    static ComponentSize ComponentSize(ComponentType t);
+
     //template<typename T>
     //void AddComponent(Entity entity, T component)
     //{

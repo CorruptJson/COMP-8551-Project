@@ -1,5 +1,7 @@
 #include "ComponentManager.h"
 
+static ComponentSize ComponentManager::
+
 //template<typename T>
 //void ComponentManager::RegisterComponent()
 //{

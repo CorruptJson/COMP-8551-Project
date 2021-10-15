@@ -121,7 +121,7 @@ void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
 }
 
 template<typename T>
-T& Chunk::getComponentReference(ChunkAddress id,ComponentManager& cm)
+T& Chunk::getComponentReference(ChunkAddress id)
 {
     if (id.index >= ENTITIES_PER_CHUNK)
     {
@@ -140,9 +140,9 @@ T& Chunk::getComponentReference(ChunkAddress id,ComponentManager& cm)
 }
 
 template <typename T>
-T* Chunk::getComponentArray(ComponentManager cm)
+T* Chunk::getComponentArray()
 {
-    ComponentType type = cm.NEW_GetComponentType<T>();
+    ComponentType type = ComponentManager::NEW_GetComponentType<T>();
     if (componentArrays.find(type) == componentArrays.end)
     {
         // type is not in chunk component type array map
