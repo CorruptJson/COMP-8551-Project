@@ -63,12 +63,6 @@
     <ClCompile Include="glad.c">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
-    <ClCompile Include="protoChunkManager.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="chunkManagerStandard.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
@@ -92,6 +86,14 @@
     </ClCompile>
     <ClCompile Include="InputTracker.cpp">
       <Filter>Source Files\Input</Filter>
+    <ClCompile Include="test_system.cpp">
+      <Filter>Source Files\MainSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="system_manager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="coordinator.cpp">
+      <Filter>Source Files\ECS</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +171,20 @@
     </ClInclude>
     <ClInclude Include="InputTracker.h">
       <Filter>Header Files\Input</Filter>
+    <ClInclude Include="TimerComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="test_system.h">
+      <Filter>Header Files\MainSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="system_manager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="system.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

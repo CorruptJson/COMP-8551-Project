@@ -1,5 +1,9 @@
 #include <iostream>
+//#include "RenderTutorial.h"
 #include <vector>
+#include <ctime>
+#include <ratio>
+#include <chrono>
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 //#include "protoChunkManager.h"
@@ -7,6 +11,7 @@
 #include "Transform.h"
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
+#include "TimerComponent.h"
 #include "Types.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
@@ -23,6 +28,13 @@ Entity turtle;
 Entity wall;
 Entity dude;
 
+using Clock = std::chrono::high_resolution_clock;
+using Duration = std::chrono::duration<double, std::milli>;
+
+Clock::time_point prevTime;
+double catchupTime;
+const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -31,6 +43,7 @@ int initialize()
     // when the engine starts
     renderer.init();
     coordinator.Init();
+
     physicsWorld = new PhysicsWorld();
 
     chunkManager = new ChunkManager();
@@ -45,6 +58,10 @@ int initialize()
 
     coordinator.RegisterComponent<PhysicsComponent>();
     signature.set(coordinator.GetComponentType<PhysicsComponent>());
+
+    coordinator.RegisterComponent<TimerComponent>();
+    signature.set(coordinator.GetComponentType<TimerComponent>());
+    prevTime = Clock::now();
 
     return 0;
 }
@@ -66,11 +83,22 @@ Entity CreateStandardEntity() {
 int runEngine()
 
 {
+    Clock::time_point currTime = Clock::now();
+    Duration delta = currTime - prevTime;
+    prevTime = currTime;
+    catchupTime += delta.count();
+
     // check input
-    
-    // run physics
-    physicsWorld->Update(&coordinator);
-    // run ECS
+
+    while (catchupTime >= MS_PER_FRAME)
+    {
+        // run physics
+        physicsWorld->Update(&coordinator);
+        // run ECS
+
+        catchupTime -= MS_PER_FRAME;
+    }
+
     // render
     renderer.update(&coordinator);
 
@@ -95,12 +123,15 @@ int teardown()
 int main() {
     initialize();
 
-
     //entity test
 
     turtle = CreateStandardEntity();
     wall = CreateStandardEntity();
     dude = CreateStandardEntity();
+
+    //Temporary until entityqueries are implemented
+    coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
+    coordinator.testEntity = &turtle;
 
     // turtle
     coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
@@ -180,6 +211,8 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
+        //System updates
+        coordinator.runSystemUpdates();
     }    
 
     teardown();
