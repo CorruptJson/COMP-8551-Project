@@ -1,5 +1,8 @@
 #include <iostream>
 #include <vector>
+#include <ctime>
+#include <ratio>
+#include <chrono>
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 //#include "protoChunkManager.h"
@@ -20,6 +23,13 @@ PhysicsWorld* physicsWorld;
 Entity turtle;
 Entity wall;
 Entity dude;
+
+using Clock = std::chrono::high_resolution_clock;
+using Duration = std::chrono::duration<double, std::milli>;
+
+Clock::time_point prevTime;
+double catchupTime;
+const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
 // gets called once when engine starts
 // put initilization code here
@@ -44,6 +54,8 @@ int initialize()
     coordinator.RegisterComponent<PhysicsComponent>();
     signature.set(coordinator.GetComponentType<PhysicsComponent>());
 
+    prevTime = Clock::now();
+
     return 0;
 }
 
@@ -64,10 +76,22 @@ Entity CreateStandardEntity() {
 int runEngine()
 
 {
+    Clock::time_point currTime = Clock::now();
+    Duration delta = currTime - prevTime;
+    prevTime = currTime;
+    catchupTime += delta.count();
+
     // check input
-    // run physics
-    physicsWorld->Update(&coordinator);
-    // run ECS
+
+    while (catchupTime >= MS_PER_FRAME)
+    {
+        // run physics
+        physicsWorld->Update(&coordinator);
+        // run ECS
+
+        catchupTime -= MS_PER_FRAME;
+    }
+
     // render
     renderer.update(&coordinator);
 
