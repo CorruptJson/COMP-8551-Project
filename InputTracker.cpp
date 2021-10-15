@@ -15,9 +15,9 @@ bool InputTracker::isMouseJustReleased(Mouse aMouseButton) { return mMouseState[
 
 void InputTracker::perFrameUpdate(GLFWwindow* window)
 {
-    for (char i = Key::A; i <= Key::Z; i++)
+    for (char i = Key::A; i <= Key::Z; i++) // if i == 39 change it to 65 OR change the header file to contain an enum of vectors
     {
-        int vectorIndex = i - Key::A;
+        int vectorIndex = i - Key::A; // have to change this too
         bool isKeyDown = glfwGetKey(window, i) == GLFW_PRESS;
 
         ButtonState lastKeyState = mKeyState[vectorIndex];

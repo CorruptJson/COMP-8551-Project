@@ -4,19 +4,23 @@
 #include <array>
 #include "ComponentManager.h"
 #include "EntityManager.h"
+#include "system_manager.h"
 #include "chunkManager.h"
-#include "Types.h"
 
 class EntityCoordinator
 {
 public:
+    Entity* testEntity;
+
     void Init()
     {
         // Create pointers to each manager
         mComponentManager = std::make_unique<ComponentManager>();
         mEntityManager = std::make_unique<EntityManager>();
         //mChunkManager = std::make_unique<ProtoChunkManager>();
+        mSystemManager = std::make_unique<SystemManager>();
 
+        initializeSystemManager();
     }
 
 
@@ -163,8 +167,19 @@ public:
         return mEntityManager->GetEntityCount();
     }
 
+    void runSystemUpdates() {
+        mSystemManager->runUpdates();
+    }
+
+    void initializeSystemManager() {
+        mSystemManager->coordinator = this;
+
+        mSystemManager->addSystem<TestSystem>(this);
+    }
+
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
     std::unique_ptr<EntityManager> mEntityManager;
+    std::unique_ptr<SystemManager> mSystemManager;
     //std::unique_ptr<ProtoChunkManager> mChunkManager;
 };
