@@ -1,4 +1,5 @@
 #include <iostream>
+//#include "RenderTutorial.h"
 #include <vector>
 #include <ctime>
 #include <ratio>
@@ -10,6 +11,7 @@
 #include "Transform.h"
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
+#include "TimerComponent.h"
 #include "Types.h"
 
 //ChunkManager* chunkManager;
@@ -39,6 +41,7 @@ int initialize()
     // when the engine starts
     renderer.init();
     coordinator.Init();
+
     physicsWorld = new PhysicsWorld();
 
     chunkManager = new ChunkManager();
@@ -54,6 +57,8 @@ int initialize()
     coordinator.RegisterComponent<PhysicsComponent>();
     signature.set(coordinator.GetComponentType<PhysicsComponent>());
 
+    coordinator.RegisterComponent<TimerComponent>();
+    signature.set(coordinator.GetComponentType<TimerComponent>());
     prevTime = Clock::now();
 
     return 0;
@@ -116,12 +121,15 @@ int teardown()
 int main() {
     initialize();
 
-
     //entity test
 
     turtle = CreateStandardEntity();
     wall = CreateStandardEntity();
     dude = CreateStandardEntity();
+
+    //Temporary until entityqueries are implemented
+    coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
+    coordinator.testEntity = &turtle;
 
     // turtle
     coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
@@ -201,6 +209,8 @@ int main() {
         // and input events
         glfwPollEvents();
         runEngine();
+        //System updates
+        coordinator.runSystemUpdates();
     }    
 
     teardown();
