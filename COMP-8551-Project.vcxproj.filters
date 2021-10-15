@@ -158,20 +158,20 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="coordinator.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="system_manager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="system.h">
-      <Filter>Header Files\ECS</Filter>
+    <ClInclude Include="TimerComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="test_system.h">
       <Filter>Header Files\MainSystem</Filter>
     </ClInclude>
-    <ClInclude Include="TimerComponent.h">
-      <Filter>Header Files\Components</Filter>
+    <ClInclude Include="system_manager.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="coordinator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="system.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
