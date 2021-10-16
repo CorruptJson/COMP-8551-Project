@@ -27,7 +27,7 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
     std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
     std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
     
-    
+    std::cout << "addObjects query count: " << entitiesFound << std::endl;
     //
     //PhysicsComponent* physComponent;
 
@@ -73,6 +73,11 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
         b2Body* body = world->GetBodyList();
+
+        if (body == NULL)
+        {
+            std::cout << "first body is null " << std::endl;
+        }
 
         // skip static bodies
         while (body->GetType() != b2_dynamicBody) {

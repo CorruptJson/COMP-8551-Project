@@ -4,6 +4,7 @@ EntityQuery::EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chu
 {
     compTypes = _compTypes;
     std::sort(compTypes.begin(), compTypes.end());
+    searchChunks(allChunks);
 }
 
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
@@ -29,6 +30,8 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
         {
             chunks.push_back(allChunks[i]);
             entityCount += allChunks[i]->getCurrEntCount();
+            //std::cout << "found chunk " << std::endl;
+
         }
     }
 }
