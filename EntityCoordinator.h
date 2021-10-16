@@ -3,7 +3,6 @@
 #include <memory>
 #include <array>
 #include "ComponentManager.h"
-//#include "EntityManager.h"
 #include "chunkManager.h"
 #include "ArchetypeManager.h"
 #include "Types.h"
@@ -42,7 +41,7 @@ public:
     //    return mEntityManager->CreateEntity();
     //}
 
-    EntityID NEW_CreateEntity(Archetype arch, Spritesheet sprite)
+    EntityID CreateEntity(Archetype arch, Spritesheet sprite)
     {
         return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
@@ -76,9 +75,9 @@ public:
     }
 
     template<typename T>
-    ComponentType NEW_GetComponentType()
+    ComponentType GetComponentType()
     {
-        return mComponentManager->NEW_GetComponentType<T>();
+        return mComponentManager->GetComponentType<T>();
     }
 
 
@@ -112,13 +111,6 @@ public:
     {
         return mChunkManager->getComponentRef<T>(entity);
     }
-
-    template<typename T>
-    ComponentType GetComponentType()
-    {
-        return mComponentManager->NEW_GetComponentType<T>();
-    }
-
     
     std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes)
     {
@@ -198,11 +190,6 @@ public:
 
     //    identifyComponents<Args...>();
     //}
-
-    ComponentManager& GetComponentManager()
-    {
-        return *mComponentManager;
-    }
 
     uint32_t GetEntityCount()
     {

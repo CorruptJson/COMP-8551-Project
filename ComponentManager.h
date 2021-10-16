@@ -30,7 +30,7 @@ public:
     void RegisterComponent()
     {
         //const char* typeName = typeid(T).name();
-        ComponentType ct = NEW_GetComponentType<T>();
+        ComponentType ct = GetComponentType<T>();
 
         assert(mComponentSizes.find(ct) == mComponentSizes.end() && "Registering component type more than once.");
         mComponentSizes.emplace(ct, sizeof(T));
@@ -55,7 +55,7 @@ public:
     //}
 
     template<typename T>
-    static ComponentType NEW_GetComponentType()
+    static ComponentType GetComponentType()
     {
         static const ComponentType typeID = typeCounter++;
         return typeID;

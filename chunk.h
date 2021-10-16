@@ -81,7 +81,7 @@ public:
     template <typename T>
     T* getComponentArray()
     {
-        ComponentType type = ComponentManager::NEW_GetComponentType<T>();
+        ComponentType type = ComponentManager::GetComponentType<T>();
         auto find = componentArrays.find(type);
         if ( find  == componentArrays.end())
         {
