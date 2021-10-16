@@ -13,6 +13,7 @@
 #include "PhysicsComponent.h"
 #include "TimerComponent.h"
 #include "Types.h"
+#include "Animator.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
