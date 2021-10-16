@@ -8,6 +8,7 @@
 #include "ArchetypeManager.h"
 #include "Types.h"
 #include "EntityQuery.h"
+#include "system_manager.h"
 
 class EntityCoordinator
 {
@@ -16,8 +17,11 @@ private:
     //std::unique_ptr<EntityManager> mEntityManager;
     std::unique_ptr<ChunkManager> mChunkManager;
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
+    std::unique_ptr<SystemManager> mSystemManager;
 
 public:
+    Entity* testEntity;
+
     void Init()
     {
         // Create pointers to each manager
@@ -26,7 +30,9 @@ public:
         mChunkManager = std::make_unique<ChunkManager>();
         mArchetypeManager = std::make_unique<ArchetypeManager>();
         //mChunkManager = std::make_unique<ProtoChunkManager>();
+        mSystemManager = std::make_unique<SystemManager>();
 
+        initializeSystemManager();
     }
 
 
@@ -201,5 +207,15 @@ public:
     uint32_t GetEntityCount()
     {
         return mChunkManager->GetEntityCount();
+    }
+
+    void runSystemUpdates() {
+        mSystemManager->runUpdates();
+    }
+
+    void initializeSystemManager() {
+        mSystemManager->coordinator = this;
+
+        mSystemManager->addSystem<TestSystem>(this);
     }
 };
