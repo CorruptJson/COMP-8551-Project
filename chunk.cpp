@@ -33,21 +33,7 @@ void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
     }
 }
 
-template<typename T>
-void Chunk::addComponentArray()
-{
-    char const* typeName = typeid(T).name();
-    componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
-}
 
-template<typename T, typename ... args>
-void Chunk::addComponentArray()
-{
-    char const* typeName = typeid(T).name();
-    componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
-
-    addComponentArray<args...>();
-}
 
 Spritesheet Chunk::GetSpritesheet()
 {
@@ -95,7 +81,7 @@ ChunkAddress Chunk::assignNewEntity()
 
 }
 
-void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
+void Chunk::releaseEntity(ChunkAddress id)
 {
     int releasedEntDataIndex = entToDat[id.index];
     int lastIndex = currEnts - 1;
@@ -107,6 +93,7 @@ void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
         {
             //ComponentType type = arch.
             //ComponentSize size = sizeMap[]
+            throw "release entity function not completed";
         }
 
         // then swap indexes
@@ -120,39 +107,6 @@ void Chunk::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
     currEnts--;
 }
 
-template<typename T>
-T& Chunk::getComponentReference(ChunkAddress id)
-{
-    if (id.index >= ENTITIES_PER_CHUNK)
-    {
-        // throw error
-        throw "getComponentReference: entity id index too large";
-    }
-    int datIndex = entToDat[id.index];
-    if (datIndex >= ENTITIES_PER_CHUNK)
-    {
-        // throw error
-        throw "getComponentReference: entity data index too large";
-    }
-
-    T* compArr = getComponentArray<T>(cm);
-    return compArr[datIndex];
-}
-
-template <typename T>
-T* Chunk::getComponentArray()
-{
-    ComponentType type = ComponentManager::NEW_GetComponentType<T>();
-    if (componentArrays.find(type) == componentArrays.end)
-    {
-        // type is not in chunk component type array map
-        throw "type is not in chunk component type array map";
-    }
-    void* arr = componentArrays[type];
-    T* compArr = std::static_pointer_cast<T*>(arr);
-    return compArr;
-}
-
 Archetype Chunk::getArchetype()
 {
     return arch;
@@ -164,10 +118,4 @@ Chunk::~Chunk()
     {
         delete ca.second;
     }
-}
-
-template<typename T, typename ...args>
-inline Chunk* createChunk(int chunkID, Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap)
-{
-    return nullptr;
 }

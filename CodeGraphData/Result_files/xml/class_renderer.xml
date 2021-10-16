@@ -1,0 +1,679 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_renderer" kind="class" prot="public">
+    <compoundname>Renderer</compoundname>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" local="no">Renderer.h</includes>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="class_renderer_1aaf7bd89a092916065b9e83e899184f5e" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>static const char * Renderer::DEFAULT_VERT_SHADER_NAME</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_VERT_SHADER_NAME</name>
+        <initializer>= &quot;DefaultVertShader.vs&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="22" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="22" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="221" endline="289">createDefaultShaderProgram</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a5b2343e63684efe5c4e99a291c696000" prot="public" static="yes" mutable="no">
+        <type>const char *</type>
+        <definition>static const char * Renderer::DEFAULT_FRAG_SHADER_NAME</definition>
+        <argsstring></argsstring>
+        <name>DEFAULT_FRAG_SHADER_NAME</name>
+        <initializer>= &quot;DefaultFragShader.fs&quot;</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="23" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="23" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="221" endline="289">createDefaultShaderProgram</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::vertexAttribs</definition>
+        <argsstring></argsstring>
+        <name>vertexAttribs</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="34" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="34" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::vertexBuffer</definition>
+        <argsstring></argsstring>
+        <name>vertexBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="38" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="38" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="292" endline="325">loadVertexData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::indicesBuffer</definition>
+        <argsstring></argsstring>
+        <name>indicesBuffer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="41" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="41" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="327" endline="336">loadIndicesData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a2a7cc77464ac693e210266d78c955650" prot="private" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::defaultShaderProgram</definition>
+        <argsstring></argsstring>
+        <name>defaultShaderProgram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="45" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" prot="private" static="no" mutable="no">
+        <type>glm::mat4</type>
+        <definition>glm::mat4 Renderer::projectionMatrix</definition>
+        <argsstring></argsstring>
+        <name>projectionMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="48" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="48" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="350" endline="355">loadUniforms</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" prot="private" static="no" mutable="no">
+        <type><ref refid="class_camera" kindref="compound">Camera</ref></type>
+        <definition>Camera Renderer::camera</definition>
+        <argsstring></argsstring>
+        <name>camera</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="49" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+        <referencedby refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="350" endline="355">loadUniforms</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_renderer_1a19a93b70db765305f1063fdb66bb764a" prot="private" static="no" mutable="no">
+        <type>std::map&lt; const char *, <ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref> &gt;</type>
+        <definition>std::map&lt; const char *, SpriteInfo &gt; Renderer::sprites</definition>
+        <argsstring></argsstring>
+        <name>sprites</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="53" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="100" endline="152">loadImages</referencedby>
+        <referencedby refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="338" endline="348">loadTexture</referencedby>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="359" endline="380">updateTexCoord</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLFWwindow *</type>
+        <definition>GLFWwindow * Renderer::setupGLFW</definition>
+        <argsstring>(int *width, int *height)</argsstring>
+        <name>setupGLFW</name>
+        <param>
+          <type>int *</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="24" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="175" bodyend="217"/>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="39">window</references>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a28900330bdfd56cf9c83e9cb487d406d" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLFWwindow *</type>
+        <definition>static GLFWwindow* Renderer::setupGLFW</definition>
+        <argsstring>(int *width, int *height)</argsstring>
+        <name>setupGLFW</name>
+        <param>
+          <type>int *</type>
+          <declname>width</declname>
+        </param>
+        <param>
+          <type>int *</type>
+          <declname>height</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="24" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::init</definition>
+        <argsstring>()</argsstring>
+        <name>init</name>
+        <briefdescription>
+<para>Initialize the Render tutorial. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para></para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="25" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="45" bodyend="95"/>
+        <references refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="49">camera</references>
+        <references refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="221" endline="289">createDefaultShaderProgram</references>
+        <references refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="45">defaultShaderProgram</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2glad_8c_1a137453294a2756a898902ef399b3d437" compoundref="_1_2users_2thompson_2comp-8551-project_2glad_8c" startline="148" endline="157">gladLoadGL</references>
+        <references refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="41">indicesBuffer</references>
+        <references refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="100" endline="152">loadImages</references>
+        <references refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="48">projectionMatrix</references>
+        <references refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="175" endline="217">setupGLFW</references>
+        <references refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="34">vertexAttribs</references>
+        <references refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="38">vertexBuffer</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="39">window</references>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" compoundref="_1_2users_2thompson_2comp-8551-project_2main_8cpp" startline="28" endline="36">initialize</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::update</definition>
+        <argsstring>(EntityCoordinator *coordinator)</argsstring>
+        <name>update</name>
+        <param>
+          <type><ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref> *</type>
+          <declname>coordinator</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="26" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="383" bodyend="454"/>
+        <references refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="45">defaultShaderProgram</references>
+        <references refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_query_8h" startline="31" endline="48">EntityQuery::getComponentArray</references>
+        <references refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h" startline="111" endline="114">EntityCoordinator::GetComponentType</references>
+        <references refid="class_entity_coordinator_1af81ea5fd24960a9735eea4960a9a9671" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h" startline="201" endline="204">EntityCoordinator::GetEntityCount</references>
+        <references refid="class_entity_coordinator_1a9381f15dea2b5f5c5996f44cdd3789e7" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h" startline="117" endline="120">EntityCoordinator::GetEntityQuery</references>
+        <references refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="327" endline="336">loadIndicesData</references>
+        <references refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="338" endline="348">loadTexture</references>
+        <references refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="350" endline="355">loadUniforms</references>
+        <references refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="292" endline="325">loadVertexData</references>
+        <references refid="struct_render_component_1a8e2394910c48c4255f94fa8adfd45cb4" compoundref="_1_2users_2thompson_2comp-8551-project_2render_component_8h" startline="8">RenderComponent::spriteName</references>
+        <references refid="class_entity_query_1a99dab4fa1864f36acce0b559064d08c9" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_query_8cpp" startline="36" endline="39">EntityQuery::totalEntitiesFound</references>
+        <references refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="359" endline="380">updateTexCoord</references>
+        <references refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="34">vertexAttribs</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="39">window</references>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" compoundref="_1_2users_2thompson_2comp-8551-project_2main_8cpp" startline="86" endline="97">runEngine</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::teardown</definition>
+        <argsstring>()</argsstring>
+        <name>teardown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="27" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="456" bodyend="462"/>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="39">window</references>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" compoundref="_1_2users_2thompson_2comp-8551-project_2main_8cpp" startline="102" endline="110">teardown</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::init</definition>
+        <argsstring>()</argsstring>
+        <name>init</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="25" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::update</definition>
+        <argsstring>(EntityCoordinator *coordinator)</argsstring>
+        <name>update</name>
+        <param>
+          <type><ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref> *</type>
+          <declname>coordinator</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="26" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int Renderer::teardown</definition>
+        <argsstring>()</argsstring>
+        <name>teardown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="27" column="1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::createDefaultShaderProgram</definition>
+        <argsstring>()</argsstring>
+        <name>createDefaultShaderProgram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="55" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="221" bodyend="289"/>
+        <references refid="class_renderer_1a5b2343e63684efe5c4e99a291c696000" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="23">DEFAULT_FRAG_SHADER_NAME</references>
+        <references refid="class_renderer_1aaf7bd89a092916065b9e83e899184f5e" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="22">DEFAULT_VERT_SHADER_NAME</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="28">MODEL_MATRIX_LOCATION</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="30">PROJECTION_MATRIX_LOCATION</references>
+        <references refid="namespace_file_manager_1afd00ae05dfc207e49142237b3126aac1" compoundref="_1_2users_2thompson_2comp-8551-project_2file__manager_8cpp" startline="31" endline="33">FileManager::readShaderFile</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="35">uniformsLocation</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="29">VIEW_MATRIX_LOCATION</references>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a2c937120a73a73fc9708e73715f5c131" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadVertexData</definition>
+        <argsstring>()</argsstring>
+        <name>loadVertexData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="56" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="292" bodyend="325"/>
+        <references refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="38">vertexBuffer</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="8">vertices</references>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadIndicesData</definition>
+        <argsstring>()</argsstring>
+        <name>loadIndicesData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="57" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="327" bodyend="336"/>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="17">indices</references>
+        <references refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="41">indicesBuffer</references>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a9e85891147c01097f8c9132aca8ba721" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::createTexBuffer</definition>
+        <argsstring>(SpriteInfo info, stbi_uc *imgData)</argsstring>
+        <name>createTexBuffer</name>
+        <param>
+          <type><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref></type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>stbi_uc *</type>
+          <declname>imgData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="58" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="154" bodyend="173"/>
+        <references refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="7">SpriteInfo::height</references>
+        <references refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="8">SpriteInfo::width</references>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="100" endline="152">loadImages</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadTexture</definition>
+        <argsstring>(const char *spriteName)</argsstring>
+        <name>loadTexture</name>
+        <param>
+          <type>const char *</type>
+          <declname>spriteName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="59" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="338" bodyend="348"/>
+        <references refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="15">SpriteInfo::id</references>
+        <references refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="53">sprites</references>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a2409df29258ec53c9c7e4fc255339085" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadUniforms</definition>
+        <argsstring>(mat4 modelMatrix)</argsstring>
+        <name>loadUniforms</name>
+        <param>
+          <type>mat4</type>
+          <declname>modelMatrix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="60" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="350" bodyend="355"/>
+        <references refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="49">camera</references>
+        <references refid="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" compoundref="_1_2users_2thompson_2comp-8551-project_2_camera_8cpp" startline="16" endline="19">Camera::getViewMatrix</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="28">MODEL_MATRIX_LOCATION</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="30">PROJECTION_MATRIX_LOCATION</references>
+        <references refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="48">projectionMatrix</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="35">uniformsLocation</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="29">VIEW_MATRIX_LOCATION</references>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadImages</definition>
+        <argsstring>()</argsstring>
+        <name>loadImages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="61" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="100" bodyend="152"/>
+        <references refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="12">SpriteInfo::columns</references>
+        <references refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="154" endline="173">createTexBuffer</references>
+        <references refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="7">SpriteInfo::height</references>
+        <references refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="15">SpriteInfo::id</references>
+        <references refid="namespace_file_manager_1adbf5b1e4c498078afd5c3131edcefe3d" compoundref="_1_2users_2thompson_2comp-8551-project_2file__manager_8cpp" startline="7" endline="9">FileManager::readImageFile</references>
+        <references refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="11">SpriteInfo::rows</references>
+        <references refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="53">sprites</references>
+        <references refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="8">SpriteInfo::width</references>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="45" endline="95">init</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::updateTexCoord</definition>
+        <argsstring>(RenderComponent comp, const char *spriteName)</argsstring>
+        <name>updateTexCoord</name>
+        <param>
+          <type><ref refid="struct_render_component" kindref="compound">RenderComponent</ref></type>
+          <declname>comp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>spriteName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="62" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="359" bodyend="380"/>
+        <references refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" compoundref="_1_2users_2thompson_2comp-8551-project_2render_component_8h" startline="15">RenderComponent::colIndex</references>
+        <references refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="12">SpriteInfo::columns</references>
+        <references refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" compoundref="_1_2users_2thompson_2comp-8551-project_2render_component_8h" startline="14">RenderComponent::rowIndex</references>
+        <references refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" compoundref="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" startline="11">SpriteInfo::rows</references>
+        <references refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" startline="53">sprites</references>
+        <references refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="8">vertices</references>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" startline="383" endline="454">update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::createDefaultShaderProgram</definition>
+        <argsstring>()</argsstring>
+        <name>createDefaultShaderProgram</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="55" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a2c937120a73a73fc9708e73715f5c131" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadVertexData</definition>
+        <argsstring>()</argsstring>
+        <name>loadVertexData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="56" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadIndicesData</definition>
+        <argsstring>()</argsstring>
+        <name>loadIndicesData</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="57" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a9e85891147c01097f8c9132aca8ba721" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>GLuint</type>
+        <definition>GLuint Renderer::createTexBuffer</definition>
+        <argsstring>(SpriteInfo info, stbi_uc *imgData)</argsstring>
+        <name>createTexBuffer</name>
+        <param>
+          <type><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref></type>
+          <declname>info</declname>
+        </param>
+        <param>
+          <type>stbi_uc *</type>
+          <declname>imgData</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="58" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadTexture</definition>
+        <argsstring>(const char *spriteName)</argsstring>
+        <name>loadTexture</name>
+        <param>
+          <type>const char *</type>
+          <declname>spriteName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="59" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a2409df29258ec53c9c7e4fc255339085" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadUniforms</definition>
+        <argsstring>(mat4 modelMatrix)</argsstring>
+        <name>loadUniforms</name>
+        <param>
+          <type>mat4</type>
+          <declname>modelMatrix</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="60" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::loadImages</definition>
+        <argsstring>()</argsstring>
+        <name>loadImages</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="61" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Renderer::updateTexCoord</definition>
+        <argsstring>(RenderComponent comp, const char *spriteName)</argsstring>
+        <name>updateTexCoord</name>
+        <param>
+          <type><ref refid="struct_render_component" kindref="compound">RenderComponent</ref></type>
+          <declname>comp</declname>
+        </param>
+        <param>
+          <type>const char *</type>
+          <declname>spriteName</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.h" line="62" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="117">
+        <label>Camera</label>
+        <link refid="class_camera"/>
+      </node>
+      <node id="116">
+        <label>Renderer</label>
+        <link refid="class_renderer"/>
+        <childnode refid="117" relation="usage">
+          <edgelabel>camera</edgelabel>
+        </childnode>
+        <childnode refid="118" relation="usage">
+          <edgelabel>sprites</edgelabel>
+        </childnode>
+      </node>
+      <node id="118">
+        <label>std::map&lt; const char *, SpriteInfo &gt;</label>
+        <childnode refid="119" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="119">
+        <label>SpriteInfo</label>
+        <link refid="struct_sprite_info"/>
+      </node>
+    </collaborationgraph>
+    <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="20" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.h" bodystart="19" bodyend="63"/>
+    <listofallmembers>
+      <member refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" prot="private" virt="non-virtual"><scope>Renderer</scope><name>camera</name></member>
+      <member refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" prot="private" virt="non-virtual"><scope>Renderer</scope><name>createDefaultShaderProgram</name></member>
+      <member refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" prot="private" virt="non-virtual"><scope>Renderer</scope><name>createDefaultShaderProgram</name></member>
+      <member refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" prot="private" virt="non-virtual"><scope>Renderer</scope><name>createTexBuffer</name></member>
+      <member refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" prot="private" virt="non-virtual"><scope>Renderer</scope><name>createTexBuffer</name></member>
+      <member refid="class_renderer_1a5b2343e63684efe5c4e99a291c696000" prot="public" virt="non-virtual"><scope>Renderer</scope><name>DEFAULT_FRAG_SHADER_NAME</name></member>
+      <member refid="class_renderer_1aaf7bd89a092916065b9e83e899184f5e" prot="public" virt="non-virtual"><scope>Renderer</scope><name>DEFAULT_VERT_SHADER_NAME</name></member>
+      <member refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" prot="private" virt="non-virtual"><scope>Renderer</scope><name>defaultShaderProgram</name></member>
+      <member refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" prot="private" virt="non-virtual"><scope>Renderer</scope><name>indicesBuffer</name></member>
+      <member refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" prot="public" virt="non-virtual"><scope>Renderer</scope><name>init</name></member>
+      <member refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" prot="public" virt="non-virtual"><scope>Renderer</scope><name>init</name></member>
+      <member refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadImages</name></member>
+      <member refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadImages</name></member>
+      <member refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadIndicesData</name></member>
+      <member refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadIndicesData</name></member>
+      <member refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadTexture</name></member>
+      <member refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadTexture</name></member>
+      <member refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadUniforms</name></member>
+      <member refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadUniforms</name></member>
+      <member refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadVertexData</name></member>
+      <member refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" prot="private" virt="non-virtual"><scope>Renderer</scope><name>loadVertexData</name></member>
+      <member refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" prot="private" virt="non-virtual"><scope>Renderer</scope><name>projectionMatrix</name></member>
+      <member refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" prot="public" virt="non-virtual"><scope>Renderer</scope><name>setupGLFW</name></member>
+      <member refid="class_renderer_1a28900330bdfd56cf9c83e9cb487d406d" prot="public" virt="non-virtual"><scope>Renderer</scope><name>setupGLFW</name></member>
+      <member refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" prot="private" virt="non-virtual"><scope>Renderer</scope><name>sprites</name></member>
+      <member refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" prot="public" virt="non-virtual"><scope>Renderer</scope><name>teardown</name></member>
+      <member refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" prot="public" virt="non-virtual"><scope>Renderer</scope><name>teardown</name></member>
+      <member refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" prot="public" virt="non-virtual"><scope>Renderer</scope><name>update</name></member>
+      <member refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" prot="public" virt="non-virtual"><scope>Renderer</scope><name>update</name></member>
+      <member refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" prot="private" virt="non-virtual"><scope>Renderer</scope><name>updateTexCoord</name></member>
+      <member refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" prot="private" virt="non-virtual"><scope>Renderer</scope><name>updateTexCoord</name></member>
+      <member refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" prot="private" virt="non-virtual"><scope>Renderer</scope><name>vertexAttribs</name></member>
+      <member refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" prot="private" virt="non-virtual"><scope>Renderer</scope><name>vertexBuffer</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_contact_listener" kind="class" prot="public">
+    <compoundname>ContactListener</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">b2ContactListener</basecompoundref>
+    <includes refid="_contact_listener_8h" local="no">ContactListener.h</includes>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_contact_listener_1af83946c54271cbf9d8ee273587ed1791" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ContactListener::BeginContact</definition>
+        <argsstring>(b2Contact *contact)</argsstring>
+        <name>BeginContact</name>
+        <param>
+          <type>b2Contact *</type>
+          <declname>contact</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" line="7" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" bodystart="7" bodyend="9"/>
+      </memberdef>
+      <memberdef kind="function" id="class_contact_listener_1a92df01f2f60983f4f1dd74b5e845188d" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ContactListener::EndContact</definition>
+        <argsstring>(b2Contact *contact)</argsstring>
+        <name>EndContact</name>
+        <param>
+          <type>b2Contact *</type>
+          <declname>contact</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" line="10" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" bodystart="10" bodyend="10"/>
+      </memberdef>
+      <memberdef kind="function" id="class_contact_listener_1a5bf4127178802b0f84ebbd9e98074564" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ContactListener::PreSolve</definition>
+        <argsstring>(b2Contact *contact, const b2Manifold *oldManifold)</argsstring>
+        <name>PreSolve</name>
+        <param>
+          <type>b2Contact *</type>
+          <declname>contact</declname>
+        </param>
+        <param>
+          <type>const b2Manifold *</type>
+          <declname>oldManifold</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" line="11" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" bodystart="11" bodyend="11"/>
+      </memberdef>
+      <memberdef kind="function" id="class_contact_listener_1a73d8e7898ad6cb74063a07998f6f4192" prot="private" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void ContactListener::PostSolve</definition>
+        <argsstring>(b2Contact *contact, const b2ContactImpulse *impulse)</argsstring>
+        <name>PostSolve</name>
+        <param>
+          <type>b2Contact *</type>
+          <declname>contact</declname>
+        </param>
+        <param>
+          <type>const b2ContactImpulse *</type>
+          <declname>impulse</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" line="12" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" bodystart="12" bodyend="12"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="53">
+        <label>b2ContactListener</label>
+      </node>
+      <node id="52">
+        <label>ContactListener</label>
+        <link refid="class_contact_listener"/>
+        <childnode refid="53" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="55">
+        <label>b2ContactListener</label>
+      </node>
+      <node id="54">
+        <label>ContactListener</label>
+        <link refid="class_contact_listener"/>
+        <childnode refid="55" relation="public-inheritance">
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" line="6" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ContactListener.h" bodystart="6" bodyend="13"/>
+    <listofallmembers>
+      <member refid="class_contact_listener_1af83946c54271cbf9d8ee273587ed1791" prot="private" virt="non-virtual"><scope>ContactListener</scope><name>BeginContact</name></member>
+      <member refid="class_contact_listener_1a92df01f2f60983f4f1dd74b5e845188d" prot="private" virt="non-virtual"><scope>ContactListener</scope><name>EndContact</name></member>
+      <member refid="class_contact_listener_1a73d8e7898ad6cb74063a07998f6f4192" prot="private" virt="non-virtual"><scope>ContactListener</scope><name>PostSolve</name></member>
+      <member refid="class_contact_listener_1a5bf4127178802b0f84ebbd9e98074564" prot="private" virt="non-virtual"><scope>ContactListener</scope><name>PreSolve</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

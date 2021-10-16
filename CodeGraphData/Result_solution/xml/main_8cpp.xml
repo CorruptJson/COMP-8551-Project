@@ -1,0 +1,1158 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="main_8cpp" kind="file">
+    <compoundname>main.cpp</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">string</includes>
+    <includes refid="_renderer_8h" local="yes">Renderer.h</includes>
+    <includes local="no">C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt/stddef.h</includes>
+    <includes local="no">C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/stdint.h</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/quaternion.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/constants.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/matrix_transform.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_relational.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/qualifier.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_relational.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vector_relational.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/common.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_float.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/setup.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_common.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_constants.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_geometric.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/geometric.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/exponential.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_geometric.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/trigonometric.hpp</includes>
+    <includes local="no">C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/limits</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_common.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_float.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_quat.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_mat3x3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_mat4x4.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec4.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_relational.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_relational.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_quat.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_float_precision.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_double.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_double_precision.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_trigonometric.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_trigonometric.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_transform.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_transform.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/quaternion.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/epsilon.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/epsilon.inl</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/vec1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_bool1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_bool1_precision.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_float1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_float1_precision.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_double1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_double1_precision.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_int1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_int1_sized.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_int_sized.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_uint1.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_uint1_sized.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_uint_sized.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec2.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec4.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x2.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x4.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x2.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x4.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x2.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x3.hpp</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x4.hpp</includes>
+    <includes local="no">C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/cstring</includes>
+    <includes local="yes">C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/type_ptr.inl</includes>
+    <includes refid="_physics_world_8h" local="yes">PhysicsWorld.h</includes>
+    <includes refid="_entity_coordinator_8h" local="yes">EntityCoordinator.h</includes>
+    <includes refid="_transform_8h" local="yes">Transform.h</includes>
+    <includes refid="render_component_8h" local="yes">RenderComponent.h</includes>
+    <includes refid="_physics_component_8h" local="yes">PhysicsComponent.h</includes>
+    <includes refid="_types_8h" local="yes">Types.h</includes>
+    <incdepgraph>
+      <node id="730">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_float1.hpp</label>
+      </node>
+      <node id="652">
+        <label>Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="654" relation="include">
+        </childnode>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="656" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="679" relation="include">
+        </childnode>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="682" relation="include">
+        </childnode>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="685" relation="include">
+        </childnode>
+        <childnode refid="660" relation="include">
+        </childnode>
+      </node>
+      <node id="710">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_mat4x4.hpp</label>
+      </node>
+      <node id="744">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x3.hpp</label>
+      </node>
+      <node id="699">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_constants.hpp</label>
+      </node>
+      <node id="688">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/quaternion.hpp</label>
+      </node>
+      <node id="671">
+        <label>chunk.h</label>
+        <link refid="chunk_8h"/>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="672" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="673" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+      </node>
+      <node id="743">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x2.hpp</label>
+      </node>
+      <node id="677">
+        <label>iterator</label>
+      </node>
+      <node id="724">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/epsilon.hpp</label>
+      </node>
+      <node id="726">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/vec1.hpp</label>
+      </node>
+      <node id="706">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_common.inl</label>
+      </node>
+      <node id="689">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/constants.hpp</label>
+      </node>
+      <node id="750">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x3.hpp</label>
+      </node>
+      <node id="733">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_double1_precision.hpp</label>
+      </node>
+      <node id="745">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat2x4.hpp</label>
+      </node>
+      <node id="734">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_int1.hpp</label>
+      </node>
+      <node id="656">
+        <label>Camera.h</label>
+        <link refid="_camera_8h"/>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+      </node>
+      <node id="749">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x2.hpp</label>
+      </node>
+      <node id="695">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/common.hpp</label>
+      </node>
+      <node id="739">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_uint_sized.hpp</label>
+      </node>
+      <node id="694">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vector_relational.hpp</label>
+      </node>
+      <node id="728">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec1.hpp</label>
+      </node>
+      <node id="697">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/setup.hpp</label>
+      </node>
+      <node id="665">
+        <label>Types.h</label>
+        <link refid="_types_8h"/>
+        <childnode refid="666" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+      </node>
+      <node id="736">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/scalar_int_sized.hpp</label>
+      </node>
+      <node id="702">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/exponential.hpp</label>
+      </node>
+      <node id="651">
+        <label>string</label>
+      </node>
+      <node id="673">
+        <label>Archetype.h</label>
+        <link refid="_archetype_8h"/>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="674" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+      </node>
+      <node id="723">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/quaternion.inl</label>
+      </node>
+      <node id="655">
+        <label>map</label>
+      </node>
+      <node id="751">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat4x4.hpp</label>
+      </node>
+      <node id="721">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_transform.hpp</label>
+      </node>
+      <node id="654">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="670">
+        <label>exception</label>
+      </node>
+      <node id="753">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/type_ptr.inl</label>
+      </node>
+      <node id="683">
+        <label>fstream</label>
+      </node>
+      <node id="712">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec4.hpp</label>
+      </node>
+      <node id="725">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/epsilon.inl</label>
+      </node>
+      <node id="676">
+        <label>EntityQuery.h</label>
+        <link refid="_entity_query_8h"/>
+        <childnode refid="677" relation="include">
+        </childnode>
+        <childnode refid="678" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="671" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+      </node>
+      <node id="686">
+        <label>C:/Program Files (x86)/Windows Kits/10/Include/10.0.18362.0/ucrt/stddef.h</label>
+      </node>
+      <node id="672">
+        <label>sigArch.h</label>
+        <link refid="_sig_arch_8h"/>
+      </node>
+      <node id="708">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_quat.hpp</label>
+      </node>
+      <node id="709">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_mat3x3.hpp</label>
+      </node>
+      <node id="660">
+        <label>stb/stb_image.h</label>
+      </node>
+      <node id="668">
+        <label>any</label>
+      </node>
+      <node id="738">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_uint1_sized.hpp</label>
+      </node>
+      <node id="754">
+        <label>PhysicsWorld.h</label>
+        <link refid="_physics_world_8h"/>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="755" relation="include">
+        </childnode>
+        <childnode refid="756" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+      </node>
+      <node id="711">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_vec3.hpp</label>
+      </node>
+      <node id="679">
+        <label>RenderComponent.h</label>
+        <link refid="render_component_8h"/>
+      </node>
+      <node id="666">
+        <label>bitset</label>
+      </node>
+      <node id="685">
+        <label>glm/gtc/type_ptr.hpp</label>
+      </node>
+      <node id="731">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_float1_precision.hpp</label>
+      </node>
+      <node id="727">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_bool1.hpp</label>
+      </node>
+      <node id="717">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_double.hpp</label>
+      </node>
+      <node id="696">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_float.hpp</label>
+      </node>
+      <node id="713">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_relational.hpp</label>
+      </node>
+      <node id="719">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_trigonometric.hpp</label>
+      </node>
+      <node id="722">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_transform.inl</label>
+      </node>
+      <node id="680">
+        <label>Transform.h</label>
+        <link refid="_transform_8h"/>
+        <childnode refid="657" relation="include">
+        </childnode>
+        <childnode refid="658" relation="include">
+        </childnode>
+        <childnode refid="681" relation="include">
+        </childnode>
+      </node>
+      <node id="747">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x3.hpp</label>
+      </node>
+      <node id="650">
+        <label>vector</label>
+      </node>
+      <node id="716">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_float_precision.hpp</label>
+      </node>
+      <node id="700">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_geometric.hpp</label>
+      </node>
+      <node id="729">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_bool1_precision.hpp</label>
+      </node>
+      <node id="732">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_double1.hpp</label>
+      </node>
+      <node id="746">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x2.hpp</label>
+      </node>
+      <node id="663">
+        <label>array</label>
+      </node>
+      <node id="684">
+        <label>sstream</label>
+      </node>
+      <node id="659">
+        <label>SpriteInfo.h</label>
+        <link refid="_sprite_info_8h"/>
+        <childnode refid="660" relation="include">
+        </childnode>
+      </node>
+      <node id="742">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec4.hpp</label>
+      </node>
+      <node id="687">
+        <label>C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/stdint.h</label>
+      </node>
+      <node id="755">
+        <label>PhysicsComponent.h</label>
+        <link refid="_physics_component_8h"/>
+        <childnode refid="681" relation="include">
+        </childnode>
+      </node>
+      <node id="718">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_double_precision.hpp</label>
+      </node>
+      <node id="701">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/geometric.hpp</label>
+      </node>
+      <node id="715">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/type_quat.inl</label>
+      </node>
+      <node id="752">
+        <label>C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/cstring</label>
+      </node>
+      <node id="690">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="691">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_relational.hpp</label>
+      </node>
+      <node id="705">
+        <label>C:/Program Files (x86)/Microsoft Visual Studio/2019/Community/VC/Tools/MSVC/14.29.30133/include/limits</label>
+      </node>
+      <node id="741">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec3.hpp</label>
+      </node>
+      <node id="756">
+        <label>ContactListener.h</label>
+        <link refid="_contact_listener_8h"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="681" relation="include">
+        </childnode>
+      </node>
+      <node id="661">
+        <label>EntityCoordinator.h</label>
+        <link refid="_entity_coordinator_8h"/>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="663" relation="include">
+        </childnode>
+        <childnode refid="664" relation="include">
+        </childnode>
+        <childnode refid="669" relation="include">
+        </childnode>
+        <childnode refid="675" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="676" relation="include">
+        </childnode>
+      </node>
+      <node id="682">
+        <label>file_manager.h</label>
+        <link refid="file__manager_8h"/>
+        <childnode refid="683" relation="include">
+        </childnode>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="684" relation="include">
+        </childnode>
+        <childnode refid="653" relation="include">
+        </childnode>
+        <childnode refid="659" relation="include">
+        </childnode>
+      </node>
+      <node id="748">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/mat3x4.hpp</label>
+      </node>
+      <node id="649">
+        <label>iostream</label>
+      </node>
+      <node id="740">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/vec2.hpp</label>
+      </node>
+      <node id="658">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="678">
+        <label>cstddef</label>
+      </node>
+      <node id="667">
+        <label>unordered_map</label>
+      </node>
+      <node id="653">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="704">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/trigonometric.hpp</label>
+      </node>
+      <node id="707">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_float.hpp</label>
+      </node>
+      <node id="675">
+        <label>ArchetypeManager.h</label>
+        <link refid="_archetype_manager_8h"/>
+        <childnode refid="655" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="673" relation="include">
+        </childnode>
+      </node>
+      <node id="698">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_common.hpp</label>
+      </node>
+      <node id="669">
+        <label>chunkManager.h</label>
+        <link refid="chunk_manager_8h"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="670" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="671" relation="include">
+        </childnode>
+      </node>
+      <node id="720">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_trigonometric.inl</label>
+      </node>
+      <node id="703">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_geometric.inl</label>
+      </node>
+      <node id="692">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/detail/qualifier.hpp</label>
+      </node>
+      <node id="681">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+      <node id="714">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/quaternion_relational.inl</label>
+      </node>
+      <node id="648">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main.cpp"/>
+        <childnode refid="649" relation="include">
+        </childnode>
+        <childnode refid="650" relation="include">
+        </childnode>
+        <childnode refid="651" relation="include">
+        </childnode>
+        <childnode refid="652" relation="include">
+        </childnode>
+        <childnode refid="686" relation="include">
+        </childnode>
+        <childnode refid="687" relation="include">
+        </childnode>
+        <childnode refid="688" relation="include">
+        </childnode>
+        <childnode refid="689" relation="include">
+        </childnode>
+        <childnode refid="690" relation="include">
+        </childnode>
+        <childnode refid="691" relation="include">
+        </childnode>
+        <childnode refid="692" relation="include">
+        </childnode>
+        <childnode refid="693" relation="include">
+        </childnode>
+        <childnode refid="694" relation="include">
+        </childnode>
+        <childnode refid="695" relation="include">
+        </childnode>
+        <childnode refid="696" relation="include">
+        </childnode>
+        <childnode refid="697" relation="include">
+        </childnode>
+        <childnode refid="698" relation="include">
+        </childnode>
+        <childnode refid="699" relation="include">
+        </childnode>
+        <childnode refid="700" relation="include">
+        </childnode>
+        <childnode refid="701" relation="include">
+        </childnode>
+        <childnode refid="702" relation="include">
+        </childnode>
+        <childnode refid="703" relation="include">
+        </childnode>
+        <childnode refid="704" relation="include">
+        </childnode>
+        <childnode refid="705" relation="include">
+        </childnode>
+        <childnode refid="706" relation="include">
+        </childnode>
+        <childnode refid="707" relation="include">
+        </childnode>
+        <childnode refid="708" relation="include">
+        </childnode>
+        <childnode refid="709" relation="include">
+        </childnode>
+        <childnode refid="710" relation="include">
+        </childnode>
+        <childnode refid="711" relation="include">
+        </childnode>
+        <childnode refid="712" relation="include">
+        </childnode>
+        <childnode refid="713" relation="include">
+        </childnode>
+        <childnode refid="714" relation="include">
+        </childnode>
+        <childnode refid="715" relation="include">
+        </childnode>
+        <childnode refid="716" relation="include">
+        </childnode>
+        <childnode refid="717" relation="include">
+        </childnode>
+        <childnode refid="718" relation="include">
+        </childnode>
+        <childnode refid="719" relation="include">
+        </childnode>
+        <childnode refid="720" relation="include">
+        </childnode>
+        <childnode refid="721" relation="include">
+        </childnode>
+        <childnode refid="722" relation="include">
+        </childnode>
+        <childnode refid="723" relation="include">
+        </childnode>
+        <childnode refid="724" relation="include">
+        </childnode>
+        <childnode refid="725" relation="include">
+        </childnode>
+        <childnode refid="726" relation="include">
+        </childnode>
+        <childnode refid="727" relation="include">
+        </childnode>
+        <childnode refid="728" relation="include">
+        </childnode>
+        <childnode refid="729" relation="include">
+        </childnode>
+        <childnode refid="730" relation="include">
+        </childnode>
+        <childnode refid="731" relation="include">
+        </childnode>
+        <childnode refid="732" relation="include">
+        </childnode>
+        <childnode refid="733" relation="include">
+        </childnode>
+        <childnode refid="734" relation="include">
+        </childnode>
+        <childnode refid="735" relation="include">
+        </childnode>
+        <childnode refid="736" relation="include">
+        </childnode>
+        <childnode refid="737" relation="include">
+        </childnode>
+        <childnode refid="738" relation="include">
+        </childnode>
+        <childnode refid="739" relation="include">
+        </childnode>
+        <childnode refid="740" relation="include">
+        </childnode>
+        <childnode refid="741" relation="include">
+        </childnode>
+        <childnode refid="742" relation="include">
+        </childnode>
+        <childnode refid="743" relation="include">
+        </childnode>
+        <childnode refid="744" relation="include">
+        </childnode>
+        <childnode refid="745" relation="include">
+        </childnode>
+        <childnode refid="746" relation="include">
+        </childnode>
+        <childnode refid="747" relation="include">
+        </childnode>
+        <childnode refid="748" relation="include">
+        </childnode>
+        <childnode refid="749" relation="include">
+        </childnode>
+        <childnode refid="750" relation="include">
+        </childnode>
+        <childnode refid="751" relation="include">
+        </childnode>
+        <childnode refid="752" relation="include">
+        </childnode>
+        <childnode refid="753" relation="include">
+        </childnode>
+        <childnode refid="754" relation="include">
+        </childnode>
+        <childnode refid="661" relation="include">
+        </childnode>
+        <childnode refid="680" relation="include">
+        </childnode>
+        <childnode refid="679" relation="include">
+        </childnode>
+        <childnode refid="755" relation="include">
+        </childnode>
+        <childnode refid="665" relation="include">
+        </childnode>
+      </node>
+      <node id="674">
+        <label>algorithm</label>
+      </node>
+      <node id="693">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_relational.inl</label>
+      </node>
+      <node id="664">
+        <label>ComponentManager.h</label>
+        <link refid="_component_manager_8h"/>
+        <childnode refid="665" relation="include">
+        </childnode>
+        <childnode refid="668" relation="include">
+        </childnode>
+        <childnode refid="662" relation="include">
+        </childnode>
+        <childnode refid="667" relation="include">
+        </childnode>
+      </node>
+      <node id="737">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_uint1.hpp</label>
+      </node>
+      <node id="735">
+        <label>C:/Users/Thompson/COMP-8551-Project/Libraries/include/glm/ext/vector_int1_sized.hpp</label>
+      </node>
+      <node id="662">
+        <label>memory</label>
+      </node>
+      <node id="657">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" prot="public" static="no" mutable="no">
+        <type><ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref></type>
+        <definition>EntityCoordinator coordinator</definition>
+        <argsstring></argsstring>
+        <name>coordinator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a96120bdea31dc797b1f3acbb8cf5a322" prot="public" static="no" mutable="no">
+        <type><ref refid="class_renderer" kindref="compound">Renderer</ref></type>
+        <definition>Renderer renderer</definition>
+        <argsstring></argsstring>
+        <name>renderer</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="16" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1ae1848bff6658ad41c69365ecade478d6" prot="public" static="no" mutable="no">
+        <type><ref refid="class_physics_world" kindref="compound">PhysicsWorld</ref> *</type>
+        <definition>PhysicsWorld* physicsWorld</definition>
+        <argsstring></argsstring>
+        <name>physicsWorld</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="17" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="17" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" compoundref="main_8cpp" startline="102" endline="110">teardown</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a0549eb458496f1bee966ffc62d00d118" prot="public" static="no" mutable="no">
+        <type><ref refid="class_archetype" kindref="compound">Archetype</ref></type>
+        <definition>Archetype standardArch</definition>
+        <argsstring></argsstring>
+        <name>standardArch</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="19" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="19" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress turtle</definition>
+        <argsstring></argsstring>
+        <name>turtle</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="22" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="22" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress wall</definition>
+        <argsstring></argsstring>
+        <name>wall</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="23" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="23" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress dude</definition>
+        <argsstring></argsstring>
+        <name>dude</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="24" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="24" bodyend="-1"/>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int initialize</definition>
+        <argsstring>()</argsstring>
+        <name>initialize</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="28" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="28" bodyend="36"/>
+        <references refid="class_entity_coordinator_1aa211b873d370028f2e2769be33a00065" compoundref="_entity_coordinator_8h" startline="21" endline="30">EntityCoordinator::Init</references>
+        <references refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_renderer_8cpp" startline="45" endline="95">Renderer::init</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1ac8da963855e09bf929c085486f4a3b47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int test</definition>
+        <argsstring>()</argsstring>
+        <name>test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="38" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="38" bodyend="70"/>
+        <references refid="class_entity_coordinator_1a621898a32a6911267006bfd49aecf5b0" compoundref="_entity_coordinator_8h" startline="44" endline="47">EntityCoordinator::GetArchetype</references>
+        <references refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" compoundref="_entity_coordinator_8h" startline="111" endline="114">EntityCoordinator::GetComponentType</references>
+        <references refid="class_entity_coordinator_1ab2721dc3932e08b72e9ae53311fec08b" compoundref="_entity_coordinator_8h" startline="67" endline="70">EntityCoordinator::RegisterComponent</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress CreateStandardEntity</definition>
+        <argsstring>()</argsstring>
+        <name>CreateStandardEntity</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="73" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="73" bodyend="81"/>
+        <references refid="class_entity_coordinator_1a35f67511a2b7040e70fbd0184aeebd58" compoundref="_entity_coordinator_8h" startline="39" endline="42">EntityCoordinator::NEW_CreateEntity</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int runEngine</definition>
+        <argsstring>()</argsstring>
+        <name>runEngine</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="86" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="86" bodyend="97"/>
+        <references refid="class_physics_world_1a089a1ac085098372e190f56360dda531" compoundref="_physics_world_8cpp" startline="71" endline="106">PhysicsWorld::Update</references>
+        <references refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_renderer_8cpp" startline="383" endline="454">Renderer::update</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int teardown</definition>
+        <argsstring>()</argsstring>
+        <name>teardown</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="102" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="102" bodyend="110"/>
+        <references refid="main_8cpp_1ae1848bff6658ad41c69365ecade478d6" compoundref="main_8cpp" startline="17">physicsWorld</references>
+        <references refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" compoundref="_renderer_8cpp" startline="456" endline="462">Renderer::teardown</references>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>()</argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp" line="112" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/main.cpp" bodystart="112" bodyend="205"/>
+        <references refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</references>
+        <references refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" compoundref="main_8cpp" startline="73" endline="81">CreateStandardEntity</references>
+        <references refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" compoundref="main_8cpp" startline="24">dude</references>
+        <references refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" compoundref="_entity_coordinator_8h" startline="105" endline="108">EntityCoordinator::GetComponent</references>
+        <references refid="class_entity_coordinator_1af81ea5fd24960a9735eea4960a9a9671" compoundref="_entity_coordinator_8h" startline="201" endline="204">EntityCoordinator::GetEntityCount</references>
+        <references refid="main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" compoundref="main_8cpp" startline="28" endline="36">initialize</references>
+        <references refid="main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" compoundref="main_8cpp" startline="86" endline="97">runEngine</references>
+        <references refid="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" compoundref="main_8cpp" startline="102" endline="110">teardown</references>
+        <references refid="main_8cpp_1ac8da963855e09bf929c085486f4a3b47" compoundref="main_8cpp" startline="38" endline="70">test</references>
+        <references refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" compoundref="main_8cpp" startline="22">turtle</references>
+        <references refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" compoundref="main_8cpp" startline="23">wall</references>
+        <references refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" compoundref="_renderer_8cpp" startline="39">window</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_renderer_8h" kindref="compound">Renderer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_physics_world_8h" kindref="compound">PhysicsWorld.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//#include<sp/>&quot;protoChunkManager.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_entity_coordinator_8h" kindref="compound">EntityCoordinator.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_transform_8h" kindref="compound">Transform.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="render_component_8h" kindref="compound">RenderComponent.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_physics_component_8h" kindref="compound">PhysicsComponent.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_types_8h" kindref="compound">Types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="comment">//ChunkManager*<sp/>chunkManager;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" refkind="member"><highlight class="normal"><ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref><sp/><ref refid="main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" kindref="member">coordinator</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="main_8cpp_1a96120bdea31dc797b1f3acbb8cf5a322" refkind="member"><highlight class="normal"><ref refid="class_renderer" kindref="compound">Renderer</ref><sp/><ref refid="main_8cpp_1a96120bdea31dc797b1f3acbb8cf5a322" kindref="member">renderer</ref>;</highlight></codeline>
+<codeline lineno="17" refid="main_8cpp_1ae1848bff6658ad41c69365ecade478d6" refkind="member"><highlight class="normal"><ref refid="class_physics_world" kindref="compound">PhysicsWorld</ref>*<sp/><ref refid="main_8cpp_1ae1848bff6658ad41c69365ecade478d6" kindref="member">physicsWorld</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="main_8cpp_1a0549eb458496f1bee966ffc62d00d118" refkind="member"><highlight class="normal"><ref refid="class_archetype" kindref="compound">Archetype</ref><sp/><ref refid="main_8cpp_1a0549eb458496f1bee966ffc62d00d118" kindref="member">standardArch</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//<sp/>test<sp/>entities</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" refkind="member"><highlight class="normal"><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>;</highlight></codeline>
+<codeline lineno="23" refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" refkind="member"><highlight class="normal"><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>;</highlight></codeline>
+<codeline lineno="24" refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" refkind="member"><highlight class="normal"><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>;</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>gets<sp/>called<sp/>once<sp/>when<sp/>engine<sp/>starts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//<sp/>put<sp/>initilization<sp/>code<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28" refid="main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" kindref="member">initialize</ref>()</highlight></codeline>
+<codeline lineno="29"><highlight class="normal">{<sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>when<sp/>the<sp/>engine<sp/>starts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>renderer.<ref refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" kindref="member">init</ref>();</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1aa211b873d370028f2e2769be33a00065" kindref="member">Init</ref>();</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/>physicsWorld<sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_physics_world" kindref="compound">PhysicsWorld</ref>();</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="36"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="main_8cpp_1ac8da963855e09bf929c085486f4a3b47" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1ac8da963855e09bf929c085486f4a3b47" kindref="member">test</ref>(){</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>coordinator.identifyComponents&lt;Transform,<sp/>RenderComponent&gt;();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1ab2721dc3932e08b72e9ae53311fec08b" kindref="member">RegisterComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;();</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1ab2721dc3932e08b72e9ae53311fec08b" kindref="member">RegisterComponent</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;();</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1ab2721dc3932e08b72e9ae53311fec08b" kindref="member">RegisterComponent</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;();</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/>standardArch<sp/>=<sp/>coordinator.<ref refid="class_entity_coordinator_1a621898a32a6911267006bfd49aecf5b0" kindref="member">GetArchetype</ref>({</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(),</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;(),</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;()</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Archetype<sp/>arch<sp/>=<sp/>coordinator.GetArchetype({</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>coordinator.GetComponentType&lt;Transform&gt;(),</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>coordinator.GetComponentType&lt;RenderComponent&gt;()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Spritesheet<sp/>c1<sp/>=<sp/>&quot;sprite1&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//Spritesheet<sp/>c2<sp/>=<sp/>&quot;sprite2&quot;;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;type<sp/>of<sp/>transform:<sp/>&quot;<sp/>&lt;&lt;<sp/>unsigned(coordinator.GetComponentType&lt;Transform&gt;())<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;type<sp/>of<sp/>renderComponent:<sp/>&quot;<sp/>&lt;&lt;<sp/>unsigned(coordinator.GetComponentType&lt;RenderComponent&gt;())<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;type<sp/>of<sp/>transform:<sp/>&quot;<sp/>&lt;&lt;<sp/>unsigned(coordinator.GetComponentType&lt;Transform&gt;())<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>&quot;print<sp/>arch<sp/>test:<sp/>&quot;<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>arch<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//ChunkAddress<sp/>ca<sp/>=<sp/>coordinator.NEW_CreateEntity(arch,<sp/>c1);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::cout<sp/>&lt;&lt;<sp/>ca<sp/>&lt;&lt;<sp/>std::endl;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Use<sp/>for<sp/>now<sp/>to<sp/>make<sp/>entities<sp/>with<sp/>components</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="73" refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" refkind="member"><highlight class="normal"><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" kindref="member">CreateStandardEntity</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/>e<sp/>=<sp/>coordinator.<ref refid="class_entity_coordinator_1a35f67511a2b7040e70fbd0184aeebd58" kindref="member">NEW_CreateEntity</ref>(standardArch,</highlight><highlight class="stringliteral">&quot;turtles.png&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//coordinator.AddComponent&lt;Transform&gt;(e,<sp/>Transform());</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//coordinator.AddComponent&lt;RenderComponent&gt;(e,<sp/>RenderComponent{});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//coordinator.AddComponent&lt;PhysicsComponent&gt;(e,<sp/>PhysicsComponent{});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>e;</highlight></codeline>
+<codeline lineno="81"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="82"><highlight class="normal"></highlight></codeline>
+<codeline lineno="83"><highlight class="normal"></highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>main<sp/>update<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"></highlight><highlight class="comment">//<sp/>game<sp/>loop<sp/>will<sp/>be<sp/>put<sp/>here<sp/>eventually</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86" refid="main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" kindref="member">runEngine</ref>()</highlight></codeline>
+<codeline lineno="87"><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>run<sp/>physics</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>physicsWorld-&gt;<ref refid="class_physics_world_1a089a1ac085098372e190f56360dda531" kindref="member">Update</ref>(&amp;coordinator);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>run<sp/>ECS</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>render</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/>renderer.<ref refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" kindref="member">update</ref>(&amp;coordinator);</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"></highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="97"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight></codeline>
+<codeline lineno="100"><highlight class="normal"></highlight><highlight class="comment">//<sp/>gets<sp/>called<sp/>once<sp/>when<sp/>engine<sp/>ends</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="101"><highlight class="normal"></highlight><highlight class="comment">//<sp/>put<sp/>teardown<sp/>code<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102" refid="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" kindref="member">teardown</ref>()</highlight></codeline>
+<codeline lineno="103"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>when<sp/>the<sp/>engine<sp/>closes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>renderer.<ref refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" kindref="member">teardown</ref>();</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"></highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1ae1848bff6658ad41c69365ecade478d6" kindref="member">physicsWorld</ref>;</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"></highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"></highlight></codeline>
+<codeline lineno="112" refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" kindref="member">main</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8cpp_1a03aede8ff91764482bb5e9accfae9b4f" kindref="member">initialize</ref>();</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8cpp_1ac8da963855e09bf929c085486f4a3b47" kindref="member">test</ref>();</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"></highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//entity<sp/>test</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="117"><highlight class="normal"></highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/>turtle<sp/>=<sp/><ref refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" kindref="member">CreateStandardEntity</ref>();</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/>wall<sp/>=<sp/><ref refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" kindref="member">CreateStandardEntity</ref>();</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/>dude<sp/>=<sp/><ref refid="main_8cpp_1a93d99580ee1f8380417fb2a9901b2817" kindref="member">CreateStandardEntity</ref>();</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"></highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>turtle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).setPosition(0.5,<sp/>3);</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).setScale(0.4,<sp/>0.4);</highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultVertShader.vs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultFragShader.fs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;turtles.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,</highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2_dynamicBody,</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getScale().y,</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getScale().x,</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getPosition().x,</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getPosition().y,</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0f</highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="142"><highlight class="normal"></highlight></codeline>
+<codeline lineno="143"><highlight class="normal"></highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>ground</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="145"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultVertShader.vs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultFragShader.fs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;wall.jpg&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0,</highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="152"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).translate(0,<sp/>-1);</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).setScale(2,<sp/>1);</highlight></codeline>
+<codeline lineno="154"><highlight class="normal"><sp/></highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2_staticBody,</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getScale().y,</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getScale().x,</highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getPosition().x,</highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getPosition().y,</highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0f</highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"></highlight></codeline>
+<codeline lineno="165"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultVertShader.vs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;defaultFragShader.fs&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;game_sprites.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>2,</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).translate(-0.5,<sp/>0);</highlight></codeline>
+<codeline lineno="173"><highlight class="normal"><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>)<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2_dynamicBody,</highlight></codeline>
+<codeline lineno="175"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getScale().y,</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.5f<sp/>*<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getScale().x,</highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getPosition().x,</highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getPosition().y,</highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1.0f,</highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/>0.0f</highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"><sp/><sp/><sp/><sp/>physicsWorld-&gt;<ref refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" kindref="member">AddObjects</ref>(&amp;coordinator);</highlight></codeline>
+<codeline lineno="183"><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"></highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;turtle<sp/>x:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getPosition().x<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>y:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getPosition().y<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;wall<sp/>x:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getPosition().x<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>y:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1a06871a6bb0beb7f6a17a62d9dcd02278" kindref="member">wall</ref>).getPosition().y<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Dude<sp/>x:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getPosition().x<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;<sp/>y:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aaaf4d9db00a68bbfed0705d38ae6978b" kindref="member">dude</ref>).getPosition().y<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;From<sp/>Component<sp/>array:<sp/>x:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1a7c69503fa512720d3704f331f42d4cf7" kindref="member">GetComponent</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;(<ref refid="main_8cpp_1aa70a9e7b4790630903b954ab0347b201" kindref="member">turtle</ref>).getPosition().x<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Number<sp/>of<sp/>Entities:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>coordinator.<ref refid="class_entity_coordinator_1af81ea5fd24960a9735eea4960a9a9671" kindref="member">GetEntityCount</ref>()<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(!glfwWindowShouldClose(<ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>))</highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>glfw<sp/>to<sp/>keep<sp/>track<sp/>of<sp/>window<sp/>resize<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>input<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glfwPollEvents();</highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="main_8cpp_1a9d9c69f5d3828d15dee7d16ab23384a4" kindref="member">runEngine</ref>();</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="main_8cpp_1abdcc0cd526b667641db5dc072cc162c4" kindref="member">teardown</ref>();</highlight></codeline>
+<codeline lineno="203"><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="205"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/main.cpp"/>
+  </compounddef>
+</doxygen>

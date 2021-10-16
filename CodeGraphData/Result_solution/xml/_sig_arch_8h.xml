@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_sig_arch_8h" kind="file">
+    <compoundname>SigArch.h</compoundname>
+    <includedby refid="chunk_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/chunk.h</includedby>
+    <includedby refid="_chunk_manager_abstract_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/ChunkManagerAbstract.cpp</includedby>
+    <invincdepgraph>
+      <node id="956">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="957" relation="include">
+        </childnode>
+        <childnode refid="958" relation="include">
+        </childnode>
+      </node>
+      <node id="951">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunk.h</label>
+        <link refid="chunk_8h"/>
+        <childnode refid="952" relation="include">
+        </childnode>
+        <childnode refid="953" relation="include">
+        </childnode>
+        <childnode refid="963" relation="include">
+        </childnode>
+        <childnode refid="964" relation="include">
+        </childnode>
+      </node>
+      <node id="952">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunk.cpp</label>
+        <link refid="chunk_8cpp"/>
+      </node>
+      <node id="963">
+        <label>C:/Users/Thompson/COMP-8551-Project/componentInfo.h</label>
+        <link refid="component_info_8h"/>
+      </node>
+      <node id="960">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.cpp</label>
+        <link refid="_physics_world_8cpp"/>
+      </node>
+      <node id="954">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunkManager.cpp</label>
+        <link refid="chunk_manager_8cpp"/>
+      </node>
+      <node id="964">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.h</label>
+        <link refid="_entity_query_8h"/>
+        <childnode refid="955" relation="include">
+        </childnode>
+        <childnode refid="965" relation="include">
+        </childnode>
+      </node>
+      <node id="950">
+        <label>C:/Users/Thompson/COMP-8551-Project/SigArch.h</label>
+        <link refid="SigArch.h"/>
+        <childnode refid="951" relation="include">
+        </childnode>
+        <childnode refid="966" relation="include">
+        </childnode>
+      </node>
+      <node id="959">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.h</label>
+        <link refid="_physics_world_8h"/>
+        <childnode refid="957" relation="include">
+        </childnode>
+        <childnode refid="960" relation="include">
+        </childnode>
+      </node>
+      <node id="966">
+        <label>C:/Users/Thompson/COMP-8551-Project/ChunkManagerAbstract.cpp</label>
+        <link refid="_chunk_manager_abstract_8cpp"/>
+      </node>
+      <node id="958">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="961">
+        <label>C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h</label>
+        <link refid="proto_chunk_manager_8h"/>
+        <childnode refid="962" relation="include">
+        </childnode>
+      </node>
+      <node id="955">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityCoordinator.h</label>
+        <link refid="_entity_coordinator_8h"/>
+        <childnode refid="956" relation="include">
+        </childnode>
+        <childnode refid="959" relation="include">
+        </childnode>
+        <childnode refid="957" relation="include">
+        </childnode>
+      </node>
+      <node id="962">
+        <label>C:/Users/Thompson/COMP-8551-Project/protoChunkManager.cpp</label>
+        <link refid="proto_chunk_manager_8cpp"/>
+      </node>
+      <node id="953">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunkManager.h</label>
+        <link refid="chunk_manager_8h"/>
+        <childnode refid="954" relation="include">
+        </childnode>
+        <childnode refid="955" relation="include">
+        </childnode>
+        <childnode refid="961" relation="include">
+        </childnode>
+      </node>
+      <node id="965">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.cpp</label>
+        <link refid="_entity_query_8cpp"/>
+      </node>
+      <node id="957">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_sig_arch" prot="public">SigArch</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="struct_sig_arch" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_sig_arch" kindref="compound">SigArch</ref></highlight></codeline>
+<codeline lineno="4"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/SigArch.h"/>
+  </compounddef>
+</doxygen>

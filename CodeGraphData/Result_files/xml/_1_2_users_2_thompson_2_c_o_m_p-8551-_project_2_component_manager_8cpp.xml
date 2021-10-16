@@ -1,0 +1,136 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_component_manager_8cpp" kind="file">
+    <compoundname>ComponentManager.cpp</compoundname>
+    <includes refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_component_manager_8h" local="yes">ComponentManager.h</includes>
+    <incdepgraph>
+      <node id="741">
+        <label>Types.h</label>
+        <link refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_types_8h"/>
+        <childnode refid="742" relation="include">
+        </childnode>
+        <childnode refid="743" relation="include">
+        </childnode>
+        <childnode refid="744" relation="include">
+        </childnode>
+        <childnode refid="745" relation="include">
+        </childnode>
+      </node>
+      <node id="744">
+        <label>string</label>
+      </node>
+      <node id="746">
+        <label>any</label>
+      </node>
+      <node id="742">
+        <label>bitset</label>
+      </node>
+      <node id="739">
+        <label>C:/Users/Thompson/COMP-8551-Project/ComponentManager.cpp</label>
+        <link refid=":/Users/Thompson/COMP-8551-Project/ComponentManager.cpp"/>
+        <childnode refid="740" relation="include">
+        </childnode>
+      </node>
+      <node id="745">
+        <label>iostream</label>
+      </node>
+      <node id="743">
+        <label>unordered_map</label>
+      </node>
+      <node id="740">
+        <label>ComponentManager.h</label>
+        <link refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_component_manager_8h"/>
+        <childnode refid="741" relation="include">
+        </childnode>
+        <childnode refid="746" relation="include">
+        </childnode>
+        <childnode refid="747" relation="include">
+        </childnode>
+        <childnode refid="743" relation="include">
+        </childnode>
+      </node>
+      <node id="747">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_component_manager_8h" kindref="compound">ComponentManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref><sp/><ref refid="class_component_manager_1acb2efeb31233e24a523c8dded7deb6b8" kindref="member">ComponentManager::typeCounter</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a53c4ce85e1def45634a3b07af7870bb9" kindref="member">ComponentSize</ref><sp/><ref refid="class_component_manager_1ad6f1de1480afdde24d0c6f5e001c68e2" kindref="member">ComponentManager::GetComponentSize</ref>(<ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref><sp/>t)</highlight></codeline>
+<codeline lineno="6"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="class_component_manager_1a31725ef76c02978dd1a84539f3c97fa4" kindref="member">main</ref>-&gt;<ref refid="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" kindref="member">getComponentSize</ref>(t);</highlight></codeline>
+<codeline lineno="8"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a53c4ce85e1def45634a3b07af7870bb9" kindref="member">ComponentSize</ref><sp/><ref refid="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" kindref="member">ComponentManager::getComponentSize</ref>(<ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref><sp/>t)</highlight></codeline>
+<codeline lineno="11"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">auto</highlight><highlight class="normal"><sp/>find<sp/>=<sp/><ref refid="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" kindref="member">mComponentSizes</ref>.find(t);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(find<sp/>==<sp/><ref refid="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" kindref="member">mComponentSizes</ref>.end())</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">throw</highlight><highlight class="normal"><sp/></highlight><highlight class="stringliteral">&quot;cannot<sp/>find<sp/>component<sp/>size:<sp/>component<sp/>not<sp/>registered?&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">else</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>find-&gt;second;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/>}<sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>ComponentManager::RegisterComponent()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>const<sp/>char*<sp/>typeName<sp/>=<sp/>typeid(T).name();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>assert(mComponentTypes.find(typeName)<sp/>==<sp/>mComponentTypes.end()<sp/>&amp;&amp;<sp/>&quot;Registering<sp/>component<sp/>type<sp/>more<sp/>than<sp/>once.&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>mComponentTypes.insert({<sp/>typeName,<sp/>mNextComponentType<sp/>});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>mComponentArrays.insert({<sp/>typeName,<sp/>std::make_shared&lt;ComponentArray&lt;T&gt;&gt;()<sp/>});</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>Signature<sp/>sig;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>//ComponentInfo<sp/>info(mNextComponentType);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>++mNextComponentType;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight><highlight class="comment">//ComponentType<sp/>ComponentManager::GetComponentType()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>static<sp/>const<sp/>ComponentType<sp/>typeID<sp/>=<sp/>typeCounter++;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>return<sp/>typeID;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>ComponentManager::AddComponent(Entity<sp/>entity,<sp/>T<sp/>component)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>GetComponentArray&lt;T&gt;()-&gt;InsertData(entity,<sp/>component);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>ComponentManager::RemoveComponent(Entity<sp/>entity)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>GetComponentArray&lt;T&gt;()-&gt;RemoveData(entity);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"></highlight><highlight class="comment">//T&amp;<sp/>ComponentManager::GetComponent(Entity<sp/>entity)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>return<sp/>GetComponentArray&lt;T&gt;()-&gt;GetData(entity);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight><highlight class="comment">//template&lt;typename<sp/>T&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"></highlight><highlight class="comment">//std::shared_ptr&lt;ComponentArray&lt;T&gt;&gt;<sp/>ComponentManager::GetComponentArray()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="66"><highlight class="normal"></highlight><highlight class="comment">//{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>const<sp/>char*<sp/>typeName<sp/>=<sp/>typeid(T).name();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="69"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>assert(mComponentTypes.find(typeName)<sp/>!=<sp/>mComponentTypes.end()<sp/>&amp;&amp;<sp/>&quot;Component<sp/>not<sp/>registered<sp/>before<sp/>use.&quot;);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight><highlight class="comment">//<sp/><sp/><sp/><sp/>return<sp/>std::static_pointer_cast&lt;ComponentArray&lt;T&gt;&gt;(mComponentArrays[typeName]);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.cpp"/>
+  </compounddef>
+</doxygen>

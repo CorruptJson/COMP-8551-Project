@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="render_component_8h" kind="file">
+    <compoundname>renderComponent.h</compoundname>
+    <includedby refid="_renderer_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/Renderer.h</includedby>
+    <includedby refid="main_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/main.cpp</includedby>
+    <invincdepgraph>
+      <node id="867">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="868" relation="include">
+        </childnode>
+        <childnode refid="869" relation="include">
+        </childnode>
+      </node>
+      <node id="866">
+        <label>C:/Users/Thompson/COMP-8551-Project/renderComponent.h</label>
+        <link refid="renderComponent.h"/>
+        <childnode refid="867" relation="include">
+        </childnode>
+        <childnode refid="868" relation="include">
+        </childnode>
+      </node>
+      <node id="869">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="868">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_render_component" prot="public">RenderComponent</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2" refid="struct_render_component" refkind="compound"><highlight class="preprocessor"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_render_component" kindref="compound">RenderComponent</ref><sp/>{</highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>name<sp/>of<sp/>the<sp/>vertex<sp/>and<sp/>fragment<sp/>shaders</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="struct_render_component_1a6866b8c7eeec445d9d080e2d9e27e4e6" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_render_component_1a6866b8c7eeec445d9d080e2d9e27e4e6" kindref="member">vShader</ref>;</highlight></codeline>
+<codeline lineno="5" refid="struct_render_component_1af0d5b712e72fc722362c71d7de011a44" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_render_component_1af0d5b712e72fc722362c71d7de011a44" kindref="member">fShader</ref>;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>name<sp/>of<sp/>the<sp/>spritesheet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="struct_render_component_1ae7922179912f1f1550078a7162a4451c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="struct_render_component_1ae7922179912f1f1550078a7162a4451c" kindref="member">spriteName</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>sprite<sp/>position<sp/>within</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>spritesheet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>column<sp/>increases<sp/>from<sp/>0<sp/>to<sp/>1<sp/>left<sp/>to<sp/>right</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>row<sp/>increasese<sp/>from<sp/>0<sp/>to<sp/>1<sp/>top<sp/>to<sp/>bottom</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" kindref="member">rowIndex</ref>;</highlight></codeline>
+<codeline lineno="15" refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" kindref="member">colIndex</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h"/>
+  </compounddef>
+</doxygen>

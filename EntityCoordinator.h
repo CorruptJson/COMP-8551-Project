@@ -104,7 +104,7 @@ public:
     template<typename T>
     T& GetComponent(ChunkAddress entity)
     {
-        return mChunkManager->GetComponentRef(entity,mComponentManager);
+        return mChunkManager->getComponentRef<T>(entity);
     }
 
     template<typename T>
@@ -198,8 +198,8 @@ public:
         return *mComponentManager;
     }
 
-    //uint32_t GetEntityCount()
-    //{
-    //    return mEntityManager->GetEntityCount();
-    //}
+    uint32_t GetEntityCount()
+    {
+        return mChunkManager->GetEntityCount();
+    }
 };

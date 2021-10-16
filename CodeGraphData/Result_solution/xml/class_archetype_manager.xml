@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_archetype_manager" kind="class" prot="public">
+    <compoundname>ArchetypeManager</compoundname>
+    <includes refid="_archetype_manager_8h" local="no">ArchetypeManager.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_archetype_manager_1a1d43b938496201d599604bbf63e221bb" prot="private" static="no" mutable="no">
+        <type><ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+        <definition>ArchetypeType ArchetypeManager::typeCounter</definition>
+        <argsstring></argsstring>
+        <name>typeCounter</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" line="10" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" bodystart="10" bodyend="-1"/>
+        <referencedby refid="class_archetype_manager_1adaa585f172d80d2a4cffe1cd84aaac96" compoundref="_archetype_manager_8cpp" startline="4" endline="19">getArchetypeType</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_archetype_manager_1abe95e8683ffc379c4b3c81273cfa853e" prot="private" static="no" mutable="no">
+        <type>std::map&lt; std::vector&lt; <ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;, <ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref> &gt;</type>
+        <definition>std::map&lt;std::vector&lt;ComponentType&gt;, ArchetypeType&gt; ArchetypeManager::archetypeTypes</definition>
+        <argsstring></argsstring>
+        <name>archetypeTypes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" line="12" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_archetype_manager_1adaa585f172d80d2a4cffe1cd84aaac96" compoundref="_archetype_manager_8cpp" startline="4" endline="19">getArchetypeType</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_archetype_manager_1adaa585f172d80d2a4cffe1cd84aaac96" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+        <definition>ArchetypeType ArchetypeManager::getArchetypeType</definition>
+        <argsstring>(std::vector&lt; ComponentType &gt; &amp;compTypes)</argsstring>
+        <name>getArchetypeType</name>
+        <param>
+          <type>std::vector&lt; <ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt; &amp;</type>
+          <declname>compTypes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" line="11" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.cpp" bodystart="4" bodyend="19"/>
+        <references refid="class_archetype_manager_1abe95e8683ffc379c4b3c81273cfa853e" compoundref="_archetype_manager_8h" startline="12">archetypeTypes</references>
+        <references refid="class_archetype_manager_1a1d43b938496201d599604bbf63e221bb" compoundref="_archetype_manager_8h" startline="10">typeCounter</references>
+        <referencedby refid="class_archetype_manager_1a57900a897b96c32d20c4187933550a74" compoundref="_archetype_manager_8cpp" startline="21" endline="26">getArchetype</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_archetype_manager_1a57900a897b96c32d20c4187933550a74" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="class_archetype" kindref="compound">Archetype</ref></type>
+        <definition>Archetype ArchetypeManager::getArchetype</definition>
+        <argsstring>(std::vector&lt; ComponentType &gt; &amp;compTypes)</argsstring>
+        <name>getArchetype</name>
+        <param>
+          <type>std::vector&lt; <ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt; &amp;</type>
+          <declname>compTypes</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" line="17" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.cpp" bodystart="21" bodyend="26"/>
+        <references refid="class_archetype_manager_1adaa585f172d80d2a4cffe1cd84aaac96" compoundref="_archetype_manager_8cpp" startline="4" endline="19">getArchetypeType</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="5">
+        <label>std::map&lt; std::vector&lt; ComponentType &gt;, ArchetypeType &gt;</label>
+        <childnode refid="6" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+      </node>
+      <node id="4">
+        <label>ArchetypeManager</label>
+        <link refid="class_archetype_manager"/>
+        <childnode refid="5" relation="usage">
+          <edgelabel>archetypeTypes</edgelabel>
+        </childnode>
+      </node>
+      <node id="6">
+        <label>std::vector&lt; ComponentType &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h" bodystart="7" bodyend="18"/>
+    <listofallmembers>
+      <member refid="class_archetype_manager_1abe95e8683ffc379c4b3c81273cfa853e" prot="private" virt="non-virtual"><scope>ArchetypeManager</scope><name>archetypeTypes</name></member>
+      <member refid="class_archetype_manager_1a57900a897b96c32d20c4187933550a74" prot="public" virt="non-virtual"><scope>ArchetypeManager</scope><name>getArchetype</name></member>
+      <member refid="class_archetype_manager_1adaa585f172d80d2a4cffe1cd84aaac96" prot="private" virt="non-virtual"><scope>ArchetypeManager</scope><name>getArchetypeType</name></member>
+      <member refid="class_archetype_manager_1a1d43b938496201d599604bbf63e221bb" prot="private" virt="non-virtual"><scope>ArchetypeManager</scope><name>typeCounter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

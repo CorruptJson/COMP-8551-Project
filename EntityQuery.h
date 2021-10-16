@@ -23,12 +23,12 @@ private:
 public:
 
     EntityQuery(std::vector<ComponentType>& _compTypes,std::vector<Chunk*>& allChunks);
-    int size();
+    int totalEntitiesFound();
     int chunkCount();
     Chunk* chunk(int i);
 
     template<typename T>
-    std::unique_ptr<std::vector<T*>> getComponentArray(ComponentType type)
+    std::vector<T*> getComponentArray()
     {
         std::vector<T*> list;
         //ComponentType type = ComponentManager::NEW_GetComponentType<T>();
@@ -44,7 +44,7 @@ public:
             }
         }
 
-        return std::make_unique<
+        return list;
     }
 };
 

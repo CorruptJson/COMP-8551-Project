@@ -2,7 +2,6 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
-#include "sigArch.h"
 #include "Types.h"
 #include "Archetype.h"
 #include "ComponentManager.h"
@@ -30,14 +29,24 @@ private:
     void addComponentArrays(Archetype t, ComponentSizeMap& sizemap);
 
     template<typename T>
-    void addComponentArray();
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
+    }
 
     template<typename T, typename ... args>
-    void addComponentArray();
+    void addComponentArray()
+    {
+        char const* typeName = typeid(T).name();
+        componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
+
+        addComponentArray<args...>();
+    }
 
 public:
 
-    template<typename T, typename ... args>
+    //template<typename T, typename ... args>
     //static friend Chunk* createChunk(int chunkID, Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
 
     Chunk() = delete;
@@ -51,10 +60,39 @@ public:
     void releaseEntity(ChunkAddress id);
 
     template<typename T>
-    T& getComponentReference(ChunkAddress id);
+    T& getComponentReference(ChunkAddress id)
+    {
+        if (id.index >= ENTITIES_PER_CHUNK)
+        {
+            // throw error
+            throw "getComponentReference: entity id index too large";
+        }
+        int datIndex = entToDat[id.index];
+        if (datIndex >= ENTITIES_PER_CHUNK)
+        {
+            // throw error
+            throw "getComponentReference: entity data index too large";
+        }
+
+        T* compArr = getComponentArray<T>();
+        return compArr[datIndex];
+    }
 
     template <typename T>
-    T* getComponentArray();
+    T* getComponentArray()
+    {
+        ComponentType type = ComponentManager::NEW_GetComponentType<T>();
+        auto find = componentArrays.find(type);
+        if ( find  == componentArrays.end())
+        {
+            // type is not in chunk component type array map
+            throw "type is not in chunk component type array map";
+        }
+        Byte* arr = find->second;
+        //T* compArr = std::static_cast<T*>(arr);
+        T* compArr = (T*)arr;
+        return compArr;
+    }
 
     Archetype getArchetype();
 

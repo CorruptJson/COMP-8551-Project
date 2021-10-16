@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="struct_physics_component" kind="struct" prot="public">
+    <compoundname>PhysicsComponent</compoundname>
+    <includes refid="_physics_component_8h" local="no">PhysicsComponent.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_physics_component_1a10d224e866dc5208ce06c09aac5a9914" prot="public" static="no" mutable="no">
+        <type>b2BodyType</type>
+        <definition>b2BodyType PhysicsComponent::bodyType</definition>
+        <argsstring></argsstring>
+        <name>bodyType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="6" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="6" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1adcaf5e6edb11733b70ad1c003c5203ab" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::halfHeight</definition>
+        <argsstring></argsstring>
+        <name>halfHeight</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1ab2ccdfc3831febc2425e85a2086ec62a" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::halfWidth</definition>
+        <argsstring></argsstring>
+        <name>halfWidth</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="9" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="9" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1afb9c07b74405403d6754f007633dd21c" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::x</definition>
+        <argsstring></argsstring>
+        <name>x</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="11" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="11" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1a1ed438b2c4b33266ca7083d7b5c698e9" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::y</definition>
+        <argsstring></argsstring>
+        <name>y</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="12" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1ad976f6ae69d6df86831ff75d8e6faf30" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::density</definition>
+        <argsstring></argsstring>
+        <name>density</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_physics_component_1a1cf46ae2dded65b75409539239cc61e7" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float PhysicsComponent::friction</definition>
+        <argsstring></argsstring>
+        <name>friction</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="15" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" compoundref="_physics_world_8cpp" startline="16" endline="69">PhysicsWorld::AddObjects</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" line="5" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/PhysicsComponent.h" bodystart="5" bodyend="16"/>
+    <listofallmembers>
+      <member refid="struct_physics_component_1a10d224e866dc5208ce06c09aac5a9914" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>bodyType</name></member>
+      <member refid="struct_physics_component_1ad976f6ae69d6df86831ff75d8e6faf30" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>density</name></member>
+      <member refid="struct_physics_component_1a1cf46ae2dded65b75409539239cc61e7" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>friction</name></member>
+      <member refid="struct_physics_component_1adcaf5e6edb11733b70ad1c003c5203ab" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>halfHeight</name></member>
+      <member refid="struct_physics_component_1ab2ccdfc3831febc2425e85a2086ec62a" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>halfWidth</name></member>
+      <member refid="struct_physics_component_1afb9c07b74405403d6754f007633dd21c" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>x</name></member>
+      <member refid="struct_physics_component_1a1ed438b2c4b33266ca7083d7b5c698e9" prot="public" virt="non-virtual"><scope>PhysicsComponent</scope><name>y</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

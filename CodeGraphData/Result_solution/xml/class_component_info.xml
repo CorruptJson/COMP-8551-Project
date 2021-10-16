@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_component_info" kind="class" prot="public">
+    <compoundname>ComponentInfo</compoundname>
+    <includes refid="component_info_8h" local="no">componentInfo.h</includes>
+    <templateparamlist>
+      <param>
+        <type>typename T</type>
+      </param>
+    </templateparamlist>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_component_info_1a0d29202917e6f0c9133ff7d6ff38c483" prot="private" static="no" mutable="no">
+        <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+        <definition>ComponentType ComponentInfo&lt; T &gt;::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" line="9" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_component_info_1a129037bf265ebd1b5c778141a581a291" prot="private" static="no" mutable="no">
+        <type><ref refid="_types_8h_1aeb9b9235190f907fe8b0994938dd2807" kindref="member">Signature</ref></type>
+        <definition>Signature ComponentInfo&lt; T &gt;::sig</definition>
+        <argsstring></argsstring>
+        <name>sig</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" line="10" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" bodystart="10" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_component_info_1ab284b1f2847a3387ba8af303c196b03e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>ComponentInfo&lt; T &gt;::ComponentInfo</definition>
+        <argsstring>(ComponentType type, Signature sig)</argsstring>
+        <name>ComponentInfo</name>
+        <param>
+          <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type><ref refid="_types_8h_1aeb9b9235190f907fe8b0994938dd2807" kindref="member">Signature</ref></type>
+          <declname>sig</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" bodystart="14" bodyend="17"/>
+      </memberdef>
+      <memberdef kind="function" id="class_component_info_1ae4b6380c2b8470a7d40faeaa8960c42d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void *</type>
+        <definition>void* ComponentInfo&lt; T &gt;::getComponentArray</definition>
+        <argsstring>()</argsstring>
+        <name>getComponentArray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" line="19" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" bodystart="19" bodyend="22"/>
+        <references refid="chunk_8h_1ac6ea87efab29404097200daaf5df001b" compoundref="chunk_8h" startline="10">ENTITIES_PER_CHUNK</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="47">
+        <label>ComponentInfo&lt; T &gt;</label>
+        <link refid="class_component_info"/>
+        <childnode refid="48" relation="usage">
+          <edgelabel>sig</edgelabel>
+        </childnode>
+      </node>
+      <node id="48">
+        <label>std::bitset&lt; MAX_COMPONENTS &gt;</label>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" line="7" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/componentInfo.h" bodystart="6" bodyend="23"/>
+    <listofallmembers>
+      <member refid="class_component_info_1ab284b1f2847a3387ba8af303c196b03e" prot="public" virt="non-virtual"><scope>ComponentInfo</scope><name>ComponentInfo</name></member>
+      <member refid="class_component_info_1ae4b6380c2b8470a7d40faeaa8960c42d" prot="public" virt="non-virtual"><scope>ComponentInfo</scope><name>getComponentArray</name></member>
+      <member refid="class_component_info_1a129037bf265ebd1b5c778141a581a291" prot="private" virt="non-virtual"><scope>ComponentInfo</scope><name>sig</name></member>
+      <member refid="class_component_info_1a0d29202917e6f0c9133ff7d6ff38c483" prot="private" virt="non-virtual"><scope>ComponentInfo</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

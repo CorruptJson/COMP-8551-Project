@@ -1,0 +1,505 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_transform" kind="class" prot="public">
+    <compoundname>Transform</compoundname>
+    <includes refid="_transform_8h" local="no">Transform.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_transform_1a2ff696cd1ce8256c182415306a551650" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_position" kindref="compound">Position</ref></type>
+        <definition>Position Transform::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="44" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="44" bodyend="-1"/>
+        <referencedby refid="class_transform_1a00988e118f0333f74fa911d76c103792" compoundref="_transform_8cpp" startline="114" endline="130">generateModelMatrix</referencedby>
+        <referencedby refid="class_transform_1ad40222e6a36f952edfc700a531fe362e" compoundref="_transform_8cpp" startline="20" endline="22">getPosition</referencedby>
+        <referencedby refid="class_transform_1a7e9e7e5291025b63a536aece9cbe2580" compoundref="_transform_8cpp" startline="26" endline="31">setPosition</referencedby>
+        <referencedby refid="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" compoundref="_transform_8cpp" startline="5" endline="18">Transform</referencedby>
+        <referencedby refid="class_transform_1a99b08e3f6b2f69377ec02d77da6b72f4" compoundref="_transform_8cpp" startline="33" endline="37">translate</referencedby>
+        <referencedby refid="class_transform_1a43f71c15ac9818b3af7a57be33256259" compoundref="_transform_8cpp" startline="132" endline="136">translateModelMatrix</referencedby>
+        <referencedby refid="class_transform_1a377194ad810fc2e6d05e3008eb8c7655" compoundref="_transform_8cpp" startline="47" endline="56">update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" prot="private" static="no" mutable="no">
+        <type><ref refid="struct_scale" kindref="compound">Scale</ref></type>
+        <definition>Scale Transform::scale</definition>
+        <argsstring></argsstring>
+        <name>scale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="45" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="45" bodyend="-1"/>
+        <referencedby refid="class_transform_1a00988e118f0333f74fa911d76c103792" compoundref="_transform_8cpp" startline="114" endline="130">generateModelMatrix</referencedby>
+        <referencedby refid="class_transform_1aa05dfdf4bff55f8f6e8b632256025126" compoundref="_transform_8cpp" startline="58" endline="60">getScale</referencedby>
+        <referencedby refid="class_transform_1a95b51a84a2a28fa2982b9351dd5612f7" compoundref="_transform_8cpp" startline="62" endline="67">setScale</referencedby>
+        <referencedby refid="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" compoundref="_transform_8cpp" startline="5" endline="18">Transform</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1ab87b58888db840907cfe55b285dfb9d4" prot="private" static="no" mutable="no">
+        <type><ref refid="_transform_8h_1ac110c6bc4bfdc61c96f11c78236a66e6" kindref="member">Rotation</ref></type>
+        <definition>Rotation Transform::rotation</definition>
+        <argsstring></argsstring>
+        <name>rotation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="46" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="46" bodyend="-1"/>
+        <referencedby refid="class_transform_1a900535322e8e1ace4fc0dc0dedc20fc3" compoundref="_transform_8cpp" startline="69" endline="71">getRotation</referencedby>
+        <referencedby refid="class_transform_1a68e0346e43deb8dcfde1cc03656ff190" compoundref="_transform_8cpp" startline="78" endline="81">rotate</referencedby>
+        <referencedby refid="class_transform_1a892933ef3914f573336f3f8089cd0b05" compoundref="_transform_8cpp" startline="73" endline="76">setRotation</referencedby>
+        <referencedby refid="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" compoundref="_transform_8cpp" startline="5" endline="18">Transform</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1a04baa07a15f7c86c9b0355afc33a1da2" prot="private" static="no" mutable="no">
+        <type>glm::mat4</type>
+        <definition>glm::mat4 Transform::modelMatrix</definition>
+        <argsstring></argsstring>
+        <name>modelMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="47" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="47" bodyend="-1"/>
+        <referencedby refid="class_transform_1a00988e118f0333f74fa911d76c103792" compoundref="_transform_8cpp" startline="114" endline="130">generateModelMatrix</referencedby>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+        <referencedby refid="class_transform_1a43f71c15ac9818b3af7a57be33256259" compoundref="_transform_8cpp" startline="132" endline="136">translateModelMatrix</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1a183b7f2320daf30a159b02cec5ec5071" prot="private" static="no" mutable="no">
+        <type>b2Body *</type>
+        <definition>b2Body* Transform::body</definition>
+        <argsstring></argsstring>
+        <name>body</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="49" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="49" bodyend="-1"/>
+        <referencedby refid="class_transform_1ad1abbf808054f82fb3cf4877053b0bbb" compoundref="_transform_8cpp" startline="43" endline="45">getPhysicsBody</referencedby>
+        <referencedby refid="class_transform_1a26bf8712effcf614a9fad90c7a86fe3d" compoundref="_transform_8cpp" startline="39" endline="41">setPhysicsBody</referencedby>
+        <referencedby refid="class_transform_1a377194ad810fc2e6d05e3008eb8c7655" compoundref="_transform_8cpp" startline="47" endline="56">update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1a04ae2a0a1755eca09dcb05d6d274af37" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Transform::positionChanged</definition>
+        <argsstring></argsstring>
+        <name>positionChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="53" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="53" bodyend="-1"/>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+        <referencedby refid="class_transform_1a7e9e7e5291025b63a536aece9cbe2580" compoundref="_transform_8cpp" startline="26" endline="31">setPosition</referencedby>
+        <referencedby refid="class_transform_1a99b08e3f6b2f69377ec02d77da6b72f4" compoundref="_transform_8cpp" startline="33" endline="37">translate</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1a2911b215b4a5bec5bed3aca287e96ea7" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Transform::scaleChanged</definition>
+        <argsstring></argsstring>
+        <name>scaleChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="54" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="54" bodyend="-1"/>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+        <referencedby refid="class_transform_1a95b51a84a2a28fa2982b9351dd5612f7" compoundref="_transform_8cpp" startline="62" endline="67">setScale</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_transform_1ad5cead73c951df166ca9b006fd1ce094" prot="private" static="no" mutable="no">
+        <type>bool</type>
+        <definition>bool Transform::rotationChanged</definition>
+        <argsstring></argsstring>
+        <name>rotationChanged</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="55" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="55" bodyend="-1"/>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+        <referencedby refid="class_transform_1a68e0346e43deb8dcfde1cc03656ff190" compoundref="_transform_8cpp" startline="78" endline="81">rotate</referencedby>
+        <referencedby refid="class_transform_1a892933ef3914f573336f3f8089cd0b05" compoundref="_transform_8cpp" startline="73" endline="76">setRotation</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_transform_1aa08ca4266efabc768973cdeea51945ab" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Transform::Transform</definition>
+        <argsstring>()</argsstring>
+        <name>Transform</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="24" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="4" bodyend="4"/>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Transform::Transform</definition>
+        <argsstring>(float xPos, float yPos, float rot, float xScale, float yScale)</argsstring>
+        <name>Transform</name>
+        <param>
+          <type>float</type>
+          <declname>xPos</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>yPos</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rot</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>xScale</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>yScale</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="25" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="5" bodyend="18"/>
+        <references refid="class_transform_1a00988e118f0333f74fa911d76c103792" compoundref="_transform_8cpp" startline="114" endline="130">generateModelMatrix</references>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+        <references refid="class_transform_1ab87b58888db840907cfe55b285dfb9d4" compoundref="_transform_8h" startline="46">rotation</references>
+        <references refid="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" compoundref="_transform_8h" startline="45">scale</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1ad40222e6a36f952edfc700a531fe362e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_position" kindref="compound">Position</ref></type>
+        <definition>Position Transform::getPosition</definition>
+        <argsstring>()</argsstring>
+        <name>getPosition</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="26" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="20" bodyend="22"/>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a7e9e7e5291025b63a536aece9cbe2580" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::setPosition</definition>
+        <argsstring>(float x, float y)</argsstring>
+        <name>setPosition</name>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="27" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="26" bodyend="31"/>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+        <references refid="class_transform_1a04ae2a0a1755eca09dcb05d6d274af37" compoundref="_transform_8h" startline="53">positionChanged</references>
+        <referencedby refid="class_physics_world_1a089a1ac085098372e190f56360dda531" compoundref="_physics_world_8cpp" startline="71" endline="106">PhysicsWorld::Update</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a99b08e3f6b2f69377ec02d77da6b72f4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::translate</definition>
+        <argsstring>(float x, float y)</argsstring>
+        <name>translate</name>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="28" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="33" bodyend="37"/>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+        <references refid="class_transform_1a04ae2a0a1755eca09dcb05d6d274af37" compoundref="_transform_8h" startline="53">positionChanged</references>
+        <references refid="struct_position_1af684446cbf0f6d53386686283da6dcc6" compoundref="_transform_8h" startline="8">Position::x</references>
+        <references refid="struct_position_1a54a6182b5f7539295b32255808897d3f" compoundref="_transform_8h" startline="9">Position::y</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a26bf8712effcf614a9fad90c7a86fe3d" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::setPhysicsBody</definition>
+        <argsstring>(b2Body *newBody)</argsstring>
+        <name>setPhysicsBody</name>
+        <param>
+          <type>b2Body *</type>
+          <declname>newBody</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="30" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="39" bodyend="41"/>
+        <references refid="class_transform_1a183b7f2320daf30a159b02cec5ec5071" compoundref="_transform_8h" startline="49">body</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1ad1abbf808054f82fb3cf4877053b0bbb" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>b2Body *</type>
+        <definition>b2Body * Transform::getPhysicsBody</definition>
+        <argsstring>()</argsstring>
+        <name>getPhysicsBody</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="31" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="43" bodyend="45"/>
+        <references refid="class_transform_1a183b7f2320daf30a159b02cec5ec5071" compoundref="_transform_8h" startline="49">body</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a377194ad810fc2e6d05e3008eb8c7655" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::update</definition>
+        <argsstring>()</argsstring>
+        <name>update</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="33" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="47" bodyend="56"/>
+        <references refid="class_transform_1a183b7f2320daf30a159b02cec5ec5071" compoundref="_transform_8h" startline="49">body</references>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1aa05dfdf4bff55f8f6e8b632256025126" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_scale" kindref="compound">Scale</ref></type>
+        <definition>Scale Transform::getScale</definition>
+        <argsstring>()</argsstring>
+        <name>getScale</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="35" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="58" bodyend="60"/>
+        <references refid="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" compoundref="_transform_8h" startline="45">scale</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a95b51a84a2a28fa2982b9351dd5612f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::setScale</definition>
+        <argsstring>(float x, float y)</argsstring>
+        <name>setScale</name>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="36" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="62" bodyend="67"/>
+        <references refid="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" compoundref="_transform_8h" startline="45">scale</references>
+        <references refid="class_transform_1a2911b215b4a5bec5bed3aca287e96ea7" compoundref="_transform_8h" startline="54">scaleChanged</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a900535322e8e1ace4fc0dc0dedc20fc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_transform_8h_1ac110c6bc4bfdc61c96f11c78236a66e6" kindref="member">Rotation</ref></type>
+        <definition>Rotation Transform::getRotation</definition>
+        <argsstring>()</argsstring>
+        <name>getRotation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="38" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="69" bodyend="71"/>
+        <references refid="class_transform_1ab87b58888db840907cfe55b285dfb9d4" compoundref="_transform_8h" startline="46">rotation</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a892933ef3914f573336f3f8089cd0b05" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::setRotation</definition>
+        <argsstring>(float r)</argsstring>
+        <name>setRotation</name>
+        <param>
+          <type>float</type>
+          <declname>r</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="39" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="73" bodyend="76"/>
+        <references refid="class_transform_1ab87b58888db840907cfe55b285dfb9d4" compoundref="_transform_8h" startline="46">rotation</references>
+        <references refid="class_transform_1ad5cead73c951df166ca9b006fd1ce094" compoundref="_transform_8h" startline="55">rotationChanged</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a68e0346e43deb8dcfde1cc03656ff190" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::rotate</definition>
+        <argsstring>(float rDelta)</argsstring>
+        <name>rotate</name>
+        <param>
+          <type>float</type>
+          <declname>rDelta</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="40" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="78" bodyend="81"/>
+        <references refid="class_transform_1ab87b58888db840907cfe55b285dfb9d4" compoundref="_transform_8h" startline="46">rotation</references>
+        <references refid="class_transform_1ad5cead73c951df166ca9b006fd1ce094" compoundref="_transform_8h" startline="55">rotationChanged</references>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>glm::mat4</type>
+        <definition>glm::mat4 Transform::getModelMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>getModelMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="42" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="87" bodyend="106"/>
+        <references refid="class_transform_1a00988e118f0333f74fa911d76c103792" compoundref="_transform_8cpp" startline="114" endline="130">generateModelMatrix</references>
+        <references refid="class_transform_1a04baa07a15f7c86c9b0355afc33a1da2" compoundref="_transform_8h" startline="47">modelMatrix</references>
+        <references refid="class_transform_1a04ae2a0a1755eca09dcb05d6d274af37" compoundref="_transform_8h" startline="53">positionChanged</references>
+        <references refid="class_transform_1ad5cead73c951df166ca9b006fd1ce094" compoundref="_transform_8h" startline="55">rotationChanged</references>
+        <references refid="class_transform_1a2911b215b4a5bec5bed3aca287e96ea7" compoundref="_transform_8h" startline="54">scaleChanged</references>
+        <references refid="class_transform_1a43f71c15ac9818b3af7a57be33256259" compoundref="_transform_8cpp" startline="132" endline="136">translateModelMatrix</references>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-func">
+      <memberdef kind="function" id="class_transform_1a00988e118f0333f74fa911d76c103792" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::generateModelMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>generateModelMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="58" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="114" bodyend="130"/>
+        <references refid="class_transform_1a04baa07a15f7c86c9b0355afc33a1da2" compoundref="_transform_8h" startline="47">modelMatrix</references>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+        <references refid="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" compoundref="_transform_8h" startline="45">scale</references>
+        <references refid="struct_position_1af684446cbf0f6d53386686283da6dcc6" compoundref="_transform_8h" startline="8">Position::x</references>
+        <references refid="struct_scale_1acb61ab9c3570c49d7e6014c4833f7411" compoundref="_transform_8h" startline="14">Scale::x</references>
+        <references refid="struct_position_1a54a6182b5f7539295b32255808897d3f" compoundref="_transform_8h" startline="9">Position::y</references>
+        <references refid="struct_scale_1a076bfbff03b61e3a08704d17e904294d" compoundref="_transform_8h" startline="15">Scale::y</references>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+        <referencedby refid="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" compoundref="_transform_8cpp" startline="5" endline="18">Transform</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_transform_1a43f71c15ac9818b3af7a57be33256259" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Transform::translateModelMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>translateModelMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="59" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.cpp" bodystart="132" bodyend="136"/>
+        <references refid="class_transform_1a04baa07a15f7c86c9b0355afc33a1da2" compoundref="_transform_8h" startline="47">modelMatrix</references>
+        <references refid="class_transform_1a2ff696cd1ce8256c182415306a551650" compoundref="_transform_8h" startline="44">position</references>
+        <references refid="struct_position_1af684446cbf0f6d53386686283da6dcc6" compoundref="_transform_8h" startline="8">Position::x</references>
+        <references refid="struct_position_1a54a6182b5f7539295b32255808897d3f" compoundref="_transform_8h" startline="9">Position::y</references>
+        <referencedby refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" compoundref="_transform_8cpp" startline="87" endline="106">getModelMatrix</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="129">
+        <label>Position</label>
+        <link refid="struct_position"/>
+      </node>
+      <node id="127">
+        <label>Transform</label>
+        <link refid="class_transform"/>
+        <childnode refid="128" relation="usage">
+          <edgelabel>scale</edgelabel>
+        </childnode>
+        <childnode refid="129" relation="usage">
+          <edgelabel>position</edgelabel>
+        </childnode>
+      </node>
+      <node id="128">
+        <label>Scale</label>
+        <link refid="struct_scale"/>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Transform.h" line="22" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Transform.h" bodystart="21" bodyend="60"/>
+    <listofallmembers>
+      <member refid="class_transform_1a183b7f2320daf30a159b02cec5ec5071" prot="private" virt="non-virtual"><scope>Transform</scope><name>body</name></member>
+      <member refid="class_transform_1a00988e118f0333f74fa911d76c103792" prot="private" virt="non-virtual"><scope>Transform</scope><name>generateModelMatrix</name></member>
+      <member refid="class_transform_1af0671190bf3f3b4e5cdd8ccb23c05a7a" prot="public" virt="non-virtual"><scope>Transform</scope><name>getModelMatrix</name></member>
+      <member refid="class_transform_1ad1abbf808054f82fb3cf4877053b0bbb" prot="public" virt="non-virtual"><scope>Transform</scope><name>getPhysicsBody</name></member>
+      <member refid="class_transform_1ad40222e6a36f952edfc700a531fe362e" prot="public" virt="non-virtual"><scope>Transform</scope><name>getPosition</name></member>
+      <member refid="class_transform_1a900535322e8e1ace4fc0dc0dedc20fc3" prot="public" virt="non-virtual"><scope>Transform</scope><name>getRotation</name></member>
+      <member refid="class_transform_1aa05dfdf4bff55f8f6e8b632256025126" prot="public" virt="non-virtual"><scope>Transform</scope><name>getScale</name></member>
+      <member refid="class_transform_1a04baa07a15f7c86c9b0355afc33a1da2" prot="private" virt="non-virtual"><scope>Transform</scope><name>modelMatrix</name></member>
+      <member refid="class_transform_1a2ff696cd1ce8256c182415306a551650" prot="private" virt="non-virtual"><scope>Transform</scope><name>position</name></member>
+      <member refid="class_transform_1a04ae2a0a1755eca09dcb05d6d274af37" prot="private" virt="non-virtual"><scope>Transform</scope><name>positionChanged</name></member>
+      <member refid="class_transform_1a68e0346e43deb8dcfde1cc03656ff190" prot="public" virt="non-virtual"><scope>Transform</scope><name>rotate</name></member>
+      <member refid="class_transform_1ab87b58888db840907cfe55b285dfb9d4" prot="private" virt="non-virtual"><scope>Transform</scope><name>rotation</name></member>
+      <member refid="class_transform_1ad5cead73c951df166ca9b006fd1ce094" prot="private" virt="non-virtual"><scope>Transform</scope><name>rotationChanged</name></member>
+      <member refid="class_transform_1ae04aa2fb67a9319ec82490343a0d333b" prot="private" virt="non-virtual"><scope>Transform</scope><name>scale</name></member>
+      <member refid="class_transform_1a2911b215b4a5bec5bed3aca287e96ea7" prot="private" virt="non-virtual"><scope>Transform</scope><name>scaleChanged</name></member>
+      <member refid="class_transform_1a26bf8712effcf614a9fad90c7a86fe3d" prot="public" virt="non-virtual"><scope>Transform</scope><name>setPhysicsBody</name></member>
+      <member refid="class_transform_1a7e9e7e5291025b63a536aece9cbe2580" prot="public" virt="non-virtual"><scope>Transform</scope><name>setPosition</name></member>
+      <member refid="class_transform_1a892933ef3914f573336f3f8089cd0b05" prot="public" virt="non-virtual"><scope>Transform</scope><name>setRotation</name></member>
+      <member refid="class_transform_1a95b51a84a2a28fa2982b9351dd5612f7" prot="public" virt="non-virtual"><scope>Transform</scope><name>setScale</name></member>
+      <member refid="class_transform_1aa08ca4266efabc768973cdeea51945ab" prot="public" virt="non-virtual"><scope>Transform</scope><name>Transform</name></member>
+      <member refid="class_transform_1ad4cbf2d2c06fd6fb578769d088edab32" prot="public" virt="non-virtual"><scope>Transform</scope><name>Transform</name></member>
+      <member refid="class_transform_1a99b08e3f6b2f69377ec02d77da6b72f4" prot="public" virt="non-virtual"><scope>Transform</scope><name>translate</name></member>
+      <member refid="class_transform_1a43f71c15ac9818b3af7a57be33256259" prot="private" virt="non-virtual"><scope>Transform</scope><name>translateModelMatrix</name></member>
+      <member refid="class_transform_1a377194ad810fc2e6d05e3008eb8c7655" prot="public" virt="non-virtual"><scope>Transform</scope><name>update</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,200 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_archetype" kind="class" prot="public">
+    <compoundname>Archetype</compoundname>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" local="no">Archetype.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" prot="private" static="no" mutable="no">
+        <type><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+        <definition>ArchetypeType Archetype::type</definition>
+        <argsstring></argsstring>
+        <name>type</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="12" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.h" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_archetype_1aff97c16b9aad359e3253c52e720f995e" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8cpp" startline="3" endline="6">Archetype</referencedby>
+        <referencedby refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8cpp" startline="14" endline="17">getType</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_archetype_1a1e4664dd3df5f39f7e237ec8506acc08" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; <ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;</type>
+        <definition>std::vector&lt; ComponentType &gt; Archetype::components</definition>
+        <argsstring></argsstring>
+        <name>components</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="13" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.h" bodystart="13" bodyend="-1"/>
+        <referencedby refid="class_archetype_1a8309640c665194ae698d3c88ffae43f0" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8cpp" startline="8" endline="12">Archetype</referencedby>
+        <referencedby refid="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8cpp" startline="19" endline="22">getComponentTypesArrayCopy</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_archetype_1aff97c16b9aad359e3253c52e720f995e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Archetype::Archetype</definition>
+        <argsstring>()</argsstring>
+        <name>Archetype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="16" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.cpp" bodystart="3" bodyend="6"/>
+        <references refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="12">type</references>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1a8309640c665194ae698d3c88ffae43f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Archetype::Archetype</definition>
+        <argsstring>(ArchetypeType type, std::vector&lt; ComponentType &gt; components)</argsstring>
+        <name>Archetype</name>
+        <param>
+          <type><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;</type>
+          <declname>components</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="17" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.cpp" bodystart="8" bodyend="12"/>
+        <references refid="class_archetype_1a1e4664dd3df5f39f7e237ec8506acc08" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="13">components</references>
+        <references refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="12">type</references>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+        <definition>ArchetypeType Archetype::getType</definition>
+        <argsstring>() const </argsstring>
+        <name>getType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="18" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.cpp" bodystart="14" bodyend="17"/>
+        <references refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="12">type</references>
+        <referencedby refid="class_chunk_manager_1a6a7b1e741db13325894db6fed02f97c7" compoundref="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8cpp" startline="11" endline="42">ChunkManager::assignNewEntity</referencedby>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h_1aded8c95cb4250d6ef27cc03e32bb4f0d" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="22" endline="32">operator&lt;&lt;</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; <ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;</type>
+        <definition>const std::vector&lt; ComponentType &gt; Archetype::getComponentTypesArrayCopy</definition>
+        <argsstring>() const </argsstring>
+        <name>getComponentTypesArrayCopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="19" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.cpp" bodystart="19" bodyend="22"/>
+        <references refid="class_archetype_1a1e4664dd3df5f39f7e237ec8506acc08" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="13">components</references>
+        <referencedby refid="class_chunk_1a66312d5fb7a6edd7ac5d124d8990f711" compoundref="_1_2users_2thompson_2comp-8551-project_2chunk_8cpp" startline="24" endline="34">Chunk::addComponentArrays</referencedby>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h_1aded8c95cb4250d6ef27cc03e32bb4f0d" compoundref="_1_2users_2thompson_2comp-8551-project_2_archetype_8h" startline="22" endline="32">operator&lt;&lt;</referencedby>
+        <referencedby refid="class_entity_query_1aebb585497f019c7cd4e5cbbf2733b14d" compoundref="_1_2users_2thompson_2comp-8551-project_2_entity_query_8cpp" startline="9" endline="34">EntityQuery::searchChunks</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1aff97c16b9aad359e3253c52e720f995e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Archetype::Archetype</definition>
+        <argsstring>()</argsstring>
+        <name>Archetype</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1a8309640c665194ae698d3c88ffae43f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Archetype::Archetype</definition>
+        <argsstring>(ArchetypeType type, std::vector&lt; ComponentType &gt; components)</argsstring>
+        <name>Archetype</name>
+        <param>
+          <type><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+          <declname>type</declname>
+        </param>
+        <param>
+          <type>std::vector&lt; <ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;</type>
+          <declname>components</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref></type>
+        <definition>ArchetypeType Archetype::getType</definition>
+        <argsstring>() const </argsstring>
+        <name>getType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_archetype_1a964c984b3dd0ea92609cca39020c85d7" prot="public" static="no" const="yes" explicit="no" inline="no" virt="non-virtual">
+        <type>const std::vector&lt; <ref refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref> &gt;</type>
+        <definition>const std::vector&lt;ComponentType&gt; Archetype::getComponentTypesArrayCopy</definition>
+        <argsstring>() const </argsstring>
+        <name>getComponentTypesArrayCopy</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h" line="19" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="2">
+        <label>std::vector&lt; ComponentType &gt;</label>
+      </node>
+      <node id="1">
+        <label>Archetype</label>
+        <link refid="class_archetype"/>
+        <childnode refid="2" relation="usage">
+          <edgelabel>components</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="c:/users/thompson/comp-8551-project/Archetype.h" line="9" column="1" bodyfile="c:/users/thompson/comp-8551-project/Archetype.h" bodystart="8" bodyend="20"/>
+    <listofallmembers>
+      <member refid="class_archetype_1aff97c16b9aad359e3253c52e720f995e" prot="public" virt="non-virtual"><scope>Archetype</scope><name>Archetype</name></member>
+      <member refid="class_archetype_1a8309640c665194ae698d3c88ffae43f0" prot="public" virt="non-virtual"><scope>Archetype</scope><name>Archetype</name></member>
+      <member refid="class_archetype_1aff97c16b9aad359e3253c52e720f995e" prot="public" virt="non-virtual"><scope>Archetype</scope><name>Archetype</name></member>
+      <member refid="class_archetype_1a8309640c665194ae698d3c88ffae43f0" prot="public" virt="non-virtual"><scope>Archetype</scope><name>Archetype</name></member>
+      <member refid="class_archetype_1a1e4664dd3df5f39f7e237ec8506acc08" prot="private" virt="non-virtual"><scope>Archetype</scope><name>components</name></member>
+      <member refid="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" prot="public" virt="non-virtual"><scope>Archetype</scope><name>getComponentTypesArrayCopy</name></member>
+      <member refid="class_archetype_1a964c984b3dd0ea92609cca39020c85d7" prot="public" virt="non-virtual"><scope>Archetype</scope><name>getComponentTypesArrayCopy</name></member>
+      <member refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" prot="public" virt="non-virtual"><scope>Archetype</scope><name>getType</name></member>
+      <member refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" prot="public" virt="non-virtual"><scope>Archetype</scope><name>getType</name></member>
+      <member refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" prot="private" virt="non-virtual"><scope>Archetype</scope><name>type</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

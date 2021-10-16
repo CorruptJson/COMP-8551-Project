@@ -1,0 +1,406 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_proto_chunk_manager" kind="class" prot="public">
+    <compoundname>ProtoChunkManager</compoundname>
+    <basecompoundref refid="class_chunk_manager" prot="public" virt="non-virtual">ChunkManager</basecompoundref>
+    <basecompoundref refid="class_chunk_manager" prot="public" virt="non-virtual">ChunkManager</basecompoundref>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" local="no">protoChunkManager.h</includes>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_proto_chunk_manager_1a3172d09cc0a973676f76b911ff0c4316" prot="private" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ProtoChunkManager::currEntities</definition>
+        <argsstring></argsstring>
+        <name>currEntities</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="9" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.h" bodystart="9" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; bool &gt;</type>
+        <definition>std::vector&lt; bool &gt; ProtoChunkManager::active</definition>
+        <argsstring></argsstring>
+        <name>active</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="10" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.h" bodystart="10" bodyend="-1"/>
+        <referencedby refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="5" endline="20">allocateNewEntity</referencedby>
+        <referencedby refid="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="31" endline="39">deallocateEntity</referencedby>
+        <referencedby refid="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="53" endline="62">getEntityPosition</referencedby>
+        <referencedby refid="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="42" endline="50">setEntityPosition</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" prot="private" static="no" mutable="no">
+        <type>std::vector&lt; TempPosition &gt;</type>
+        <definition>std::vector&lt; TempPosition &gt; ProtoChunkManager::positions</definition>
+        <argsstring></argsstring>
+        <name>positions</name>
+        <initializer>= {}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="11" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.h" bodystart="11" bodyend="-1"/>
+        <referencedby refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="5" endline="20">allocateNewEntity</referencedby>
+        <referencedby refid="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="53" endline="62">getEntityPosition</referencedby>
+        <referencedby refid="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="42" endline="50">setEntityPosition</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress ProtoChunkManager::allocateNewEntity</definition>
+        <argsstring>(SigArch sa) override</argsstring>
+        <name>allocateNewEntity</name>
+        <param>
+          <type><ref refid="struct_sig_arch" kindref="compound">SigArch</ref></type>
+          <declname>sa</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="15" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.cpp" bodystart="5" bodyend="20"/>
+        <references refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="10">active</references>
+        <references refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="11">positions</references>
+        <referencedby refid="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="23" endline="28">allocateNewEntity</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProtoChunkManager::deallocateEntity</definition>
+        <argsstring>(ChunkAddress id) override</argsstring>
+        <name>deallocateEntity</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="16" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.cpp" bodystart="31" bodyend="39"/>
+        <references refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="10">active</references>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TempPosition</type>
+        <definition>TempPosition ProtoChunkManager::getEntityPosition</definition>
+        <argsstring>(ChunkAddress id) override</argsstring>
+        <name>getEntityPosition</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="17" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.cpp" bodystart="53" bodyend="62"/>
+        <references refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="10">active</references>
+        <references refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="11">positions</references>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>void ProtoChunkManager::setEntityPosition</definition>
+        <argsstring>(ChunkAddress id, TempPosition pos) override</argsstring>
+        <name>setEntityPosition</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>TempPosition</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="18" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.cpp" bodystart="42" bodyend="50"/>
+        <references refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="10">active</references>
+        <references refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" startline="11">positions</references>
+        <referencedby refid="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="23" endline="28">allocateNewEntity</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress ProtoChunkManager::allocateNewEntity</definition>
+        <argsstring>(SigArch sa, TempPosition pos)</argsstring>
+        <name>allocateNewEntity</name>
+        <param>
+          <type><ref refid="struct_sig_arch" kindref="compound">SigArch</ref></type>
+          <declname>sa</declname>
+        </param>
+        <param>
+          <type>TempPosition</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="21" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.cpp" bodystart="23" bodyend="28"/>
+        <references refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="5" endline="20">allocateNewEntity</references>
+        <references refid="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" compoundref="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" startline="42" endline="50">setEntityPosition</references>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress ProtoChunkManager::allocateNewEntity</definition>
+        <argsstring>(SigArch sa) override</argsstring>
+        <name>allocateNewEntity</name>
+        <param>
+          <type><ref refid="struct_sig_arch" kindref="compound">SigArch</ref></type>
+          <declname>sa</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h" line="15" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void ProtoChunkManager::deallocateEntity</definition>
+        <argsstring>(ChunkAddress id) override</argsstring>
+        <name>deallocateEntity</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h" line="16" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>TempPosition</type>
+        <definition>TempPosition ProtoChunkManager::getEntityPosition</definition>
+        <argsstring>(ChunkAddress id) override</argsstring>
+        <name>getEntityPosition</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h" line="17" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1af8ddc898fcd972749cd1f3112331732f" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type>void</type>
+        <definition>virtual void ProtoChunkManager::setEntityPosition</definition>
+        <argsstring>(ChunkAddress id, TempPosition pos) override</argsstring>
+        <name>setEntityPosition</name>
+        <param>
+          <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+          <declname>id</declname>
+        </param>
+        <param>
+          <type>TempPosition</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h" line="18" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref></type>
+        <definition>ChunkAddress ProtoChunkManager::allocateNewEntity</definition>
+        <argsstring>(SigArch sa, TempPosition pos)</argsstring>
+        <name>allocateNewEntity</name>
+        <param>
+          <type><ref refid="struct_sig_arch" kindref="compound">SigArch</ref></type>
+          <declname>sa</declname>
+        </param>
+        <param>
+          <type>TempPosition</type>
+          <declname>pos</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h" line="21" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="97">
+        <label>ProtoChunkManager</label>
+        <link refid="class_proto_chunk_manager"/>
+        <childnode refid="98" relation="public-inheritance">
+        </childnode>
+        <childnode refid="98" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>ChunkManager</label>
+        <link refid="class_chunk_manager"/>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="101">
+        <label>std::unordered_map&lt; const char *, Chunk * &gt;</label>
+        <childnode refid="102" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="99">
+        <label>ProtoChunkManager</label>
+        <link refid="class_proto_chunk_manager"/>
+        <childnode refid="100" relation="public-inheritance">
+        </childnode>
+        <childnode refid="100" relation="public-inheritance">
+        </childnode>
+        <childnode refid="111" relation="usage">
+          <edgelabel>active</edgelabel>
+        </childnode>
+        <childnode refid="112" relation="usage">
+          <edgelabel>positions</edgelabel>
+        </childnode>
+      </node>
+      <node id="102">
+        <label>Chunk</label>
+        <link refid="class_chunk"/>
+        <childnode refid="103" relation="usage">
+          <edgelabel>componentArrays</edgelabel>
+        </childnode>
+        <childnode refid="104" relation="usage">
+          <edgelabel>arch</edgelabel>
+        </childnode>
+        <childnode refid="106" relation="usage">
+          <edgelabel>sig</edgelabel>
+        </childnode>
+      </node>
+      <node id="107">
+        <label>std::unordered_map&lt; ArchetypeType, Chunk * &gt;</label>
+        <childnode refid="102" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="103">
+        <label>std::unordered_map&lt; ComponentType, Byte * &gt;</label>
+      </node>
+      <node id="108">
+        <label>std::unordered_map&lt; Signature, Chunk * &gt;</label>
+        <childnode refid="102" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+        <childnode refid="106" relation="usage">
+          <edgelabel>keys</edgelabel>
+        </childnode>
+      </node>
+      <node id="109">
+        <label>std::vector&lt; Chunk * &gt;</label>
+        <childnode refid="102" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="105">
+        <label>std::vector&lt; ComponentType &gt;</label>
+      </node>
+      <node id="100">
+        <label>ChunkManager</label>
+        <link refid="class_chunk_manager"/>
+        <childnode refid="101" relation="usage">
+          <edgelabel>chunksPerSpritesheet</edgelabel>
+        </childnode>
+        <childnode refid="107" relation="usage">
+          <edgelabel>chunksByArch</edgelabel>
+        </childnode>
+        <childnode refid="108" relation="usage">
+          <edgelabel>chunksPerSig</edgelabel>
+        </childnode>
+        <childnode refid="109" relation="usage">
+          <edgelabel>allChunks</edgelabel>
+        </childnode>
+        <childnode refid="110" relation="usage">
+          <edgelabel>chunksBySpritesheet</edgelabel>
+        </childnode>
+      </node>
+      <node id="106">
+        <label>std::bitset&lt; MAX_COMPONENTS &gt;</label>
+      </node>
+      <node id="112">
+        <label>std::vector&lt; TempPosition &gt;</label>
+      </node>
+      <node id="110">
+        <label>std::unordered_map&lt; Spritesheet, Chunk * &gt;</label>
+        <childnode refid="102" relation="usage">
+          <edgelabel>elements</edgelabel>
+        </childnode>
+      </node>
+      <node id="111">
+        <label>std::vector&lt; bool &gt;</label>
+      </node>
+      <node id="104">
+        <label>Archetype</label>
+        <link refid="class_archetype"/>
+        <childnode refid="105" relation="usage">
+          <edgelabel>components</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h" line="8" column="1" bodyfile="c:/users/thompson/comp-8551-project/protoChunkManager.h" bodystart="7" bodyend="22"/>
+    <listofallmembers>
+      <member refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" prot="private" virt="non-virtual"><scope>ProtoChunkManager</scope><name>active</name></member>
+      <member refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>allocateNewEntity</name></member>
+      <member refid="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>allocateNewEntity</name></member>
+      <member refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>allocateNewEntity</name></member>
+      <member refid="class_proto_chunk_manager_1ad531efa40d5205fce4e30e647dbb73ef" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>allocateNewEntity</name></member>
+      <member refid="class_chunk_manager_1a6a7b1e741db13325894db6fed02f97c7" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>assignNewEntity</name></member>
+      <member refid="class_chunk_manager_1a6a7b1e741db13325894db6fed02f97c7" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>assignNewEntity</name></member>
+      <member refid="class_proto_chunk_manager_1a3172d09cc0a973676f76b911ff0c4316" prot="private" virt="non-virtual"><scope>ProtoChunkManager</scope><name>currEntities</name></member>
+      <member refid="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>deallocateEntity</name></member>
+      <member refid="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>deallocateEntity</name></member>
+      <member refid="class_chunk_manager_1a5c4ad75adb1f725d8c65e2818ee4d5ff" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>getComponentRef</name></member>
+      <member refid="class_chunk_manager_1a5c4ad75adb1f725d8c65e2818ee4d5ff" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>getComponentRef</name></member>
+      <member refid="class_chunk_manager_1afd5e4931a27ec96475db4bb7cb314a94" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>GetEntityCount</name></member>
+      <member refid="class_chunk_manager_1afd5e4931a27ec96475db4bb7cb314a94" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>GetEntityCount</name></member>
+      <member refid="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>getEntityPosition</name></member>
+      <member refid="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>getEntityPosition</name></member>
+      <member refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" prot="private" virt="non-virtual"><scope>ProtoChunkManager</scope><name>positions</name></member>
+      <member refid="class_chunk_manager_1a1afeaf4cd051553a544345a80d442303" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>releaseEntity</name></member>
+      <member refid="class_chunk_manager_1a1afeaf4cd051553a544345a80d442303" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>releaseEntity</name></member>
+      <member refid="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" prot="public" virt="virtual"><scope>ProtoChunkManager</scope><name>setEntityPosition</name></member>
+      <member refid="class_proto_chunk_manager_1af8ddc898fcd972749cd1f3112331732f" prot="public" virt="virtual"><scope>ProtoChunkManager</scope><name>setEntityPosition</name></member>
+      <member refid="class_chunk_manager_1a675cdb47d0529eee3c878fbc25406710" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>~ChunkManager</name></member>
+      <member refid="class_chunk_manager_1a675cdb47d0529eee3c878fbc25406710" prot="public" virt="non-virtual"><scope>ProtoChunkManager</scope><name>~ChunkManager</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="struct_chunk_address" kind="struct" prot="public">
+    <compoundname>ChunkAddress</compoundname>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_types_8h" local="no">Types.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_chunk_address_1a60f5a29c55c290d56d7c82263ab278a5" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ChunkAddress::chunkID</definition>
+        <argsstring></argsstring>
+        <name>chunkID</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Types.h" line="35" column="1" bodyfile="c:/users/thompson/comp-8551-project/Types.h" bodystart="35" bodyend="-1"/>
+        <referencedby refid="class_chunk_1ad1ff712acc54036b662409d2379034c0" compoundref="_1_2users_2thompson_2comp-8551-project_2chunk_8cpp" startline="62" endline="96">Chunk::assignNewEntity</referencedby>
+        <referencedby refid="class_chunk_manager_1a5c4ad75adb1f725d8c65e2818ee4d5ff" compoundref="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h" startline="33" endline="35">ChunkManager::getComponentRef</referencedby>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a4e30c7fbc733480e7739f2f821894dac" compoundref="_1_2users_2thompson_2comp-8551-project_2_types_8h" startline="40" endline="44">operator&lt;&lt;</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_chunk_address_1a961af4dcdc295840ef8d9a1db0f8a43b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ChunkAddress::index</definition>
+        <argsstring></argsstring>
+        <name>index</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Types.h" line="36" column="1" bodyfile="c:/users/thompson/comp-8551-project/Types.h" bodystart="36" bodyend="-1"/>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a4e30c7fbc733480e7739f2f821894dac" compoundref="_1_2users_2thompson_2comp-8551-project_2_types_8h" startline="40" endline="44">operator&lt;&lt;</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_chunk_address_1adce18b3c4727a461a0ee091485b2df18" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int ChunkAddress::version</definition>
+        <argsstring></argsstring>
+        <name>version</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Types.h" line="37" column="1" bodyfile="c:/users/thompson/comp-8551-project/Types.h" bodystart="37" bodyend="-1"/>
+        <referencedby refid="_1_2users_2thompson_2comp-8551-project_2_types_8h_1a4e30c7fbc733480e7739f2f821894dac" compoundref="_1_2users_2thompson_2comp-8551-project_2_types_8h" startline="40" endline="44">operator&lt;&lt;</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="c:/users/thompson/comp-8551-project/Types.h" line="34" column="1" bodyfile="c:/users/thompson/comp-8551-project/Types.h" bodystart="33" bodyend="38"/>
+    <listofallmembers>
+      <member refid="struct_chunk_address_1a60f5a29c55c290d56d7c82263ab278a5" prot="public" virt="non-virtual"><scope>ChunkAddress</scope><name>chunkID</name></member>
+      <member refid="struct_chunk_address_1a961af4dcdc295840ef8d9a1db0f8a43b" prot="public" virt="non-virtual"><scope>ChunkAddress</scope><name>index</name></member>
+      <member refid="struct_chunk_address_1adce18b3c4727a461a0ee091485b2df18" prot="public" virt="non-virtual"><scope>ChunkAddress</scope><name>version</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,357 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_physics_world_8cpp" kind="file">
+    <compoundname>PhysicsWorld.cpp</compoundname>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8h" local="yes">PhysicsWorld.h</includes>
+    <incdepgraph>
+      <node id="1245">
+        <label>iterator</label>
+      </node>
+      <node id="1239">
+        <label>sigArch.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_sig_arch_8h"/>
+      </node>
+      <node id="1222">
+        <label>string</label>
+      </node>
+      <node id="1243">
+        <label>map</label>
+      </node>
+      <node id="1244">
+        <label>EntityQuery.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_entity_query_8h"/>
+        <childnode refid="1245" relation="include">
+        </childnode>
+        <childnode refid="1246" relation="include">
+        </childnode>
+        <childnode refid="1237" relation="include">
+        </childnode>
+        <childnode refid="1238" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1233" relation="include">
+        </childnode>
+      </node>
+      <node id="1236">
+        <label>exception</label>
+      </node>
+      <node id="1235">
+        <label>chunkManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h"/>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1236" relation="include">
+        </childnode>
+        <childnode refid="1221" relation="include">
+        </childnode>
+        <childnode refid="1237" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1238" relation="include">
+        </childnode>
+      </node>
+      <node id="1234">
+        <label>any</label>
+      </node>
+      <node id="1230">
+        <label>EntityCoordinator.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h"/>
+        <childnode refid="1231" relation="include">
+        </childnode>
+        <childnode refid="1232" relation="include">
+        </childnode>
+        <childnode refid="1233" relation="include">
+        </childnode>
+        <childnode refid="1235" relation="include">
+        </childnode>
+        <childnode refid="1242" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1244" relation="include">
+        </childnode>
+      </node>
+      <node id="1238">
+        <label>chunk.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_8h"/>
+        <childnode refid="1237" relation="include">
+        </childnode>
+        <childnode refid="1221" relation="include">
+        </childnode>
+        <childnode refid="1231" relation="include">
+        </childnode>
+        <childnode refid="1239" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1240" relation="include">
+        </childnode>
+        <childnode refid="1233" relation="include">
+        </childnode>
+      </node>
+      <node id="1219">
+        <label>Types.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_types_8h"/>
+        <childnode refid="1220" relation="include">
+        </childnode>
+        <childnode refid="1221" relation="include">
+        </childnode>
+        <childnode refid="1222" relation="include">
+        </childnode>
+        <childnode refid="1223" relation="include">
+        </childnode>
+      </node>
+      <node id="1220">
+        <label>bitset</label>
+      </node>
+      <node id="1218">
+        <label>PhysicsWorld.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8h"/>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1224" relation="include">
+        </childnode>
+        <childnode refid="1228" relation="include">
+        </childnode>
+        <childnode refid="1229" relation="include">
+        </childnode>
+        <childnode refid="1230" relation="include">
+        </childnode>
+      </node>
+      <node id="1237">
+        <label>vector</label>
+      </node>
+      <node id="1233">
+        <label>ComponentManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_component_manager_8h"/>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1234" relation="include">
+        </childnode>
+        <childnode refid="1231" relation="include">
+        </childnode>
+        <childnode refid="1221" relation="include">
+        </childnode>
+      </node>
+      <node id="1232">
+        <label>array</label>
+      </node>
+      <node id="1229">
+        <label>ContactListener.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_contact_listener_8h"/>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1227" relation="include">
+        </childnode>
+      </node>
+      <node id="1223">
+        <label>iostream</label>
+      </node>
+      <node id="1226">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="1246">
+        <label>cstddef</label>
+      </node>
+      <node id="1221">
+        <label>unordered_map</label>
+      </node>
+      <node id="1242">
+        <label>ArchetypeManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_archetype_manager_8h"/>
+        <childnode refid="1243" relation="include">
+        </childnode>
+        <childnode refid="1237" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+        <childnode refid="1240" relation="include">
+        </childnode>
+      </node>
+      <node id="1227">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+      <node id="1241">
+        <label>algorithm</label>
+      </node>
+      <node id="1240">
+        <label>Archetype.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h"/>
+        <childnode refid="1237" relation="include">
+        </childnode>
+        <childnode refid="1241" relation="include">
+        </childnode>
+        <childnode refid="1222" relation="include">
+        </childnode>
+        <childnode refid="1223" relation="include">
+        </childnode>
+        <childnode refid="1219" relation="include">
+        </childnode>
+      </node>
+      <node id="1217">
+        <label>c:/users/thompson/comp-8551-project/PhysicsWorld.cpp</label>
+        <link refid=":/users/thompson/comp-8551-project/PhysicsWorld.cpp"/>
+        <childnode refid="1218" relation="include">
+        </childnode>
+      </node>
+      <node id="1228">
+        <label>PhysicsComponent.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_physics_component_8h"/>
+        <childnode refid="1227" relation="include">
+        </childnode>
+      </node>
+      <node id="1231">
+        <label>memory</label>
+      </node>
+      <node id="1224">
+        <label>Transform.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_transform_8h"/>
+        <childnode refid="1225" relation="include">
+        </childnode>
+        <childnode refid="1226" relation="include">
+        </childnode>
+        <childnode refid="1227" relation="include">
+        </childnode>
+      </node>
+      <node id="1225">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_1_2users_2thompson_2comp-8551-project_2_physics_world_8cpp_1ad376d9317355830264f7fb2fdf5c330d" prot="public" static="no" mutable="no">
+        <type>b2Body *</type>
+        <definition>b2Body* test</definition>
+        <argsstring></argsstring>
+        <name>test</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/PhysicsWorld.cpp" line="3" column="1" bodyfile="c:/users/thompson/comp-8551-project/PhysicsWorld.cpp" bodystart="3" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8h" kindref="compound">PhysicsWorld.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3" refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8cpp_1ad376d9317355830264f7fb2fdf5c330d" refkind="member"><highlight class="normal">b2Body*<sp/><ref refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8cpp_1ad376d9317355830264f7fb2fdf5c330d" kindref="member">test</ref>;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="class_physics_world_1ae7aea476bf3c5d337a4fa5c1ff02f5d4" refkind="member"><highlight class="normal"><ref refid="class_physics_world_1ae7aea476bf3c5d337a4fa5c1ff02f5d4" kindref="member">PhysicsWorld::PhysicsWorld</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Initialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1aeeb693f18ef1c35dc726997c15a17ac6" kindref="member">gravity</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>b2Vec2(0.0f,<sp/>-9.8f);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/>b2World(*<ref refid="class_physics_world_1aeeb693f18ef1c35dc726997c15a17ac6" kindref="member">gravity</ref>);</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>-&gt;SetAllowSleeping(</highlight><highlight class="keyword">false</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1aa621b725ca4a8a4f0feeed6250997e89" kindref="member">contactListener</ref><sp/>=<sp/></highlight><highlight class="keyword">new</highlight><highlight class="normal"><sp/><ref refid="class_contact_listener" kindref="compound">ContactListener</ref>();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>-&gt;SetContactListener(<ref refid="class_physics_world_1aa621b725ca4a8a4f0feeed6250997e89" kindref="member">contactListener</ref>);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_physics_world_1a148cdd888a59bf10ff351e512f75d5df" kindref="member">PhysicsWorld::AddObjects</ref>(<ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref>*<sp/><ref refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" kindref="member">coordinator</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::array&lt;PhysicsComponent,<sp/>MAX_ENTITIES&gt;<sp/>components<sp/>=<sp/>coordinator-&gt;GetComponentArray&lt;PhysicsComponent&gt;();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//std::array&lt;Transform,<sp/>MAX_ENTITIES&gt;<sp/>transforms<sp/>=<sp/>coordinator-&gt;GetComponentArray&lt;Transform&gt;();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;EntityQuery&gt;<sp/>entityQuery<sp/>=<sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a9381f15dea2b5f5c5996f44cdd3789e7" kindref="member">GetEntityQuery</ref>({</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;(),</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;()</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>entitiesFound<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a99dab4fa1864f36acce0b559064d08c9" kindref="member">totalEntitiesFound</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;PhysicsComponent*&gt;<sp/>physComponents<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Transform*&gt;<sp/>transformComponents<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;();<sp/><sp/></highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//PhysicsComponent*<sp/>physComponent;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//for(int<sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>entitiesFound;<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref><sp/>component<sp/>=<sp/>*physComponents[i];</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2BodyType<sp/>type<sp/>=<sp/>component.<ref refid="struct_physics_component_1a10d224e866dc5208ce06c09aac5a9914" kindref="member">bodyType</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2BodyDef<sp/>bodyDef;</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bodyDef.type<sp/>=<sp/>type;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>bodyDef.position.Set(component.<ref refid="struct_physics_component_1afb9c07b74405403d6754f007633dd21c" kindref="member">x</ref>,<sp/>component.<ref refid="struct_physics_component_1a1ed438b2c4b33266ca7083d7b5c698e9" kindref="member">y</ref>);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2Body*<sp/>body<sp/>=<sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>-&gt;CreateBody(&amp;bodyDef);</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"></highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Initial<sp/>pos<sp/>X-Pos:<sp/>%0.2f<sp/>Y-Pos<sp/>%0.2f\n&quot;</highlight><highlight class="normal">,<sp/>body-&gt;GetPosition().x,<sp/>body-&gt;GetPosition().y);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(body)<sp/>{</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2PolygonShape<sp/>dynamicBox;</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>dynamicBox.SetAsBox(component.<ref refid="struct_physics_component_1ab2ccdfc3831febc2425e85a2086ec62a" kindref="member">halfWidth</ref>,<sp/>component.<ref refid="struct_physics_component_1adcaf5e6edb11733b70ad1c003c5203ab" kindref="member">halfHeight</ref>);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"></highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2FixtureDef<sp/>fixtureDef;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixtureDef.shape<sp/>=<sp/>&amp;dynamicBox;</highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixtureDef.density<sp/>=<sp/>component.<ref refid="struct_physics_component_1ad976f6ae69d6df86831ff75d8e6faf30" kindref="member">density</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixtureDef.friction<sp/>=<sp/>component.<ref refid="struct_physics_component_1a1cf46ae2dded65b75409539239cc61e7" kindref="member">friction</ref>;</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>fixtureDef.restitution<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>body-&gt;CreateFixture(&amp;fixtureDef);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"></highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>some<sp/>way<sp/>to<sp/>pass<sp/>the<sp/>body<sp/>to<sp/>the<sp/>entity<sp/>so<sp/>it<sp/>can<sp/>update<sp/>in<sp/>rendering</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="62"><highlight class="normal"></highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>transformComponents[i]-&gt;setPhysicsBody(body);</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="69"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"></highlight></codeline>
+<codeline lineno="71" refid="class_physics_world_1a089a1ac085098372e190f56360dda531" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_physics_world_1a089a1ac085098372e190f56360dda531" kindref="member">PhysicsWorld::Update</ref>(<ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref>*<sp/><ref refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" kindref="member">coordinator</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>-&gt;Step(<ref refid="class_physics_world_1a7747461352a692af164c9af9797ed529" kindref="member">timeStep</ref>,<sp/><ref refid="class_physics_world_1acac36fdc128f1224382f36e4dbd2c645" kindref="member">velocityIterations</ref>,<sp/><ref refid="class_physics_world_1a448c540d3ce9c90fd301ff37b3c273f6" kindref="member">positionIterations</ref>);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>b2Body*<sp/>body<sp/>=<sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>-&gt;GetBodyList();</highlight></codeline>
+<codeline lineno="76"><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>skip<sp/>static<sp/>bodies</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>(body-&gt;GetType()<sp/>!=<sp/>b2_dynamicBody)<sp/>{</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>body<sp/>=<sp/>body-&gt;GetNext();</highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="81"><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::unique_ptr&lt;EntityQuery&gt;<sp/>entityQuery<sp/>=<sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a9381f15dea2b5f5c5996f44cdd3789e7" kindref="member">GetEntityQuery</ref>({</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;(),</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;()</highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="86"><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>entitiesFound<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a99dab4fa1864f36acce0b559064d08c9" kindref="member">totalEntitiesFound</ref>();</highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;PhysicsComponent*&gt;<sp/>physComponents<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref>&gt;();</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;Transform*&gt;<sp/>transformComponents<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;();</highlight></codeline>
+<codeline lineno="90"><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//EntityQuery&lt;PhysicsComponent,Transform&gt;<sp/>eq<sp/>=<sp/>coo</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="92"><highlight class="normal"></highlight></codeline>
+<codeline lineno="93"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//printf(&quot;In<sp/>physics<sp/>X-Pos:<sp/>%0.2f<sp/>Y-Pos<sp/>%0.2f\n&quot;,<sp/>body-&gt;GetPosition().x,<sp/>body-&gt;GetPosition().y);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>entitiesFound<sp/>-1;<sp/>i<sp/>&gt;=<sp/>0;<sp/>i--)<sp/>{</highlight></codeline>
+<codeline lineno="95"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(physComponents[i]-&gt;bodyType<sp/>!=<sp/>b2_dynamicBody<sp/>||<sp/>body-&gt;GetType()<sp/>!=<sp/>b2_dynamicBody)</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="97"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>body<sp/>=<sp/>body-&gt;GetNext();</highlight></codeline>
+<codeline lineno="98"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">continue</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="99"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="100"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>transformComponents[i]-&gt;<ref refid="class_transform_1a7e9e7e5291025b63a536aece9cbe2580" kindref="member">setPosition</ref>(body-&gt;GetPosition().x,<sp/>body-&gt;GetPosition().y);</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//printf(&quot;In<sp/>physics<sp/>X-Pos:<sp/>%0.2f<sp/>Y-Pos<sp/>%0.2f\n&quot;,<sp/>body-&gt;GetPosition().x,<sp/>body-&gt;GetPosition().y);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>body<sp/>=<sp/>body-&gt;GetNext();</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"></highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="106"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"></highlight></codeline>
+<codeline lineno="108" refid="class_physics_world_1abf1573b008b52b60a83a8f36cbdd51bc" refkind="member"><highlight class="normal"><ref refid="class_physics_world_1abf1573b008b52b60a83a8f36cbdd51bc" kindref="member">PhysicsWorld::~PhysicsWorld</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_physics_world_1aeeb693f18ef1c35dc726997c15a17ac6" kindref="member">gravity</ref>)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_physics_world_1aeeb693f18ef1c35dc726997c15a17ac6" kindref="member">gravity</ref>;</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_physics_world_1a47364602140abd3351454ed50dd9dfda" kindref="member">world</ref>;</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="class_physics_world_1aa621b725ca4a8a4f0feeed6250997e89" kindref="member">contactListener</ref>)<sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/><ref refid="class_physics_world_1aa621b725ca4a8a4f0feeed6250997e89" kindref="member">contactListener</ref>;</highlight></codeline>
+<codeline lineno="112"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/PhysicsWorld.cpp"/>
+  </compounddef>
+</doxygen>

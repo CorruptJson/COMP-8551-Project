@@ -1,0 +1,248 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_archetype_8h" kind="file">
+    <compoundname>Archetype.h</compoundname>
+    <includes local="no">vector</includes>
+    <includes local="no">algorithm</includes>
+    <includes local="no">string</includes>
+    <includes local="no">iostream</includes>
+    <includes refid="_types_8h" local="yes">Types.h</includes>
+    <includedby refid="_archetype_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/Archetype.cpp</includedby>
+    <includedby refid="_archetype_manager_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h</includedby>
+    <includedby refid="chunk_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/chunk.h</includedby>
+    <incdepgraph>
+      <node id="88">
+        <label>Types.h</label>
+        <link refid="_types_8h"/>
+        <childnode refid="89" relation="include">
+        </childnode>
+        <childnode refid="90" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+      </node>
+      <node id="86">
+        <label>string</label>
+      </node>
+      <node id="83">
+        <label>C:/Users/Thompson/COMP-8551-Project/Archetype.h</label>
+        <link refid="Archetype.h"/>
+        <childnode refid="84" relation="include">
+        </childnode>
+        <childnode refid="85" relation="include">
+        </childnode>
+        <childnode refid="86" relation="include">
+        </childnode>
+        <childnode refid="87" relation="include">
+        </childnode>
+        <childnode refid="88" relation="include">
+        </childnode>
+      </node>
+      <node id="89">
+        <label>bitset</label>
+      </node>
+      <node id="84">
+        <label>vector</label>
+      </node>
+      <node id="87">
+        <label>iostream</label>
+      </node>
+      <node id="90">
+        <label>unordered_map</label>
+      </node>
+      <node id="85">
+        <label>algorithm</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="96">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="98" relation="include">
+        </childnode>
+      </node>
+      <node id="101">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunk.h</label>
+        <link refid="chunk_8h"/>
+        <childnode refid="102" relation="include">
+        </childnode>
+        <childnode refid="103" relation="include">
+        </childnode>
+        <childnode refid="107" relation="include">
+        </childnode>
+        <childnode refid="108" relation="include">
+        </childnode>
+      </node>
+      <node id="102">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunk.cpp</label>
+        <link refid="chunk_8cpp"/>
+      </node>
+      <node id="107">
+        <label>C:/Users/Thompson/COMP-8551-Project/componentInfo.h</label>
+        <link refid="component_info_8h"/>
+      </node>
+      <node id="100">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.cpp</label>
+        <link refid="_physics_world_8cpp"/>
+      </node>
+      <node id="91">
+        <label>C:/Users/Thompson/COMP-8551-Project/Archetype.h</label>
+        <link refid="Archetype.h"/>
+        <childnode refid="92" relation="include">
+        </childnode>
+        <childnode refid="93" relation="include">
+        </childnode>
+        <childnode refid="101" relation="include">
+        </childnode>
+      </node>
+      <node id="104">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunkManager.cpp</label>
+        <link refid="chunk_manager_8cpp"/>
+      </node>
+      <node id="108">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.h</label>
+        <link refid="_entity_query_8h"/>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="109" relation="include">
+        </childnode>
+      </node>
+      <node id="94">
+        <label>C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.cpp</label>
+        <link refid="_archetype_manager_8cpp"/>
+      </node>
+      <node id="99">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.h</label>
+        <link refid="_physics_world_8h"/>
+        <childnode refid="97" relation="include">
+        </childnode>
+        <childnode refid="100" relation="include">
+        </childnode>
+      </node>
+      <node id="98">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="105">
+        <label>C:/Users/Thompson/COMP-8551-Project/protoChunkManager.h</label>
+        <link refid="proto_chunk_manager_8h"/>
+        <childnode refid="106" relation="include">
+        </childnode>
+      </node>
+      <node id="95">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityCoordinator.h</label>
+        <link refid="_entity_coordinator_8h"/>
+        <childnode refid="96" relation="include">
+        </childnode>
+        <childnode refid="99" relation="include">
+        </childnode>
+        <childnode refid="97" relation="include">
+        </childnode>
+      </node>
+      <node id="92">
+        <label>C:/Users/Thompson/COMP-8551-Project/Archetype.cpp</label>
+        <link refid="_archetype_8cpp"/>
+      </node>
+      <node id="106">
+        <label>C:/Users/Thompson/COMP-8551-Project/protoChunkManager.cpp</label>
+        <link refid="proto_chunk_manager_8cpp"/>
+      </node>
+      <node id="93">
+        <label>C:/Users/Thompson/COMP-8551-Project/ArchetypeManager.h</label>
+        <link refid="_archetype_manager_8h"/>
+        <childnode refid="94" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+      </node>
+      <node id="103">
+        <label>C:/Users/Thompson/COMP-8551-Project/chunkManager.h</label>
+        <link refid="chunk_manager_8h"/>
+        <childnode refid="104" relation="include">
+        </childnode>
+        <childnode refid="95" relation="include">
+        </childnode>
+        <childnode refid="105" relation="include">
+        </childnode>
+      </node>
+      <node id="109">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.cpp</label>
+        <link refid="_entity_query_8cpp"/>
+      </node>
+      <node id="97">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_archetype" prot="public">Archetype</innerclass>
+      <sectiondef kind="func">
+      <memberdef kind="function" id="_archetype_8h_1aded8c95cb4250d6ef27cc03e32bb4f0d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>std::ostream &amp;</type>
+        <definition>std::ostream&amp; operator&lt;&lt;</definition>
+        <argsstring>(std::ostream &amp;str, Archetype const &amp;arch)</argsstring>
+        <name>operator&lt;&lt;</name>
+        <param>
+          <type>std::ostream &amp;</type>
+          <declname>str</declname>
+        </param>
+        <param>
+          <type><ref refid="class_archetype" kindref="compound">Archetype</ref> const &amp;</type>
+          <declname>arch</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h" line="22" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Archetype.h" bodystart="22" bodyend="32"/>
+        <references refid="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" compoundref="_archetype_8cpp" startline="19" endline="22">Archetype::getComponentTypesArrayCopy</references>
+        <references refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" compoundref="_archetype_8cpp" startline="14" endline="17">Archetype::getType</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;algorithm&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_types_8h" kindref="compound">Types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="class_archetype" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_archetype" kindref="compound">Archetype</ref></highlight></codeline>
+<codeline lineno="9"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12" refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref><sp/><ref refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" kindref="member">type</ref>;</highlight></codeline>
+<codeline lineno="13" refid="class_archetype_1a5d305600ab3c8ea8ebe6695715d85db7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ComponentType&gt;<sp/><ref refid="class_archetype_1a5d305600ab3c8ea8ebe6695715d85db7" kindref="member">components</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_archetype_1aff97c16b9aad359e3253c52e720f995e" kindref="member">Archetype</ref>();</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_archetype_1aff97c16b9aad359e3253c52e720f995e" kindref="member">Archetype</ref>(<ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref><sp/><ref refid="class_archetype_1ad31c6ac57bb92c70c7d109766f6ad293" kindref="member">type</ref>,<sp/>std::vector&lt;ComponentType&gt;<sp/><ref refid="class_archetype_1a5d305600ab3c8ea8ebe6695715d85db7" kindref="member">components</ref>);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref><sp/><ref refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" kindref="member">getType</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>std::vector&lt;ComponentType&gt;<sp/><ref refid="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" kindref="member">getComponentTypesArrayCopy</ref>()<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22" refid="_archetype_8h_1aded8c95cb4250d6ef27cc03e32bb4f0d" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">inline</highlight><highlight class="normal"><sp/>std::ostream&amp;<sp/><ref refid="_archetype_8h_1aded8c95cb4250d6ef27cc03e32bb4f0d" kindref="member">operator&lt;&lt;</ref>(std::ostream&amp;<sp/>str,<sp/><ref refid="class_archetype" kindref="compound">Archetype</ref><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal">&amp;<sp/>arch)</highlight></codeline>
+<codeline lineno="23"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/><ref refid="_types_8h_1ad148ca499da76ded86726004b45faa5c" kindref="member">ArchetypeType</ref><sp/>type<sp/>=<sp/>arch.<ref refid="class_archetype_1ad979cd4d264e8efd4f225cae63337e07" kindref="member">getType</ref>();</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/>str<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;archetype<sp/>type:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>unsigned(type)<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;,<sp/>components:<sp/>&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ComponentType&gt;<sp/>types<sp/>=<sp/>arch.<ref refid="class_archetype_1a17c42db6116b85eb52e7766ad6b1cd92" kindref="member">getComponentTypesArrayCopy</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>types.size();<sp/>i++)</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>str<sp/>&lt;&lt;<sp/>std::hex<sp/>&lt;&lt;<sp/>(int)types[i]<sp/>&lt;&lt;<sp/></highlight><highlight class="charliteral">&apos;<sp/>&apos;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>str;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Archetype.h"/>
+  </compounddef>
+</doxygen>

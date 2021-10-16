@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_r_e_a_d_m_e_8md" kind="file">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#<sp/>COMP-8551-Project</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/README.md"/>
+  </compounddef>
+</doxygen>

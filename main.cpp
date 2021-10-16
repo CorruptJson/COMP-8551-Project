@@ -16,10 +16,12 @@ EntityCoordinator coordinator;
 Renderer renderer;
 PhysicsWorld* physicsWorld;
 
+Archetype standardArch;
+
 // test entities
-Entity turtle;
-Entity wall;
-Entity dude;
+ChunkAddress turtle;
+ChunkAddress wall;
+ChunkAddress dude;
 
 // gets called once when engine starts
 // put initilization code here
@@ -41,6 +43,11 @@ int test(){
     coordinator.RegisterComponent<RenderComponent>();
     coordinator.RegisterComponent<PhysicsComponent>();
 
+    standardArch = coordinator.GetArchetype({
+        coordinator.GetComponentType<Transform>(),
+        coordinator.GetComponentType<RenderComponent>(),
+        coordinator.GetComponentType<PhysicsComponent>()
+        });
     //Archetype arch = coordinator.GetArchetype({
     //    coordinator.GetComponentType<Transform>(),
     //    coordinator.GetComponentType<RenderComponent>()
@@ -63,12 +70,12 @@ int test(){
 }
 
 // Use for now to make entities with components
-Entity CreateStandardEntity() {
-    Entity e = coordinator.CreateEntity();
+ChunkAddress CreateStandardEntity() {
+    ChunkAddress e = coordinator.NEW_CreateEntity(standardArch,"turtles.png");
 
-    coordinator.AddComponent<Transform>(e, Transform());
-    coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
-    coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
+    //coordinator.AddComponent<Transform>(e, Transform());
+    //coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
+    //coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
 
     return e;
 }
@@ -181,7 +188,7 @@ int main() {
     std::cout << "Dude x: " << coordinator.GetComponent<Transform>(dude).getPosition().x << " y: " << coordinator.GetComponent<Transform>(dude).getPosition().y << std::endl;
 
     
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
+    std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
 
     while (!glfwWindowShouldClose(window))

@@ -1,0 +1,240 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_entity_query_8h" kind="file">
+    <compoundname>EntityQuery.h</compoundname>
+    <includes local="no">iterator</includes>
+    <includes local="no">cstddef</includes>
+    <includes local="no">vector</includes>
+    <includes refid="chunk_8h" local="yes">chunk.h</includes>
+    <includes refid="_types_8h" local="yes">Types.h</includes>
+    <includes refid="_component_manager_8h" local="yes">ComponentManager.h</includes>
+    <includedby refid="_entity_coordinator_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/EntityCoordinator.h</includedby>
+    <includedby refid="_entity_query_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/EntityQuery.cpp</includedby>
+    <incdepgraph>
+      <node id="591">
+        <label>chunk.h</label>
+        <link refid="chunk_8h"/>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="594" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="599" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="588">
+        <label>iterator</label>
+      </node>
+      <node id="595">
+        <label>Types.h</label>
+        <link refid="_types_8h"/>
+        <childnode refid="596" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+      </node>
+      <node id="597">
+        <label>string</label>
+      </node>
+      <node id="599">
+        <label>Archetype.h</label>
+        <link refid="_archetype_8h"/>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="600" relation="include">
+        </childnode>
+        <childnode refid="597" relation="include">
+        </childnode>
+        <childnode refid="598" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+      </node>
+      <node id="587">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.h</label>
+        <link refid="EntityQuery.h"/>
+        <childnode refid="588" relation="include">
+        </childnode>
+        <childnode refid="589" relation="include">
+        </childnode>
+        <childnode refid="590" relation="include">
+        </childnode>
+        <childnode refid="591" relation="include">
+        </childnode>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="601" relation="include">
+        </childnode>
+      </node>
+      <node id="594">
+        <label>sigArch.h</label>
+        <link refid="_sig_arch_8h"/>
+      </node>
+      <node id="602">
+        <label>any</label>
+      </node>
+      <node id="596">
+        <label>bitset</label>
+      </node>
+      <node id="590">
+        <label>vector</label>
+      </node>
+      <node id="598">
+        <label>iostream</label>
+      </node>
+      <node id="589">
+        <label>cstddef</label>
+      </node>
+      <node id="592">
+        <label>unordered_map</label>
+      </node>
+      <node id="600">
+        <label>algorithm</label>
+      </node>
+      <node id="601">
+        <label>ComponentManager.h</label>
+        <link refid="_component_manager_8h"/>
+        <childnode refid="595" relation="include">
+        </childnode>
+        <childnode refid="602" relation="include">
+        </childnode>
+        <childnode refid="593" relation="include">
+        </childnode>
+        <childnode refid="592" relation="include">
+        </childnode>
+      </node>
+      <node id="593">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="605">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="607" relation="include">
+        </childnode>
+      </node>
+      <node id="609">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.cpp</label>
+        <link refid="_physics_world_8cpp"/>
+      </node>
+      <node id="603">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.h</label>
+        <link refid="EntityQuery.h"/>
+        <childnode refid="604" relation="include">
+        </childnode>
+        <childnode refid="610" relation="include">
+        </childnode>
+      </node>
+      <node id="608">
+        <label>C:/Users/Thompson/COMP-8551-Project/PhysicsWorld.h</label>
+        <link refid="_physics_world_8h"/>
+        <childnode refid="606" relation="include">
+        </childnode>
+        <childnode refid="609" relation="include">
+        </childnode>
+      </node>
+      <node id="607">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="604">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityCoordinator.h</label>
+        <link refid="_entity_coordinator_8h"/>
+        <childnode refid="605" relation="include">
+        </childnode>
+        <childnode refid="608" relation="include">
+        </childnode>
+        <childnode refid="606" relation="include">
+        </childnode>
+      </node>
+      <node id="610">
+        <label>C:/Users/Thompson/COMP-8551-Project/EntityQuery.cpp</label>
+        <link refid="_entity_query_8cpp"/>
+      </node>
+      <node id="606">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_entity_query" prot="public">EntityQuery</innerclass>
+    <innerclass refid="structcomponent_array" prot="public">componentArray</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;iterator&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;cstddef&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="chunk_8h" kindref="compound">chunk.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_types_8h" kindref="compound">Types.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_component_manager_8h" kindref="compound">ComponentManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="class_entity_query" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_entity_query" kindref="compound">EntityQuery</ref></highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>entity<sp/>count</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13" refid="class_entity_query_1a035a9c17331d17df7f4c38b593f44c37" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_entity_query_1a035a9c17331d17df7f4c38b593f44c37" kindref="member">entityCount</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>chunks</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="class_entity_query_1a4819c89dbecac749a7ec34dd0d8aeb1a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Chunk*&gt;<sp/><ref refid="class_entity_query_1a4819c89dbecac749a7ec34dd0d8aeb1a" kindref="member">chunks</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>components<sp/>query<sp/>IDs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="class_entity_query_1a92d35fe8616c4ff66c913df0496c4694" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;ComponentType&gt;<sp/><ref refid="class_entity_query_1a92d35fe8616c4ff66c913df0496c4694" kindref="member">compTypes</ref>;</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_entity_query_1aebb585497f019c7cd4e5cbbf2733b14d" kindref="member">searchChunks</ref>(std::vector&lt;Chunk*&gt;&amp;<sp/>allChunks);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_entity_query_1acfda50cea0766387575d9cbdd3ab9b1f" kindref="member">EntityQuery</ref>(std::vector&lt;ComponentType&gt;&amp;<sp/>_compTypes,std::vector&lt;Chunk*&gt;&amp;<sp/>allChunks);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_entity_query_1a99dab4fa1864f36acce0b559064d08c9" kindref="member">totalEntitiesFound</ref>();</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_entity_query_1ae9624b129e98c12f7f12c4ed28d6a4d5" kindref="member">chunkCount</ref>();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_chunk" kindref="compound">Chunk</ref>*<sp/><ref refid="class_entity_query_1aaef4bff7485af46d477719cc4573554a" kindref="member">chunk</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i);</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="31" refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;T*&gt;<sp/><ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>()</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::vector&lt;T*&gt;<sp/>list;</highlight></codeline>
+<codeline lineno="34"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//ComponentType<sp/>type<sp/>=<sp/>ComponentManager::NEW_GetComponentType&lt;T&gt;();</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/><ref refid="class_entity_query_1a4819c89dbecac749a7ec34dd0d8aeb1a" kindref="member">chunks</ref>.size();<sp/>i++)</highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="38"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>chunkEnts<sp/>=<sp/><ref refid="class_entity_query_1a4819c89dbecac749a7ec34dd0d8aeb1a" kindref="member">chunks</ref>[i]-&gt;getCurrEntCount();</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>T*<sp/>compArray<sp/>=<sp/><ref refid="class_entity_query_1a4819c89dbecac749a7ec34dd0d8aeb1a" kindref="member">chunks</ref>[i]-&gt;getComponentArray&lt;T&gt;();</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>j<sp/>=<sp/>0;<sp/>j<sp/>&lt;<sp/>chunkEnts;<sp/>j++)</highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>list.push_back(compArray);</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>compArray++;</highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>list;</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"></highlight><highlight class="keyword">template</highlight><highlight class="normal">&lt;</highlight><highlight class="keyword">typename</highlight><highlight class="normal"><sp/>T&gt;</highlight></codeline>
+<codeline lineno="52" refid="structcomponent_array" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="structcomponent_array" kindref="compound">componentArray</ref></highlight></codeline>
+<codeline lineno="53"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="54" refid="structcomponent_array_1a0572d2267ff8aa60dff0e0f6c261529f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>T*<sp/><ref refid="structcomponent_array_1a0572d2267ff8aa60dff0e0f6c261529f" kindref="member">start</ref>;</highlight></codeline>
+<codeline lineno="55" refid="structcomponent_array_1ab2c77d098cbafde53c664b123fd5a66f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="structcomponent_array_1ab2c77d098cbafde53c664b123fd5a66f" kindref="member">count</ref>;</highlight></codeline>
+<codeline lineno="56"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/EntityQuery.h"/>
+  </compounddef>
+</doxygen>

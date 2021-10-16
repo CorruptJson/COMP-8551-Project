@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_camera" kind="class" prot="public">
+    <compoundname>Camera</compoundname>
+    <includes refid="_camera_8h" local="no">Camera.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="class_camera_1a53d7a2789922d01be04b2b5e9867b181" prot="public" static="no" mutable="no">
+        <type>vec2</type>
+        <definition>vec2 Camera::position</definition>
+        <argsstring></argsstring>
+        <name>position</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.h" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_camera_1aa4e63c51837435bde461e442bee50a79" compoundref="_camera_8cpp" startline="3" endline="5">Camera</referencedby>
+        <referencedby refid="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" compoundref="_camera_8cpp" startline="16" endline="19">getViewMatrix</referencedby>
+        <referencedby refid="class_camera_1a019a1646aa9793c6c23636ee40457e91" compoundref="_camera_8cpp" startline="11" endline="14">moveCamera</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_camera_1aa4e63c51837435bde461e442bee50a79" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Camera::Camera</definition>
+        <argsstring>(float posX, float posY, float rotZ, float zoomFactor)</argsstring>
+        <name>Camera</name>
+        <param>
+          <type>float</type>
+          <declname>posX</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>posY</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>rotZ</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>zoomFactor</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="10" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.cpp" bodystart="3" bodyend="5"/>
+        <references refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" compoundref="_camera_8h" startline="14">position</references>
+      </memberdef>
+      <memberdef kind="function" id="class_camera_1a01f94c3543f56ede7af49dc778f19331" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type></type>
+        <definition>Camera::Camera</definition>
+        <argsstring>()</argsstring>
+        <name>Camera</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="11" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.cpp" bodystart="7" bodyend="9"/>
+        <references refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" compoundref="_camera_8h" startline="14">position</references>
+      </memberdef>
+      <memberdef kind="function" id="class_camera_1a019a1646aa9793c6c23636ee40457e91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void Camera::moveCamera</definition>
+        <argsstring>(float x, float y)</argsstring>
+        <name>moveCamera</name>
+        <param>
+          <type>float</type>
+          <declname>x</declname>
+        </param>
+        <param>
+          <type>float</type>
+          <declname>y</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="12" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.cpp" bodystart="11" bodyend="14"/>
+        <references refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" compoundref="_camera_8h" startline="14">position</references>
+      </memberdef>
+      <memberdef kind="function" id="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>mat4</type>
+        <definition>mat4 Camera::getViewMatrix</definition>
+        <argsstring>()</argsstring>
+        <name>getViewMatrix</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="13" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.cpp" bodystart="16" bodyend="19"/>
+        <references refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" compoundref="_camera_8h" startline="14">position</references>
+        <referencedby refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" compoundref="_renderer_8cpp" startline="350" endline="355">Renderer::loadUniforms</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Camera.h" bodystart="7" bodyend="20"/>
+    <listofallmembers>
+      <member refid="class_camera_1aa4e63c51837435bde461e442bee50a79" prot="public" virt="non-virtual"><scope>Camera</scope><name>Camera</name></member>
+      <member refid="class_camera_1a01f94c3543f56ede7af49dc778f19331" prot="public" virt="non-virtual"><scope>Camera</scope><name>Camera</name></member>
+      <member refid="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" prot="public" virt="non-virtual"><scope>Camera</scope><name>getViewMatrix</name></member>
+      <member refid="class_camera_1a019a1646aa9793c6c23636ee40457e91" prot="public" virt="non-virtual"><scope>Camera</scope><name>moveCamera</name></member>
+      <member refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" prot="public" virt="non-virtual"><scope>Camera</scope><name>position</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

@@ -3,6 +3,7 @@
 
 ArchetypeType ArchetypeManager::getArchetypeType(std::vector<ComponentType>& compTypes)
 {
+    
     auto find = archetypeTypes.find(compTypes);
     if (find == archetypeTypes.end())
     {

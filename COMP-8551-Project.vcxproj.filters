@@ -107,13 +107,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="protoChunkManager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="chunkManager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="sigArch.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="chunk.h">
@@ -142,9 +136,6 @@
     </ClInclude>
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="componentInfo.h">
-      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="SpriteInfo.h">
       <Filter>Header Files\Rendering</Filter>

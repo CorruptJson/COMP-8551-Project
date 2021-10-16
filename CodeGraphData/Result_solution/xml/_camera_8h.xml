@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_camera_8h" kind="file">
+    <compoundname>Camera.h</compoundname>
+    <includes local="no">glm/glm.hpp</includes>
+    <includes local="no">glm/gtc/matrix_transform.hpp</includes>
+    <includedby refid="_camera_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/Camera.cpp</includedby>
+    <includedby refid="_renderer_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/Renderer.h</includedby>
+    <incdepgraph>
+      <node id="356">
+        <label>C:/Users/Thompson/COMP-8551-Project/Camera.h</label>
+        <link refid="Camera.h"/>
+        <childnode refid="357" relation="include">
+        </childnode>
+        <childnode refid="358" relation="include">
+        </childnode>
+      </node>
+      <node id="358">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="357">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="361">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="362" relation="include">
+        </childnode>
+        <childnode refid="363" relation="include">
+        </childnode>
+      </node>
+      <node id="359">
+        <label>C:/Users/Thompson/COMP-8551-Project/Camera.h</label>
+        <link refid="Camera.h"/>
+        <childnode refid="360" relation="include">
+        </childnode>
+        <childnode refid="361" relation="include">
+        </childnode>
+      </node>
+      <node id="363">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="362">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+      <node id="360">
+        <label>C:/Users/Thompson/COMP-8551-Project/Camera.cpp</label>
+        <link refid="_camera_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_camera" prot="public">Camera</innerclass>
+    <innernamespace refid="namespaceglm">glm</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/glm.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/gtc/matrix_transform.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="keyword">using<sp/>namespace<sp/></highlight><highlight class="normal">glm;</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_camera" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_camera" kindref="compound">Camera</ref></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera" kindref="compound">Camera</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>posX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>posY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rotZ,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>zoomFactor);</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera" kindref="compound">Camera</ref>();</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>moveCamera(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>mat4<sp/>getViewMatrix();</highlight></codeline>
+<codeline lineno="14" refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>vec2<sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//void<sp/>rotateCamera(float<sp/>x,<sp/>float<sp/>y);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//void<sp/>zoom(float<sp/>factor);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//float<sp/>rotation;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//float<sp/>zoomFactor;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Camera.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_physics_component_8h" kind="file">
+    <compoundname>PhysicsComponent.h</compoundname>
+    <includes local="yes">Libraries/include/box2d/box2d.h</includes>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8h" local="yes">c:/users/thompson/comp-8551-project/PhysicsWorld.h</includedby>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp" local="yes">c:/users/thompson/comp-8551-project/main.cpp</includedby>
+    <incdepgraph>
+      <node id="1206">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+      <node id="1205">
+        <label>c:/users/thompson/comp-8551-project/PhysicsComponent.h</label>
+        <link refid=":/users/thompson/comp-8551-project/PhysicsComponent.h"/>
+        <childnode refid="1206" relation="include">
+        </childnode>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1208">
+        <label>c:/users/thompson/comp-8551-project/PhysicsWorld.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8h"/>
+        <childnode refid="1209" relation="include">
+        </childnode>
+        <childnode refid="1210" relation="include">
+        </childnode>
+      </node>
+      <node id="1209">
+        <label>c:/users/thompson/comp-8551-project/main.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp"/>
+      </node>
+      <node id="1210">
+        <label>c:/users/thompson/comp-8551-project/PhysicsWorld.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_physics_world_8cpp"/>
+      </node>
+      <node id="1207">
+        <label>c:/users/thompson/comp-8551-project/PhysicsComponent.h</label>
+        <link refid=":/users/thompson/comp-8551-project/PhysicsComponent.h"/>
+        <childnode refid="1208" relation="include">
+        </childnode>
+        <childnode refid="1209" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_physics_component" prot="public">PhysicsComponent</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Libraries/include/box2d/box2d.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="struct_physics_component" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_physics_component" kindref="compound">PhysicsComponent</ref><sp/>{</highlight></codeline>
+<codeline lineno="6" refid="struct_physics_component_1a10d224e866dc5208ce06c09aac5a9914" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>b2BodyType<sp/><ref refid="struct_physics_component_1a10d224e866dc5208ce06c09aac5a9914" kindref="member">bodyType</ref>;</highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="struct_physics_component_1adcaf5e6edb11733b70ad1c003c5203ab" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1adcaf5e6edb11733b70ad1c003c5203ab" kindref="member">halfHeight</ref>;</highlight></codeline>
+<codeline lineno="9" refid="struct_physics_component_1ab2ccdfc3831febc2425e85a2086ec62a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1ab2ccdfc3831febc2425e85a2086ec62a" kindref="member">halfWidth</ref>;</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="struct_physics_component_1afb9c07b74405403d6754f007633dd21c" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1afb9c07b74405403d6754f007633dd21c" kindref="member">x</ref>;</highlight></codeline>
+<codeline lineno="12" refid="struct_physics_component_1a1ed438b2c4b33266ca7083d7b5c698e9" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1a1ed438b2c4b33266ca7083d7b5c698e9" kindref="member">y</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14" refid="struct_physics_component_1ad976f6ae69d6df86831ff75d8e6faf30" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1ad976f6ae69d6df86831ff75d8e6faf30" kindref="member">density</ref>;</highlight></codeline>
+<codeline lineno="15" refid="struct_physics_component_1a1cf46ae2dded65b75409539239cc61e7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="struct_physics_component_1a1cf46ae2dded65b75409539239cc61e7" kindref="member">friction</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/PhysicsComponent.h"/>
+  </compounddef>
+</doxygen>

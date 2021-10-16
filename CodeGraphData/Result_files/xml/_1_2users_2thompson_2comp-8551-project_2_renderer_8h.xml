@@ -1,0 +1,393 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" kind="file">
+    <compoundname>Renderer.h</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="no">glad/glad.h</includes>
+    <includes local="no">GLFW/glfw3.h</includes>
+    <includes local="no">map</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_camera_8h" local="yes">Camera.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" local="yes">SpriteInfo.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h" local="yes">EntityCoordinator.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2render_component_8h" local="yes">RenderComponent.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_transform_8h" local="yes">Transform.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8h" local="yes">file_manager.h</includes>
+    <includes local="no">glm/glm.hpp</includes>
+    <includes local="no">glm/gtc/matrix_transform.hpp</includes>
+    <includes local="no">glm/gtc/type_ptr.hpp</includes>
+    <includes local="no">stb/stb_image.h</includes>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp" local="yes">c:/users/thompson/comp-8551-project/main.cpp</includedby>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp" local="yes">c:/users/thompson/comp-8551-project/Renderer.cpp</includedby>
+    <incdepgraph>
+      <node id="1540">
+        <label>file_manager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8h"/>
+        <childnode refid="1541" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1542" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1515" relation="include">
+        </childnode>
+      </node>
+      <node id="1535">
+        <label>iterator</label>
+      </node>
+      <node id="1530">
+        <label>sigArch.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_sig_arch_8h"/>
+      </node>
+      <node id="1524">
+        <label>string</label>
+      </node>
+      <node id="1515">
+        <label>SpriteInfo.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h"/>
+        <childnode refid="1516" relation="include">
+        </childnode>
+      </node>
+      <node id="1511">
+        <label>map</label>
+      </node>
+      <node id="1510">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="1534">
+        <label>EntityQuery.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_entity_query_8h"/>
+        <childnode refid="1535" relation="include">
+        </childnode>
+        <childnode refid="1536" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1529" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+      </node>
+      <node id="1527">
+        <label>exception</label>
+      </node>
+      <node id="1541">
+        <label>fstream</label>
+      </node>
+      <node id="1526">
+        <label>chunkManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h"/>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1527" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1529" relation="include">
+        </childnode>
+      </node>
+      <node id="1516">
+        <label>stb/stb_image.h</label>
+      </node>
+      <node id="1525">
+        <label>any</label>
+      </node>
+      <node id="1517">
+        <label>EntityCoordinator.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h"/>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1519" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+        <childnode refid="1526" relation="include">
+        </childnode>
+        <childnode refid="1533" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1534" relation="include">
+        </childnode>
+      </node>
+      <node id="1529">
+        <label>chunk.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_8h"/>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1530" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1531" relation="include">
+        </childnode>
+        <childnode refid="1520" relation="include">
+        </childnode>
+      </node>
+      <node id="1521">
+        <label>Types.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_types_8h"/>
+        <childnode refid="1522" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+      </node>
+      <node id="1522">
+        <label>bitset</label>
+      </node>
+      <node id="1543">
+        <label>glm/gtc/type_ptr.hpp</label>
+      </node>
+      <node id="1528">
+        <label>vector</label>
+      </node>
+      <node id="1520">
+        <label>ComponentManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_component_manager_8h"/>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1525" relation="include">
+        </childnode>
+        <childnode refid="1518" relation="include">
+        </childnode>
+        <childnode refid="1523" relation="include">
+        </childnode>
+      </node>
+      <node id="1519">
+        <label>array</label>
+      </node>
+      <node id="1542">
+        <label>sstream</label>
+      </node>
+      <node id="1512">
+        <label>Camera.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_camera_8h"/>
+        <childnode refid="1513" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
+        </childnode>
+      </node>
+      <node id="1508">
+        <label>iostream</label>
+      </node>
+      <node id="1514">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="1507">
+        <label>c:/users/thompson/comp-8551-project/Renderer.h</label>
+        <link refid=":/users/thompson/comp-8551-project/Renderer.h"/>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1509" relation="include">
+        </childnode>
+        <childnode refid="1510" relation="include">
+        </childnode>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1512" relation="include">
+        </childnode>
+        <childnode refid="1515" relation="include">
+        </childnode>
+        <childnode refid="1517" relation="include">
+        </childnode>
+        <childnode refid="1537" relation="include">
+        </childnode>
+        <childnode refid="1538" relation="include">
+        </childnode>
+        <childnode refid="1540" relation="include">
+        </childnode>
+        <childnode refid="1513" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
+        </childnode>
+        <childnode refid="1543" relation="include">
+        </childnode>
+        <childnode refid="1516" relation="include">
+        </childnode>
+      </node>
+      <node id="1536">
+        <label>cstddef</label>
+      </node>
+      <node id="1523">
+        <label>unordered_map</label>
+      </node>
+      <node id="1509">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="1537">
+        <label>RenderComponent.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2render_component_8h"/>
+      </node>
+      <node id="1533">
+        <label>ArchetypeManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_archetype_manager_8h"/>
+        <childnode refid="1511" relation="include">
+        </childnode>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+        <childnode refid="1531" relation="include">
+        </childnode>
+      </node>
+      <node id="1539">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+      <node id="1532">
+        <label>algorithm</label>
+      </node>
+      <node id="1531">
+        <label>Archetype.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h"/>
+        <childnode refid="1528" relation="include">
+        </childnode>
+        <childnode refid="1532" relation="include">
+        </childnode>
+        <childnode refid="1524" relation="include">
+        </childnode>
+        <childnode refid="1508" relation="include">
+        </childnode>
+        <childnode refid="1521" relation="include">
+        </childnode>
+      </node>
+      <node id="1518">
+        <label>memory</label>
+      </node>
+      <node id="1538">
+        <label>Transform.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_transform_8h"/>
+        <childnode refid="1513" relation="include">
+        </childnode>
+        <childnode refid="1514" relation="include">
+        </childnode>
+        <childnode refid="1539" relation="include">
+        </childnode>
+      </node>
+      <node id="1513">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1546">
+        <label>c:/users/thompson/comp-8551-project/Renderer.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp"/>
+      </node>
+      <node id="1545">
+        <label>c:/users/thompson/comp-8551-project/main.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp"/>
+      </node>
+      <node id="1544">
+        <label>c:/users/thompson/comp-8551-project/Renderer.h</label>
+        <link refid=":/users/thompson/comp-8551-project/Renderer.h"/>
+        <childnode refid="1545" relation="include">
+        </childnode>
+        <childnode refid="1546" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_renderer" prot="public">Renderer</innerclass>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_1_2users_2thompson_2comp-8551-project_2_renderer_8h_1a80de27bd7dc4e2b2ad3d5895b97a70f0" prot="public" static="no" mutable="no">
+        <type>GLFWwindow *</type>
+        <definition>GLFWwindow* window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/Renderer.h" line="17" column="1" bodyfile="c:/users/thompson/comp-8551-project/Renderer.cpp" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glad/glad.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;GLFW/glfw3.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;map&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_camera_8h" kindref="compound">Camera.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" kindref="compound">SpriteInfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_entity_coordinator_8h" kindref="compound">EntityCoordinator.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2render_component_8h" kindref="compound">RenderComponent.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_transform_8h" kindref="compound">Transform.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8h" kindref="compound">file_manager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/glm.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/gtc/matrix_transform.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glm/gtc/type_ptr.hpp&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stb/stb_image.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>GLFWwindow*<sp/><ref refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8h_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight></codeline>
+<codeline lineno="19" refid="class_renderer" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_renderer" kindref="compound">Renderer</ref></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="22" refid="class_renderer_1aaf7bd89a092916065b9e83e899184f5e" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="class_renderer_1aaf7bd89a092916065b9e83e899184f5e" kindref="member">DEFAULT_VERT_SHADER_NAME</ref>;</highlight></codeline>
+<codeline lineno="23" refid="class_renderer_1a5b2343e63684efe5c4e99a291c696000" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="class_renderer_1a5b2343e63684efe5c4e99a291c696000" kindref="member">DEFAULT_FRAG_SHADER_NAME</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">static</highlight><highlight class="normal"><sp/>GLFWwindow*<sp/><ref refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" kindref="member">setupGLFW</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*height);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" kindref="member">init</ref>();</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" kindref="member">update</ref>(<ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref>*<sp/><ref refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" kindref="member">coordinator</ref>);</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" kindref="member">teardown</ref>();</highlight></codeline>
+<codeline lineno="28"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>vertex<sp/>array<sp/>object<sp/>(VAO)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>describes<sp/>how<sp/>the<sp/>vertex<sp/>attributes<sp/>are<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>stored<sp/>in<sp/>the<sp/>a<sp/>vertex<sp/>buffer<sp/>object<sp/>(VBO)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="32"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>see<sp/>the<sp/>glVertexAttribPointer<sp/>function<sp/>calls</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="33"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>understand<sp/>how<sp/>it<sp/>works</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="34" refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" kindref="member">vertexAttribs</ref>;<sp/></highlight></codeline>
+<codeline lineno="35"><highlight class="normal"></highlight></codeline>
+<codeline lineno="36"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>vertex<sp/>buffer<sp/>object<sp/>(VBO)<sp/>containing<sp/>the<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>vertex<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="38" refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" kindref="member">vertexBuffer</ref>;</highlight></codeline>
+<codeline lineno="39"><highlight class="normal"></highlight></codeline>
+<codeline lineno="40"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>element<sp/>buffer<sp/>object<sp/>(EBO)<sp/>contains<sp/>the<sp/>vertex<sp/>indices</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="41" refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" kindref="member">indicesBuffer</ref>;</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"></highlight></codeline>
+<codeline lineno="43"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>default<sp/>shader<sp/>program</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>stored<sp/>here<sp/>since<sp/>we<sp/>most<sp/>likely<sp/>will<sp/>use<sp/>it<sp/>often</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" kindref="member">defaultShaderProgram</ref>;</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"></highlight></codeline>
+<codeline lineno="47"><highlight class="normal"></highlight></codeline>
+<codeline lineno="48" refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>glm::mat4<sp/><ref refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" kindref="member">projectionMatrix</ref>;</highlight></codeline>
+<codeline lineno="49" refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera" kindref="compound">Camera</ref><sp/><ref refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" kindref="member">camera</ref>;</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"></highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>sprites<sp/>that<sp/>have<sp/>been<sp/>read</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>from<sp/>the<sp/>image<sp/>files</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="53" refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::map&lt;const<sp/>char*,<sp/>SpriteInfo&gt;<sp/><ref refid="class_renderer_1a19a93b70db765305f1063fdb66bb764a" kindref="member">sprites</ref>;</highlight></codeline>
+<codeline lineno="54"><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" kindref="member">createDefaultShaderProgram</ref>();</highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" kindref="member">loadVertexData</ref>();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" kindref="member">loadIndicesData</ref>();</highlight></codeline>
+<codeline lineno="58"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" kindref="member">createTexBuffer</ref>(<ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>info,<sp/>stbi_uc*<sp/>imgData);</highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" kindref="member">loadTexture</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>spriteName);</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" kindref="member">loadUniforms</ref>(mat4<sp/>modelMatrix);</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" kindref="member">loadImages</ref>();</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" kindref="member">updateTexCoord</ref>(<ref refid="struct_render_component" kindref="compound">RenderComponent</ref><sp/>comp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>spriteName);</highlight></codeline>
+<codeline lineno="63"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/Renderer.h"/>
+  </compounddef>
+</doxygen>

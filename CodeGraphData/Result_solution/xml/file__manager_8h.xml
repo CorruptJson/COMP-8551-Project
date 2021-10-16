@@ -1,0 +1,108 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="file__manager_8h" kind="file">
+    <compoundname>file_manager.h</compoundname>
+    <includes local="no">fstream</includes>
+    <includes local="no">iostream</includes>
+    <includes local="no">string</includes>
+    <includes local="no">sstream</includes>
+    <includes local="no">glad/glad.h</includes>
+    <includes refid="_sprite_info_8h" local="yes">SpriteInfo.h</includes>
+    <includedby refid="file__manager_8cpp" local="yes">C:/Users/Thompson/COMP-8551-Project/file_manager.cpp</includedby>
+    <includedby refid="_renderer_8h" local="yes">C:/Users/Thompson/COMP-8551-Project/Renderer.h</includedby>
+    <incdepgraph>
+      <node id="631">
+        <label>string</label>
+      </node>
+      <node id="629">
+        <label>fstream</label>
+      </node>
+      <node id="635">
+        <label>stb/stb_image.h</label>
+      </node>
+      <node id="632">
+        <label>sstream</label>
+      </node>
+      <node id="634">
+        <label>SpriteInfo.h</label>
+        <link refid="_sprite_info_8h"/>
+        <childnode refid="635" relation="include">
+        </childnode>
+      </node>
+      <node id="628">
+        <label>C:/Users/Thompson/COMP-8551-Project/file_manager.h</label>
+        <link refid="file_manager.h"/>
+        <childnode refid="629" relation="include">
+        </childnode>
+        <childnode refid="630" relation="include">
+        </childnode>
+        <childnode refid="631" relation="include">
+        </childnode>
+        <childnode refid="632" relation="include">
+        </childnode>
+        <childnode refid="633" relation="include">
+        </childnode>
+        <childnode refid="634" relation="include">
+        </childnode>
+      </node>
+      <node id="630">
+        <label>iostream</label>
+      </node>
+      <node id="633">
+        <label>glad/glad.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="638">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="639" relation="include">
+        </childnode>
+        <childnode refid="640" relation="include">
+        </childnode>
+      </node>
+      <node id="640">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="_renderer_8cpp"/>
+      </node>
+      <node id="636">
+        <label>C:/Users/Thompson/COMP-8551-Project/file_manager.h</label>
+        <link refid="file_manager.h"/>
+        <childnode refid="637" relation="include">
+        </childnode>
+        <childnode refid="638" relation="include">
+        </childnode>
+      </node>
+      <node id="637">
+        <label>C:/Users/Thompson/COMP-8551-Project/file_manager.cpp</label>
+        <link refid="file__manager_8cpp"/>
+      </node>
+      <node id="639">
+        <label>C:/Users/Thompson/COMP-8551-Project/main.cpp</label>
+        <link refid="main_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innernamespace refid="namespace_file_manager">FileManager</innernamespace>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;fstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;string&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sstream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;glad/glad.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_sprite_info_8h" kindref="compound">SpriteInfo.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight></codeline>
+<codeline lineno="9" refid="namespace_file_manager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">namespace<sp/></highlight><highlight class="normal">FileManager</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/>stbi_uc*<sp/><ref refid="namespace_file_manager_1adbf5b1e4c498078afd5c3131edcefe3d" kindref="member">readImageFile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fileName,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>height,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">*<sp/>colorChannels);</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="namespace_file_manager_1a346593e839b7f132ea338c1f3cca9236" kindref="member">readTextFile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fileName);</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/><ref refid="namespace_file_manager_1afd00ae05dfc207e49142237b3126aac1" kindref="member">readShaderFile</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fileName);</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/file_manager.h"/>
+  </compounddef>
+</doxygen>

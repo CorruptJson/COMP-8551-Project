@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="struct_sprite_info" kind="struct" prot="public">
+    <compoundname>SpriteInfo</compoundname>
+    <includes refid="_sprite_info_8h" local="no">SpriteInfo.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SpriteInfo::height</definition>
+        <argsstring></argsstring>
+        <name>height</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="7" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="7" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" compoundref="_renderer_8cpp" startline="154" endline="173">Renderer::createTexBuffer</referencedby>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_renderer_8cpp" startline="100" endline="152">Renderer::loadImages</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SpriteInfo::width</definition>
+        <argsstring></argsstring>
+        <name>width</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" compoundref="_renderer_8cpp" startline="154" endline="173">Renderer::createTexBuffer</referencedby>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_renderer_8cpp" startline="100" endline="152">Renderer::loadImages</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SpriteInfo::rows</definition>
+        <argsstring></argsstring>
+        <name>rows</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="11" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="11" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_renderer_8cpp" startline="100" endline="152">Renderer::loadImages</referencedby>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_renderer_8cpp" startline="359" endline="380">Renderer::updateTexCoord</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int SpriteInfo::columns</definition>
+        <argsstring></argsstring>
+        <name>columns</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="12" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="12" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_renderer_8cpp" startline="100" endline="152">Renderer::loadImages</referencedby>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_renderer_8cpp" startline="359" endline="380">Renderer::updateTexCoord</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" prot="public" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint SpriteInfo::id</definition>
+        <argsstring></argsstring>
+        <name>id</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="15" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" compoundref="_renderer_8cpp" startline="100" endline="152">Renderer::loadImages</referencedby>
+        <referencedby refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" compoundref="_renderer_8cpp" startline="338" endline="348">Renderer::loadTexture</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" line="5" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/SpriteInfo.h" bodystart="5" bodyend="16"/>
+    <listofallmembers>
+      <member refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" prot="public" virt="non-virtual"><scope>SpriteInfo</scope><name>columns</name></member>
+      <member refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" prot="public" virt="non-virtual"><scope>SpriteInfo</scope><name>height</name></member>
+      <member refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" prot="public" virt="non-virtual"><scope>SpriteInfo</scope><name>id</name></member>
+      <member refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" prot="public" virt="non-virtual"><scope>SpriteInfo</scope><name>rows</name></member>
+      <member refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" prot="public" virt="non-virtual"><scope>SpriteInfo</scope><name>width</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

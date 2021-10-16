@@ -17,18 +17,24 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     //std::array<PhysicsComponent, MAX_ENTITIES> components = coordinator->GetComponentArray<PhysicsComponent>();
     //std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
-
+        
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
             coordinator->GetComponentType<Transform>()
         });
 
-    PhysicsComponent* physComponent;
+    int entitiesFound = entityQuery->totalEntitiesFound();
+    std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
+    std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
+    
+    
+    //
+    //PhysicsComponent* physComponent;
 
     //for(int j = 0; j < )
 
-    for (int i = 0; i < entityQuery->size(); i++) {
-        PhysicsComponent component = components[i];
+    for (int i = 0; i < entitiesFound; i++) {
+        PhysicsComponent component = *physComponents[i];
         b2BodyType type = component.bodyType;
 
         b2BodyDef bodyDef;
@@ -54,7 +60,7 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
             // need some way to pass the body to the entity so it can update in rendering
 
-            transforms[i].setPhysicsBody(body);
+            transformComponents[i]->setPhysicsBody(body);
 
         }
     
@@ -73,16 +79,25 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
             body = body->GetNext();
         }
 
-        EntityQuery<PhysicsComponent,Transform> eq = coo
+        std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<PhysicsComponent>(),
+        coordinator->GetComponentType<Transform>()
+            });
+
+        int entitiesFound = entityQuery->totalEntitiesFound();
+        std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
+        std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
+
+        //EntityQuery<PhysicsComponent,Transform> eq = coo
 
         //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
-        for (int i = coordinator->GetEntityCount()-1; i >= 0; i--) {
-            if (coordinator->GetComponentArray<PhysicsComponent>()[i].bodyType != b2_dynamicBody || body->GetType() != b2_dynamicBody)
+        for (int i = entitiesFound -1; i >= 0; i--) {
+            if (physComponents[i]->bodyType != b2_dynamicBody || body->GetType() != b2_dynamicBody)
             {
                 body = body->GetNext();
                 continue;
             }
-            coordinator->GetComponentArray<Transform>()[i].setPosition(body->GetPosition().x, body->GetPosition().y);
+            transformComponents[i]->setPosition(body->GetPosition().x, body->GetPosition().y);
             //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
             body = body->GetNext();
         }

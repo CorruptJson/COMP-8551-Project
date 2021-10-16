@@ -1,0 +1,860 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_renderer_8cpp" kind="file">
+    <compoundname>Renderer.cpp</compoundname>
+    <includes refid="_renderer_8h" local="yes">Renderer.h</includes>
+    <incdepgraph>
+      <node id="871">
+        <label>Renderer.h</label>
+        <link refid="_renderer_8h"/>
+        <childnode refid="872" relation="include">
+        </childnode>
+        <childnode refid="873" relation="include">
+        </childnode>
+        <childnode refid="874" relation="include">
+        </childnode>
+        <childnode refid="875" relation="include">
+        </childnode>
+        <childnode refid="876" relation="include">
+        </childnode>
+        <childnode refid="879" relation="include">
+        </childnode>
+        <childnode refid="881" relation="include">
+        </childnode>
+        <childnode refid="901" relation="include">
+        </childnode>
+        <childnode refid="902" relation="include">
+        </childnode>
+        <childnode refid="904" relation="include">
+        </childnode>
+        <childnode refid="877" relation="include">
+        </childnode>
+        <childnode refid="878" relation="include">
+        </childnode>
+        <childnode refid="907" relation="include">
+        </childnode>
+        <childnode refid="880" relation="include">
+        </childnode>
+      </node>
+      <node id="893">
+        <label>chunk.h</label>
+        <link refid="chunk_8h"/>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="887" relation="include">
+        </childnode>
+        <childnode refid="882" relation="include">
+        </childnode>
+        <childnode refid="894" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="895" relation="include">
+        </childnode>
+        <childnode refid="884" relation="include">
+        </childnode>
+      </node>
+      <node id="899">
+        <label>iterator</label>
+      </node>
+      <node id="876">
+        <label>Camera.h</label>
+        <link refid="_camera_8h"/>
+        <childnode refid="877" relation="include">
+        </childnode>
+        <childnode refid="878" relation="include">
+        </childnode>
+      </node>
+      <node id="885">
+        <label>Types.h</label>
+        <link refid="_types_8h"/>
+        <childnode refid="886" relation="include">
+        </childnode>
+        <childnode refid="887" relation="include">
+        </childnode>
+        <childnode refid="888" relation="include">
+        </childnode>
+        <childnode refid="872" relation="include">
+        </childnode>
+      </node>
+      <node id="888">
+        <label>string</label>
+      </node>
+      <node id="895">
+        <label>Archetype.h</label>
+        <link refid="_archetype_8h"/>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="896" relation="include">
+        </childnode>
+        <childnode refid="888" relation="include">
+        </childnode>
+        <childnode refid="872" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+      </node>
+      <node id="875">
+        <label>map</label>
+      </node>
+      <node id="874">
+        <label>GLFW/glfw3.h</label>
+      </node>
+      <node id="891">
+        <label>exception</label>
+      </node>
+      <node id="905">
+        <label>fstream</label>
+      </node>
+      <node id="898">
+        <label>EntityQuery.h</label>
+        <link refid="_entity_query_8h"/>
+        <childnode refid="899" relation="include">
+        </childnode>
+        <childnode refid="900" relation="include">
+        </childnode>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="893" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="884" relation="include">
+        </childnode>
+      </node>
+      <node id="894">
+        <label>sigArch.h</label>
+        <link refid="_sig_arch_8h"/>
+      </node>
+      <node id="880">
+        <label>stb/stb_image.h</label>
+      </node>
+      <node id="889">
+        <label>any</label>
+      </node>
+      <node id="901">
+        <label>RenderComponent.h</label>
+        <link refid="render_component_8h"/>
+      </node>
+      <node id="870">
+        <label>C:/Users/Thompson/COMP-8551-Project/Renderer.cpp</label>
+        <link refid="Renderer.cpp"/>
+        <childnode refid="871" relation="include">
+        </childnode>
+      </node>
+      <node id="886">
+        <label>bitset</label>
+      </node>
+      <node id="907">
+        <label>glm/gtc/type_ptr.hpp</label>
+      </node>
+      <node id="902">
+        <label>Transform.h</label>
+        <link refid="_transform_8h"/>
+        <childnode refid="877" relation="include">
+        </childnode>
+        <childnode refid="878" relation="include">
+        </childnode>
+        <childnode refid="903" relation="include">
+        </childnode>
+      </node>
+      <node id="892">
+        <label>vector</label>
+      </node>
+      <node id="883">
+        <label>array</label>
+      </node>
+      <node id="906">
+        <label>sstream</label>
+      </node>
+      <node id="879">
+        <label>SpriteInfo.h</label>
+        <link refid="_sprite_info_8h"/>
+        <childnode refid="880" relation="include">
+        </childnode>
+      </node>
+      <node id="881">
+        <label>EntityCoordinator.h</label>
+        <link refid="_entity_coordinator_8h"/>
+        <childnode refid="882" relation="include">
+        </childnode>
+        <childnode refid="883" relation="include">
+        </childnode>
+        <childnode refid="884" relation="include">
+        </childnode>
+        <childnode refid="890" relation="include">
+        </childnode>
+        <childnode refid="897" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="898" relation="include">
+        </childnode>
+      </node>
+      <node id="904">
+        <label>file_manager.h</label>
+        <link refid="file__manager_8h"/>
+        <childnode refid="905" relation="include">
+        </childnode>
+        <childnode refid="872" relation="include">
+        </childnode>
+        <childnode refid="888" relation="include">
+        </childnode>
+        <childnode refid="906" relation="include">
+        </childnode>
+        <childnode refid="873" relation="include">
+        </childnode>
+        <childnode refid="879" relation="include">
+        </childnode>
+      </node>
+      <node id="872">
+        <label>iostream</label>
+      </node>
+      <node id="878">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="900">
+        <label>cstddef</label>
+      </node>
+      <node id="887">
+        <label>unordered_map</label>
+      </node>
+      <node id="873">
+        <label>glad/glad.h</label>
+      </node>
+      <node id="897">
+        <label>ArchetypeManager.h</label>
+        <link refid="_archetype_manager_8h"/>
+        <childnode refid="875" relation="include">
+        </childnode>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="895" relation="include">
+        </childnode>
+      </node>
+      <node id="890">
+        <label>chunkManager.h</label>
+        <link refid="chunk_manager_8h"/>
+        <childnode refid="872" relation="include">
+        </childnode>
+        <childnode refid="891" relation="include">
+        </childnode>
+        <childnode refid="887" relation="include">
+        </childnode>
+        <childnode refid="892" relation="include">
+        </childnode>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="893" relation="include">
+        </childnode>
+      </node>
+      <node id="903">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+      <node id="896">
+        <label>algorithm</label>
+      </node>
+      <node id="884">
+        <label>ComponentManager.h</label>
+        <link refid="_component_manager_8h"/>
+        <childnode refid="885" relation="include">
+        </childnode>
+        <childnode refid="889" relation="include">
+        </childnode>
+        <childnode refid="882" relation="include">
+        </childnode>
+        <childnode refid="887" relation="include">
+        </childnode>
+      </node>
+      <node id="882">
+        <label>memory</label>
+      </node>
+      <node id="877">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+      <sectiondef kind="enum">
+      <memberdef kind="enum" id="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8e" prot="public" static="no">
+        <name>UNIFORMS</name>
+        <enumvalue id="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" prot="public">
+          <name>MODEL_MATRIX_LOCATION</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" prot="public">
+          <name>VIEW_MATRIX_LOCATION</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" prot="public">
+          <name>PROJECTION_MATRIX_LOCATION</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea511c6a8651d7aa0c5d75e3d0befbc377" prot="public">
+          <name>NUM_OF_UNIFORMS</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" line="27" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" bodystart="27" bodyend="32"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="var">
+      <memberdef kind="variable" id="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" prot="public" static="no" mutable="no">
+        <type>GLfloat</type>
+        <definition>GLfloat vertices[]</definition>
+        <argsstring>[]</argsstring>
+        <name>vertices</name>
+        <initializer>= {
+    
+     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   
+     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   
+    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" compoundref="_renderer_8cpp" startline="292" endline="325">Renderer::loadVertexData</referencedby>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_renderer_8cpp" startline="359" endline="380">Renderer::updateTexCoord</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" prot="public" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint indices[]</definition>
+        <argsstring>[]</argsstring>
+        <name>indices</name>
+        <initializer>= {
+    0, 1, 3, 
+    1, 2, 3 
+}</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" line="17" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" bodystart="17" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" compoundref="_renderer_8cpp" startline="327" endline="336">Renderer::loadIndicesData</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" prot="public" static="no" mutable="no">
+        <type>GLuint</type>
+        <definition>GLuint uniformsLocation[NUM_OF_UNIFORMS]</definition>
+        <argsstring>[NUM_OF_UNIFORMS]</argsstring>
+        <name>uniformsLocation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" line="35" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" bodystart="35" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" compoundref="_renderer_8cpp" startline="221" endline="289">Renderer::createDefaultShaderProgram</referencedby>
+        <referencedby refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" compoundref="_renderer_8cpp" startline="350" endline="355">Renderer::loadUniforms</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" prot="public" static="no" mutable="no">
+        <type>GLFWwindow *</type>
+        <definition>GLFWwindow* window</definition>
+        <argsstring></argsstring>
+        <name>window</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" line="39" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp" bodystart="39" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" compoundref="_renderer_8cpp" startline="45" endline="95">Renderer::init</referencedby>
+        <referencedby refid="main_8cpp_1ae66f6b31b5ad750f1fe042a706a4e3d4" compoundref="main_8cpp" startline="112" endline="205">main</referencedby>
+        <referencedby refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" compoundref="_renderer_8cpp" startline="175" endline="217">Renderer::setupGLFW</referencedby>
+        <referencedby refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" compoundref="_renderer_8cpp" startline="456" endline="462">Renderer::teardown</referencedby>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_renderer_8cpp" startline="383" endline="454">Renderer::update</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_renderer_8h" kindref="compound">Renderer.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="class_renderer_1a130d50053e1074d70b26800d36d57725" kindref="member">Renderer::DEFAULT_VERT_SHADER_NAME</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;DefaultVertShader.vs&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<ref refid="class_renderer_1aa2c62ab45e1e51868ac5bf1b24d3c338" kindref="member">Renderer::DEFAULT_FRAG_SHADER_NAME</ref><sp/>=<sp/></highlight><highlight class="stringliteral">&quot;DefaultFragShader.fs&quot;</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="comment">//Fragment<sp/>Shader<sp/>source<sp/>code</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Vertices<sp/>data:<sp/>coordinates,<sp/>colors<sp/>and<sp/>texture<sp/>coords</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8" refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" refkind="member"><highlight class="normal">GLfloat<sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>positions<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>colors<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>//<sp/>texture<sp/>coords</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.5f,<sp/><sp/>0.5f,<sp/>0.0f,<sp/><sp/><sp/>1.0f,<sp/>0.0f,<sp/>0.0f,<sp/><sp/><sp/>1.0f,<sp/>1.0f,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>top<sp/>right</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/>0.5f,<sp/>-0.5f,<sp/>0.0f,<sp/><sp/><sp/>0.0f,<sp/>1.0f,<sp/>0.0f,<sp/><sp/><sp/>1.0f,<sp/>0.0f,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>right</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/>-0.5f,<sp/>-0.5f,<sp/>0.0f,<sp/><sp/><sp/>0.0f,<sp/>0.0f,<sp/>1.0f,<sp/><sp/><sp/>0.0f,<sp/>0.0f,<sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>left</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/>-0.5f,<sp/><sp/>0.5f,<sp/>0.0f,<sp/><sp/><sp/>1.0f,<sp/>1.0f,<sp/>0.0f,<sp/><sp/><sp/>0.0f,<sp/>1.0f<sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>top<sp/>left<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal"></highlight><highlight class="comment">//<sp/>for<sp/>the<sp/>element<sp/>buffer<sp/>object<sp/>(EBO)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="17" refid="_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" refkind="member"><highlight class="normal">GLuint<sp/><ref refid="_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" kindref="member">indices</ref>[]<sp/>=<sp/>{</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/>0,<sp/>1,<sp/>3,<sp/></highlight><highlight class="comment">//indices<sp/>to<sp/>create<sp/>the<sp/>first<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="19"><highlight class="normal"><sp/><sp/><sp/><sp/>1,<sp/>2,<sp/>3<sp/></highlight><highlight class="comment">//indices<sp/>to<sp/>create<sp/>the<sp/>second<sp/>triangle</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>shaders<sp/>uniforms<sp/>we<sp/>are<sp/>using</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//<sp/>uniforms<sp/>are<sp/>extra<sp/>data<sp/>that<sp/>we<sp/>pass<sp/>in</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//<sp/>manually<sp/>to<sp/>the<sp/>shaders.<sp/>They<sp/>stay<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>same<sp/>in<sp/>both<sp/>vertex<sp/>and<sp/>fragment<sp/>shaders.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27" refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8e" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8e" kindref="member">UNIFORMS</ref><sp/>{</highlight></codeline>
+<codeline lineno="28" refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" kindref="member">MODEL_MATRIX_LOCATION</ref>,</highlight></codeline>
+<codeline lineno="29" refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" kindref="member">VIEW_MATRIX_LOCATION</ref>,</highlight></codeline>
+<codeline lineno="30" refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" kindref="member">PROJECTION_MATRIX_LOCATION</ref>,</highlight></codeline>
+<codeline lineno="31" refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea511c6a8651d7aa0c5d75e3d0befbc377" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea511c6a8651d7aa0c5d75e3d0befbc377" kindref="member">NUM_OF_UNIFORMS</ref></highlight></codeline>
+<codeline lineno="32"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="33"><highlight class="normal"></highlight></codeline>
+<codeline lineno="34"><highlight class="normal"></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>locations<sp/>of<sp/>the<sp/>shaders<sp/>uniforms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="35" refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" refkind="member"><highlight class="normal">GLuint<sp/><ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea511c6a8651d7aa0c5d75e3d0befbc377" kindref="member">NUM_OF_UNIFORMS</ref>];</highlight></codeline>
+<codeline lineno="36"><highlight class="normal"></highlight></codeline>
+<codeline lineno="37"><highlight class="normal"></highlight></codeline>
+<codeline lineno="38"><highlight class="normal"></highlight><highlight class="comment">//<sp/>a<sp/>pointer<sp/>to<sp/>the<sp/>context</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="39" refid="_renderer_8h_1a80de27bd7dc4e2b2ad3d5895b97a70f0" refkind="member"><highlight class="normal">GLFWwindow*<sp/><ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>;</highlight></codeline>
+<codeline lineno="40"><highlight class="normal"></highlight></codeline>
+<codeline lineno="45" refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" refkind="member"><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a609f1ee6a2e5033035eb47636d0901ad" kindref="member">Renderer::init</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>width,<sp/>height;</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref><sp/>=<sp/><ref refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" kindref="member">Renderer::setupGLFW</ref>(&amp;width,<sp/>&amp;height);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref><sp/>==<sp/>NULL)</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glfwTerminate();</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>-1;</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"></highlight></codeline>
+<codeline lineno="54"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>glad<sp/>handle<sp/>the<sp/>opengl<sp/>code</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="55"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>init<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="56"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="glad_8c_1a137453294a2756a898902ef399b3d437" kindref="member">gladLoadGL</ref>();</highlight></codeline>
+<codeline lineno="57"><highlight class="normal"></highlight></codeline>
+<codeline lineno="58"><highlight class="normal"></highlight></codeline>
+<codeline lineno="59"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>init<sp/>other<sp/>OpenGL<sp/>stuff</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>projectionWidth<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>projectionHeight<sp/>=<sp/>4;</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CENTER_X_COORD<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>CENTER_Y_COORD<sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>LEFT_X_COORD<sp/>=<sp/>CENTER_X_COORD<sp/>-<sp/>projectionWidth<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>RIGHT_X_COORD<sp/>=<sp/>CENTER_X_COORD<sp/>+<sp/>projectionWidth<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>BOTTOM_Y_COORD<sp/>=<sp/>CENTER_Y_COORD<sp/>-<sp/>projectionHeight<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>TOP_Y_COORD<sp/>=<sp/>CENTER_Y_COORD<sp/>+<sp/>projectionHeight<sp/>/<sp/>2;</highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>EYE_NEAR<sp/>=<sp/>0.f;</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>EYE_FAR<sp/>=<sp/>-1.f;</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" kindref="member">projectionMatrix</ref><sp/>=<sp/>glm::ortho(LEFT_X_COORD,<sp/>RIGHT_X_COORD,<sp/>BOTTOM_Y_COORD,<sp/>TOP_Y_COORD,<sp/>EYE_NEAR,<sp/>EYE_FAR);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera" kindref="compound">Camera</ref><sp/><ref refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" kindref="member">camera</ref>(0.0,<sp/>0.0,<sp/>0.0,<sp/>0.0);</highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" kindref="member">defaultShaderProgram</ref><sp/>=<sp/><ref refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" kindref="member">createDefaultShaderProgram</ref>();</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" kindref="member">loadImages</ref>();</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"></highlight></codeline>
+<codeline lineno="75"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>all<sp/>the<sp/>OpenGL<sp/>buffers<sp/>at<sp/>the<sp/>start<sp/>so<sp/>we<sp/>can</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>reuse<sp/>them</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>first<sp/>param<sp/>is<sp/>how<sp/>many<sp/>3D<sp/>object<sp/>we<sp/>have<sp/>(we<sp/>have<sp/>1)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>second<sp/>param<sp/>is<sp/>a<sp/>reference<sp/>to<sp/>the<sp/>VBO<sp/>id/ref</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>This<sp/>is<sp/>similar<sp/>to<sp/>GLuint<sp/>VBO<sp/>=<sp/>glGenBuffers(1);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="80"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>except<sp/>we<sp/>use<sp/>refs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="81"><highlight class="normal"><sp/><sp/><sp/><sp/>glGenBuffers(1,<sp/>&amp;<ref refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" kindref="member">vertexBuffer</ref>);<sp/></highlight><highlight class="comment">//<sp/>gen<sp/>==<sp/>generate</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="82"><highlight class="normal"><sp/><sp/><sp/><sp/>glGenBuffers(1,<sp/>&amp;<ref refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" kindref="member">indicesBuffer</ref>);</highlight></codeline>
+<codeline lineno="83"><highlight class="normal"><sp/><sp/><sp/><sp/>glGenVertexArrays(1,<sp/>&amp;<ref refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" kindref="member">vertexAttribs</ref>);</highlight></codeline>
+<codeline lineno="84"><highlight class="normal"></highlight></codeline>
+<codeline lineno="85"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>opengl<sp/>the<sp/>size<sp/>of<sp/>the<sp/>viewport<sp/>(window)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="86"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>are<sp/>drawing<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="87"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>arguments<sp/>are<sp/>(bottom-left-x,<sp/>bottom-left-y,<sp/>top-right-x,<sp/>top-right-y)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="88"><highlight class="normal"><sp/><sp/><sp/><sp/>glViewport(0,<sp/>0,<sp/>width,<sp/>height);</highlight></codeline>
+<codeline lineno="89"><highlight class="normal"></highlight></codeline>
+<codeline lineno="90"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>enable<sp/>transparency<sp/>for<sp/>the<sp/>images</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="91"><highlight class="normal"><sp/><sp/><sp/><sp/>glBlendFunc(GL_SRC_ALPHA,<sp/>GL_ONE_MINUS_SRC_ALPHA);</highlight></codeline>
+<codeline lineno="92"><highlight class="normal"><sp/><sp/><sp/><sp/>glEnable(GL_BLEND);</highlight></codeline>
+<codeline lineno="93"><highlight class="normal"></highlight></codeline>
+<codeline lineno="94"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="95"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="96"><highlight class="normal"></highlight></codeline>
+<codeline lineno="97"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Load<sp/>all<sp/>images<sp/>that<sp/>we<sp/>need<sp/>into<sp/>the<sp/>sprites<sp/>map</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="98"><highlight class="normal"></highlight><highlight class="comment">//<sp/>This<sp/>allows<sp/>us<sp/>to<sp/>specify<sp/>their<sp/>row<sp/>and<sp/>column<sp/>number</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="99"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Also<sp/>accomodate<sp/>future<sp/>sprite<sp/>loading.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="100" refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a6ef205817d9ef43e2690bcb0872be37c" kindref="member">Renderer::loadImages</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="101"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>read<sp/>config<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="102"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">ImgConfig<sp/>{</highlight></codeline>
+<codeline lineno="103"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>name;</highlight></codeline>
+<codeline lineno="104"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>rows;</highlight></codeline>
+<codeline lineno="105"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>columns;</highlight></codeline>
+<codeline lineno="106"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="107"><highlight class="normal"><sp/><sp/><sp/><sp/>ImgConfig<sp/>configs[]{</highlight></codeline>
+<codeline lineno="108"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="109"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;turtles.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="110"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,</highlight></codeline>
+<codeline lineno="111"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="112"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="113"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="114"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;wall.jpg&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="115"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1,</highlight></codeline>
+<codeline lineno="116"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>1</highlight></codeline>
+<codeline lineno="117"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>},</highlight></codeline>
+<codeline lineno="118"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>{</highlight></codeline>
+<codeline lineno="119"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="stringliteral">&quot;game_sprites.png&quot;</highlight><highlight class="normal">,</highlight></codeline>
+<codeline lineno="120"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4,</highlight></codeline>
+<codeline lineno="121"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>4</highlight></codeline>
+<codeline lineno="122"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="123"><highlight class="normal"><sp/><sp/><sp/><sp/>};</highlight></codeline>
+<codeline lineno="124"><highlight class="normal"></highlight></codeline>
+<codeline lineno="125"><highlight class="normal"></highlight></codeline>
+<codeline lineno="126"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>function<sp/>for<sp/>using<sp/>stbi</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="127"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>is<sp/>because<sp/>OpenGL&apos;s<sp/>y-axis<sp/>starts<sp/>from<sp/>bottoms<sp/>up</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="128"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>however,<sp/>images<sp/>have<sp/>y-axis<sp/>starts<sp/>top<sp/>down</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="129"><highlight class="normal"><sp/><sp/><sp/><sp/>stbi_set_flip_vertically_on_load(</highlight><highlight class="keyword">true</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="130"><highlight class="normal"></highlight></codeline>
+<codeline lineno="131"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(ImgConfig<sp/>config<sp/>:<sp/>configs)<sp/>{</highlight></codeline>
+<codeline lineno="132"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>read<sp/>the<sp/>image<sp/>from<sp/>the<sp/>file<sp/>and<sp/>store<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="133"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>info;</highlight></codeline>
+<codeline lineno="134"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>colChannels;</highlight></codeline>
+<codeline lineno="135"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stbi_uc*<sp/>imgData<sp/>=<sp/><ref refid="namespace_file_manager_1adbf5b1e4c498078afd5c3131edcefe3d" kindref="member">FileManager::readImageFile</ref>(config.name,<sp/>&amp;info.<ref refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" kindref="member">width</ref>,<sp/>&amp;info.<ref refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" kindref="member">height</ref>,<sp/>&amp;colChannels);</highlight></codeline>
+<codeline lineno="136"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!imgData)<sp/>{</highlight></codeline>
+<codeline lineno="137"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>load<sp/>texture:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>config.name<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="138"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="139"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="140"><highlight class="normal"></highlight></codeline>
+<codeline lineno="141"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>the<sp/>texture<sp/>buffer<sp/>and<sp/>store<sp/>its<sp/>id<sp/>in<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="142"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info.<ref refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" kindref="member">id</ref><sp/>=<sp/><ref refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" kindref="member">createTexBuffer</ref>(info,<sp/>imgData);</highlight></codeline>
+<codeline lineno="143"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info.<ref refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" kindref="member">rows</ref><sp/>=<sp/>config.rows;</highlight></codeline>
+<codeline lineno="144"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>info.<ref refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" kindref="member">columns</ref><sp/>=<sp/>config.columns;</highlight></codeline>
+<codeline lineno="145"><highlight class="normal"></highlight></codeline>
+<codeline lineno="146"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>store<sp/>the<sp/>new<sp/>sprite</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="147"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1afc67b2cbfc241ed404ab755996ff2ca8" kindref="member">sprites</ref>[config.name]<sp/>=<sp/>info;</highlight></codeline>
+<codeline lineno="148"><highlight class="normal"></highlight></codeline>
+<codeline lineno="149"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>delete<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="150"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>stbi_image_free(imgData);<sp/></highlight></codeline>
+<codeline lineno="151"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="152"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="153"><highlight class="normal"></highlight></codeline>
+<codeline lineno="154" refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" refkind="member"><highlight class="normal">GLuint<sp/><ref refid="class_renderer_1a9e85891147c01097f8c9132aca8ba721" kindref="member">Renderer::createTexBuffer</ref>(<ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>info,<sp/>stbi_uc*<sp/>imgData)<sp/>{</highlight></codeline>
+<codeline lineno="155"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>a<sp/>texture<sp/>buffer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="156"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/>id;</highlight></codeline>
+<codeline lineno="157"><highlight class="normal"><sp/><sp/><sp/><sp/>glGenTextures(1,<sp/>&amp;</highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="158"><highlight class="normal"></highlight></codeline>
+<codeline lineno="159"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>bind<sp/>the<sp/>texture<sp/>(tell<sp/>OpenGL<sp/>that<sp/>it&apos;s<sp/>the<sp/>cur<sp/>tex)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="160"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//note*<sp/>needs<sp/>to<sp/>be<sp/>above<sp/>any<sp/>texture<sp/>functions<sp/>so<sp/>that<sp/>it<sp/>is<sp/>applied<sp/>to<sp/>the<sp/>binded<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="161"><highlight class="normal"><sp/><sp/><sp/><sp/>glBindTexture(GL_TEXTURE_2D,<sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="162"><highlight class="normal"></highlight></codeline>
+<codeline lineno="163"><highlight class="normal"><sp/><sp/><sp/><sp/>glTexImage2D(GL_TEXTURE_2D,<sp/>0,<sp/>GL_RGBA,<sp/>info.<ref refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" kindref="member">width</ref>,<sp/>info.<ref refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" kindref="member">height</ref>,<sp/>0,<sp/>GL_RGBA,<sp/>GL_UNSIGNED_BYTE,<sp/>imgData);</highlight></codeline>
+<codeline lineno="164"><highlight class="normal"><sp/><sp/><sp/><sp/>glGenerateMipmap(GL_TEXTURE_2D);</highlight></codeline>
+<codeline lineno="165"><highlight class="normal"></highlight></codeline>
+<codeline lineno="166"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>the<sp/>texture<sp/>wrapping/filtering<sp/>options<sp/>(on<sp/>the<sp/>currently<sp/>bound<sp/>texture<sp/>object)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="167"><highlight class="normal"><sp/><sp/><sp/><sp/>glTexParameteri(GL_TEXTURE_2D,<sp/>GL_TEXTURE_WRAP_S,<sp/>GL_REPEAT);</highlight></codeline>
+<codeline lineno="168"><highlight class="normal"><sp/><sp/><sp/><sp/>glTexParameteri(GL_TEXTURE_2D,<sp/>GL_TEXTURE_WRAP_T,<sp/>GL_REPEAT);</highlight></codeline>
+<codeline lineno="169"><highlight class="normal"><sp/><sp/><sp/><sp/>glTexParameteri(GL_TEXTURE_2D,<sp/>GL_TEXTURE_MIN_FILTER,<sp/>GL_LINEAR_MIPMAP_LINEAR);</highlight></codeline>
+<codeline lineno="170"><highlight class="normal"><sp/><sp/><sp/><sp/>glTexParameteri(GL_TEXTURE_2D,<sp/>GL_TEXTURE_MAG_FILTER,<sp/>GL_LINEAR);</highlight></codeline>
+<codeline lineno="171"><highlight class="normal"></highlight></codeline>
+<codeline lineno="172"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>id;</highlight></codeline>
+<codeline lineno="173"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="174"><highlight class="normal"></highlight></codeline>
+<codeline lineno="175" refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" refkind="member"><highlight class="normal">GLFWwindow*<sp/><ref refid="class_renderer_1a31bffbc2cf83feda7c2698c6ad11b0a6" kindref="member">Renderer::setupGLFW</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*width,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>*height)<sp/>{</highlight></codeline>
+<codeline lineno="176"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>glfw<sp/>helps<sp/>with<sp/>creating<sp/>windows,<sp/>contexts</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="177"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>receiving<sp/>inputs<sp/>and<sp/>events</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="178"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>init<sp/>this<sp/>to<sp/>call<sp/>its<sp/>function</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="179"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>see<sp/>https://www.khronos.org/opengl/wiki/Getting_Started#Initialization</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="180"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>for<sp/>more<sp/>info</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="181"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwInit();</highlight></codeline>
+<codeline lineno="182"><highlight class="normal"></highlight></codeline>
+<codeline lineno="183"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>glfw<sp/>we<sp/>are<sp/>using<sp/>version<sp/>3.3</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="184"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR,<sp/>3);</highlight></codeline>
+<codeline lineno="185"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR,<sp/>3);</highlight></codeline>
+<codeline lineno="186"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>glfw<sp/>the<sp/>opengl<sp/>functions<sp/>that<sp/>we<sp/>want<sp/>to<sp/>use<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="187"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>core<sp/>profile<sp/>is<sp/>a<sp/>preset<sp/>list<sp/>of<sp/>functions<sp/>that<sp/>opengl<sp/>can<sp/>init</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="188"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwWindowHint(GLFW_OPENGL_PROFILE,<sp/>GLFW_OPENGL_CORE_PROFILE);</highlight></codeline>
+<codeline lineno="189"><highlight class="normal"></highlight></codeline>
+<codeline lineno="190"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Find<sp/>the<sp/>main<sp/>monitor<sp/>and<sp/>its<sp/>screen<sp/>size</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="191"><highlight class="normal"><sp/><sp/><sp/><sp/>GLFWmonitor*<sp/>monitor<sp/>=<sp/>glfwGetPrimaryMonitor();</highlight></codeline>
+<codeline lineno="192"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/>GLFWvidmode*<sp/>monitorInfo<sp/>=<sp/>glfwGetVideoMode(monitor);</highlight></codeline>
+<codeline lineno="193"><highlight class="normal"></highlight></codeline>
+<codeline lineno="194"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>use<sp/>this<sp/>to<sp/>make<sp/>the<sp/>window<sp/>match<sp/>screen<sp/>size<sp/>but<sp/>still<sp/>in<sp/>windowed<sp/>mode</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="195"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//*width<sp/>=<sp/>monitorInfo-&gt;width;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="196"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//*height<sp/>=<sp/>monitorInfo-&gt;height;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="197"><highlight class="normal"></highlight></codeline>
+<codeline lineno="198"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>make<sp/>a<sp/>small<sp/>width<sp/>and<sp/>a<sp/>height<sp/>for<sp/>ease<sp/>of<sp/>testing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="199"><highlight class="normal"><sp/><sp/><sp/><sp/>*width<sp/>=<sp/>1000;</highlight></codeline>
+<codeline lineno="200"><highlight class="normal"><sp/><sp/><sp/><sp/>*height<sp/>=<sp/>1000;</highlight></codeline>
+<codeline lineno="201"><highlight class="normal"></highlight></codeline>
+<codeline lineno="202"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Make<sp/>a<sp/>window<sp/>with<sp/>size<sp/>800x800<sp/>with<sp/>name<sp/>of<sp/>&quot;Chunky<sp/>Soup&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="203"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>pass<sp/>in<sp/>monitor<sp/>for<sp/>the<sp/>3rd<sp/>param<sp/>if<sp/>we<sp/>want<sp/>it<sp/>to<sp/>be<sp/>full<sp/>screen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="204"><highlight class="normal"><sp/><sp/><sp/><sp/>GLFWwindow*<sp/><ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref><sp/>=<sp/>glfwCreateWindow(*width,<sp/>*height,<sp/></highlight><highlight class="stringliteral">&quot;Chunky<sp/>Soup&quot;</highlight><highlight class="normal">,<sp/>NULL,<sp/>NULL);</highlight></codeline>
+<codeline lineno="205"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//glfwSetWindowPos(window,<sp/>0,<sp/>0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="206"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(window<sp/>==<sp/>NULL)<sp/>{</highlight></codeline>
+<codeline lineno="207"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Failed<sp/>to<sp/>create<sp/>GLFW<sp/>window&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="208"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>NULL;</highlight></codeline>
+<codeline lineno="209"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="210"><highlight class="normal"></highlight></codeline>
+<codeline lineno="211"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>glfw<sp/>that<sp/>the<sp/>window<sp/>we<sp/>just<sp/>create<sp/>will</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="212"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>be<sp/>used<sp/>to<sp/>draw<sp/>on</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="213"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwMakeContextCurrent(window);</highlight></codeline>
+<codeline lineno="214"><highlight class="normal"></highlight></codeline>
+<codeline lineno="215"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">delete</highlight><highlight class="normal"><sp/>monitor,<sp/>monitorInfo;</highlight></codeline>
+<codeline lineno="216"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/><ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>;</highlight></codeline>
+<codeline lineno="217"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="218"><highlight class="normal"></highlight></codeline>
+<codeline lineno="219"><highlight class="normal"></highlight><highlight class="comment">//<sp/>Create<sp/>the<sp/>shader<sp/>program<sp/>by<sp/>loading<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="220"><highlight class="normal"></highlight><highlight class="comment">//<sp/>the<sp/>shaders</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="221" refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" refkind="member"><highlight class="normal">GLuint<sp/><ref refid="class_renderer_1a724c4b7d340507bc97e5233becf24e2c" kindref="member">Renderer::createDefaultShaderProgram</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="222"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>shaders<sp/>are<sp/>OpenGL<sp/>objects<sp/>=&gt;<sp/>we<sp/>need<sp/>to<sp/>init<sp/>them</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="223"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>and<sp/>store<sp/>a<sp/>reference<sp/>to<sp/>them<sp/>so<sp/>we<sp/>can<sp/>use<sp/>them<sp/>later</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="224"><highlight class="normal"></highlight></codeline>
+<codeline lineno="225"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>init<sp/>an<sp/>empty<sp/>shader<sp/>and<sp/>store<sp/>the<sp/>ref<sp/>OpenGL<sp/>returns</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="226"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/>vertexShader<sp/>=<sp/>glCreateShader(GL_VERTEX_SHADER);</highlight></codeline>
+<codeline lineno="227"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>vertShaderSource<sp/>=<sp/><ref refid="namespace_file_manager_1afd00ae05dfc207e49142237b3126aac1" kindref="member">FileManager::readShaderFile</ref>(<ref refid="class_renderer_1a130d50053e1074d70b26800d36d57725" kindref="member">Renderer::DEFAULT_VERT_SHADER_NAME</ref>);</highlight></codeline>
+<codeline lineno="228"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>vertCStr<sp/>=<sp/>vertShaderSource.c_str();</highlight></codeline>
+<codeline lineno="229"><highlight class="normal"></highlight></codeline>
+<codeline lineno="230"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>first<sp/>param<sp/>is<sp/>the<sp/>pointer/ID<sp/>that<sp/>we<sp/>will<sp/>use<sp/>the<sp/>as<sp/>ref</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="231"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>the<sp/>shader<sp/>(the<sp/>one<sp/>we<sp/>create<sp/>above),<sp/>1<sp/>is<sp/>the<sp/>number<sp/>of<sp/>strings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="232"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>are<sp/>storing<sp/>the<sp/>shader<sp/>in,<sp/>&amp;vertexShaderSource<sp/>is<sp/>a<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="233"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>the<sp/>shader<sp/>code<sp/>string,<sp/>and<sp/>NULL<sp/>is<sp/>the<sp/>length<sp/>that<sp/>we<sp/>will</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="234"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>read<sp/>from<sp/>the<sp/>vertCStr<sp/>=&gt;<sp/>NULL<sp/>means<sp/>we<sp/>keep<sp/>reading<sp/>until<sp/>we<sp/>see</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="235"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>a<sp/>NUL<sp/>EOF<sp/>char.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="236"><highlight class="normal"><sp/><sp/><sp/><sp/>glShaderSource(vertexShader,<sp/>1,<sp/>&amp;vertCStr,<sp/>NULL);</highlight></codeline>
+<codeline lineno="237"><highlight class="normal"><sp/><sp/><sp/><sp/>glCompileShader(vertexShader);</highlight></codeline>
+<codeline lineno="238"><highlight class="normal"></highlight></codeline>
+<codeline lineno="239"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>check<sp/>for<sp/>success</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="240"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>success;</highlight></codeline>
+<codeline lineno="241"><highlight class="normal"><sp/><sp/><sp/><sp/>glGetShaderiv(vertexShader,<sp/>GL_COMPILE_STATUS,<sp/>&amp;success);</highlight></codeline>
+<codeline lineno="242"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!success)<sp/>{</highlight></codeline>
+<codeline lineno="243"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>infoLog[512];</highlight></codeline>
+<codeline lineno="244"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glGetShaderInfoLog(vertexShader,<sp/>512,<sp/>NULL,<sp/>infoLog);</highlight></codeline>
+<codeline lineno="245"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Shader<sp/>Compilation<sp/>Error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>infoLog<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="246"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="247"><highlight class="normal"></highlight></codeline>
+<codeline lineno="248"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>do<sp/>the<sp/>same<sp/>thing<sp/>for<sp/>the<sp/>fragment<sp/>shader</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="249"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/>fragmentShader<sp/>=<sp/>glCreateShader(GL_FRAGMENT_SHADER);</highlight></codeline>
+<codeline lineno="250"><highlight class="normal"><sp/><sp/><sp/><sp/>std::string<sp/>fragShaderSource<sp/>=<sp/><ref refid="namespace_file_manager_1afd00ae05dfc207e49142237b3126aac1" kindref="member">FileManager::readShaderFile</ref>(<ref refid="class_renderer_1aa2c62ab45e1e51868ac5bf1b24d3c338" kindref="member">Renderer::DEFAULT_FRAG_SHADER_NAME</ref>);</highlight></codeline>
+<codeline lineno="251"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>fragCStr<sp/>=<sp/>fragShaderSource.c_str();</highlight></codeline>
+<codeline lineno="252"><highlight class="normal"></highlight></codeline>
+<codeline lineno="253"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>first<sp/>param<sp/>is<sp/>the<sp/>pointer/ID<sp/>that<sp/>we<sp/>will<sp/>use<sp/>the<sp/>as<sp/>ref</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="254"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>the<sp/>shader,<sp/>1<sp/>is<sp/>the<sp/>number<sp/>of<sp/>strings</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="255"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>are<sp/>storing<sp/>the<sp/>shader<sp/>in,<sp/>&amp;fragmentShaderSource<sp/>is<sp/>a<sp/>pointer</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="256"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>to<sp/>the<sp/>shader<sp/>code<sp/>string,<sp/>and<sp/>NULL<sp/>is<sp/>unimportant</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="257"><highlight class="normal"><sp/><sp/><sp/><sp/>glShaderSource(fragmentShader,<sp/>1,<sp/>&amp;fragCStr,<sp/>NULL);</highlight></codeline>
+<codeline lineno="258"><highlight class="normal"><sp/><sp/><sp/><sp/>glCompileShader(fragmentShader);</highlight></codeline>
+<codeline lineno="259"><highlight class="normal"></highlight></codeline>
+<codeline lineno="260"><highlight class="normal"><sp/><sp/><sp/><sp/>glGetShaderiv(fragmentShader,<sp/>GL_COMPILE_STATUS,<sp/>&amp;success);</highlight></codeline>
+<codeline lineno="261"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(!success)<sp/>{</highlight></codeline>
+<codeline lineno="262"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>infoLog[512];</highlight></codeline>
+<codeline lineno="263"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glGetShaderInfoLog(fragmentShader,<sp/>512,<sp/>NULL,<sp/>infoLog);</highlight></codeline>
+<codeline lineno="264"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Shader<sp/>Compilation<sp/>Error:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>infoLog<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="265"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="266"><highlight class="normal"></highlight></codeline>
+<codeline lineno="267"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>now<sp/>that<sp/>we<sp/>have<sp/>the<sp/>shaders,<sp/>we<sp/>have<sp/>to<sp/>create<sp/>and<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="268"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>a<sp/>&quot;shader<sp/>program&quot;<sp/>and<sp/>attach<sp/>them<sp/>so<sp/>it<sp/>can<sp/>work</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="269"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/>shaderProgram<sp/>=<sp/>glCreateProgram();</highlight></codeline>
+<codeline lineno="270"><highlight class="normal"><sp/><sp/><sp/><sp/>glAttachShader(shaderProgram,<sp/>vertexShader);</highlight></codeline>
+<codeline lineno="271"><highlight class="normal"><sp/><sp/><sp/><sp/>glAttachShader(shaderProgram,<sp/>fragmentShader);</highlight></codeline>
+<codeline lineno="272"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>link<sp/>the<sp/>program<sp/>to<sp/>the<sp/>rendering<sp/>pipeline</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="273"><highlight class="normal"><sp/><sp/><sp/><sp/>glLinkProgram(shaderProgram);</highlight></codeline>
+<codeline lineno="274"><highlight class="normal"></highlight></codeline>
+<codeline lineno="275"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>clean<sp/>up<sp/>and<sp/>delete<sp/>the<sp/>shader<sp/>refs</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="276"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>already<sp/>compile<sp/>and<sp/>link<sp/>them<sp/>to<sp/>the<sp/>program</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="277"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>so<sp/>we<sp/>don&apos;t<sp/>need<sp/>them<sp/>anymore</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="278"><highlight class="normal"><sp/><sp/><sp/><sp/>glDeleteShader(vertexShader);</highlight></codeline>
+<codeline lineno="279"><highlight class="normal"><sp/><sp/><sp/><sp/>glDeleteShader(fragmentShader);</highlight></codeline>
+<codeline lineno="280"><highlight class="normal"></highlight></codeline>
+<codeline lineno="281"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load<sp/>the<sp/>uniforms</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="282"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>see<sp/>the<sp/>uniforms<sp/>defined<sp/>in<sp/>the<sp/>vertex<sp/>shader<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="283"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>get<sp/>their<sp/>locations<sp/>here</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="284"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" kindref="member">MODEL_MATRIX_LOCATION</ref>]<sp/>=<sp/>glGetUniformLocation(shaderProgram,<sp/></highlight><highlight class="stringliteral">&quot;modelMatrix&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="285"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" kindref="member">VIEW_MATRIX_LOCATION</ref>]<sp/>=<sp/>glGetUniformLocation(shaderProgram,<sp/></highlight><highlight class="stringliteral">&quot;viewMatrix&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="286"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" kindref="member">PROJECTION_MATRIX_LOCATION</ref>]<sp/>=<sp/>glGetUniformLocation(shaderProgram,<sp/></highlight><highlight class="stringliteral">&quot;projectionMatrix&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="287"><highlight class="normal"></highlight></codeline>
+<codeline lineno="288"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>shaderProgram;</highlight></codeline>
+<codeline lineno="289"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="290"><highlight class="normal"></highlight></codeline>
+<codeline lineno="291"><highlight class="normal"></highlight><highlight class="comment">//<sp/>load<sp/>the<sp/>vertex<sp/>data<sp/>for<sp/>the<sp/>object</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="292" refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" kindref="member">Renderer::loadVertexData</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="293"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>now<sp/>we<sp/>need<sp/>to<sp/>bind<sp/>the<sp/>VBO<sp/>so<sp/>OpenGL<sp/>knows<sp/>to<sp/>draw<sp/>it</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="294"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>How<sp/>&quot;binding&quot;<sp/>works<sp/>is<sp/>it<sp/>sets<sp/>an<sp/>object<sp/>to<sp/>the<sp/>current<sp/>object.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="295"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>OpenGL<sp/>can<sp/>only<sp/>draw<sp/>one<sp/>thing<sp/>at<sp/>a<sp/>time<sp/>(state<sp/>machine),<sp/>so</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="296"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>have<sp/>to<sp/>tell<sp/>it<sp/>to<sp/>draw<sp/>the<sp/>current<sp/>object.<sp/>Binding<sp/>sets</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="297"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>an<sp/>object<sp/>(specified<sp/>via<sp/>the<sp/>ref<sp/>created<sp/>by<sp/>GLuint)<sp/>to</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="298"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>be<sp/>the<sp/>current<sp/>object</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="299"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>GL_ARRAY_BUFFER<sp/>is<sp/>the<sp/>type<sp/>of<sp/>buffer<sp/>that<sp/>we<sp/>want<sp/>to<sp/>bind</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="300"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>VBO<sp/>is<sp/>the<sp/>ID/ref<sp/>of<sp/>the<sp/>buffer<sp/>we<sp/>are<sp/>binding<sp/>(the<sp/>actual</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="301"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>value<sp/>is<sp/>use<sp/>here<sp/>rather<sp/>than<sp/>a<sp/>ref<sp/>to<sp/>it)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="302"><highlight class="normal"><sp/><sp/><sp/><sp/>glBindBuffer(GL_ARRAY_BUFFER,<sp/><ref refid="class_renderer_1a776fc48f3dd6bb8aa44ae1cda848917a" kindref="member">vertexBuffer</ref>);</highlight></codeline>
+<codeline lineno="303"><highlight class="normal"></highlight></codeline>
+<codeline lineno="304"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>now<sp/>that<sp/>we<sp/>tell<sp/>OpenGL<sp/>what<sp/>the<sp/>current<sp/>buffer<sp/>is,</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="305"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>have<sp/>to<sp/>put<sp/>data<sp/>into<sp/>it.<sp/>Think<sp/>of<sp/>it<sp/>as<sp/>giving</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="306"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>someone<sp/>a<sp/>bucket<sp/>without<sp/>anything<sp/>inside<sp/>it.<sp/>They</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="307"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>know<sp/>that<sp/>they<sp/>need<sp/>to<sp/>draw<sp/>using<sp/>that<sp/>specific<sp/>bucket</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="308"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>but<sp/>they<sp/>can&apos;t<sp/>do<sp/>it<sp/>without<sp/>anything<sp/>inside<sp/>the<sp/>bucket<sp/>(no<sp/>data).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="309"><highlight class="normal"></highlight></codeline>
+<codeline lineno="310"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>First<sp/>is<sp/>the<sp/>type<sp/>of<sp/>buffer<sp/>we<sp/>are<sp/>using</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="311"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>second<sp/>is<sp/>the<sp/>size<sp/>of<sp/>the<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="312"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>third<sp/>is<sp/>the<sp/>vertices<sp/>which<sp/>is<sp/>the<sp/>actual<sp/>input</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="313"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>finally<sp/>is<sp/>how<sp/>we<sp/>want<sp/>the<sp/>buffer<sp/>to<sp/>be<sp/>used.<sp/>This<sp/>will<sp/>help<sp/>OpenGL</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="314"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>optimize<sp/>the<sp/>usage.<sp/>STATIC<sp/>belongs<sp/>to<sp/>three<sp/>types:<sp/>STREAM,<sp/>STATIC,<sp/>and</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="315"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>DYNAMIC.<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="316"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>STREAM<sp/>means<sp/>the<sp/>vertices<sp/>will<sp/>be<sp/>modified<sp/>once<sp/>and<sp/>will<sp/>be<sp/>used<sp/>a<sp/>few<sp/>times</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="317"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>STATIC<sp/>means<sp/>the<sp/>vertices<sp/>will<sp/>be<sp/>modified<sp/>once<sp/>and<sp/>will<sp/>be<sp/>used<sp/>many<sp/>many<sp/>times</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="318"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>DYNAMIC<sp/>means<sp/>the<sp/>vertices<sp/>will<sp/>be<sp/>modified<sp/>many<sp/>times<sp/>and<sp/>will<sp/>be<sp/>used<sp/>many<sp/>many<sp/>times</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="319"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="320"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>DRAW<sp/>belongs<sp/>to<sp/>3<sp/>types:<sp/>READ,<sp/>DRAW,<sp/>and<sp/>COPY</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="321"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>DRAW<sp/>means<sp/>the<sp/>vertices<sp/>will<sp/>be<sp/>modified<sp/>and<sp/>used<sp/>to<sp/>be<sp/>draw<sp/>an<sp/>image<sp/>on<sp/>the<sp/>screen</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="322"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>the<sp/>other<sp/>ones<sp/>are<sp/>not<sp/>stated<sp/>but<sp/>can<sp/>be<sp/>inferred<sp/>by<sp/>the<sp/>name.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="323"><highlight class="normal"><sp/><sp/><sp/><sp/>glBufferData(GL_ARRAY_BUFFER,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>),<sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>,<sp/>GL_STATIC_DRAW);</highlight></codeline>
+<codeline lineno="324"><highlight class="normal"></highlight></codeline>
+<codeline lineno="325"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="326"><highlight class="normal"></highlight></codeline>
+<codeline lineno="327" refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" kindref="member">Renderer::loadIndicesData</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="328"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//binds<sp/>the<sp/>EBO<sp/>similar<sp/>to<sp/>the<sp/>VBO,<sp/>EBO<sp/>is<sp/>of<sp/>the<sp/>type<sp/>GL_ELEMENT_ARRAY_BUFFER</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="329"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//this<sp/>tells<sp/>OpenGL<sp/>to<sp/>make<sp/>use<sp/>of<sp/>the<sp/>EBO<sp/>when<sp/>making<sp/>a<sp/>draw<sp/>call</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="330"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//if<sp/>the<sp/>EBO<sp/>is<sp/>missing<sp/>and<sp/>the<sp/>drawelements<sp/>is<sp/>called<sp/>nothing<sp/>will<sp/>be<sp/>drawn</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="331"><highlight class="normal"><sp/><sp/><sp/><sp/>glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,<sp/><ref refid="class_renderer_1a59a458cba9d5e3feaf1a817299d8ae0b" kindref="member">indicesBuffer</ref>);</highlight></codeline>
+<codeline lineno="332"><highlight class="normal"></highlight></codeline>
+<codeline lineno="333"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//passes<sp/>the<sp/>indices<sp/>to<sp/>the<sp/>EBO,<sp/>with<sp/>the<sp/>size<sp/>of<sp/>the<sp/>indices<sp/>array,<sp/>passes<sp/>the<sp/>indices,<sp/>and<sp/>GL_STATIC_DRAW</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="334"><highlight class="normal"><sp/><sp/><sp/><sp/>glBufferData(GL_ELEMENT_ARRAY_BUFFER,<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(<ref refid="_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" kindref="member">indices</ref>),<sp/><ref refid="_renderer_8cpp_1a218c198aa18e4c1d693e952e4da4a64b" kindref="member">indices</ref>,<sp/>GL_STATIC_DRAW);</highlight></codeline>
+<codeline lineno="335"><highlight class="normal"></highlight></codeline>
+<codeline lineno="336"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="337"><highlight class="normal"></highlight></codeline>
+<codeline lineno="338" refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" kindref="member">Renderer::loadTexture</ref>(</highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>spriteName)<sp/>{</highlight></codeline>
+<codeline lineno="339"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>if<sp/>not<sp/>found</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="340"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">try</highlight><highlight class="normal"><sp/>{</highlight></codeline>
+<codeline lineno="341"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>info<sp/>=<sp/><ref refid="class_renderer_1afc67b2cbfc241ed404ab755996ff2ca8" kindref="member">sprites</ref>[spriteName];</highlight></codeline>
+<codeline lineno="342"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glBindTexture(GL_TEXTURE_2D,<sp/>info.<ref refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" kindref="member">id</ref>);</highlight></codeline>
+<codeline lineno="343"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="344"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">catch</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>e)<sp/>{</highlight></codeline>
+<codeline lineno="345"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>std::cout<sp/>&lt;&lt;<sp/></highlight><highlight class="stringliteral">&quot;Couldn&apos;t<sp/>find<sp/>image<sp/>matching<sp/>name:<sp/>&quot;</highlight><highlight class="normal"><sp/>&lt;&lt;<sp/>spriteName<sp/>&lt;&lt;<sp/>std::endl;</highlight></codeline>
+<codeline lineno="346"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="347"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="348"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="349"><highlight class="normal"></highlight></codeline>
+<codeline lineno="350" refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" kindref="member">Renderer::loadUniforms</ref>(mat4<sp/>modelMatrix)<sp/>{</highlight></codeline>
+<codeline lineno="351"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>pass<sp/>in<sp/>the<sp/>uniforms<sp/>value</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="352"><highlight class="normal"><sp/><sp/><sp/><sp/>glUniformMatrix4fv(<ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea5a758fa05ddeeefc32413cda8a5d6919" kindref="member">MODEL_MATRIX_LOCATION</ref>],<sp/>1,<sp/>0,<sp/>value_ptr(modelMatrix));</highlight></codeline>
+<codeline lineno="353"><highlight class="normal"><sp/><sp/><sp/><sp/>glUniformMatrix4fv(<ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8eab1de3d7c0cfc414612bbef164080e9e4" kindref="member">VIEW_MATRIX_LOCATION</ref>],<sp/>1,<sp/>0,<sp/>value_ptr(<ref refid="class_renderer_1a5ab9bab1dc117572aebc39a7b0d8c15b" kindref="member">camera</ref>.<ref refid="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" kindref="member">getViewMatrix</ref>()));</highlight></codeline>
+<codeline lineno="354"><highlight class="normal"><sp/><sp/><sp/><sp/>glUniformMatrix4fv(<ref refid="_renderer_8cpp_1a3c4b41584fa070f7eceff2591df24454" kindref="member">uniformsLocation</ref>[<ref refid="_renderer_8cpp_1ae2c04a60bb689135440f1067405aba8ea56d01540deddeb2a69193c775745348b" kindref="member">PROJECTION_MATRIX_LOCATION</ref>],<sp/>1,<sp/>0,<sp/>value_ptr(<ref refid="class_renderer_1a7ae6513f6612250de4d7eac60c77d94d" kindref="member">projectionMatrix</ref>));</highlight></codeline>
+<codeline lineno="355"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="356"><highlight class="normal"></highlight></codeline>
+<codeline lineno="357"><highlight class="normal"></highlight><highlight class="comment">//<sp/>update<sp/>the<sp/>tex<sp/>coord<sp/>vertex<sp/>data<sp/>so<sp/>it<sp/>draws<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="358"><highlight class="normal"></highlight><highlight class="comment">//<sp/>specific<sp/>section<sp/>of<sp/>a<sp/>spritesheet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="359" refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" kindref="member">Renderer::updateTexCoord</ref>(<ref refid="struct_render_component" kindref="compound">RenderComponent</ref><sp/>comp,<sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal">*<sp/>spriteName)<sp/>{</highlight></codeline>
+<codeline lineno="360"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>info<sp/>=<sp/><ref refid="class_renderer_1afc67b2cbfc241ed404ab755996ff2ca8" kindref="member">sprites</ref>[spriteName];</highlight></codeline>
+<codeline lineno="361"><highlight class="normal"></highlight></codeline>
+<codeline lineno="362"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>find<sp/>the<sp/>height<sp/>and<sp/>width<sp/>of<sp/>each<sp/>cell<sp/>in<sp/>the<sp/>spritesheet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="363"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>SPRITESHEET_HEIGHT<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="364"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>SPRITESHEET_WIDTH<sp/>=<sp/>1;</highlight></codeline>
+<codeline lineno="365"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cellHeight<sp/>=<sp/>SPRITESHEET_HEIGHT<sp/>/<sp/>info.<ref refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="366"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>cellWidth<sp/>=<sp/>SPRITESHEET_WIDTH<sp/>/<sp/>info.<ref refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" kindref="member">columns</ref>;</highlight></codeline>
+<codeline lineno="367"><highlight class="normal"></highlight></codeline>
+<codeline lineno="368"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>coordinates<sp/>of<sp/>the<sp/>texture<sp/>coords<sp/>in<sp/>the<sp/>vertices<sp/>array</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="369"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[6]<sp/>=<sp/>cellWidth<sp/>+<sp/>cellWidth<sp/>*<sp/>comp.<ref refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" kindref="member">colIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>top<sp/>right<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="370"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[7]<sp/>=<sp/>1<sp/>-<sp/>cellHeight<sp/>*<sp/>comp.<ref refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" kindref="member">rowIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>top<sp/>right<sp/>y</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="371"><highlight class="normal"></highlight></codeline>
+<codeline lineno="372"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[14]<sp/>=<sp/>cellWidth<sp/>+<sp/>cellWidth<sp/>*<sp/>comp.<ref refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" kindref="member">colIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>right<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="373"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[15]<sp/>=<sp/>(1<sp/>-<sp/>cellHeight)<sp/>-<sp/>cellHeight<sp/>*<sp/>comp.<ref refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" kindref="member">rowIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>right<sp/>y</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="374"><highlight class="normal"></highlight></codeline>
+<codeline lineno="375"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[22]<sp/>=<sp/>cellWidth<sp/>*<sp/>comp.<ref refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" kindref="member">colIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>left<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="376"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[23]<sp/>=<sp/>(1<sp/>-<sp/>cellHeight)<sp/>-<sp/>cellHeight<sp/>*<sp/>comp.<ref refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" kindref="member">rowIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>bottom<sp/>left<sp/>y</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="377"><highlight class="normal"></highlight></codeline>
+<codeline lineno="378"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[30]<sp/>=<sp/>cellWidth<sp/>*<sp/>comp.<ref refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" kindref="member">colIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>top<sp/>left<sp/>x</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="379"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="_renderer_8cpp_1a06bd0edac6e03382c14d950ba69ebc31" kindref="member">vertices</ref>[31]<sp/>=<sp/>1<sp/>-<sp/>cellHeight<sp/>*<sp/>comp.<ref refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" kindref="member">rowIndex</ref>;<sp/></highlight><highlight class="comment">//<sp/>top<sp/>left<sp/>y</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="380"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="381"><highlight class="normal"></highlight></codeline>
+<codeline lineno="382"><highlight class="normal"></highlight><highlight class="comment">//<sp/>called<sp/>in<sp/>main()</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="383" refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" kindref="member">Renderer::update</ref>(<ref refid="class_entity_coordinator" kindref="compound">EntityCoordinator</ref>*<sp/><ref refid="main_8cpp_1afc7803c63d03cac85e45b4de8bdd5763" kindref="member">coordinator</ref>)<sp/>{</highlight></codeline>
+<codeline lineno="384"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>calculate<sp/>the<sp/>modelViewMatrix</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="385"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//camera.moveCamera(0.01,<sp/>0.0);</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="386"><highlight class="normal"></highlight></codeline>
+<codeline lineno="387"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>set<sp/>background<sp/>color<sp/>(gray)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="388"><highlight class="normal"><sp/><sp/><sp/><sp/>glClearColor(128<sp/>/<sp/>255.0f,<sp/>128<sp/>/<sp/>255.0f,<sp/>128<sp/>/<sp/>255.0f,<sp/>1.0f);</highlight></codeline>
+<codeline lineno="389"><highlight class="normal"></highlight></codeline>
+<codeline lineno="390"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>recall<sp/>that<sp/>OpenGL<sp/>works<sp/>using<sp/>buffers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="391"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>this<sp/>is<sp/>for<sp/>the<sp/>foreground<sp/>color.</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="392"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>Recall<sp/>MS<sp/>Paint<sp/>having<sp/>a<sp/>foreground<sp/>and<sp/>background<sp/>color<sp/>=&gt;<sp/>same<sp/>thing</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="393"><highlight class="normal"><sp/><sp/><sp/><sp/>glClear(GL_COLOR_BUFFER_BIT);</highlight></codeline>
+<codeline lineno="394"><highlight class="normal"></highlight></codeline>
+<codeline lineno="395"><highlight class="normal"><sp/><sp/><sp/><sp/>std::unique_ptr&lt;EntityQuery&gt;<sp/>entityQuery<sp/>=<sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a9381f15dea2b5f5c5996f44cdd3789e7" kindref="member">GetEntityQuery</ref>({</highlight></codeline>
+<codeline lineno="396"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;(),</highlight></codeline>
+<codeline lineno="397"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1a7b7cd2ffc89ea314ddcdc6a9010053cf" kindref="member">GetComponentType</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;()</highlight></codeline>
+<codeline lineno="398"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>});</highlight></codeline>
+<codeline lineno="399"><highlight class="normal"></highlight></codeline>
+<codeline lineno="400"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>entitiesFound<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a99dab4fa1864f36acce0b559064d08c9" kindref="member">totalEntitiesFound</ref>();</highlight></codeline>
+<codeline lineno="401"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;RenderComponent*&gt;<sp/>renderComps<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="struct_render_component" kindref="compound">RenderComponent</ref>&gt;();</highlight></codeline>
+<codeline lineno="402"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;Transform*&gt;<sp/>transformComps<sp/>=<sp/>entityQuery-&gt;<ref refid="class_entity_query_1a164b98b18e3cf2d909b62f19f5c33593" kindref="member">getComponentArray</ref>&lt;<ref refid="class_transform" kindref="compound">Transform</ref>&gt;();</highlight></codeline>
+<codeline lineno="403"><highlight class="normal"></highlight></codeline>
+<codeline lineno="404"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">for</highlight><highlight class="normal"><sp/>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>i<sp/>=<sp/>0;<sp/>i<sp/>&lt;<sp/>coordinator-&gt;<ref refid="class_entity_coordinator_1af81ea5fd24960a9735eea4960a9a9671" kindref="member">GetEntityCount</ref>();<sp/>i++)<sp/>{</highlight></codeline>
+<codeline lineno="405"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="struct_render_component" kindref="compound">RenderComponent</ref><sp/>component<sp/>=<sp/>*renderComps[i];</highlight></codeline>
+<codeline lineno="406"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>mat4<sp/>modelMatrix<sp/>=<sp/>transformComps[i]-&gt;getModelMatrix();</highlight></codeline>
+<codeline lineno="407"><highlight class="normal"></highlight></codeline>
+<codeline lineno="408"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>transformComps[i]-&gt;update();</highlight></codeline>
+<codeline lineno="409"><highlight class="normal"></highlight></codeline>
+<codeline lineno="410"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>OpenGL<sp/>to<sp/>use<sp/>this<sp/>VAO<sp/>(set<sp/>it<sp/>as<sp/>active)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="411"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>need<sp/>to<sp/>do<sp/>this<sp/>before<sp/>put<sp/>data<sp/>into<sp/>the<sp/>VAO</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="412"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glBindVertexArray(<ref refid="class_renderer_1a0cb5267ad65de11f25dbbdb1a8fcb8dd" kindref="member">vertexAttribs</ref>);</highlight></codeline>
+<codeline lineno="413"><highlight class="normal"></highlight></codeline>
+<codeline lineno="414"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//calculate<sp/>the<sp/>tex<sp/>coord<sp/>from<sp/>the<sp/>component.index</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="415"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" kindref="member">updateTexCoord</ref>(component,<sp/>component.<ref refid="struct_render_component_1ae7922179912f1f1550078a7162a4451c" kindref="member">spriteName</ref>);</highlight></codeline>
+<codeline lineno="416"><highlight class="normal"></highlight></codeline>
+<codeline lineno="417"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>load<sp/>the<sp/>data</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="418"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a2c937120a73a73fc9708e73715f5c131" kindref="member">loadVertexData</ref>();</highlight></codeline>
+<codeline lineno="419"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a75f74c936c47cd1861055dbdb3ce19b2" kindref="member">loadIndicesData</ref>();</highlight></codeline>
+<codeline lineno="420"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a373baff51cab6d7e651f4add5a6f91ea" kindref="member">loadTexture</ref>(component.<ref refid="struct_render_component_1ae7922179912f1f1550078a7162a4451c" kindref="member">spriteName</ref>);</highlight></codeline>
+<codeline lineno="421"><highlight class="normal"></highlight></codeline>
+<codeline lineno="422"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>create<sp/>vertex<sp/>attrib<sp/>pointers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="423"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>has<sp/>to<sp/>do<sp/>this<sp/>after<sp/>loading<sp/>data<sp/>into<sp/>buffers</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="424"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>tell<sp/>OpenGL<sp/>how<sp/>to<sp/>intepret<sp/>the<sp/>vertex<sp/>data<sp/>that<sp/></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="425"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>pass<sp/>in.<sp/>In<sp/>memory,<sp/>it<sp/>just<sp/>know<sp/>we<sp/>give<sp/>it<sp/>a<sp/>chunk</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="426"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>of<sp/>bytes<sp/>=&gt;<sp/>tell<sp/>it<sp/>how<sp/>many<sp/>bytes<sp/>make<sp/>a<sp/>vertex</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="427"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>it<sp/>helps<sp/>to<sp/>see<sp/>the<sp/>image<sp/>at<sp/>&quot;Applying<sp/>Texture&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="428"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>here:<sp/>https://learnopengl.com/Getting-started/Textures</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="429"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>first<sp/>param<sp/>is<sp/>the<sp/>input<sp/>index<sp/>of<sp/>the<sp/>vertex<sp/>shader<sp/>(see<sp/>the<sp/>first<sp/>few<sp/>lines).</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="430"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>`aPos`<sp/>is<sp/>located<sp/>at<sp/>location<sp/>0<sp/>so<sp/>we<sp/>want<sp/>to<sp/>set<sp/>the<sp/>pointer<sp/>for<sp/>this</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="431"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glVertexAttribPointer(0,<sp/>3,<sp/>GL_FLOAT,<sp/>GL_FALSE,<sp/>8<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">),<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)0);</highlight></codeline>
+<codeline lineno="432"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glEnableVertexAttribArray(0);</highlight></codeline>
+<codeline lineno="433"><highlight class="normal"></highlight></codeline>
+<codeline lineno="434"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>do<sp/>the<sp/>same<sp/>thing<sp/>for<sp/>the<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="435"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glVertexAttribPointer(1,<sp/>3,<sp/>GL_FLOAT,<sp/>GL_FALSE,<sp/>8<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">),<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)(3<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="436"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glEnableVertexAttribArray(1);</highlight></codeline>
+<codeline lineno="437"><highlight class="normal"></highlight></codeline>
+<codeline lineno="438"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>do<sp/>the<sp/>same<sp/>thing<sp/>for<sp/>the<sp/>texture</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="439"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glVertexAttribPointer(2,<sp/>2,<sp/>GL_FLOAT,<sp/>GL_FALSE,<sp/>8<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">),<sp/>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal">*)(6<sp/>*<sp/></highlight><highlight class="keyword">sizeof</highlight><highlight class="normal">(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal">)));</highlight></codeline>
+<codeline lineno="440"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glEnableVertexAttribArray(2);</highlight></codeline>
+<codeline lineno="441"><highlight class="normal"></highlight></codeline>
+<codeline lineno="442"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glUseProgram(<ref refid="class_renderer_1a2a7cc77464ac693e210266d78c955650" kindref="member">defaultShaderProgram</ref>);</highlight></codeline>
+<codeline lineno="443"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="class_renderer_1a2409df29258ec53c9c7e4fc255339085" kindref="member">loadUniforms</ref>(modelMatrix);</highlight></codeline>
+<codeline lineno="444"><highlight class="normal"></highlight></codeline>
+<codeline lineno="445"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>glDrawElements(GL_TRIANGLES,<sp/>6,<sp/>GL_UNSIGNED_INT,<sp/>0);</highlight></codeline>
+<codeline lineno="446"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="447"><highlight class="normal"></highlight></codeline>
+<codeline lineno="448"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>foreground<sp/>is<sp/>currently<sp/>cleared<sp/>(default<sp/>to<sp/>white)</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="449"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>we<sp/>want<sp/>to<sp/>display<sp/>the<sp/>gray,<sp/>which<sp/>is<sp/>the<sp/>background<sp/>color</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="450"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>=&gt;<sp/>swap<sp/>them</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="451"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwSwapBuffers(<ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>);</highlight></codeline>
+<codeline lineno="452"><highlight class="normal"></highlight></codeline>
+<codeline lineno="453"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="454"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="455"><highlight class="normal"></highlight></codeline>
+<codeline lineno="456" refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_renderer_1a0db3fed45cb74e6bb99f4761f39328d2" kindref="member">Renderer::teardown</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="457"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>cleanup</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="458"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwDestroyWindow(<ref refid="_renderer_8cpp_1a80de27bd7dc4e2b2ad3d5895b97a70f0" kindref="member">window</ref>);</highlight></codeline>
+<codeline lineno="459"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>call<sp/>this<sp/>to<sp/>destroy<sp/>glfw</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="460"><highlight class="normal"><sp/><sp/><sp/><sp/>glfwTerminate();</highlight></codeline>
+<codeline lineno="461"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="462"><highlight class="normal">};</highlight></codeline>
+<codeline lineno="463"><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Renderer.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_sprite_info_8h" kind="file">
+    <compoundname>SpriteInfo.h</compoundname>
+    <includes local="no">stb/stb_image.h</includes>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8h" local="yes">c:/users/thompson/comp-8551-project/file_manager.h</includedby>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8h" local="yes">c:/users/thompson/comp-8551-project/Renderer.h</includedby>
+    <incdepgraph>
+      <node id="1623">
+        <label>c:/users/thompson/comp-8551-project/SpriteInfo.h</label>
+        <link refid=":/users/thompson/comp-8551-project/SpriteInfo.h"/>
+        <childnode refid="1624" relation="include">
+        </childnode>
+      </node>
+      <node id="1624">
+        <label>stb/stb_image.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1626">
+        <label>c:/users/thompson/comp-8551-project/file_manager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8h"/>
+        <childnode refid="1627" relation="include">
+        </childnode>
+        <childnode refid="1628" relation="include">
+        </childnode>
+      </node>
+      <node id="1625">
+        <label>c:/users/thompson/comp-8551-project/SpriteInfo.h</label>
+        <link refid=":/users/thompson/comp-8551-project/SpriteInfo.h"/>
+        <childnode refid="1626" relation="include">
+        </childnode>
+        <childnode refid="1628" relation="include">
+        </childnode>
+      </node>
+      <node id="1630">
+        <label>c:/users/thompson/comp-8551-project/Renderer.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8cpp"/>
+      </node>
+      <node id="1629">
+        <label>c:/users/thompson/comp-8551-project/main.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2main_8cpp"/>
+      </node>
+      <node id="1628">
+        <label>c:/users/thompson/comp-8551-project/Renderer.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_renderer_8h"/>
+        <childnode refid="1629" relation="include">
+        </childnode>
+        <childnode refid="1630" relation="include">
+        </childnode>
+      </node>
+      <node id="1627">
+        <label>c:/users/thompson/comp-8551-project/file_manager.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2file__manager_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_sprite_info" prot="public">SpriteInfo</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&lt;stb/stb_image.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="comment">//<sp/>store<sp/>information<sp/>on<sp/>a<sp/>spritesheet</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5" refid="struct_sprite_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal"><ref refid="struct_sprite_info" kindref="compound">SpriteInfo</ref><sp/>{</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>pixel<sp/>height<sp/>and<sp/>width</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_sprite_info_1aeee632e4e85b86d1f9473273d870f0d7" kindref="member">height</ref>;</highlight></codeline>
+<codeline lineno="8" refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_sprite_info_1a8c0ef09fd2d46445577601f9e88a5524" kindref="member">width</ref>;</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>info<sp/>on<sp/>the<sp/>grid<sp/>sizes</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="11" refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_sprite_info_1a2f29b25c12968bfcaa5df0779c5b274b" kindref="member">rows</ref>;</highlight></codeline>
+<codeline lineno="12" refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_sprite_info_1ad483e71a823d92e1acddd4982adb2862" kindref="member">columns</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight></codeline>
+<codeline lineno="14"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>opengl<sp/>texture<sp/>buffer<sp/>id</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="15" refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>GLuint<sp/><ref refid="struct_sprite_info_1a32849e7d202e6b23d78460d5ee25e6fe" kindref="member">id</ref>;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/SpriteInfo.h"/>
+  </compounddef>
+</doxygen>

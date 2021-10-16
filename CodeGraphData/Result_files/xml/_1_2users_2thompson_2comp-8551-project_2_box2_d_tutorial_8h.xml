@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2_box2_d_tutorial_8h" kind="file">
+    <compoundname>Box2DTutorial.h</compoundname>
+    <includes local="no">iostream</includes>
+    <includes local="yes">Libraries/include/box2d/box2d.h</includes>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_contact_listener_8h" local="yes">ContactListener.h</includes>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2_box2_d_tutorial_8cpp" local="yes">c:/users/thompson/comp-8551-project/Box2DTutorial.cpp</includedby>
+    <incdepgraph>
+      <node id="311">
+        <label>c:/users/thompson/comp-8551-project/Box2DTutorial.h</label>
+        <link refid=":/users/thompson/comp-8551-project/Box2DTutorial.h"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="313" relation="include">
+        </childnode>
+        <childnode refid="314" relation="include">
+        </childnode>
+      </node>
+      <node id="314">
+        <label>ContactListener.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_contact_listener_8h"/>
+        <childnode refid="312" relation="include">
+        </childnode>
+        <childnode refid="313" relation="include">
+        </childnode>
+      </node>
+      <node id="312">
+        <label>iostream</label>
+      </node>
+      <node id="313">
+        <label>Libraries/include/box2d/box2d.h</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="315">
+        <label>c:/users/thompson/comp-8551-project/Box2DTutorial.h</label>
+        <link refid=":/users/thompson/comp-8551-project/Box2DTutorial.h"/>
+        <childnode refid="316" relation="include">
+        </childnode>
+      </node>
+      <node id="316">
+        <label>c:/users/thompson/comp-8551-project/Box2DTutorial.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_box2_d_tutorial_8cpp"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_box2_d_tutorial" prot="public">Box2DTutorial</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;Libraries/include/box2d/box2d.h&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2_contact_listener_8h" kindref="compound">ContactListener.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_box2_d_tutorial" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_box2_d_tutorial" kindref="compound">Box2DTutorial</ref><sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="9"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_box2_d_tutorial_1a5b3f140132bedafa81b9e3cfc215fc9e" kindref="member">Box2DTutorial</ref>();</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_box2_d_tutorial_1a7e3a9f18ff41a3008b687ae279817fa4" kindref="member">~Box2DTutorial</ref>();</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_box2_d_tutorial_1aa14befe5f981573b5818f5c01dab9de9" kindref="member">Update</ref>();</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_box2_d_tutorial_1a646677ccf5c367a8e3edac81d1b55b5c" kindref="member">GravityExample</ref>();</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight><highlight class="keyword">private</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="16" refid="class_box2_d_tutorial_1a6dff0e6e20a1e86610587250b353ba61" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="class_box2_d_tutorial_1a6dff0e6e20a1e86610587250b353ba61" kindref="member">timeStep</ref><sp/>=<sp/>1.0f<sp/>/<sp/>60.0f;</highlight></codeline>
+<codeline lineno="17" refid="class_box2_d_tutorial_1a8174cce370375661e2075a6df7eb741f" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_box2_d_tutorial_1a8174cce370375661e2075a6df7eb741f" kindref="member">velocityIterations</ref><sp/>=<sp/>6;</highlight></codeline>
+<codeline lineno="18" refid="class_box2_d_tutorial_1a59be1efb38392fd67264cce815f1ab59" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">const</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_box2_d_tutorial_1a59be1efb38392fd67264cce815f1ab59" kindref="member">positionIterations</ref><sp/>=<sp/>2;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20" refid="class_box2_d_tutorial_1ac06ea4bdde960199e45964bdcb17ce17" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>b2Vec2*<sp/><ref refid="class_box2_d_tutorial_1ac06ea4bdde960199e45964bdcb17ce17" kindref="member">gravity</ref>;</highlight></codeline>
+<codeline lineno="21" refid="class_box2_d_tutorial_1a0f21b294dd8f458101020a24e076353d" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>b2World*<sp/><ref refid="class_box2_d_tutorial_1a0f21b294dd8f458101020a24e076353d" kindref="member">world</ref>;</highlight></codeline>
+<codeline lineno="22" refid="class_box2_d_tutorial_1a8d11581658642098b057e25c29accef4" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_contact_listener" kindref="compound">ContactListener</ref>*<sp/><ref refid="class_box2_d_tutorial_1a8d11581658642098b057e25c29accef4" kindref="member">contactListener</ref>;</highlight></codeline>
+<codeline lineno="23" refid="class_box2_d_tutorial_1add7a1fff8a623e4aca7769f524429618" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>b2Body*<sp/><ref refid="class_box2_d_tutorial_1add7a1fff8a623e4aca7769f524429618" kindref="member">body</ref>;</highlight></codeline>
+<codeline lineno="24"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/Box2DTutorial.h"/>
+  </compounddef>
+</doxygen>

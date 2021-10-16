@@ -20,6 +20,9 @@ using Spritesheet = const char*;
 
 using Byte = unsigned char;
 
+template<typename T>
+using QueryArray = std::unique_ptr<std::vector<T*>>;
+
 //struct ComponentInfoStruct
 //{
 //    ComponentType type;

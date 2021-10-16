@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_camera_8cpp" kind="file">
+    <compoundname>Camera.cpp</compoundname>
+    <includes refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_camera_8h" local="yes">Camera.h</includes>
+    <incdepgraph>
+      <node id="480">
+        <label>Camera.h</label>
+        <link refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_camera_8h"/>
+        <childnode refid="481" relation="include">
+        </childnode>
+        <childnode refid="482" relation="include">
+        </childnode>
+      </node>
+      <node id="482">
+        <label>glm/gtc/matrix_transform.hpp</label>
+      </node>
+      <node id="479">
+        <label>C:/Users/Thompson/COMP-8551-Project/Camera.cpp</label>
+        <link refid=":/Users/Thompson/COMP-8551-Project/Camera.cpp"/>
+        <childnode refid="480" relation="include">
+        </childnode>
+      </node>
+      <node id="481">
+        <label>glm/glm.hpp</label>
+      </node>
+    </incdepgraph>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2_users_2_thompson_2_c_o_m_p-8551-_project_2_camera_8h" kindref="compound">Camera.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"><ref refid="class_camera_1a01f94c3543f56ede7af49dc778f19331" kindref="member">Camera::Camera</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>posX,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>posY,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>rotZ,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>zoomFactor)<sp/>{</highlight></codeline>
+<codeline lineno="4"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref><sp/>=<sp/>vec2(posX,<sp/>posY);</highlight></codeline>
+<codeline lineno="5"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"><ref refid="class_camera_1a01f94c3543f56ede7af49dc778f19331" kindref="member">Camera::Camera</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="8"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref><sp/>=<sp/>vec2(0.0f,<sp/>0.0f);</highlight></codeline>
+<codeline lineno="9"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="10"><highlight class="normal"></highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_camera_1a019a1646aa9793c6c23636ee40457e91" kindref="member">Camera::moveCamera</ref>(</highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>x,<sp/></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/>y)<sp/>{</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref>.x<sp/>+=<sp/>x;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref>.y<sp/>+=<sp/>y;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16"><highlight class="normal">mat4<sp/><ref refid="class_camera_1a26c21a39c99b37158c16b0b16a3b0a56" kindref="member">Camera::getViewMatrix</ref>()<sp/>{</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>mat4<sp/>modelMatrix<sp/>=<sp/>mat4(1.0f);</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>translate(modelMatrix,<sp/>vec3(<ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref>.x,<sp/><ref refid="class_camera_1a53d7a2789922d01be04b2b5e9867b181" kindref="member">position</ref>.y,<sp/>0));</highlight></codeline>
+<codeline lineno="19"><highlight class="normal">}</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>Camera::rotateCamera(float<sp/>x,<sp/>float<sp/>y)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="comment">//void<sp/>Camera::zoom(float<sp/>factor)<sp/>{</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight><highlight class="comment">//</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="comment">//}</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="C:/Users/Thompson/COMP-8551-Project/Camera.cpp"/>
+  </compounddef>
+</doxygen>

@@ -1,6 +1,31 @@
 #include "ComponentManager.h"
 
-static ComponentSize ComponentManager::
+ComponentType ComponentManager::typeCounter = 0;
+
+ComponentManager* ComponentManager::main = NULL;
+
+ComponentManager::ComponentManager()
+{
+    main = this;
+}
+
+ComponentSize ComponentManager::GetComponentSize(ComponentType t)
+{
+    return main->getComponentSize(t);
+}
+
+ComponentSize ComponentManager::getComponentSize(ComponentType t)
+{
+    auto find = mComponentSizes.find(t);
+    if (find == mComponentSizes.end())
+    {
+        throw "cannot find component size: component not registered?";
+    }
+    else
+    {
+        find->second;
+    }    
+}
 
 //template<typename T>
 //void ComponentManager::RegisterComponent()

@@ -27,12 +27,14 @@ public:
 
     ChunkAddress assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
 
-    void releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap);
+    void releaseEntity(ChunkAddress id);
 
     template<typename T>
     T& getComponentRef(ChunkAddress ca) {
-        return allChunks[ca.chunkID]->getComponentReference(ca);
+        return allChunks[ca.chunkID]->getComponentReference<T>(ca);
     };
+
+    int GetEntityCount();
 
     ~ChunkManager();
 };

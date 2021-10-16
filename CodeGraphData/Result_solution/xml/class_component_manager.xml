@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_component_manager" kind="class" prot="public">
+    <compoundname>ComponentManager</compoundname>
+    <includes refid="_component_manager_8h" local="no">ComponentManager.h</includes>
+      <sectiondef kind="friend">
+      <memberdef kind="friend" id="class_component_manager_1a7884142a3e67ef249b5cda3cf237b0a5" prot="private" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>friend class</type>
+        <definition>friend class EntityCoordinator</definition>
+        <argsstring></argsstring>
+        <name>EntityCoordinator</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="14" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" prot="private" static="no" mutable="no">
+        <type><ref refid="_types_8h_1ab2ed3bd54087a14ade2e38eb14b29ae6" kindref="member">ComponentSizeMap</ref></type>
+        <definition>ComponentSizeMap ComponentManager::mComponentSizes</definition>
+        <argsstring></argsstring>
+        <name>mComponentSizes</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="18" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="18" bodyend="-1"/>
+        <referencedby refid="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" compoundref="_component_manager_8cpp" startline="10" endline="21">getComponentSize</referencedby>
+        <referencedby refid="class_component_manager_1a309d22744c09d34d4672f52ef56124db" compoundref="_component_manager_8h" startline="28" endline="43">RegisterComponent</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="private-static-attrib">
+      <memberdef kind="variable" id="class_component_manager_1a192495959d538a95cc1ec7cd89314e35" prot="private" static="yes" mutable="no">
+        <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+        <definition>ComponentType ComponentManager::typeCounter</definition>
+        <argsstring></argsstring>
+        <name>typeCounter</name>
+        <initializer>= 0</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="22" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="22" bodyend="-1"/>
+        <referencedby refid="class_component_manager_1a5b5cacdd1f612381068dff8c129834bb" compoundref="_component_manager_8h" startline="56" endline="60">NEW_GetComponentType</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="class_component_manager_1a759d0700f3e0a18c3119228c561f06fe" prot="private" static="yes" mutable="no">
+        <type><ref refid="class_component_manager" kindref="compound">ComponentManager</ref> *</type>
+        <definition>ComponentManager* ComponentManager::main</definition>
+        <argsstring></argsstring>
+        <name>main</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="23" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="23" bodyend="-1"/>
+        <referencedby refid="class_component_manager_1ad6f1de1480afdde24d0c6f5e001c68e2" compoundref="_component_manager_8cpp" startline="5" endline="8">GetComponentSize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_component_manager_1a309d22744c09d34d4672f52ef56124db" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type>void</type>
+        <definition>void ComponentManager::RegisterComponent</definition>
+        <argsstring>()</argsstring>
+        <name>RegisterComponent</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="28" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="28" bodyend="43"/>
+        <references refid="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" compoundref="_component_manager_8h" startline="18">mComponentSizes</references>
+      </memberdef>
+      <memberdef kind="function" id="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_types_8h_1a53c4ce85e1def45634a3b07af7870bb9" kindref="member">ComponentSize</ref></type>
+        <definition>ComponentSize ComponentManager::getComponentSize</definition>
+        <argsstring>(ComponentType t)</argsstring>
+        <name>getComponentSize</name>
+        <param>
+          <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="64" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.cpp" bodystart="10" bodyend="21"/>
+        <references refid="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" compoundref="_component_manager_8h" startline="18">mComponentSizes</references>
+        <referencedby refid="class_component_manager_1ad6f1de1480afdde24d0c6f5e001c68e2" compoundref="_component_manager_8cpp" startline="5" endline="8">GetComponentSize</referencedby>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_component_manager_1a5b5cacdd1f612381068dff8c129834bb" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <templateparamlist>
+          <param>
+            <type>typename T</type>
+          </param>
+        </templateparamlist>
+        <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+        <definition>static ComponentType ComponentManager::NEW_GetComponentType</definition>
+        <argsstring>()</argsstring>
+        <name>NEW_GetComponentType</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="56" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="56" bodyend="60"/>
+        <references refid="class_component_manager_1a192495959d538a95cc1ec7cd89314e35" compoundref="_component_manager_8h" startline="22">typeCounter</references>
+      </memberdef>
+      <memberdef kind="function" id="class_component_manager_1ad6f1de1480afdde24d0c6f5e001c68e2" prot="public" static="yes" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type><ref refid="_types_8h_1a53c4ce85e1def45634a3b07af7870bb9" kindref="member">ComponentSize</ref></type>
+        <definition>ComponentSize ComponentManager::GetComponentSize</definition>
+        <argsstring>(ComponentType t)</argsstring>
+        <name>GetComponentSize</name>
+        <param>
+          <type><ref refid="_types_8h_1a22da2f2e1a665b27fd146bb514ae3b59" kindref="member">ComponentType</ref></type>
+          <declname>t</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="62" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.cpp" bodystart="5" bodyend="8"/>
+        <references refid="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" compoundref="_component_manager_8cpp" startline="10" endline="21">getComponentSize</references>
+        <references refid="class_component_manager_1a759d0700f3e0a18c3119228c561f06fe" compoundref="_component_manager_8h" startline="23">main</references>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="51">
+        <label>std::unordered_map&lt; ComponentType, ComponentSize &gt;</label>
+      </node>
+      <node id="50">
+        <label>ComponentManager</label>
+        <link refid="class_component_manager"/>
+        <childnode refid="50" relation="usage">
+          <edgelabel>main</edgelabel>
+        </childnode>
+        <childnode refid="51" relation="usage">
+          <edgelabel>mComponentSizes</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" line="13" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/ComponentManager.h" bodystart="12" bodyend="125"/>
+    <listofallmembers>
+      <member refid="class_component_manager_1a7884142a3e67ef249b5cda3cf237b0a5" prot="private" virt="non-virtual"><scope>ComponentManager</scope><name>EntityCoordinator</name></member>
+      <member refid="class_component_manager_1aa0bb21eac8e26b968a733442f5895cd4" prot="public" virt="non-virtual"><scope>ComponentManager</scope><name>getComponentSize</name></member>
+      <member refid="class_component_manager_1ad6f1de1480afdde24d0c6f5e001c68e2" prot="public" virt="non-virtual"><scope>ComponentManager</scope><name>GetComponentSize</name></member>
+      <member refid="class_component_manager_1a759d0700f3e0a18c3119228c561f06fe" prot="private" virt="non-virtual"><scope>ComponentManager</scope><name>main</name></member>
+      <member refid="class_component_manager_1a5b2edc3869a8feba728ef23e633e7b78" prot="private" virt="non-virtual"><scope>ComponentManager</scope><name>mComponentSizes</name></member>
+      <member refid="class_component_manager_1a5b5cacdd1f612381068dff8c129834bb" prot="public" virt="non-virtual"><scope>ComponentManager</scope><name>NEW_GetComponentType</name></member>
+      <member refid="class_component_manager_1a309d22744c09d34d4672f52ef56124db" prot="public" virt="non-virtual"><scope>ComponentManager</scope><name>RegisterComponent</name></member>
+      <member refid="class_component_manager_1a192495959d538a95cc1ec7cd89314e35" prot="private" virt="non-virtual"><scope>ComponentManager</scope><name>typeCounter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

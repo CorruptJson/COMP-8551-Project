@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="struct_render_component" kind="struct" prot="public">
+    <compoundname>RenderComponent</compoundname>
+    <includes refid="render_component_8h" local="no">renderComponent.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_render_component_1a6866b8c7eeec445d9d080e2d9e27e4e6" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* RenderComponent::vShader</definition>
+        <argsstring></argsstring>
+        <name>vShader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="4" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="4" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_render_component_1af0d5b712e72fc722362c71d7de011a44" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* RenderComponent::fShader</definition>
+        <argsstring></argsstring>
+        <name>fShader</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="5" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="5" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct_render_component_1ae7922179912f1f1550078a7162a4451c" prot="public" static="no" mutable="no">
+        <type>const char *</type>
+        <definition>const char* RenderComponent::spriteName</definition>
+        <argsstring></argsstring>
+        <name>spriteName</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="8" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="8" bodyend="-1"/>
+        <referencedby refid="class_renderer_1abb82c997c003d3f6d3de53ea72982e48" compoundref="_renderer_8cpp" startline="383" endline="454">Renderer::update</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderComponent::rowIndex</definition>
+        <argsstring></argsstring>
+        <name>rowIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="14" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="14" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_renderer_8cpp" startline="359" endline="380">Renderer::updateTexCoord</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" prot="public" static="no" mutable="no">
+        <type>float</type>
+        <definition>float RenderComponent::colIndex</definition>
+        <argsstring></argsstring>
+        <name>colIndex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="15" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="15" bodyend="-1"/>
+        <referencedby refid="class_renderer_1a3dd77ab9815d94d4e829cf5c2362328f" compoundref="_renderer_8cpp" startline="359" endline="380">Renderer::updateTexCoord</referencedby>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" line="2" column="1" bodyfile="C:/Users/Thompson/COMP-8551-Project/renderComponent.h" bodystart="2" bodyend="16"/>
+    <listofallmembers>
+      <member refid="struct_render_component_1a8065fd999e4eb08cdc2dfb63100ef6ce" prot="public" virt="non-virtual"><scope>RenderComponent</scope><name>colIndex</name></member>
+      <member refid="struct_render_component_1af0d5b712e72fc722362c71d7de011a44" prot="public" virt="non-virtual"><scope>RenderComponent</scope><name>fShader</name></member>
+      <member refid="struct_render_component_1ad07eb93cf8f9e13446638a6f19fbdc8e" prot="public" virt="non-virtual"><scope>RenderComponent</scope><name>rowIndex</name></member>
+      <member refid="struct_render_component_1ae7922179912f1f1550078a7162a4451c" prot="public" virt="non-virtual"><scope>RenderComponent</scope><name>spriteName</name></member>
+      <member refid="struct_render_component_1a6866b8c7eeec445d9d080e2d9e27e4e6" prot="public" virt="non-virtual"><scope>RenderComponent</scope><name>vShader</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

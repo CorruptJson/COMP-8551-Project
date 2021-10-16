@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="class_i_component_array" kind="class" prot="public" abstract="yes">
+    <compoundname>IComponentArray</compoundname>
+    <derivedcompoundref refid="class_component_array" prot="public" virt="non-virtual">ComponentArray&lt; T &gt;</derivedcompoundref>
+    <derivedcompoundref refid="class_component_array" prot="public" virt="non-virtual">ComponentArray&lt; T &gt;</derivedcompoundref>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2_component_array_8h" local="no">ComponentArray.h</includes>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_i_component_array_1a62d9c4e88931d5e885aaaf0e37a73600" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual IComponentArray::~IComponentArray</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IComponentArray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/ComponentArray.h" line="12" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_component_array_1a8404c89d2a2fc00dc1f511022ab51905" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IComponentArray::EntityDestroyed</definition>
+        <argsstring>(Entity entity)=0</argsstring>
+        <name>EntityDestroyed</name>
+        <reimplementedby refid="class_component_array_1aa127ba524f6c4374d9804ed539353a6c">EntityDestroyed</reimplementedby>
+        <reimplementedby refid="class_component_array_1aa127ba524f6c4374d9804ed539353a6c">EntityDestroyed</reimplementedby>
+        <param>
+          <type>Entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="c:/users/thompson/comp-8551-project/ComponentArray.h" line="13" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_component_array_1a62d9c4e88931d5e885aaaf0e37a73600" prot="public" static="no" const="no" explicit="no" inline="no" virt="virtual">
+        <type></type>
+        <definition>virtual IComponentArray::~IComponentArray</definition>
+        <argsstring>()=default</argsstring>
+        <name>~IComponentArray</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentArray.h" line="12" column="1"/>
+      </memberdef>
+      <memberdef kind="function" id="class_i_component_array_1a8404c89d2a2fc00dc1f511022ab51905" prot="public" static="no" const="no" explicit="no" inline="no" virt="pure-virtual">
+        <type>void</type>
+        <definition>virtual void IComponentArray::EntityDestroyed</definition>
+        <argsstring>(Entity entity)=0</argsstring>
+        <name>EntityDestroyed</name>
+        <reimplementedby refid="class_component_array_1aa127ba524f6c4374d9804ed539353a6c">EntityDestroyed</reimplementedby>
+        <reimplementedby refid="class_component_array_1aa127ba524f6c4374d9804ed539353a6c">EntityDestroyed</reimplementedby>
+        <param>
+          <type>Entity</type>
+          <declname>entity</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Thompson/COMP-8551-Project/ComponentArray.h" line="13" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="86">
+        <label>IComponentArray</label>
+        <link refid="class_i_component_array"/>
+      </node>
+      <node id="87">
+        <label>ComponentArray&lt; T &gt;</label>
+        <link refid="class_component_array"/>
+        <childnode refid="86" relation="public-inheritance">
+        </childnode>
+        <childnode refid="86" relation="public-inheritance">
+        </childnode>
+      </node>
+    </inheritancegraph>
+    <location file="c:/users/thompson/comp-8551-project/ComponentArray.h" line="10" column="1" bodyfile="c:/users/thompson/comp-8551-project/ComponentArray.h" bodystart="9" bodyend="14"/>
+    <listofallmembers>
+      <member refid="class_i_component_array_1a8404c89d2a2fc00dc1f511022ab51905" prot="public" virt="pure-virtual"><scope>IComponentArray</scope><name>EntityDestroyed</name></member>
+      <member refid="class_i_component_array_1a8404c89d2a2fc00dc1f511022ab51905" prot="public" virt="pure-virtual"><scope>IComponentArray</scope><name>EntityDestroyed</name></member>
+      <member refid="class_i_component_array_1a62d9c4e88931d5e885aaaf0e37a73600" prot="public" virt="virtual"><scope>IComponentArray</scope><name>~IComponentArray</name></member>
+      <member refid="class_i_component_array_1a62d9c4e88931d5e885aaaf0e37a73600" prot="public" virt="virtual"><scope>IComponentArray</scope><name>~IComponentArray</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

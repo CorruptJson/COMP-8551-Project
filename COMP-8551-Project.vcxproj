@@ -172,7 +172,6 @@
     <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
-    <ClInclude Include="componentInfo.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
@@ -185,8 +184,6 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="protoChunkManager.h" />
-    <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />

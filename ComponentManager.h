@@ -19,10 +19,12 @@ private:
     //std::unordered_map<const char*, glm::uint> mComponentInfo;
     //std::unordered_map<const char*, std::shared_ptr<IComponentArray>> mComponentArrays{};
     //ComponentType mNextComponentType{};
-    //ComponentType typeCounter = 0;
+    static ComponentType typeCounter;
     static ComponentManager* main;
 
 public:
+
+    ComponentManager();
 
     template<typename T>
     void RegisterComponent()
@@ -30,7 +32,8 @@ public:
         //const char* typeName = typeid(T).name();
         ComponentType ct = NEW_GetComponentType<T>();
 
-        assert(mComponentSizes.find(typeName) == mComponentSizes.end() && "Registering component type more than once.");
+        assert(mComponentSizes.find(ct) == mComponentSizes.end() && "Registering component type more than once.");
+        mComponentSizes.emplace(ct, sizeof(T));
 
         //mComponentTypes.insert({ typeName, mNextComponentType });
         //mComponentArrays.insert({ typeName, std::make_shared<ComponentArray<T>>() });
@@ -58,7 +61,10 @@ public:
         return typeID;
     }
 
-    static ComponentSize ComponentSize(ComponentType t);
+    static ComponentSize GetComponentSize(ComponentType t);
+
+    ComponentSize getComponentSize(ComponentType t);
+    
 
     //template<typename T>
     //void AddComponent(Entity entity, T component)

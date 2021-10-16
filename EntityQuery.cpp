@@ -33,7 +33,7 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
     }
 }
 
-int EntityQuery::size()
+int EntityQuery::totalEntitiesFound()
 {
     return entityCount;
 }

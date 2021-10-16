@@ -41,10 +41,19 @@ ChunkAddress ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, C
     return ca;
 }
 
-void ChunkManager::releaseEntity(ChunkAddress id, ComponentSizeMap& sizemap)
+void ChunkManager::releaseEntity(ChunkAddress id)
 {
-    allChunks[id.chunkID]->releaseEntity(id,sizemap);
+    allChunks[id.chunkID]->releaseEntity(id);
 };
+
+int ChunkManager::GetEntityCount()
+{
+    int total = 0;
+    for (int i = 0; i < allChunks.size(); i++) {
+        total += allChunks[i]->getCurrEntCount();
+    }
+    return total;
+}
 
 ChunkManager::~ChunkManager()
 {

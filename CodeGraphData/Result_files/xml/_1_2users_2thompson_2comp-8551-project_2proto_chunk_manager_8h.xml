@@ -1,0 +1,167 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.6">
+  <compounddef id="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8h" kind="file">
+    <compoundname>protoChunkManager.h</compoundname>
+    <includes refid="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h" local="yes">chunkManager.h</includes>
+    <includes local="no">vector</includes>
+    <includes local="no">iostream</includes>
+    <includedby refid="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp" local="yes">c:/users/thompson/comp-8551-project/protoChunkManager.cpp</includedby>
+    <incdepgraph>
+      <node id="1390">
+        <label>sigArch.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_sig_arch_8h"/>
+      </node>
+      <node id="1387">
+        <label>string</label>
+      </node>
+      <node id="1382">
+        <label>exception</label>
+      </node>
+      <node id="1380">
+        <label>chunkManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h"/>
+        <childnode refid="1381" relation="include">
+        </childnode>
+        <childnode refid="1382" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+        <childnode refid="1384" relation="include">
+        </childnode>
+        <childnode refid="1385" relation="include">
+        </childnode>
+        <childnode refid="1388" relation="include">
+        </childnode>
+      </node>
+      <node id="1394">
+        <label>any</label>
+      </node>
+      <node id="1388">
+        <label>chunk.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2chunk_8h"/>
+        <childnode refid="1384" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+        <childnode refid="1389" relation="include">
+        </childnode>
+        <childnode refid="1390" relation="include">
+        </childnode>
+        <childnode refid="1385" relation="include">
+        </childnode>
+        <childnode refid="1391" relation="include">
+        </childnode>
+        <childnode refid="1393" relation="include">
+        </childnode>
+      </node>
+      <node id="1385">
+        <label>Types.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_types_8h"/>
+        <childnode refid="1386" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+        <childnode refid="1387" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+      </node>
+      <node id="1386">
+        <label>bitset</label>
+      </node>
+      <node id="1384">
+        <label>vector</label>
+      </node>
+      <node id="1393">
+        <label>ComponentManager.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_component_manager_8h"/>
+        <childnode refid="1385" relation="include">
+        </childnode>
+        <childnode refid="1394" relation="include">
+        </childnode>
+        <childnode refid="1389" relation="include">
+        </childnode>
+        <childnode refid="1383" relation="include">
+        </childnode>
+      </node>
+      <node id="1381">
+        <label>iostream</label>
+      </node>
+      <node id="1383">
+        <label>unordered_map</label>
+      </node>
+      <node id="1379">
+        <label>c:/users/thompson/comp-8551-project/protoChunkManager.h</label>
+        <link refid=":/users/thompson/comp-8551-project/protoChunkManager.h"/>
+        <childnode refid="1380" relation="include">
+        </childnode>
+        <childnode refid="1384" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+      </node>
+      <node id="1392">
+        <label>algorithm</label>
+      </node>
+      <node id="1391">
+        <label>Archetype.h</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2_archetype_8h"/>
+        <childnode refid="1384" relation="include">
+        </childnode>
+        <childnode refid="1392" relation="include">
+        </childnode>
+        <childnode refid="1387" relation="include">
+        </childnode>
+        <childnode refid="1381" relation="include">
+        </childnode>
+        <childnode refid="1385" relation="include">
+        </childnode>
+      </node>
+      <node id="1389">
+        <label>memory</label>
+      </node>
+    </incdepgraph>
+    <invincdepgraph>
+      <node id="1396">
+        <label>c:/users/thompson/comp-8551-project/protoChunkManager.cpp</label>
+        <link refid="_1_2users_2thompson_2comp-8551-project_2proto_chunk_manager_8cpp"/>
+      </node>
+      <node id="1395">
+        <label>c:/users/thompson/comp-8551-project/protoChunkManager.h</label>
+        <link refid=":/users/thompson/comp-8551-project/protoChunkManager.h"/>
+        <childnode refid="1396" relation="include">
+        </childnode>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="class_proto_chunk_manager" prot="public">ProtoChunkManager</innerclass>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#pragma<sp/>once</highlight></codeline>
+<codeline lineno="2"><highlight class="preprocessor"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="_1_2users_2thompson_2comp-8551-project_2chunk_manager_8h" kindref="compound">chunkManager.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;vector&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;iostream&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight></codeline>
+<codeline lineno="7" refid="class_proto_chunk_manager" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">class<sp/></highlight><highlight class="normal"><ref refid="class_proto_chunk_manager" kindref="compound">ProtoChunkManager</ref><sp/>:<sp/></highlight><highlight class="keyword">public</highlight><highlight class="normal"><sp/><ref refid="class_chunk_manager" kindref="compound">ChunkManager</ref></highlight></codeline>
+<codeline lineno="8"><highlight class="normal">{</highlight></codeline>
+<codeline lineno="9" refid="class_proto_chunk_manager_1a3172d09cc0a973676f76b911ff0c4316" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="class_proto_chunk_manager_1a3172d09cc0a973676f76b911ff0c4316" kindref="member">currEntities</ref><sp/>=<sp/>0;</highlight></codeline>
+<codeline lineno="10" refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;bool&gt;<sp/><ref refid="class_proto_chunk_manager_1a1c69bba34036ddda52ed7018ce1534b2" kindref="member">active</ref><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="11" refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/>std::vector&lt;TempPosition&gt;<sp/><ref refid="class_proto_chunk_manager_1aa839637266a5ca462d2d2f3b7d333ab7" kindref="member">positions</ref><sp/>=<sp/>{};</highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">public</highlight><highlight class="normal">:</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight></codeline>
+<codeline lineno="15"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" kindref="member">allocateNewEntity</ref>(<ref refid="struct_sig_arch" kindref="compound">SigArch</ref><sp/>sa)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="16"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_proto_chunk_manager_1a25d0a9ae964f6240f70e2f2cb101162e" kindref="member">deallocateEntity</ref>(<ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"><sp/><sp/><sp/><sp/>TempPosition<sp/><ref refid="class_proto_chunk_manager_1a6a701d1fe2bc54e5c37ee0f6f9afe750" kindref="member">getEntityPosition</ref>(<ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="18"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">virtual</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="class_proto_chunk_manager_1a63e1241620bfbe3ffe89f843857ef010" kindref="member">setEntityPosition</ref>(<ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/></highlight><highlight class="keywordtype">id</highlight><highlight class="normal">,<sp/>TempPosition<sp/>pos)<sp/></highlight><highlight class="keyword">override</highlight><highlight class="normal">;</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight></codeline>
+<codeline lineno="20"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="comment">//<sp/>finds<sp/>an<sp/>index<sp/>for<sp/>a<sp/>new<sp/>entity,<sp/>creates<sp/>a<sp/>new<sp/>ChunkAddress,<sp/>and<sp/>sets<sp/>the<sp/>position</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="21"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="struct_chunk_address" kindref="compound">ChunkAddress</ref><sp/><ref refid="class_proto_chunk_manager_1a365524e5fe5de1f67a3bc8ef18fcc9f9" kindref="member">allocateNewEntity</ref>(<ref refid="struct_sig_arch" kindref="compound">SigArch</ref><sp/>sa,<sp/>TempPosition<sp/>pos);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal">};</highlight></codeline>
+    </programlisting>
+    <location file="c:/users/thompson/comp-8551-project/protoChunkManager.h"/>
+  </compounddef>
+</doxygen>
