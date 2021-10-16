@@ -11,7 +11,7 @@ public:
     SystemManager systemManager;
     EntityManager entityManager;
     ComponentManager componentManager;
-    Entity testingEntity;
+    EntityID testingEntity;
     void runSystemUpdates();
     void initializeCoordinator();
 };

@@ -55,12 +55,12 @@ public:
 
     int getCurrEntCount();
 
-    ChunkAddress assignNewEntity();
+    EntityID assignNewEntity();
 
-    void releaseEntity(ChunkAddress id);
+    void releaseEntity(EntityID id);
 
     template<typename T>
-    T& getComponentReference(ChunkAddress id)
+    T& getComponentReference(EntityID id)
     {
         if (id.index >= ENTITIES_PER_CHUNK)
         {

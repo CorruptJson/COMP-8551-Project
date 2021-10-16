@@ -24,9 +24,9 @@ PhysicsWorld* physicsWorld;
 Archetype standardArch;
 
 // test entities
-ChunkAddress turtle;
-ChunkAddress wall;
-ChunkAddress dude;
+EntityID turtle;
+EntityID wall;
+EntityID dude;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -45,59 +45,38 @@ int initialize()
 
     physicsWorld = new PhysicsWorld();
 
+    prevTime = Clock::now();
+
     return 0;
 }
 
 int test(){
 
-   // coordinator.identifyComponents<Transform, RenderComponent>();
-
     coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
     coordinator.RegisterComponent<PhysicsComponent>();
+    coordinator.RegisterComponent<TimerComponent>();
 
     standardArch = coordinator.GetArchetype({
         coordinator.GetComponentType<Transform>(),
         coordinator.GetComponentType<RenderComponent>(),
         coordinator.GetComponentType<PhysicsComponent>()
         });
-    //Archetype arch = coordinator.GetArchetype({
-    //    coordinator.GetComponentType<Transform>(),
-    //    coordinator.GetComponentType<RenderComponent>()
-    //    });
-
-    //Spritesheet c1 = "sprite1";
-    //Spritesheet c2 = "sprite2";
-
-    //std::cout << "type of transform: " << unsigned(coordinator.GetComponentType<Transform>()) << std::endl;
-    //std::cout << "type of renderComponent: " << unsigned(coordinator.GetComponentType<RenderComponent>()) << std::endl;
-    //std::cout << "type of transform: " << unsigned(coordinator.GetComponentType<Transform>()) << std::endl;
-
-    //std::cout << "print arch test: " << std::endl;
-    //std::cout << arch << std::endl;
-
-    //ChunkAddress ca = coordinator.NEW_CreateEntity(arch, c1);
-    //std::cout << ca << std::endl;
-    
-    coordinator.RegisterComponent<TimerComponent>();
-    signature.set(coordinator.GetComponentType<TimerComponent>());
-    prevTime = Clock::now();
 
     return 0;
 }
 
 // Use for now to make entities with components
-ChunkAddress CreateStandardEntity(const char* spriteName) {
-    ChunkAddress e = coordinator.NEW_CreateEntity(standardArch, spriteName);
+EntityID CreateStandardEntity(const char* spriteName) {
+    EntityID e = coordinator.NEW_CreateEntity(standardArch, spriteName);
+
+    // data must be initialized
+    // if you know the data is going to be initialized later, you don't need to initialize it here
     Transform t = Transform();
     coordinator.GetComponent<Transform>(e) = t;
-    //coordinator.AddComponent<Transform>(e, Transform());
-    //coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
-    //coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
 
     return e;
 }
-
 
 // the main update function
 // game loop will be put here eventually
@@ -150,7 +129,7 @@ int main() {
     dude = CreateStandardEntity("game_sprites.png");
 
     //Temporary until entityqueries are implemented
-    coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
+    //coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
     coordinator.testEntity = &turtle;
 
     // turtle

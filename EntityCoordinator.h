@@ -20,7 +20,7 @@ private:
     std::unique_ptr<SystemManager> mSystemManager;
 
 public:
-    Entity* testEntity;
+    EntityID* testEntity;
 
     void Init()
     {
@@ -42,7 +42,7 @@ public:
     //    return mEntityManager->CreateEntity();
     //}
 
-    ChunkAddress NEW_CreateEntity(Archetype arch, Spritesheet sprite)
+    EntityID NEW_CreateEntity(Archetype arch, Spritesheet sprite)
     {
         return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
@@ -53,15 +53,15 @@ public:
     }
 
     //template<typename T, typename... Args>
-    //ChunkAddress CreateEntityChunked(const char* spriteSheet)
+    //EntityID CreateEntityChunked(const char* spriteSheet)
     //{
     //    Signature sig;
     //    //recursiveSetSig<T,Args...>(sig);
-    //    ChunkAddress ca = mChunkManager->assignNewEntity<T,Args...>(sig, spriteSheet);
+    //    EntityID ca = mChunkManager->assignNewEntity<T,Args...>(sig, spriteSheet);
     //    return ca;
     //}
 
-    void DestroyEntity(ChunkAddress entity)
+    void DestroyEntity(EntityID entity)
     {
         //mEntityManager->DestroyEntity(entity);
         //mComponentManager->EntityDestroyed(entity);
@@ -108,7 +108,7 @@ public:
     //}
 
     template<typename T>
-    T& GetComponent(ChunkAddress entity)
+    T& GetComponent(EntityID entity)
     {
         return mChunkManager->getComponentRef<T>(entity);
     }

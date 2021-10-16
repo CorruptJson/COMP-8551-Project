@@ -25,12 +25,12 @@ private:
 
 public:
 
-    ChunkAddress assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
+    EntityID assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
 
-    void releaseEntity(ChunkAddress id);
+    void releaseEntity(EntityID id);
 
     template<typename T>
-    T& getComponentRef(ChunkAddress ca) {
+    T& getComponentRef(EntityID ca) {
         return allChunks[ca.chunkID]->getComponentReference<T>(ca);
     };
 

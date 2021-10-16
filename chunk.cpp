@@ -45,9 +45,9 @@ int Chunk::getCurrEntCount()
     return currEnts;
 }
 
-ChunkAddress Chunk::assignNewEntity()
+EntityID Chunk::assignNewEntity()
 {
-    ChunkAddress id;
+    EntityID id;
     if (currEnts != ENTITIES_PER_CHUNK)
     {
         for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
@@ -81,7 +81,7 @@ ChunkAddress Chunk::assignNewEntity()
 
 }
 
-void Chunk::releaseEntity(ChunkAddress id)
+void Chunk::releaseEntity(EntityID id)
 {
     int releasedEntDataIndex = entToDat[id.index];
     int lastIndex = currEnts - 1;

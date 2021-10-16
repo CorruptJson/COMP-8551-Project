@@ -8,7 +8,7 @@ Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, Compon
     return newChunk;
 }
 
-ChunkAddress ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap)
+EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap)
 {
     // are there any chunks with this archetype and this sprite sheet
     auto find = chunksByArch.find(arch.getType());
@@ -27,7 +27,7 @@ ChunkAddress ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, C
             {
                 // yes, we found a valid chunk
                 //chunk->assignNewEntity
-                ChunkAddress ca = chunk->assignNewEntity();
+                EntityID ca = chunk->assignNewEntity();
                 return ca;
             }
         }
@@ -37,11 +37,11 @@ ChunkAddress ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, C
     // create chunk
 
     Chunk* newChunk = createChunk(arch,sprite,sizemap);
-    ChunkAddress ca = newChunk->assignNewEntity();
+    EntityID ca = newChunk->assignNewEntity();
     return ca;
 }
 
-void ChunkManager::releaseEntity(ChunkAddress id)
+void ChunkManager::releaseEntity(EntityID id)
 {
     allChunks[id.chunkID]->releaseEntity(id);
 };

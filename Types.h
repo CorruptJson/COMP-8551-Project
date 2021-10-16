@@ -30,14 +30,14 @@ using QueryArray = std::unique_ptr<std::vector<T*>>;
 //    ComponentSize size;
 //};
 
-struct ChunkAddress
+struct EntityID
 {
     int chunkID;
     int index;
     int version;
 };
 
-inline std::ostream& operator<<(std::ostream& str, ChunkAddress const& ca)
+inline std::ostream& operator<<(std::ostream& str, EntityID const& ca)
 {
     str << "chunk: " << ca.chunkID << ", index: " << ca.index << ", ver: " << ca.version;
     return str;
