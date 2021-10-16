@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
 #include <GLFW/glfw3.h>
-#include <map>
-#include <string>
+//#include <map>
+//#include <string>
 
 class InputTracker {
 public:
@@ -55,6 +55,11 @@ public:
     //    {"DOWN", GLFW_KEY_DOWN},
 
     //};
+
+    const int distSpaToNum = 1;
+    const int distNumToLett = 11;
+    const int distLettToArr = 37;
+
     enum Key {
 
         // Space key
@@ -102,16 +107,15 @@ public:
         Z = GLFW_KEY_Z, //returns 90
 
         // Arrow keys
-        RIGHT = GLFW_KEY_RIGHT, //returns 262
-        LEFT = GLFW_KEY_LEFT,
-        DOWN = GLFW_KEY_DOWN,
-        UP = GLFW_KEY_UP, //returns 265
+        ARROW_RIGHT = GLFW_KEY_RIGHT, //returns 262
+        ARROW_LEFT = GLFW_KEY_LEFT,
+        ARROW_DOWN = GLFW_KEY_DOWN,
+        ARROW_UP = GLFW_KEY_UP, //returns 265
 
         // Total number of keys
         // NUM_KEYS = Z - A + 1 + 15
-        NUM_KEYS = (Z - A + 1) + (NINE - ZERO + 1) + (UP - RIGHT + 1) + 1
+        NUM_KEYS = (Z - A + 1) + (NINE - ZERO + 1) + (ARROW_UP - ARROW_RIGHT + 1) + 1
     };
-
 
     enum Mouse {
         MouseLeft = GLFW_MOUSE_BUTTON_1,
