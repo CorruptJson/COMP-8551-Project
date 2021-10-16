@@ -21,6 +21,8 @@ ChunkManager* chunkManager;
 Renderer renderer;
 PhysicsWorld* physicsWorld;
 
+Animator animator;
+
 // test entities
 Entity turtle;
 Entity wall;
@@ -96,6 +98,8 @@ int runEngine()
 
         catchupTime -= MS_PER_FRAME;
     }
+
+    animator.updateAnim(&coordinator.GetComponent<RenderComponent>(dude));
 
     // render
     renderer.update(&coordinator);
@@ -174,13 +178,16 @@ int main() {
         0.0f
     };
 
+    animator = Animator(16, 4, 4, 250);
+
     coordinator.GetComponent<RenderComponent>(dude) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "game_sprites.png",
-        2,
-        0
+        animator.getCurrRow(),
+        animator.getCurrColumn()
     };
+
     coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
     coordinator.GetComponent<PhysicsComponent>(dude) = {
        b2_dynamicBody,

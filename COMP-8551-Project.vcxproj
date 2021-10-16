@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="coordinator.cpp" />
@@ -164,6 +165,7 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
