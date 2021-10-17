@@ -16,7 +16,6 @@ private:
     std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
     std::unordered_map<Spritesheet, Chunk*> chunksBySpritesheet;
 
-    std::unordered_map<Signature, Chunk*> chunksPerSig;
     std::unordered_map<const char*, Chunk*> chunksPerSpritesheet;
     std::vector<Chunk*> allChunks;
     int currChunks = 0;

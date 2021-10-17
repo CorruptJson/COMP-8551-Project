@@ -14,7 +14,6 @@ class Chunk
 
 private:
     int chunkID = -1;
-    Signature sig;
     Archetype arch;
     Spritesheet spritesheet;
     int currEnts = 0;
@@ -23,7 +22,6 @@ private:
     int entToDat[ENTITIES_PER_CHUNK]{};
     int datToEnt[ENTITIES_PER_CHUNK]{};
 
-    Chunk(Signature sig, int chunkID, Spritesheet spriteSheet);
     Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
 
     void addComponentArrays(Archetype t, ComponentSizeMap& sizemap);

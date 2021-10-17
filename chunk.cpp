@@ -2,13 +2,6 @@
 #include "chunk.h"
 
 
-Chunk::Chunk(Signature sig, int chunkID, Spritesheet spriteSheet)
-{
-    this->sig = sig;
-    this->chunkID = chunkID;
-    this->spritesheet = spriteSheet;
-}
-
 Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, ComponentSizeMap& sizemap)
 {
     this->arch = archetype;
