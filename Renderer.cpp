@@ -402,7 +402,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
 
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-        RenderComponent component = *renderComps[i];
+        RenderComponent component = *(renderComps[i]);
         mat4 modelMatrix = transformComps[i]->getModelMatrix();
 
         transformComps[i]->update();

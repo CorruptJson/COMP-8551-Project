@@ -5,6 +5,7 @@
 #include <ctime>
 #include <ratio>
 #include <chrono>
+#include <string>
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 //#include "protoChunkManager.h"
@@ -161,8 +162,7 @@ int main() {
         0,
         0
     };
-    //coordinator.GetComponent<Transform>(wall).translate(0, -1);
-    coordinator.GetComponent<Transform>(wall).setPosition(0, -1);
+    coordinator.GetComponent<Transform>(wall).translate(0, -1);
     coordinator.GetComponent<Transform>(wall).setScale(2, 1);
  
     coordinator.GetComponent<PhysicsComponent>(wall) = {
@@ -193,9 +193,11 @@ int main() {
        0.0f
     };
         
-    std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
-    std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
-    std::cout << "Dude x: " << coordinator.GetComponent<Transform>(dude).getPosition().x << " y: " << coordinator.GetComponent<Transform>(dude).getPosition().y << std::endl;
+    Transform t = coordinator.GetComponent<Transform>(turtle);
+
+    std::cout << "turtle " << t << std::endl;
+    std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
+    std::cout << "Dude " << coordinator.GetComponent<Transform>(dude) << std::endl;
         
     std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;

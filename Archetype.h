@@ -24,17 +24,3 @@ public:
     ArchetypeType getType() const;
     const std::vector<ComponentType> getComponentTypesArrayCopy() const;
 };
-
-// a function that enables Archetypes to be directly printed as a string into cout
-inline std::ostream& operator<<(std::ostream& str, Archetype const& arch)
-{
-    const ArchetypeType type = arch.getType();
-    str << "archetype type: " << unsigned(type) << ", components: ";
-    std::vector<ComponentType> types = arch.getComponentTypesArrayCopy();
-    for (int i = 0; i < types.size(); i++)
-    {
-        str << std::hex << (int)types[i] << ' ';
-    }
-    return str;
-}
-
