@@ -69,6 +69,15 @@
     <ClCompile Include="Transform.cpp">
       <Filter>Source Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Archetype.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ArchetypeManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="chunk.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
     <ClCompile Include="PhysicsWorld.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -77,6 +86,15 @@
     </ClCompile>
     <ClCompile Include="Box2DTutorial.cpp">
       <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityQuery.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="chunkManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
+          <Filter>Source Files\ECS</Filter>
     </ClCompile>
     <ClCompile Include="test_system.cpp">
       <Filter>Source Files\MainSystem</Filter>
@@ -98,13 +116,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="protoChunkManager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="chunkManager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="sigArch.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="chunk.h">
@@ -134,9 +146,6 @@
     <ClInclude Include="RenderComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="componentInfo.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteInfo.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
@@ -145,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="Transform.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Archetype.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ArchetypeManager.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Box2DTutorial.h">
       <Filter>Header Files\Physics</Filter>
@@ -157,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityQuery.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="TimerComponent.h">
       <Filter>Header Files\Components</Filter>
