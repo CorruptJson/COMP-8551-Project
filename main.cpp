@@ -134,8 +134,8 @@ int main() {
     coordinator.testEntity = &turtle;
 
     // turtle
-    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
     coordinator.GetComponent<Transform>(turtle).setScale(0.4, 0.4);
+    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);    
 
     coordinator.GetComponent<RenderComponent>(turtle) = {
         "defaultVertShader.vs",
@@ -200,9 +200,11 @@ int main() {
     std::cout << "Dude " << coordinator.GetComponent<Transform>(dude) << std::endl;
         
     std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << std::endl;
-    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
+    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;    
 
     physicsWorld->AddObjects(&coordinator);
+
+    std::cout << "turtle " << t << std::endl;
 
     while (!glfwWindowShouldClose(window))
     {
