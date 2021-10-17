@@ -15,20 +15,10 @@ using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;
 
-using Signature = std::bitset<MAX_COMPONENTS>;
 using Spritesheet = const char*;
 
 using Byte = unsigned char;
 
-template<typename T>
-using QueryArray = std::unique_ptr<std::vector<T*>>;
-
-//struct ComponentInfoStruct
-//{
-//    ComponentType type;
-//    Signature sig;
-//    ComponentSize size;
-//};
 
 struct EntityID
 {
@@ -37,6 +27,7 @@ struct EntityID
     int version;
 };
 
+// enables us to directly print entityID as a string into cout
 inline std::ostream& operator<<(std::ostream& str, EntityID const& ca)
 {
     str << "chunk: " << ca.chunkID << ", index: " << ca.index << ", ver: " << ca.version;

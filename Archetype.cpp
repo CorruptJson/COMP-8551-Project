@@ -2,7 +2,7 @@
 
 Archetype::Archetype()
 {
-    type = 255;    
+    type = UINT16_MAX;    
 }
 
 Archetype::Archetype(ArchetypeType type, std::vector<ComponentType> components)

@@ -13,6 +13,8 @@ class Archetype
 {
 private:
 
+    // archetypetype is a simple integer used for faster comparison
+    // arhcetypetype is always the same for the same combination of components
     ArchetypeType type;
     std::vector<ComponentType> components;
 
@@ -23,6 +25,7 @@ public:
     const std::vector<ComponentType> getComponentTypesArrayCopy() const;
 };
 
+// a function that enables Archetypes to be directly printed as a string into cout
 inline std::ostream& operator<<(std::ostream& str, Archetype const& arch)
 {
     const ArchetypeType type = arch.getType();
