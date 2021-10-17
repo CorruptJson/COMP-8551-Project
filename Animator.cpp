@@ -37,8 +37,8 @@ void Animator::stopAnim()
 
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
-    std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
-    std::array<AnimationComponent, MAX_ENTITIES> animComps = coordinator->GetComponentArray<AnimationComponent>();
+    std::array<RenderComponent, MAX_ENTITIES>& renderComps = coordinator->GetComponentArray<RenderComponent>();
+    std::array<AnimationComponent, MAX_ENTITIES>& animComps = coordinator->GetComponentArray<AnimationComponent>();
     
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
 
@@ -52,7 +52,7 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
                 /*cout << "CurrFrame = " + std::to_string(currFrame) << endl;
                 cout << "lastFrame = " + std::to_string(lastFrame) << endl;
                 cout << "speed = " + std::to_string(speed) << endl;*/
-                if ((animationComponent->currAnim.currTimeStamp - animationComponent->currAnim.lastTimeStamp) >= speed) {
+                if ((animationComponent->currAnim.currTimeStamp - animationComponent->currAnim.lastTimeStamp) >= animationComponent->speed) {
                     animationComponent->currAnim.lastTimeStamp = std::clock();
 
                     cout << "col = " + std::to_string(renderCompnent->colIndex) << endl;
