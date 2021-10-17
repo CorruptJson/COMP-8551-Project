@@ -13,4 +13,5 @@ struct RenderComponent {
     // row increasese from 0 to 1 top to bottom
     float rowIndex;
     float colIndex;
+    bool hasAnimation;
 };

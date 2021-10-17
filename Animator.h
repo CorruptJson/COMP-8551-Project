@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include "renderComponent.h"
+#include "AnimationComponent.h"
+#include "EntityCoordinator.h"
 
 using namespace std;
 
@@ -14,8 +16,8 @@ public:
     Animator(int spriteCount, int r ,int c,float speed);
     void startAnim();
     void stopAnim();
-    void updateAnim(RenderComponent* comp);
-    void setSpeed(float x);
+    void updateAnim(EntityCoordinator* coordinator);
+    void setSpeed(Entity x);
     void setIndex(int r, int c);
     float getCurrRow();
     float getCurrColumn();

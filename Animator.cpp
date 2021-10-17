@@ -35,23 +35,39 @@ void Animator::stopAnim()
     isPlaying = false;
 }
 
-void Animator::updateAnim(RenderComponent* comp)
+void Animator::updateAnim(EntityCoordinator* coordinator)
 {
-    currFrame = std::clock();
-    /*cout << "CurrFrame = " + std::to_string(currFrame) << endl;
-    cout << "lastFrame = " + std::to_string(lastFrame) << endl;
-    cout << "speed = " + std::to_string(speed) << endl;*/
-    if ((currFrame - lastFrame) >= speed) {
-        lastFrame = std::clock();
+    std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
+    std::array<AnimationComponent, MAX_ENTITIES> animComps = coordinator->GetComponentArray<AnimationComponent>();
+    
+    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
 
-        (*comp).colIndex++;
-       /* cout << "col = " + std::to_string(comp.colIndex) << endl;*/
-       // cout << "col Anim = " + std::to_string(currCol) << endl;
+        AnimationComponent* animationComponent = &(animComps[i]);
+        RenderComponent* renderCompnent = &(renderComps[i]);
+
+        if (renderCompnent->hasAnimation) {
+            //skips the iteration
+            if (animationComponent->isPlaying) {
+                animationComponent->currAnim.currTimeStamp = std::clock();
+                /*cout << "CurrFrame = " + std::to_string(currFrame) << endl;
+                cout << "lastFrame = " + std::to_string(lastFrame) << endl;
+                cout << "speed = " + std::to_string(speed) << endl;*/
+                if ((animationComponent->currAnim.currTimeStamp - animationComponent->currAnim.lastTimeStamp) >= speed) {
+                    animationComponent->currAnim.lastTimeStamp = std::clock();
+
+                    cout << "col = " + std::to_string(renderCompnent->colIndex) << endl;
+                    cout << "col Anim = " + std::to_string(animationComponent->currAnim.currFrame) << endl;
+
+                    animationComponent->currAnim.currFrame++;
+
+                    renderCompnent->colIndex = animationComponent->currAnim.currFrame;
+                }
+            }
+        }
     }
-
 }
 
-void Animator::setSpeed(float x)
+void Animator::setSpeed(Entity x)
 {
     speed = x;
 }

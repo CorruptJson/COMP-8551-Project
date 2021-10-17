@@ -12,6 +12,7 @@
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
 #include "TimerComponent.h"
+#include "AnimationComponent.h"
 #include "Types.h"
 #include "Animator.h"
 
@@ -59,6 +60,9 @@ int initialize()
 
     coordinator.RegisterComponent<PhysicsComponent>();
     signature.set(coordinator.GetComponentType<PhysicsComponent>());
+    
+    coordinator.RegisterComponent<AnimationComponent>();
+    signature.set(coordinator.GetComponentType<AnimationComponent>());
 
     coordinator.RegisterComponent<TimerComponent>();
     signature.set(coordinator.GetComponentType<TimerComponent>());
@@ -74,6 +78,7 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<Transform>(e, Transform());
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
     coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
+    coordinator.AddComponent<AnimationComponent>(e, AnimationComponent{});
 
     return e;
 }
@@ -100,7 +105,8 @@ int runEngine()
         catchupTime -= MS_PER_FRAME;
     }
 
-    animator.updateAnim(&coordinator.GetComponent<RenderComponent>(dude));
+    //animation
+    animator.updateAnim(&coordinator);
 
     // render
     renderer.update(&coordinator);
@@ -145,7 +151,8 @@ int main() {
         "defaultFragShader.fs",
         "turtles.png",
         0,
-        0
+        0,
+        false
     };
     coordinator.GetComponent<PhysicsComponent>(turtle) = {
         b2_dynamicBody,
@@ -164,7 +171,8 @@ int main() {
         "defaultFragShader.fs",
         "wall.jpg",
         0,
-        0
+        0,
+        false
     };
     coordinator.GetComponent<Transform>(wall).translate(0, -1);
     coordinator.GetComponent<Transform>(wall).setScale(2, 1);
@@ -185,8 +193,9 @@ int main() {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "game_sprites.png",
-        animator.getCurrRow(),
-        animator.getCurrColumn()
+        0,
+        0,
+        true
     };
 
     coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
@@ -201,12 +210,37 @@ int main() {
     };
     physicsWorld->AddObjects(&coordinator);
 
+    Animation walkLeft{
+        "wLeft",
+        0.0f, 0.0f, //current time stamp and last time stamps starts at 0
+        0, 3, //start frame and end frame = start and end cols within spritesheet
+        0, //starts at the start frame
+        3,
+        true
+    };
 
-    
+    Animation walkRight{
+        "wRight",
+        0.0f, 0.0f,
+        0, 3,
+        0,
+        2,
+        true
+    };
+
+    Animation list[5] = { walkLeft,walkRight };
+
+    //animator component setup for dude
+    coordinator.GetComponent<AnimationComponent>(dude) = {
+        walkLeft,
+            list, //note could be source of problems
+            250.0f, //in ms
+            true
+    };
+
     std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
     std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
     std::cout << "Dude x: " << coordinator.GetComponent<Transform>(dude).getPosition().x << " y: " << coordinator.GetComponent<Transform>(dude).getPosition().y << std::endl;
-
     
     std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
