@@ -2,12 +2,18 @@
 #include <iterator>
 #include <cstddef>
 #include <vector>
+#include <algorithm>
 #include "chunk.h"
 #include "Types.h"
 #include "ComponentManager.h"
 
+// this class stores the result of a search
+// it searches for which entities contain the specified components
+// it can be used to access those components of those entities
 class EntityQuery
 {
+    friend class EntityCoordinator;
+
 private:
     // entity count
     int entityCount = 0;
@@ -15,23 +21,36 @@ private:
     // chunks
     std::vector<Chunk*> chunks;
 
-    // components query IDs
+    // the components the query is searching for 
     std::vector<ComponentType> compTypes;
 
     void searchChunks(std::vector<Chunk*>& allChunks);
 
+    EntityQuery();
+
+
+
 public:
 
-    EntityQuery(std::vector<ComponentType>& _compTypes,std::vector<Chunk*>& allChunks);
     int totalEntitiesFound();
     int chunkCount();
     Chunk* chunk(int i);
 
+    // entity queries perform their search when they are created
+    EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chunk*>& allChunks);
+
+    // get a vector of pointers for the components of the specified type
+    // the components belonging to the entities found in the query
     template<typename T>
     std::vector<T*> getComponentArray()
     {
+        ComponentType type = ComponentManager::GetComponentType<T>();
+        if (std::find(compTypes.begin(),compTypes.end(),type) == compTypes.end())
+        {
+            throw "cannot get component array from query: query does not contain this type";
+        }
+
         std::vector<T*> list;
-        //ComponentType type = ComponentManager::NEW_GetComponentType<T>();
 
         for (int i = 0; i < chunks.size(); i++)
         {
@@ -47,11 +66,3 @@ public:
         return list;
     }
 };
-
-template<typename T>
-struct componentArray
-{
-    T* start;
-    int count;
-};
-

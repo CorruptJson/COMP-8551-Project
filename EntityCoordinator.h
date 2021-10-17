@@ -13,7 +13,6 @@ class EntityCoordinator
 {
 private:
     std::unique_ptr<ComponentManager> mComponentManager;
-    //std::unique_ptr<EntityManager> mEntityManager;
     std::unique_ptr<ChunkManager> mChunkManager;
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
     std::unique_ptr<SystemManager> mSystemManager;
@@ -34,162 +33,56 @@ public:
         initializeSystemManager();
     }
 
-
-    // Entity methods
-    //Entity CreateEntity()
-    //{
-    //    return mEntityManager->CreateEntity();
-    //}
-
+    // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
+    // creates a new chunk if no matching chunk is found
+    // all entities in the chunk must share the same spritshseet
     EntityID CreateEntity(Archetype arch, Spritesheet sprite)
     {
         return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
 
+    // get a validated archetype object from a list of component types
+    // an archetype defines which components an entity has
+    // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
     Archetype GetArchetype(std::vector<ComponentType> compTypes)
     {
         return mArchetypeManager->getArchetype(compTypes);
     }
 
-    //template<typename T, typename... Args>
-    //EntityID CreateEntityChunked(const char* spriteSheet)
-    //{
-    //    Signature sig;
-    //    //recursiveSetSig<T,Args...>(sig);
-    //    EntityID ca = mChunkManager->assignNewEntity<T,Args...>(sig, spriteSheet);
-    //    return ca;
-    //}
-
+    // not yet fully implemented
     void DestroyEntity(EntityID entity)
     {
-        //mEntityManager->DestroyEntity(entity);
-        //mComponentManager->EntityDestroyed(entity);
         mChunkManager->releaseEntity(entity);
     }
 
-    // Component methods
+    // Register component with the component manager
+    // all components must be registered before use
     template<typename T>
     void RegisterComponent()
     {
         mComponentManager->RegisterComponent<T>();
     }
 
+    // gets the int id associated with a component type
     template<typename T>
     ComponentType GetComponentType()
     {
         return mComponentManager->GetComponentType<T>();
     }
 
-
-
-    //template<typename T>
-    //void AddComponent(Entity entity, T component)
-    //{
-    //    mComponentManager->AddComponent<T>(entity, component);
-
-    //    auto signature = mEntityManager->GetSignature(entity);
-    //    signature.set(mComponentManager->GetComponentType<T>(), true);
-    //    mEntityManager->SetSignature(entity, signature);
-
-    //    //mSystemManager->EntitySignatureChanged(entity, signature);
-    //}
-
-    //template<typename T>
-    //void RemoveComponent(Entity entity)
-    //{
-    //    mComponentManager->RemoveComponent<T>(entity);
-
-    //    auto signature = mEntityManager->GetSignature(entity);
-    //    signature.set(mComponentManager->GetComponentType<T>(), false);
-    //    mEntityManager->SetSignature(entity, signature);
-
-    //    //mSystemManager->EntitySignatureChanged(entity, signature);
-    //}
-
+    // gets a reference to an entity's component
     template<typename T>
     T& GetComponent(EntityID entity)
     {
         return mChunkManager->getComponentRef<T>(entity);
     }
     
+    // returns an entity query, an object which contains the search results upon creation
+    // the entity query searches for all entities that contain these components
     std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes)
     {
         return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);        
     }
-
-    //template<typename T>
-    //std::array<T>& GetComponentArray () {
-    //    return mComponentManager->GetComponentArray<T>() -> GetComponentArray();
-    //}
-
-    // System methods
-    /*
-    template<typename T>
-    std::shared_ptr<T> RegisterSystem()
-    {
-        return mSystemManager->RegisterSystem<T>();
-    }
-
-    template<typename T>
-    void SetSystemSignature(Signature signature)
-    {
-        mSystemManager->SetSignature<T>(signature);
-    }
-    */
-
-    //template<typename... Args>
-    //void getSigFromComponents(Args... args)
-    //{
-    //    Signature sig;
-    //    recursiveSetSig(sig, args...);
-    //    std::string sigString = SignatureToString(sig);
-    //    std::cout << "Recursive Set Sig is: " << sigString << std::endl;
-    //}
-
-    //template<typename T>
-    //void recursiveSetSig(Signature& sig)
-    //{
-    //    mComponentManager->SetSignatureBit<T>(sig);
-    //}
-
-    //template<typename T, typename... Args>
-    //void recursiveSetSig(Signature& sig)
-    //{
-    //    mComponentManager->SetSignatureBit<T>(sig);
-    //    recursiveSetSig<Args...>(sig);
-    //}
-
-    //std::string SignatureToString(Signature sig)
-    //{
-    //    std::string s;
-    //    for (int i = sig.size() - 1; i >= 0; i--)
-    //    {
-    //        s += sig[i] ? '1' : '0';
-    //    }
-    //    return s;
-    //}
-
-    // test functions that list out components passed as arguments
-
-    //template<typename T>
-    //void identifyComponents()
-    //{
-    //    const char* typeName = typeid(T).name();
-    //    ComponentType type = mComponentManager->GetComponentType<T>();
-
-    //    std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
-    //}
-
-    //template<typename T, typename... Args>
-    //void identifyComponents()
-    //{
-    //    const char* typeName = typeid(T).name();
-    //    ComponentType type = mComponentManager->GetComponentType<T>();
-
-    //    std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
-
-    //    identifyComponents<Args...>();
-    //}
 
     uint32_t GetEntityCount()
     {
