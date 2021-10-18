@@ -2,6 +2,7 @@
 #include <ctime>
 #include <iostream>
 #include <string>
+#include <list>
 #include "renderComponent.h"
 #include "AnimationComponent.h"
 #include "EntityCoordinator.h"
@@ -12,30 +13,13 @@ class Animator
 {
 public:
     Animator() {}
-    Animator(int spriteCount, int r, int c);
-    Animator(int spriteCount, int r ,int c,float speed);
-    void startAnim();
-    void stopAnim();
+    void startNewAnim();
+    void playAnim();
+    void pauseAnim();
     void updateAnim(EntityCoordinator* coordinator);
-    void setSpeed(Entity x);
-    void setIndex(int r, int c);
-    float getCurrRow();
-    float getCurrColumn();
+    void setSpeed(Entity* x);
+    AnimationComponent createAnimationComponent(Animation current, float speed, bool isPlaying);
+    Animation createAnimation(const char* name, int startFrame, int endFrame, int row, bool looping);
 private:
-
-    int rowSize, columnSize;
-
-    float currRow, currCol;
-
-    //framerate in ms 
-    float speed;
-
-    bool isPlaying;
-
-    //for timing
-    float currFrame;
-    float lastFrame;
-
-    RenderComponent comp;
 };
 

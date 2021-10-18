@@ -1,5 +1,7 @@
 #pragma once
 #include <string>
+#include <vector>
+#include <list>
 
 struct Animation {
     const char *animationName;
@@ -14,7 +16,7 @@ struct Animation {
 
 struct AnimationComponent {
     Animation currAnim;
-    Animation* animList; //list of animations that can be switched between
+    //vector<Animation> animList; //list of animations that can be switched between
     float speed;//controls the time between each frame
     bool isPlaying; //determines if the current animation should be updated
 };

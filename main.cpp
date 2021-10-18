@@ -187,7 +187,7 @@ int main() {
         0.0f
     };
 
-    animator = Animator(16, 4, 4, 250);
+    animator = Animator();
 
     coordinator.GetComponent<RenderComponent>(dude) = {
         "defaultVertShader.vs",
@@ -210,33 +210,11 @@ int main() {
     };
     physicsWorld->AddObjects(&coordinator);
 
-    Animation walkLeft{
-        "wLeft",
-        0.0f, 0.0f, //current time stamp and last time stamps starts at 0
-        0, 3, //start frame and end frame = start and end cols within spritesheet
-        0, //starts at the start frame
-        3,
-        true
-    };
+    //this is where we create the animations for a given entity (dude)
+    Animation anim1 = animator.createAnimation("wLeft", 0,3,3,true);
+    Animation anim2 = animator.createAnimation("wRight", 0,3,2,true);
 
-    Animation walkRight{
-        "wRight",
-        0.0f, 0.0f,
-        0, 3,
-        0,
-        2,
-        true
-    };
-
-    Animation list[5] = { walkLeft,walkRight };
-
-    //animator component setup for dude
-    coordinator.GetComponent<AnimationComponent>(dude) = {
-        walkLeft,
-            list, //note could be source of problems
-            250.0f, //in ms
-            true
-    };
+    coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
 
     std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
     std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
