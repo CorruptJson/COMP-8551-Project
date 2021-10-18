@@ -15,6 +15,8 @@
 #include "PhysicsComponent.h"
 #include "TimerComponent.h"
 #include "Types.h"
+#include "InputTracker.h"
+#include "InputComponent.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
@@ -64,6 +66,9 @@ int test(){
         coordinator.GetComponentType<PhysicsComponent>()
         });
 
+    //coordinator.RegisterComponent<InputComponent>();
+    //signature.set(coordinator.GetComponentType<InputComponent>());
+
     return 0;
 }
 
@@ -71,10 +76,12 @@ int test(){
 EntityID CreateStandardEntity(const char* spriteName) {
     EntityID e = coordinator.CreateEntity(standardArch, spriteName);
 
+
     // data must be initialized
     // if you know the data is going to be initialized later, you don't need to initialize it here
     Transform t = Transform();
     coordinator.GetComponent<Transform>(e) = t;
+
 
     return e;
 }
@@ -195,6 +202,7 @@ int main() {
         
     Transform t = coordinator.GetComponent<Transform>(turtle);
 
+
     std::cout << "turtle " << t << std::endl;
     std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
     std::cout << "Dude " << coordinator.GetComponent<Transform>(dude) << std::endl;
@@ -203,6 +211,7 @@ int main() {
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;    
 
     physicsWorld->AddObjects(&coordinator);
+
 
     std::cout << "turtle " << t << std::endl;
 
