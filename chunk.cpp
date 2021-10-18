@@ -16,7 +16,7 @@ Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, Componen
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
 {
-    std::vector<ComponentType> archComponents = t.getComponentTypesArrayCopy();
+    std::vector<ComponentType> archComponents = t.getComponentTypeArray();
     for (int i = 0; i < archComponents.size(); i++)
     {
         ComponentType ct = archComponents[i];
@@ -25,8 +25,6 @@ void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
         componentArrays.emplace(ct, newArray);
     }
 }
-
-
 
 Spritesheet Chunk::GetSpritesheet()
 {
@@ -76,17 +74,33 @@ EntityID Chunk::assignNewEntity()
 
 void Chunk::releaseEntity(EntityID id)
 {
+    if (versions[id.index] != id.version)
+    {
+        std::cout << "trying to delete entity that no longer exists?" << std::endl;
+        throw "trying to delete entity that no longer exists?";
+    }
+
     int releasedEntDataIndex = entToDat[id.index];
     int lastIndex = currEnts - 1;
     if (releasedEntDataIndex != lastIndex)
     {
-        // move component data with index == lastIndex into dataIndex
+        std::vector<ComponentType> componentTypes = arch.getComponentTypeArray();              
+
         // must swap data!
         for (int i = 0; i < componentArrays.size(); i++)
         {
-            //ComponentType type = arch.
-            //ComponentSize size = sizeMap[]
-            throw "release entity function not completed";
+            ComponentType type = componentTypes[i];
+            ComponentSize c_size = ComponentManager::GetComponentSize(type);
+            // these are the starting data indexes for this specific component type
+            int releasedCDataIndex = releasedEntDataIndex * c_size;
+            int lastCDatIndex = lastIndex * c_size;
+            Byte* arr = componentArrays[type];
+            for (int j = 0; j < c_size; j++)
+            {
+                int indexR = releasedCDataIndex + j;
+                int indexL = lastCDatIndex + j;
+                arr[indexR] = arr[indexL];
+            }
         }
 
         // then swap indexes
