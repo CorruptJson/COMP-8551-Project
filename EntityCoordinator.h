@@ -3,168 +3,90 @@
 #include <memory>
 #include <array>
 #include "ComponentManager.h"
-#include "EntityManager.h"
-#include "system_manager.h"
 #include "chunkManager.h"
+#include "ArchetypeManager.h"
+#include "Types.h"
+#include "EntityQuery.h"
+#include "system_manager.h"
 
 class EntityCoordinator
 {
+private:
+    std::unique_ptr<ComponentManager> mComponentManager;
+    std::unique_ptr<ChunkManager> mChunkManager;
+    std::unique_ptr<ArchetypeManager> mArchetypeManager;
+    std::unique_ptr<SystemManager> mSystemManager;
+
 public:
-    Entity* testEntity;
+    EntityID* testEntity;
 
     void Init()
     {
         // Create pointers to each manager
         mComponentManager = std::make_unique<ComponentManager>();
-        mEntityManager = std::make_unique<EntityManager>();
+        //mEntityManager = std::make_unique<EntityManager>();
+        mChunkManager = std::make_unique<ChunkManager>();
+        mArchetypeManager = std::make_unique<ArchetypeManager>();
         //mChunkManager = std::make_unique<ProtoChunkManager>();
         mSystemManager = std::make_unique<SystemManager>();
 
         initializeSystemManager();
     }
 
-
-    // Entity methods
-    Entity CreateEntity()
+    // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
+    // creates a new chunk if no matching chunk is found
+    // all entities in the chunk must share the same spritshseet
+    EntityID CreateEntity(Archetype arch, Spritesheet sprite)
     {
-        return mEntityManager->CreateEntity();
+        return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
     }
 
-    void DestroyEntity(Entity entity)
+    // get a validated archetype object from a list of component types
+    // an archetype defines which components an entity has
+    // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
+    Archetype GetArchetype(std::vector<ComponentType> compTypes)
     {
-        mEntityManager->DestroyEntity(entity);
-
-        mComponentManager->EntityDestroyed(entity);
-
-
+        return mArchetypeManager->getArchetype(compTypes);
     }
 
-    // Component methods
+    // not yet fully implemented
+    void DestroyEntity(EntityID entity)
+    {
+        mChunkManager->releaseEntity(entity);
+    }
+
+    // Register component with the component manager
+    // all components must be registered before use
     template<typename T>
     void RegisterComponent()
     {
         mComponentManager->RegisterComponent<T>();
     }
 
-    template<typename T>
-    void AddComponent(Entity entity, T component)
-    {
-        mComponentManager->AddComponent<T>(entity, component);
-
-        auto signature = mEntityManager->GetSignature(entity);
-        signature.set(mComponentManager->GetComponentType<T>(), true);
-        mEntityManager->SetSignature(entity, signature);
-
-        //mSystemManager->EntitySignatureChanged(entity, signature);
-    }
-
-    template<typename T>
-    void RemoveComponent(Entity entity)
-    {
-        mComponentManager->RemoveComponent<T>(entity);
-
-        auto signature = mEntityManager->GetSignature(entity);
-        signature.set(mComponentManager->GetComponentType<T>(), false);
-        mEntityManager->SetSignature(entity, signature);
-
-        //mSystemManager->EntitySignatureChanged(entity, signature);
-    }
-
-    template<typename T>
-    T& GetComponent(Entity entity)
-    {
-        return mComponentManager->GetComponent<T>(entity);
-    }
-
+    // gets the int id associated with a component type
     template<typename T>
     ComponentType GetComponentType()
     {
         return mComponentManager->GetComponentType<T>();
     }
 
-
+    // gets a reference to an entity's component
     template<typename T>
-    std::array<T, MAX_ENTITIES>& GetComponentArray () {
-        return mComponentManager->GetComponentArray<T>() -> GetComponentArray();
-    }
-
-    // System methods
-    /*
-    template<typename T>
-    std::shared_ptr<T> RegisterSystem()
+    T& GetComponent(EntityID entity)
     {
-        return mSystemManager->RegisterSystem<T>();
+        return mChunkManager->getComponentRef<T>(entity);
     }
-
-    template<typename T>
-    void SetSystemSignature(Signature signature)
+    
+    // returns an entity query, an object which contains the search results upon creation
+    // the entity query searches for all entities that contain these components
+    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes)
     {
-        mSystemManager->SetSignature<T>(signature);
-    }
-    */
-
-    template<typename... Args>
-    void getSigFromComponents(Args... args)
-    {
-        Signature sig;
-        recursiveSetSig(sig, args...);
-        std::string sigString = SignatureToString(sig);
-        std::cout << "Recursive Set Sig is: " << sigString << std::endl;
-    }
-
-    template<typename T>
-    void recursiveSetSig(Signature& sig, T component)
-    {
-        mComponentManager->SetSignatureBit(component, sig);
-    }
-
-    template<typename T, typename... Args>
-    void recursiveSetSig(Signature& sig, T component, Args... args)
-    {
-        mComponentManager->SetSignatureBit(component, sig);
-        recursiveSetSig(sig, args...);
-    }
-
-    std::string SignatureToString(Signature sig)
-    {
-        std::string s;
-        for (int i = sig.size() - 1; i >= 0; i--)
-        {
-            s += sig[i] ? '1' : '0';
-        }
-        return s;
-    }
-
-    // test functions that list out components passed as arguments
-
-    template<typename T>
-    void identifyComponents(T component)
-    {
-        const char* typeName = typeid(component).name();
-        ComponentType type = mComponentManager->GetComponentType<T>();
-
-        std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
-    }
-
-    template<typename T, typename... Args>
-    void identifyComponents(T component, Args... args)
-    {
-        const char* typeName = typeid(component).name();
-        ComponentType type = mComponentManager->GetComponentType<T>();
-
-        std::cout << "type name: " << typeName << ", type num: " << unsigned(type) << std::endl;
-
-        identifyComponents(args...);
-    }
-
-    ComponentManager& GetComponentManager()
-    {
-        return *mComponentManager;
+        return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);        
     }
 
     uint32_t GetEntityCount()
     {
-        return mEntityManager->GetEntityCount();
+        return mChunkManager->GetEntityCount();
     }
 
     void runSystemUpdates() {
@@ -176,10 +98,4 @@ public:
 
         mSystemManager->addSystem<TestSystem>(this);
     }
-
-private:
-    std::unique_ptr<ComponentManager> mComponentManager;
-    std::unique_ptr<EntityManager> mEntityManager;
-    std::unique_ptr<SystemManager> mSystemManager;
-    //std::unique_ptr<ProtoChunkManager> mChunkManager;
 };

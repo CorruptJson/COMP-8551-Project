@@ -1,6 +1,8 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <ostream>
+#include <string>
 #include "Libraries/include/box2d/box2d.h"
 
 struct Position
@@ -23,7 +25,7 @@ class Transform
 public:
     Transform();
     Transform(float xPos, float yPos, float rot, float xScale, float yScale);
-    Position getPosition();
+    Position getPosition() const;
     void setPosition(float x, float y);
     void translate(float x, float y);
 
@@ -32,7 +34,7 @@ public:
 
     void update();
 
-    Scale getScale();
+    Scale getScale() const;
     void setScale(float x, float y);
 
     Rotation getRotation();
@@ -58,3 +60,12 @@ private:
     void generateModelMatrix();
     void translateModelMatrix();
 };
+
+// a function that enables transform to be directly printed as a string into cout
+inline std::ostream& operator<<(std::ostream& str, Transform const& t)
+{
+    Position p = t.getPosition();
+    Scale s = t.getScale();
+    str << "transform pos: " << p.x << ", " << p.y << " scale: " << s.x << ", " << s.y;
+    return str;
+}
