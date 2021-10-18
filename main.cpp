@@ -63,8 +63,8 @@ int initialize()
     signature.set(coordinator.GetComponentType<TimerComponent>());
     prevTime = Clock::now();
 
-    coordinator.RegisterComponent<InputComponent>();
-    signature.set(coordinator.GetComponentType<InputComponent>());
+    //coordinator.RegisterComponent<InputComponent>();
+    //signature.set(coordinator.GetComponentType<InputComponent>());
 
     return 0;
 }
@@ -76,7 +76,7 @@ Entity CreateStandardEntity() {
     coordinator.AddComponent<Transform>(e, Transform());
     coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
     coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
-    coordinator.AddComponent<InputComponent>(e, InputComponent{});
+    /*coordinator.AddComponent<InputComponent>(e, InputComponent{});*/
 
     return e;
 }
@@ -199,8 +199,8 @@ int main() {
     };
     physicsWorld->AddObjects(&coordinator);
 
-    coordinator.GetComponent<InputComponent>(turtle).mInputTracker.perFrameUpdate(window);
-    std::cout << coordinator.GetComponent<InputComponent>(turtle).mInputTracker.isKeyDown(InputTracker::SPACE);
+    /*coordinator.GetComponent<InputComponent>(turtle).mInputTracker.perFrameUpdate(window);
+    std::cout << coordinator.GetComponent<InputComponent>(turtle).mInputTracker.isKeyDown(InputTracker::SPACE);*/
     
     std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
     std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
