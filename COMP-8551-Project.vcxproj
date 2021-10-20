@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Archetype.cpp" />
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
@@ -155,6 +156,7 @@
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -171,6 +173,8 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Archetype.h" />
     <ClInclude Include="ArchetypeManager.h" />
     <ClInclude Include="Box2DTutorial.h" />
@@ -184,6 +188,7 @@
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />

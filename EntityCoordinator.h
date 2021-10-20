@@ -98,4 +98,10 @@ public:
 
         mSystemManager->addSystem<TestSystem>(this);
     }
+
+    template<typename T>
+    std::shared_ptr<T> addSystem(EntityCoordinator* coord)
+    {
+        return mSystemManager->addSystem<T>(coord);
+    }
 };
