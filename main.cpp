@@ -19,6 +19,7 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
+#include "inputSystem.h";
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
@@ -70,8 +71,7 @@ int test(){
         coordinator.GetComponentType<AnimationComponent>()
         });
 
-    //coordinator.RegisterComponent<InputComponent>();
-    //signature.set(coordinator.GetComponentType<InputComponent>());
+    coordinator.addSystem<InputSystem>(&coordinator);    
 
     return 0;
 }
@@ -103,9 +103,12 @@ int runEngine()
 
     while (catchupTime >= MS_PER_FRAME)
     {
+        InputTracker::getInstance().perFrameUpdate(window);
+
         // run physics
         physicsWorld->Update(&coordinator);
-        // run ECS
+        // run ECS systems
+        coordinator.runSystemUpdates();
 
         catchupTime -= MS_PER_FRAME;
     }
@@ -236,10 +239,8 @@ int main() {
     {
         // tell glfw to keep track of window resize 
         // and input events
-        glfwPollEvents();
-        runEngine();
-        //System updates
-        coordinator.runSystemUpdates();
+        glfwPollEvents();        
+        runEngine();        
     }    
 
     teardown();

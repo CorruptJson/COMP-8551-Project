@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <GLFW/glfw3.h>
+#include <iostream>
 //#include <map>
 //#include <string>
 
@@ -56,9 +57,9 @@ public:
 
     //};
 
-    const int distSpaToNum = 1;
-    const int distNumToLett = 11;
-    const int distLettToArr = 37;
+    const int numberStartIndex = 1;
+    const int letterStartIndex = 1 + (NINE - ZERO + 1);
+    const int arrowStartIndex = 1 + (NINE - ZERO + 1) + (Z - A + 1);
 
     enum Key {
 
@@ -113,8 +114,7 @@ public:
         ARROW_UP = GLFW_KEY_UP, //returns 265
 
         // Total number of keys
-        // NUM_KEYS = Z - A + 1 + 15
-        NUM_KEYS = (Z - A + 1) + (NINE - ZERO + 1) + (ARROW_UP - ARROW_RIGHT + 1) + 1
+        NUM_KEYS = 1 + (NINE - ZERO + 1 ) + (Z - A + 1) + (ARROW_UP - ARROW_RIGHT + 1)
     };
 
     enum Mouse {
@@ -124,20 +124,20 @@ public:
         ScrollUp = GLFW_MOUSE_BUTTON_4,
         ScrollDown = GLFW_MOUSE_BUTTON_5,
 
-        NUM_MOUSE_BUTTONS = ScrollDown - MouseLeft
+        // Total number of buttons
+        NUM_MOUSE_BUTTONS = (ScrollDown - MouseLeft + 1)
     };
     enum ButtonState {
-        DOWN,
-        JUST_DOWN,
         RELEASED,
-        JUST_RELEASED
+        JUST_RELEASED,
+        DOWN,
+        JUST_DOWN
     };
 
     bool isKeyDown(Key aKey);
     bool isKeyJustDown(Key aKey);
     bool isKeyReleased(Key aKey);
     bool isKeyJustReleased(Key aKey);
-
 
     bool isMouseDown(Mouse aMouseButton);
     bool isMouseJustDown(Mouse aMouseButton);
@@ -146,9 +146,14 @@ public:
 
     void perFrameUpdate(GLFWwindow* window);
 
+    static InputTracker& getInstance();
+
 private:
 
-    std::vector<ButtonState> mKeyState;
-    std::vector<ButtonState> mMouseState;
+    //std::vector<ButtonState> mKeyState;
+    ButtonState mKeyState[NUM_KEYS] = { };
+    //std::vector<ButtonState> mMouseState;
+    ButtonState mMouseState[NUM_MOUSE_BUTTONS] = { };
+    InputTracker();
 
 };
