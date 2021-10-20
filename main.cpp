@@ -14,7 +14,9 @@
 #include "RenderComponent.h"
 #include "PhysicsComponent.h"
 #include "TimerComponent.h"
+#include "AnimationComponent.h"
 #include "Types.h"
+#include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
 
@@ -23,7 +25,7 @@ EntityCoordinator coordinator;
 
 Renderer renderer;
 PhysicsWorld* physicsWorld;
-
+Animator animator;
 Archetype standardArch;
 
 // test entities
@@ -58,12 +60,14 @@ int test(){
     coordinator.RegisterComponent<Transform>();
     coordinator.RegisterComponent<RenderComponent>();
     coordinator.RegisterComponent<PhysicsComponent>();
+    coordinator.RegisterComponent<AnimationComponent>();
     coordinator.RegisterComponent<TimerComponent>();
 
     standardArch = coordinator.GetArchetype({
         coordinator.GetComponentType<Transform>(),
         coordinator.GetComponentType<RenderComponent>(),
-        coordinator.GetComponentType<PhysicsComponent>()
+        coordinator.GetComponentType<PhysicsComponent>(),
+        coordinator.GetComponentType<AnimationComponent>()
         });
 
     //coordinator.RegisterComponent<InputComponent>();
@@ -81,7 +85,6 @@ EntityID CreateStandardEntity(const char* spriteName) {
     // if you know the data is going to be initialized later, you don't need to initialize it here
     Transform t = Transform();
     coordinator.GetComponent<Transform>(e) = t;
-
 
     return e;
 }
@@ -106,6 +109,9 @@ int runEngine()
 
         catchupTime -= MS_PER_FRAME;
     }
+
+    //animation
+    animator.updateAnim(&coordinator);
 
     // render
     renderer.update(&coordinator);
@@ -149,7 +155,8 @@ int main() {
         "defaultFragShader.fs",
         "turtles.png",
         0,
-        0
+        0,
+        false
     };
     coordinator.GetComponent<PhysicsComponent>(turtle) = {
         b2_dynamicBody,
@@ -167,7 +174,8 @@ int main() {
         "defaultFragShader.fs",
         "wall.jpg",
         0,
-        0
+        0,
+        false
     };
     coordinator.GetComponent<Transform>(wall).translate(0, -1);
     coordinator.GetComponent<Transform>(wall).setScale(2, 1);
@@ -182,13 +190,17 @@ int main() {
         0.0f
     };
 
+    animator = Animator();
+
     coordinator.GetComponent<RenderComponent>(dude) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
         "game_sprites.png",
-        2,
-        0
+        0,
+        0,
+        true
     };
+
     coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
     coordinator.GetComponent<PhysicsComponent>(dude) = {
        b2_dynamicBody,
@@ -202,6 +214,11 @@ int main() {
         
     Transform t = coordinator.GetComponent<Transform>(turtle);
 
+    //this is where we create the animations for a given entity (dude)
+    Animation anim1 = animator.createAnimation("wLeft", 0,3,3,true);
+    Animation anim2 = animator.createAnimation("wRight", 0,3,2,true);
+
+    coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
 
     std::cout << "turtle " << t << std::endl;
     std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
