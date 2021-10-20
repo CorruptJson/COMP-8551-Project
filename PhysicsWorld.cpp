@@ -62,13 +62,6 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
-        b2Body* body = world->GetBodyList();
-
-        if (body == NULL)
-        {
-            std::cout << "first body is null " << std::endl;
-        }
-
         std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<PhysicsComponent>(),
         coordinator->GetComponentType<Transform>()
@@ -78,12 +71,20 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
         std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
 
-        for (int i = entitiesFound -1; i >= 0; i--) {
-            transformComponents[i]->setPosition(physComponents[i]->b2Body->GetTransform().p.x, physComponents[i]->b2Body->GetTransform().p.y);
-            body = body->GetNext();
+        for (int i = 0; i < entitiesFound; i++) {
+            UpdatePhysicsComponent(physComponents[i]);
+            UpdateTransform(transformComponents[i], physComponents[i]);
         }
-
     }
+}
+
+void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
+    physComponent->x = physComponent->b2Body->GetTransform().p.x;
+    physComponent->y = physComponent->b2Body->GetTransform().p.y;
+}
+
+void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
+    transform->setPosition(physComponent->x, physComponent->y);
 }
 
 PhysicsWorld::~PhysicsWorld() {
