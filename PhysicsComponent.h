@@ -14,5 +14,5 @@ struct PhysicsComponent {
     float density;
     float friction;
 
-    b2Body* b2Body;
+    b2Body* box2dBody;
 };

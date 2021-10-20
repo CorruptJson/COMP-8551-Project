@@ -31,11 +31,11 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
         bodyDef.type = type;
         bodyDef.position.Set(physComponents[i]->x, physComponents[i]->y);
 
-        physComponents[i]->b2Body = world->CreateBody(&bodyDef);
+        physComponents[i]->box2dBody = world->CreateBody(&bodyDef);
 
-        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponents[i]->b2Body->GetPosition().x, physComponents[i]->b2Body->GetPosition().y);
+        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponents[i]->box2dBody->GetPosition().x, physComponents[i]->box2dBody->GetPosition().y);
 
-        if (physComponents[i]->b2Body) {
+        if (physComponents[i]->box2dBody) {
 
             b2PolygonShape dynamicBox;
             dynamicBox.SetAsBox(physComponents[i]->halfWidth, physComponents[i]->halfHeight);
@@ -46,11 +46,11 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
             fixtureDef.friction = physComponents[i]->friction;
             fixtureDef.restitution = 0;
 
-            physComponents[i]->b2Body->CreateFixture(&fixtureDef);
+            physComponents[i]->box2dBody->CreateFixture(&fixtureDef);
 
             // need some way to pass the body to the entity so it can update in rendering
 
-            transformComponents[i]->setPhysicsBody(physComponents[i]->b2Body);
+            transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
 
         }
     
@@ -79,8 +79,8 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 }
 
 void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
-    physComponent->x = physComponent->b2Body->GetTransform().p.x;
-    physComponent->y = physComponent->b2Body->GetTransform().p.y;
+    physComponent->x = physComponent->box2dBody->GetTransform().p.x;
+    physComponent->y = physComponent->box2dBody->GetTransform().p.y;
 }
 
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
