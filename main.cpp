@@ -1,9 +1,11 @@
 #include <iostream>
 //#include "RenderTutorial.h"
 #include <vector>
+#include <string>
 #include <ctime>
 #include <ratio>
 #include <chrono>
+#include <string>
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 //#include "protoChunkManager.h"
@@ -15,20 +17,21 @@
 #include "AnimationComponent.h"
 #include "Types.h"
 #include "Animator.h"
+#include "InputTracker.h"
+#include "InputComponent.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
-ChunkManager* chunkManager;
 
 Renderer renderer;
 PhysicsWorld* physicsWorld;
-
 Animator animator;
+Archetype standardArch;
 
 // test entities
-Entity turtle;
-Entity wall;
-Entity dude;
+EntityID turtle;
+EntityID wall;
+EntityID dude;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -41,48 +44,50 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 // put initilization code here
 int initialize()
 {  
-
     // when the engine starts
     renderer.init();
     coordinator.Init();
 
     physicsWorld = new PhysicsWorld();
 
-    chunkManager = new ChunkManager();
-
-    Signature signature;
-
-    coordinator.RegisterComponent<Transform>();
-    signature.set(coordinator.GetComponentType<Transform>());
-
-    coordinator.RegisterComponent<RenderComponent>();
-    signature.set(coordinator.GetComponentType<RenderComponent>());
-
-    coordinator.RegisterComponent<PhysicsComponent>();
-    signature.set(coordinator.GetComponentType<PhysicsComponent>());
-    
-    coordinator.RegisterComponent<AnimationComponent>();
-    signature.set(coordinator.GetComponentType<AnimationComponent>());
-
-    coordinator.RegisterComponent<TimerComponent>();
-    signature.set(coordinator.GetComponentType<TimerComponent>());
     prevTime = Clock::now();
 
     return 0;
 }
 
-// Use for now to make entities with components
-Entity CreateStandardEntity() {
-    Entity e = coordinator.CreateEntity();
+int test(){
 
-    coordinator.AddComponent<Transform>(e, Transform());
-    coordinator.AddComponent<RenderComponent>(e, RenderComponent{});
-    coordinator.AddComponent<PhysicsComponent>(e, PhysicsComponent{});
-    coordinator.AddComponent<AnimationComponent>(e, AnimationComponent{});
+    coordinator.RegisterComponent<Transform>();
+    coordinator.RegisterComponent<RenderComponent>();
+    coordinator.RegisterComponent<PhysicsComponent>();
+    coordinator.RegisterComponent<AnimationComponent>();
+    coordinator.RegisterComponent<TimerComponent>();
+
+    standardArch = coordinator.GetArchetype({
+        coordinator.GetComponentType<Transform>(),
+        coordinator.GetComponentType<RenderComponent>(),
+        coordinator.GetComponentType<PhysicsComponent>(),
+        coordinator.GetComponentType<AnimationComponent>()
+        });
+
+    //coordinator.RegisterComponent<InputComponent>();
+    //signature.set(coordinator.GetComponentType<InputComponent>());
+
+    return 0;
+}
+
+// Use for now to make entities with components
+EntityID CreateStandardEntity(const char* spriteName) {
+    EntityID e = coordinator.CreateEntity(standardArch, spriteName);
+
+
+    // data must be initialized
+    // if you know the data is going to be initialized later, you don't need to initialize it here
+    Transform t = Transform();
+    coordinator.GetComponent<Transform>(e) = t;
 
     return e;
 }
-
 
 // the main update function
 // game loop will be put here eventually
@@ -121,8 +126,6 @@ int teardown()
 {
     // when the engine closes
     renderer.teardown();
-    
-    delete chunkManager;
 
     delete physicsWorld;
 
@@ -131,20 +134,21 @@ int teardown()
 
 int main() {
     initialize();
+    test();
 
     //entity test
 
-    turtle = CreateStandardEntity();
-    wall = CreateStandardEntity();
-    dude = CreateStandardEntity();
+    turtle = CreateStandardEntity("turtles.png");
+    wall = CreateStandardEntity("wall.jpg");
+    dude = CreateStandardEntity("game_sprites.png");
 
     //Temporary until entityqueries are implemented
-    coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
+    //coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
     coordinator.testEntity = &turtle;
 
     // turtle
-    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);
     coordinator.GetComponent<Transform>(turtle).setScale(0.4, 0.4);
+    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);    
 
     coordinator.GetComponent<RenderComponent>(turtle) = {
         "defaultVertShader.vs",
@@ -163,7 +167,6 @@ int main() {
         1.0f,
         0.0f
     };
-
 
     // ground
     coordinator.GetComponent<RenderComponent>(wall) = {
@@ -208,7 +211,8 @@ int main() {
        1.0f,
        0.0f
     };
-    physicsWorld->AddObjects(&coordinator);
+        
+    Transform t = coordinator.GetComponent<Transform>(turtle);
 
     //this is where we create the animations for a given entity (dude)
     Animation anim1 = animator.createAnimation("wLeft", 0,3,3,true);
@@ -216,12 +220,17 @@ int main() {
 
     coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
 
-    std::cout << "turtle x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << " y: " << coordinator.GetComponent<Transform>(turtle).getPosition().y << std::endl;
-    std::cout << "wall x: " << coordinator.GetComponent<Transform>(wall).getPosition().x << " y: " << coordinator.GetComponent<Transform>(wall).getPosition().y << std::endl;
-    std::cout << "Dude x: " << coordinator.GetComponent<Transform>(dude).getPosition().x << " y: " << coordinator.GetComponent<Transform>(dude).getPosition().y << std::endl;
-    
-    std::cout << "From Component array: x: " << coordinator.GetComponentArray<Transform>()[0].getPosition().x << std::endl;
-    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;
+    std::cout << "turtle " << t << std::endl;
+    std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
+    std::cout << "Dude " << coordinator.GetComponent<Transform>(dude) << std::endl;
+        
+    std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << std::endl;
+    std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;    
+
+    physicsWorld->AddObjects(&coordinator);
+
+
+    std::cout << "turtle " << t << std::endl;
 
     while (!glfwWindowShouldClose(window))
     {

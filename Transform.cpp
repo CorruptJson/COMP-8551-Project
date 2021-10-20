@@ -1,5 +1,6 @@
 #include "Transform.h"
 
+
 // public 
 Transform::Transform() : Transform(0, 0, 0, 1, 1) { }
 Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, float yScale=1) {
@@ -17,7 +18,7 @@ Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, fl
     generateModelMatrix();
 }
 
-Position Transform::getPosition() {
+Position Transform::getPosition() const {
     return position;
 }
 
@@ -55,7 +56,7 @@ void Transform::update() {
     }
 }
 
-Scale Transform::getScale() {
+Scale Transform::getScale() const {
     return scale;
 }
 
@@ -134,3 +135,5 @@ void Transform::translateModelMatrix() {
     model = glm::translate(model, glm::vec3(position.x, position.y, 0));
     modelMatrix = model;
 }
+
+

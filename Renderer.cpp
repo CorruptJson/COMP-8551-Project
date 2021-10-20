@@ -392,13 +392,21 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::array<RenderComponent, MAX_ENTITIES> renderComps = coordinator->GetComponentArray<RenderComponent>();
-    std::array<Transform, MAX_ENTITIES> transforms = coordinator->GetComponentArray<Transform>();
-    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-        RenderComponent component = renderComps[i];
-        mat4 modelMatrix = transforms[i].getModelMatrix();
+    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<RenderComponent>(),
+        coordinator->GetComponentType<Transform>()
+        });
 
-        transforms[i].update();
+    int entitiesFound = entityQuery->totalEntitiesFound();
+    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
+    std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
+
+    for (int i = 0; i < entitiesFound; i++) {
+        RenderComponent component = *(renderComps[i]);
+        Transform t = *(transformComps[i]);
+        mat4 modelMatrix = t.getModelMatrix();
+
+        transformComps[i]->update();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO

@@ -17,7 +17,7 @@ public:
     void playAnim();
     void pauseAnim();
     void updateAnim(EntityCoordinator* coordinator);
-    void setSpeed(Entity* x);
+    void setSpeed();
     AnimationComponent createAnimationComponent(Animation current, float speed, bool isPlaying);
     Animation createAnimation(const char* name, int startFrame, int endFrame, int row, bool looping);
 private:

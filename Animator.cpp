@@ -24,7 +24,7 @@ void Animator::pauseAnim()
     //entity.animationComponent.isPlaying = true;
 }
 
-void Animator::setSpeed(Entity* x)
+void Animator::setSpeed()
 {
     //entity.animationComponent.speed = 500.0f;
 }
@@ -33,13 +33,20 @@ void Animator::setSpeed(Entity* x)
 
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
-    std::array<RenderComponent, MAX_ENTITIES>& renderComps = coordinator->GetComponentArray<RenderComponent>();
-    std::array<AnimationComponent, MAX_ENTITIES>& animComps = coordinator->GetComponentArray<AnimationComponent>();
+
+    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<RenderComponent>(),
+        coordinator->GetComponentType<AnimationComponent>()
+        });
+
+    int entitiesFound = entityQuery->totalEntitiesFound();
+    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
+    std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
     
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
 
-        AnimationComponent* animationComponent = &(animComps[i]);
-        RenderComponent* renderCompnent = &(renderComps[i]);
+        AnimationComponent* animationComponent = (animComps[i]);
+        RenderComponent* renderCompnent = (renderComps[i]);
 
         //skips the iteration if rendercomponent doesn't have an animation component
         if (renderCompnent->hasAnimation) {

@@ -146,10 +146,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Animator.cpp" />
+    <ClCompile Include="Archetype.cpp" />
+    <ClCompile Include="ArchetypeManager.cpp" />
+    <ClCompile Include="chunk.cpp" />
+    <ClCompile Include="chunkManager.cpp" />
     <ClCompile Include="Box2DTutorial.cpp" />
+    <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="InputTracker.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -167,24 +174,26 @@
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
+    <ClInclude Include="Archetype.h" />
+    <ClInclude Include="ArchetypeManager.h" />
     <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
-    <ClInclude Include="componentInfo.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="InputComponent.h" />
+    <ClInclude Include="InputTracker.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
-    <ClInclude Include="protoChunkManager.h" />
-    <ClInclude Include="SigArch.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="system_manager.h" />
