@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Archetype.cpp" />
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
@@ -172,6 +173,8 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnimationComponent.h" />
+    <ClInclude Include="Animator.h" />
     <ClInclude Include="Archetype.h" />
     <ClInclude Include="ArchetypeManager.h" />
     <ClInclude Include="Box2DTutorial.h" />
