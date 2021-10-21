@@ -30,6 +30,7 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
         b2BodyDef bodyDef;
         bodyDef.type = type;
         bodyDef.position.Set(physComponents[i]->x, physComponents[i]->y);
+        bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponents[i]);
 
         physComponents[i]->box2dBody = world->CreateBody(&bodyDef);
 
@@ -53,8 +54,9 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
             transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
 
         }
-    
     }
+
+    physComponents[2]->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
     
 }
 
