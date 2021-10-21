@@ -153,9 +153,12 @@
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="GameEntityCreator.cpp" />
+    <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
@@ -180,6 +183,7 @@
     <ClInclude Include="Box2DTutorial.h" />
     <ClInclude Include="chunk.h" />
     <ClInclude Include="ComponentArray.h" />
+    <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
@@ -187,6 +191,8 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="GameEntityCreator.h" />
+    <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />

@@ -19,17 +19,11 @@
     <Filter Include="Source Files\Physics">
       <UniqueIdentifier>{935adbf0-db97-446c-a527-434d70b0171c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\MainSystem">
-      <UniqueIdentifier>{edc14522-c50e-467b-a250-989dffdb614d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Rendering">
       <UniqueIdentifier>{877672aa-5a37-4052-99d2-14e38e0a3613}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Physics">
       <UniqueIdentifier>{75c241c6-f349-47ed-9b52-732bef38abb8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\MainSystem">
-      <UniqueIdentifier>{3c70d14e-07b6-4cc6-9b2d-5525851acd4c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ECS">
       <UniqueIdentifier>{3e2d18f1-ee39-4c04-87ff-10feb971ba3d}</UniqueIdentifier>
@@ -54,6 +48,18 @@
     </Filter>
     <Filter Include="Source Files\Input">
       <UniqueIdentifier>{71bfcd61-d32e-4388-8bd5-5b289ff84973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{edc14522-c50e-467b-a250-989dffdb614d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{3c70d14e-07b6-4cc6-9b2d-5525851acd4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameManagerStuff">
+      <UniqueIdentifier>{87538e4b-1a15-45ef-9666-f9886dcaec19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameManagerStuff">
+      <UniqueIdentifier>{566c7777-5adb-4b3e-8e70-0c07e17b6550}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +112,7 @@
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
     <ClCompile Include="test_system.cpp">
-      <Filter>Source Files\MainSystem</Filter>
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="system_manager.cpp">
       <Filter>Source Files\ECS</Filter>
@@ -115,10 +121,19 @@
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
     <ClCompile Include="inputSystem.cpp">
-      <Filter>Source Files\MainSystem</Filter>
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="Animator.cpp">
       <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="entityCoordinator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntityCreator.cpp">
+      <Filter>Source Files\GameManagerStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -201,7 +216,7 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="test_system.h">
-      <Filter>Header Files\MainSystem</Filter>
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="system_manager.h">
       <Filter>Header Files\ECS</Filter>
@@ -213,12 +228,21 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="inputSystem.h">
-      <Filter>Header Files\MainSystem</Filter>
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Animator.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityCreator.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
