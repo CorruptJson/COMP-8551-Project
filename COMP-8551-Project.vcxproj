@@ -153,6 +153,7 @@
     <ClCompile Include="Box2DTutorial.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />

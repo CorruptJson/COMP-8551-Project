@@ -5,7 +5,7 @@ InputSystem::InputSystem()
 
 }
 
-InputSystem::InputSystem(EntityCoordinator* coord) : System{ coord } {}
+//InputSystem::InputSystem(EntityCoordinator* coord) : System{ coord } {}
 
 void InputSystem::preUpdate()
 {
