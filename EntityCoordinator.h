@@ -20,7 +20,6 @@ private:
     EntityCoordinator();
 
 public:
-    EntityID* testEntity;
 
     static EntityCoordinator& getInstance();
 

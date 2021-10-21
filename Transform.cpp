@@ -15,6 +15,8 @@ Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, fl
         xScale,
         yScale
     };
+
+    scaleChanged = true;
     generateModelMatrix();
 }
 

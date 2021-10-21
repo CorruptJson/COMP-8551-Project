@@ -55,6 +55,12 @@
     <Filter Include="Header Files\Systems">
       <UniqueIdentifier>{3c70d14e-07b6-4cc6-9b2d-5525851acd4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GameManagerStuff">
+      <UniqueIdentifier>{87538e4b-1a15-45ef-9666-f9886dcaec19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameManagerStuff">
+      <UniqueIdentifier>{566c7777-5adb-4b3e-8e70-0c07e17b6550}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -122,6 +128,12 @@
     </ClCompile>
     <ClCompile Include="entityCoordinator.cpp">
       <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEntityCreator.cpp">
+      <Filter>Source Files\GameManagerStuff</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +234,15 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEntityCreator.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
