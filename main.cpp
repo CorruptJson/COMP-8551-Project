@@ -41,6 +41,8 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
+double countDown = 2000.0;
+bool trigger = false;
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -111,6 +113,14 @@ int runEngine()
         coordinator.runSystemUpdates();
 
         catchupTime -= MS_PER_FRAME;
+    }
+
+    countDown -= delta.count();
+
+    if (countDown <= 0.0 && !trigger){
+        Animation anim = renderer->getAnimation("wRight", coordinator.GetComponent<RenderComponent>(dude).spriteName);
+        coordinator.GetComponent<AnimationComponent>(dude).currAnim = anim;
+        trigger = true;
     }
 
     //animation
