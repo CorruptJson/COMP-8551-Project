@@ -6,7 +6,7 @@ class InputSystem : public System
 {
 public:
     InputSystem();
-    InputSystem(EntityCoordinator* coord);
+    //InputSystem(EntityCoordinator* coord);
     void preUpdate() override;
     void update() override;
 };
