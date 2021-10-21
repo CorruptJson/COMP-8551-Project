@@ -201,7 +201,7 @@ int main() {
         "game_sprites.png",
         0,
         0,
-        false
+        true
     };
 
     coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
@@ -223,7 +223,8 @@ int main() {
 
     Animation anims[] = {anim1, anim2};*/
 
-    //coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
+    Animation anim = renderer->getAnimation("wLeft", coordinator.GetComponent<RenderComponent>(dude).spriteName);
+    coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim, true);
 
     std::cout << "turtle " << t << std::endl;
     std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
