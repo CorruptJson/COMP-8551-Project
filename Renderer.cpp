@@ -131,6 +131,14 @@ void Renderer::loadImages() {
     for (ImgConfig config : configs) {
         // read the image from the file and store it
         SpriteInfo info;
+        /*if (config.name == "game_sprites.png") {
+            Animation anim1 = Animator::createAnimation("wLeft", 0, 3, 3, true);
+            Animation anim2 = Animator::createAnimation("wRight", 0, 3, 2, true);
+
+            info.spriteAnims.insert(std::pair<const char*, Animation>(anim1.animationName, anim1));
+            info.spriteAnims.insert(std::pair<const char*, Animation>(anim2.animationName, anim2));
+        }*/
+
         int colChannels;
         stbi_uc* imgData = FileManager::readImageFile(config.name, &info.width, &info.height, &colChannels);
         if (!imgData) {
@@ -379,6 +387,12 @@ void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
 }
 
+Animation Renderer::getAnimation(const char* animName, const char* spriteName)
+{
+
+    return sprites[spriteName].spriteAnims[animName];
+}
+
 // called in main()
 int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
@@ -460,5 +474,13 @@ int Renderer::teardown() {
     // call this to destroy glfw
     glfwTerminate();
     return 0;
-};
+}
+Renderer* Renderer::getInstance()
+{
+    if (renderer == nullptr)
+        renderer = new Renderer();
+    return renderer;
+}
+;
 
+Renderer* Renderer::renderer = nullptr;

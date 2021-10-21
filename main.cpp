@@ -24,7 +24,7 @@
 //ChunkManager* chunkManager;
 EntityCoordinator coordinator;
 
-Renderer renderer;
+Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 Animator animator;
 Archetype standardArch;
@@ -46,7 +46,7 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 int initialize()
 {  
     // when the engine starts
-    renderer.init();
+    renderer->init();
     coordinator.Init();
 
     physicsWorld = new PhysicsWorld();
@@ -117,7 +117,7 @@ int runEngine()
     animator.updateAnim(&coordinator);
 
     // render
-    renderer.update(&coordinator);
+    renderer->update(&coordinator);
 
     return 0;
 }
@@ -128,7 +128,7 @@ int runEngine()
 int teardown()
 {
     // when the engine closes
-    renderer.teardown();
+    renderer->teardown();
 
     delete physicsWorld;
 
@@ -201,7 +201,7 @@ int main() {
         "game_sprites.png",
         0,
         0,
-        true
+        false
     };
 
     coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
@@ -218,10 +218,12 @@ int main() {
     Transform t = coordinator.GetComponent<Transform>(turtle);
 
     //this is where we create the animations for a given entity (dude)
-    Animation anim1 = animator.createAnimation("wLeft", 0,3,3,true);
-    Animation anim2 = animator.createAnimation("wRight", 0,3,2,true);
+    /*Animation anim1 = Animator::createAnimation("wLeft", 0,3,3,true);
+    Animation anim2 = Animator::createAnimation("wRight", 0,3,2,true);
 
-    coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
+    Animation anims[] = {anim1, anim2};*/
+
+    //coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim1, 250.0f, true);
 
     std::cout << "turtle " << t << std::endl;
     std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;

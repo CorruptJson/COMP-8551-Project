@@ -2,11 +2,11 @@
 
 #pragma region TBD
 //waiting for new ecs system integration
-void Animator::startNewAnim()
+void Animator::startNewAnim(EntityCoordinator* coordinator, EntityID* ent, const char* animName)
 {
     //sets the old anim back to to the beginning
     //entity.animationcomponent.currentAnim.currFrame = 0;
-
+    coordinator->GetComponent<AnimationComponent>(*ent).currFrame = 0;
     //Animation newAnim = entity.animationComponent.animList.find(AnimName);
     //entity.animationcomponent.currentAnim = newAnim;
     //entity.renderComponent.rowIndex = newAnim.row;
@@ -52,21 +52,25 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
         if (renderCompnent->hasAnimation) {
 
             if (animationComponent->isPlaying) {
-                animationComponent->currAnim.currTimeStamp = std::clock();
-                //checks frame timing for switching frames
-                if ((animationComponent->currAnim.currTimeStamp - animationComponent->currAnim.lastTimeStamp) >= animationComponent->speed) {
-                    animationComponent->currAnim.lastTimeStamp = std::clock();
+                animationComponent->currTimeStamp = std::clock();
 
-                    animationComponent->currAnim.currFrame++;
+                if (renderCompnent->rowIndex != animationComponent->currAnim.row)
+                    renderCompnent->rowIndex = animationComponent->currAnim.row;
+
+                //checks frame timing for switching frames
+                if ((animationComponent->currTimeStamp - animationComponent->lastTimeStamp) >= animationComponent->currAnim.speed) {
+                    animationComponent->lastTimeStamp = std::clock();
+
+                    animationComponent->currFrame++;
 
                     //check if it reached the end
-                    if (animationComponent->currAnim.currFrame >= animationComponent->currAnim.endFrame + 1) {
-                        animationComponent->currAnim.currFrame = animationComponent->currAnim.startFrame;
+                    if (animationComponent->currFrame >= animationComponent->currAnim.endFrame + 1) {
+                        animationComponent->currFrame = animationComponent->currAnim.startFrame;
 
                         //add finite state machine behaviour here *TBD
                     }
 
-                    renderCompnent->colIndex = animationComponent->currAnim.currFrame;
+                    renderCompnent->colIndex = animationComponent->currFrame;
                 }
             }
         }
@@ -74,32 +78,44 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
 }
 
 
-AnimationComponent Animator::createAnimationComponent(Animation current, float speed, bool isPlaying)
+AnimationComponent Animator::createAnimationComponent()
 {
-    //empty animation vector
-    vector<Animation> animVector;
+    
+    AnimationComponent component{
+        NULL,
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        0,0, //start frame and end frame
+        false,
+        0.0f,
+    };
+
+    return component;
+}
+
+AnimationComponent Animator::createAnimationComponent(Animation current, bool isPlaying)
+{
     
     AnimationComponent component{
         current,
-        //anim,
-        speed,
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        current.startFrame,
         isPlaying
     };
 
     return component;
 }
 
-Animation Animator::createAnimation(const char* name, int startFrame, int endFrame, int row, bool looping)
+Animation Animator::createAnimation(const char* name, int startFrame, int endFrame, int row, bool looping, float speed)
 {
     //creates the animation struct
     Animation anim{
         name,
-        0.0f, //starts off at zero for currTimeStamp
-        0.0f, //starts off at zero for lastTimeStamp
         startFrame, endFrame,
-        startFrame,
         row,
-        looping
+        looping,
+        speed
     };
     return anim;
 }
