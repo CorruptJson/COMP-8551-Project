@@ -9,13 +9,13 @@ InputSystem::InputSystem()
 
 void InputSystem::preUpdate()
 {
-
-}
-
-void InputSystem::update()
-{
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A))
     {
         std::cout << "pressed the A key!" << std::endl;
     }
+}
+
+void InputSystem::update()
+{
+
 }
