@@ -115,9 +115,7 @@ int runEngine()
         catchupTime -= MS_PER_FRAME;
     }
 
-    countDown -= delta.count();
-
-    if (countDown <= 0.0 && !trigger){
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("wRight", coordinator.GetComponent<RenderComponent>(dude).spriteName);
         coordinator.GetComponent<AnimationComponent>(dude).currAnim = anim;
         trigger = true;
