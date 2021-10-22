@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <string>
 #include <iostream>
+#include "Transform.h"
+#include "renderComponent.h"
 
 // ECS
 //using Entity = std::uint32_t;
@@ -34,4 +36,8 @@ inline std::ostream& operator<<(std::ostream& str, EntityID const& ca)
     return str;
 }
 
-
+struct RenderArrays
+{
+    std::vector<Transform*> transforms;
+    std::vector<RenderComponent*> renderComponents;
+};

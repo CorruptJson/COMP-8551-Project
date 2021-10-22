@@ -17,6 +17,7 @@
 #include "inputSystem.h";
 #include "GameEntityCreator.h"
 #include "Components.h"
+#include "Tags.h"
 
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
@@ -61,12 +62,12 @@ int test(){
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
 
-    standardArch = coordinator->GetArchetype({
-        coordinator->GetComponentType<Transform>(),
-        coordinator->GetComponentType<RenderComponent>(),
-        coordinator->GetComponentType<PhysicsComponent>(),
-        coordinator->GetComponentType<AnimationComponent>()
-        });
+    //standardArch = coordinator->GetArchetype({
+    //    coordinator->GetComponentType<Transform>(),
+    //    coordinator->GetComponentType<RenderComponent>(),
+    //    coordinator->GetComponentType<PhysicsComponent>(),
+    //    coordinator->GetComponentType<AnimationComponent>()
+    //    });
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());
@@ -75,17 +76,17 @@ int test(){
 }
 
 // Use for now to make entities with components
-EntityID CreateStandardEntity(const char* spriteName) {
-    EntityID e = coordinator->CreateEntity(standardArch, spriteName);
-
-
-    // data must be initialized
-    // if you know the data is going to be initialized later, you don't need to initialize it here
-    Transform t = Transform();
-    coordinator->GetComponent<Transform>(e) = t;
-
-    return e;
-}
+//EntityID CreateStandardEntity(const char* spriteName) {
+//    EntityID e = coordinator->CreateEntity(standardArch, {}, spriteName);
+//
+//
+//    // data must be initialized
+//    // if you know the data is going to be initialized later, you don't need to initialize it here
+//    Transform t = Transform();
+//    coordinator->GetComponent<Transform>(e) = t;
+//
+//    return e;
+//}
 
 // the main update function
 // game loop will be put here eventually
@@ -140,9 +141,9 @@ int main() {
     //entity test
     GameEntityCreator& creator = GameEntityCreator::getInstance();
 
-    turtle = creator.CreateActor(0.5,3,0.4,0.4, "turtles.png", false);
-    wall = creator.CreatePlatform(0,-1,2,1,"wall.jpg");
-    dude = creator.CreateActor(-0.5, 0, 1,1, "game_sprites.png", true);
+    turtle = creator.CreateActor(0.5, 3, 0.4, 0.4, "turtles.png", { Tag::ENEMY }, false);
+    wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
+    dude = creator.CreateActor(-0.5, 0, 1,1, "game_sprites.png", { Tag::PLAYER }, true);
 
     animator = Animator();
         
@@ -158,6 +159,12 @@ int main() {
         
     std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(turtle).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
+
+    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,dude);
+    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
+
+    bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, turtle);
+    std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
     physicsWorld->AddObjects(coordinator);
 

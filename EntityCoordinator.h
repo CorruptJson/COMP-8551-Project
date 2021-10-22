@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <array>
+#include <string>
 #include "ComponentManager.h"
 #include "chunkManager.h"
 #include "ArchetypeManager.h"
@@ -26,7 +27,7 @@ public:
     // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
     // creates a new chunk if no matching chunk is found
     // all entities in the chunk must share the same spritshseet
-    EntityID CreateEntity(Archetype arch, Spritesheet sprite);
+    EntityID CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags);
 
     // get a validated archetype object from a list of component types
     // an archetype defines which components an entity has
@@ -66,16 +67,24 @@ public:
 
     void runSystemUpdates();
 
-    //void initializeSystemManager();
-
-    //template<typename T>
-    //std::shared_ptr<T> addSystem(EntityCoordinator* coord)
-    //{
-    //    return mSystemManager->addSystem<T>(coord);
-    //}
-
     template<typename T>
     void addSystem(std::shared_ptr<T> system) {
         mSystemManager->addSystem(std::static_pointer_cast<System>(system));
     };
+
+    template<typename T>
+    bool entityHasComponent(EntityID id)
+    {
+        return mChunkManager->entityHasComponent(GetComponentType<T>(),id);
+    }
+
+    bool entityHasTag(Tag tag, EntityID id);
+    std::vector<Tag> getTagsForEntity(EntityID id);
+
+    //bool entityHasTag(Tag tag, EntityID id);
+    //std::vector<Tag> getTagsForEntity(EntityID id);
+    //RenderArrays renderArraysForSpriteSheet(const char* spriteSheet)
+    //{
+    //    
+    //}
 };
