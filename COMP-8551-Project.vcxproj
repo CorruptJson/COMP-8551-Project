@@ -205,7 +205,9 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Edgar_The_Exterminator.png" />
     <Image Include="game_sprites.png" />
+    <Image Include="Giant_Roach.png" />
     <Image Include="turtles.png" />
     <Image Include="wall.jpg" />
   </ItemGroup>
