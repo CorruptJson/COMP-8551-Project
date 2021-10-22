@@ -22,9 +22,9 @@ EntityCoordinator& EntityCoordinator::getInstance()
 // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
 // creates a new chunk if no matching chunk is found
 // all entities in the chunk must share the same spritshseet
-EntityID EntityCoordinator::CreateEntity(Archetype arch, Spritesheet sprite)
+EntityID EntityCoordinator::CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags)
 {
-    return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
+    return mChunkManager->assignNewEntity(arch, sprite, tags, mComponentManager->mComponentSizes);
 }
 
 // get a validated archetype object from a list of component types
@@ -45,6 +45,16 @@ void EntityCoordinator::DestroyEntity(EntityID entity)
 // the entity query searches for all entities that contain these components
 std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
 {
+    //std::sort(compTypes.begin(), compTypes.end());
+    //auto find = queryCache.find(compTypes);
+    //if (find != queryCache.end())
+    //{
+    //    EntityQuery eq = queryCache[compTypes];
+    //    if (eq.getChunkListVersion() == mChunkManager->getChunkCount())
+    //    {
+    //        return eq;
+    //    }
+    //}
     return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
 }
 
@@ -58,15 +68,13 @@ void EntityCoordinator::runSystemUpdates()
     mSystemManager->runUpdates();
 }
 
-//void EntityCoordinator::initializeSystemManager()
-//{
-//    mSystemManager->coordinator = this;
-//
-//    mSystemManager->addSystem<TestSystem>(this);
-//}
+bool EntityCoordinator::entityHasTag(Tag tag, EntityID id)
+{
+    return mChunkManager->entityHasTag(tag, id);
+}
 
+std::vector<Tag> EntityCoordinator::getTagsForEntity(EntityID id)
+{
+    return mChunkManager->getTagsForEntity(id);
+}
 
-//void EntityCoordinator::addSystem(std::shared_ptr<System> system)
-//{
-//    mSystemManager->addSystem(system);
-//}

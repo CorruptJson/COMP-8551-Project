@@ -2,9 +2,11 @@
 #include <vector>
 #include <unordered_map>
 #include <memory>
+#include <algorithm>
 #include "Types.h"
 #include "Archetype.h"
 #include "ComponentManager.h"
+#include "Tags.h"
 
 const int ENTITIES_PER_CHUNK = 32;
 
@@ -15,6 +17,7 @@ class Chunk
 private:
     int chunkID = -1;
     Archetype arch;
+    std::vector<Tag> tags;
     Spritesheet spritesheet;
     int currEnts = 0;
     std::unordered_map<ComponentType, Byte*> componentArrays{};
@@ -22,7 +25,7 @@ private:
     int entToDat[ENTITIES_PER_CHUNK]{};
     int datToEnt[ENTITIES_PER_CHUNK]{};
 
-    Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
+    Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void addComponentArrays(Archetype t, ComponentSizeMap& sizemap);
 
@@ -98,6 +101,12 @@ public:
     }
 
     Archetype getArchetype();
+
+    bool hasComponentType(ComponentType type);
+
+    bool hasTag(Tag tag);
+
+    std::vector<Tag> getAllTags();
 
     ~Chunk();
 };

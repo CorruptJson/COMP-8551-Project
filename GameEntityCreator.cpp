@@ -37,10 +37,10 @@ GameEntityCreator& GameEntityCreator::getInstance()
     return gec;
 }
 
-EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, bool hasAnimation)
+EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(actorArchetype, spriteName);
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
 
     ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName,hasAnimation);
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
@@ -57,10 +57,10 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName)
+EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(actorArchetype, spriteName);
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
 
     ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);

@@ -21,6 +21,12 @@ const std::vector<ComponentType> Archetype::getComponentTypeArray() const
     return components;
 }
 
+bool Archetype::hasComponentType(ComponentType type)
+{
+    auto find = std::find(components.begin(), components.end(), type);
+    return (find != components.end());
+}
+
 // a function that enables Archetypes to be directly printed as a string into cout
 inline std::ostream& operator<<(std::ostream& str, Archetype const& arch)
 {

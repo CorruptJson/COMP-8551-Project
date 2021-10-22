@@ -17,6 +17,7 @@ class EntityQuery
 private:
     // entity count
     int entityCount = 0;
+    int chunkListVersion = 0;
 
     // chunks
     std::vector<Chunk*> chunks;
@@ -34,6 +35,7 @@ public:
 
     int totalEntitiesFound();
     int chunkCount();
+    int getChunkListVersion();
     Chunk* chunk(int i);
 
     // entity queries perform their search when they are created

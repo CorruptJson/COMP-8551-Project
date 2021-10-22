@@ -205,6 +205,8 @@
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="system_manager.h" />
+    <ClInclude Include="TagList.h" />
+    <ClInclude Include="Tags.h" />
     <ClInclude Include="test_system.h" />
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Transform.h" />
