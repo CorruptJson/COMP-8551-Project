@@ -18,6 +18,9 @@ private:
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
     std::unique_ptr<SystemManager> mSystemManager;
 
+    std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
+    int queryCacheVersion = 0;
+
     EntityCoordinator();
 
 public:

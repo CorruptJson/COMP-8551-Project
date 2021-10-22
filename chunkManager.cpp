@@ -83,3 +83,8 @@ ChunkManager::~ChunkManager()
     }
 }
 
+int ChunkManager::getChunkCount()
+{
+    return currChunks;
+}
+

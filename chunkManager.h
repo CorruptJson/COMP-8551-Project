@@ -34,6 +34,7 @@ public:
     };
 
     int GetEntityCount();
+    int getChunkCount();
 
     bool entityHasComponent(ComponentType type, EntityID id);
     bool entityHasTag(Tag tag, EntityID id);

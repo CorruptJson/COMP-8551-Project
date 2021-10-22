@@ -4,6 +4,7 @@ EntityQuery::EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chu
 {
     compTypes = _compTypes;
     std::sort(compTypes.begin(), compTypes.end());
+    chunkListVersion = allChunks.size();
     searchChunks(allChunks);
 }
 
@@ -44,6 +45,11 @@ int EntityQuery::totalEntitiesFound()
 int EntityQuery::chunkCount()
 {
     return chunks.size();
+}
+
+int EntityQuery::getChunkListVersion()
+{
+    return 0;
 }
 
 Chunk* EntityQuery::chunk(int i)

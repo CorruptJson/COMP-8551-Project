@@ -45,6 +45,16 @@ void EntityCoordinator::DestroyEntity(EntityID entity)
 // the entity query searches for all entities that contain these components
 std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
 {
+    std::sort(compTypes.begin(), compTypes.end());
+    auto find = queryCache.find(compTypes);
+    if (find != queryCache.end())
+    {
+        EntityQuery eq = queryCache[compTypes];
+        if (eq.getChunkListVersion() == mChunkManager->getChunkCount())
+        {
+            return eq;
+        }
+    }
     return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
 }
 
