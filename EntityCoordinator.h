@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <array>
+#include <string>
 #include "ComponentManager.h"
 #include "chunkManager.h"
 #include "ArchetypeManager.h"
@@ -17,43 +18,27 @@ private:
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
     std::unique_ptr<SystemManager> mSystemManager;
 
+    //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
+    //int queryCacheVersion = 0;
+
+    EntityCoordinator();
+
 public:
-    EntityID* testEntity;
 
-    void Init()
-    {
-        // Create pointers to each manager
-        mComponentManager = std::make_unique<ComponentManager>();
-        //mEntityManager = std::make_unique<EntityManager>();
-        mChunkManager = std::make_unique<ChunkManager>();
-        mArchetypeManager = std::make_unique<ArchetypeManager>();
-        //mChunkManager = std::make_unique<ProtoChunkManager>();
-        mSystemManager = std::make_unique<SystemManager>();
-
-        initializeSystemManager();
-    }
+    static EntityCoordinator& getInstance();
 
     // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
     // creates a new chunk if no matching chunk is found
     // all entities in the chunk must share the same spritshseet
-    EntityID CreateEntity(Archetype arch, Spritesheet sprite)
-    {
-        return mChunkManager->assignNewEntity(arch, sprite, mComponentManager->mComponentSizes);
-    }
+    EntityID CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags);
 
     // get a validated archetype object from a list of component types
     // an archetype defines which components an entity has
     // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
-    Archetype GetArchetype(std::vector<ComponentType> compTypes)
-    {
-        return mArchetypeManager->getArchetype(compTypes);
-    }
+    Archetype GetArchetype(std::vector<ComponentType> compTypes);
 
     // not yet fully implemented
-    void DestroyEntity(EntityID entity)
-    {
-        mChunkManager->releaseEntity(entity);
-    }
+    void DestroyEntity(EntityID entity);
 
     // Register component with the component manager
     // all components must be registered before use
@@ -79,29 +64,30 @@ public:
     
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components
-    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes)
-    {
-        return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);        
-    }
+    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes);
 
-    uint32_t GetEntityCount()
-    {
-        return mChunkManager->GetEntityCount();
-    }
+    uint32_t GetEntityCount();
 
-    void runSystemUpdates() {
-        mSystemManager->runUpdates();
-    }
-
-    void initializeSystemManager() {
-        mSystemManager->coordinator = this;
-
-        mSystemManager->addSystem<TestSystem>(this);
-    }
+    void runSystemUpdates();
 
     template<typename T>
-    std::shared_ptr<T> addSystem(EntityCoordinator* coord)
+    void addSystem(std::shared_ptr<T> system) {
+        mSystemManager->addSystem(std::static_pointer_cast<System>(system));
+    };
+
+    template<typename T>
+    bool entityHasComponent(EntityID id)
     {
-        return mSystemManager->addSystem<T>(coord);
+        return mChunkManager->entityHasComponent(GetComponentType<T>(),id);
     }
+
+    bool entityHasTag(Tag tag, EntityID id);
+    std::vector<Tag> getTagsForEntity(EntityID id);
+
+    //bool entityHasTag(Tag tag, EntityID id);
+    //std::vector<Tag> getTagsForEntity(EntityID id);
+    //RenderArrays renderArraysForSpriteSheet(const char* spriteSheet)
+    //{
+    //    
+    //}
 };

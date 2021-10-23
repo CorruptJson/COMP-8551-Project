@@ -1,15 +1,17 @@
 #include "chunkManager.h"
 
-Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap)
+Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
-    Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, sizemap);
+    Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, tags, sizemap);
     allChunks.push_back(newChunk);
     chunksBySpritesheet.emplace(spriteSheet, newChunk);
     return newChunk;
 }
 
-EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap)
+EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
+    std::sort(tags.begin(),tags.end());
+
     // are there any chunks with this archetype and this sprite sheet
     auto find = chunksByArch.find(arch.getType());
     if (find != chunksByArch.end())
@@ -23,7 +25,7 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, Compo
         for (auto iterator = begin; iterator != end; iterator++)
         {
             Chunk* chunk = iterator->second;
-            if (chunk->GetSpritesheet() == sprite && chunk->getCurrEntCount() < ENTITIES_PER_CHUNK)
+            if (chunk->GetSpritesheet() == sprite && chunk->getAllTags() == tags && chunk->getCurrEntCount() < ENTITIES_PER_CHUNK)
             {
                 // yes, we found a valid chunk
                 //chunk->assignNewEntity
@@ -36,7 +38,7 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, Compo
     // there are no non-empty chunks that match this archetype and sprite
     // create chunk
 
-    Chunk* newChunk = createChunk(arch,sprite,sizemap);
+    Chunk* newChunk = createChunk(arch, sprite, tags, sizemap);
     EntityID ca = newChunk->assignNewEntity();
     return ca;
 }
@@ -55,6 +57,24 @@ int ChunkManager::GetEntityCount()
     return total;
 }
 
+bool ChunkManager::entityHasComponent(ComponentType type, EntityID id)
+{
+    Chunk* chunk = allChunks[id.chunkID];
+    return chunk->hasComponentType(type);
+}
+
+bool ChunkManager::entityHasTag(Tag tag, EntityID id)
+{
+    Chunk* chunk = allChunks[id.chunkID];
+    return chunk->hasTag(tag);
+}
+
+std::vector<Tag> ChunkManager::getTagsForEntity(EntityID id)
+{
+    Chunk* chunk = allChunks[id.chunkID];
+    return chunk->getAllTags();
+}
+
 ChunkManager::~ChunkManager()
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -62,3 +82,9 @@ ChunkManager::~ChunkManager()
         delete allChunks[i];
     }
 }
+
+int ChunkManager::getChunkCount()
+{
+    return currChunks;
+}
+

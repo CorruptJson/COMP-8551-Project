@@ -25,55 +25,44 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
     std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
 
     for (int i = 0; i < entitiesFound; i++) {
-        PhysicsComponent component = *(physComponents[i]);
-        b2BodyType type = component.bodyType;
+        b2BodyType type = physComponents[i]->bodyType;
 
         b2BodyDef bodyDef;
         bodyDef.type = type;
-        bodyDef.position.Set(component.x, component.y);
-      
-        b2Body* body = world->CreateBody(&bodyDef);
+        bodyDef.position.Set(physComponents[i]->x, physComponents[i]->y);
+        bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponents[i]);
 
-        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
+        physComponents[i]->box2dBody = world->CreateBody(&bodyDef);
 
-        if (body) {
+        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponents[i]->box2dBody->GetPosition().x, physComponents[i]->box2dBody->GetPosition().y);
+
+        if (physComponents[i]->box2dBody) {
 
             b2PolygonShape dynamicBox;
-            dynamicBox.SetAsBox(component.halfWidth, component.halfHeight);
+            dynamicBox.SetAsBox(physComponents[i]->halfWidth, physComponents[i]->halfHeight);
 
             b2FixtureDef fixtureDef;
             fixtureDef.shape = &dynamicBox;
-            fixtureDef.density = component.density;
-            fixtureDef.friction = component.friction;
+            fixtureDef.density = physComponents[i]->density;
+            fixtureDef.friction = physComponents[i]->friction;
             fixtureDef.restitution = 0;
 
-            body->CreateFixture(&fixtureDef);
+            physComponents[i]->box2dBody->CreateFixture(&fixtureDef);
 
             // need some way to pass the body to the entity so it can update in rendering
 
-            transformComponents[i]->setPhysicsBody(body);
+            transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
 
         }
-    
     }
+
+    physComponents[2]->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
     
 }
 
 void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
-
-        b2Body* body = world->GetBodyList();
-
-        if (body == NULL)
-        {
-            std::cout << "first body is null " << std::endl;
-        }
-
-        // skip static bodies
-        while (body->GetType() != b2_dynamicBody) {
-            body = body->GetNext();
-        }
 
         std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<PhysicsComponent>(),
@@ -84,20 +73,20 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
         std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
 
-
-        //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
-        for (int i = entitiesFound -1; i >= 0; i--) {
-            if (physComponents[i]->bodyType != b2_dynamicBody || body->GetType() != b2_dynamicBody)
-            {
-                body = body->GetNext();
-                continue;
-            }
-            transformComponents[i]->setPosition(body->GetPosition().x, body->GetPosition().y);
-            //printf("In physics X-Pos: %0.2f Y-Pos %0.2f\n", body->GetPosition().x, body->GetPosition().y);
-            body = body->GetNext();
+        for (int i = 0; i < entitiesFound; i++) {
+            UpdatePhysicsComponent(physComponents[i]);
+            UpdateTransform(transformComponents[i], physComponents[i]);
         }
-
     }
+}
+
+void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
+    physComponent->x = physComponent->box2dBody->GetTransform().p.x;
+    physComponent->y = physComponent->box2dBody->GetTransform().p.y;
+}
+
+void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
+    transform->setPosition(physComponent->x, physComponent->y);
 }
 
 PhysicsWorld::~PhysicsWorld() {

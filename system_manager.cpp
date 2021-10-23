@@ -1,11 +1,13 @@
 #include "system_manager.h"
 
-
-
-vector<shared_ptr<System>> SystemManager::getSystems() {
-    return systemList;
+void SystemManager::addSystem(std::shared_ptr<System> system)
+{
+    systemList.push_back(system);
 }
 
+vector<std::shared_ptr<System>> SystemManager::getSystems() {
+    return systemList;
+}
 
 void SystemManager::runUpdates() {
     preUpdate();

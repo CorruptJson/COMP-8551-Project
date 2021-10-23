@@ -20,11 +20,11 @@ private:
     std::vector<Chunk*> allChunks;
     int currChunks = 0;
 
-    Chunk* createChunk(Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
+    Chunk* createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
 public:
 
-    EntityID assignNewEntity(Archetype arch, Spritesheet sprite, ComponentSizeMap& sizemap);
+    EntityID assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void releaseEntity(EntityID id);
 
@@ -34,6 +34,11 @@ public:
     };
 
     int GetEntityCount();
+    int getChunkCount();
+
+    bool entityHasComponent(ComponentType type, EntityID id);
+    bool entityHasTag(Tag tag, EntityID id);
+    std::vector<Tag> getTagsForEntity(EntityID id);
 
     ~ChunkManager();
 };

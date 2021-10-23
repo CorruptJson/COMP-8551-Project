@@ -110,26 +110,26 @@ void Renderer::loadImages() {
     Animation anim2 = Animator::createAnimation("wRight", 0, 3, 2, true, 250.0f);
 
     ImgConfig configs[]{
-        {
+        /*{
             "turtles.png",
             1,
             1,
             {}
-        },
+        },*/
         {
             "wall.jpg",
             1,
             1,
             {}
         },
-        {
+        /*{
             "game_sprites.png",
             4,
             4,
             {anim1,anim2}
-        },
+        },*/
         {
-            "Edgar_The_Exterminator.png",
+            "Edgar.png",
             1,
             11,
             {Animator::createAnimation("hurt",6,6,0,true,250.0f),

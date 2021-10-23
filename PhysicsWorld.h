@@ -21,4 +21,7 @@ private:
     b2Vec2* gravity;
     b2World* world;
     ContactListener* contactListener;
+
+    void UpdatePhysicsComponent(PhysicsComponent* physComponent);
+    void UpdateTransform(Transform* transform, PhysicsComponent* physComponent);
 };

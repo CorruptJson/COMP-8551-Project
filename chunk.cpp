@@ -2,11 +2,12 @@
 #include "chunk.h"
 
 
-Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, ComponentSizeMap& sizemap)
+Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     this->arch = archetype;
     this->chunkID = chunkID;
     this->spritesheet = spriteSheet;
+    this->tags = tags;
     addComponentArrays(archetype, sizemap);
     for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
     {
@@ -125,4 +126,19 @@ Chunk::~Chunk()
     {
         delete ca.second;
     }
+}
+
+bool Chunk::hasComponentType(ComponentType type)
+{
+    return arch.hasComponentType(type);
+}
+
+bool Chunk::hasTag(Tag tag)
+{
+    return std::find(tags.begin(),tags.end(),tag) != tags.end();
+}
+
+std::vector<Tag> Chunk::getAllTags()
+{
+    return tags;
 }
