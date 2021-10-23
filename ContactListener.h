@@ -17,5 +17,6 @@ private:
     EntityUserData* userDataA;
     EntityUserData* userDataB;
 
-    bool GetContact(Tag entityTag);
+    bool GetFirstContact(Tag entityTag, EntityID id);
+    bool GetSecondContact(Tag entityTag, EntityID id);
 };
