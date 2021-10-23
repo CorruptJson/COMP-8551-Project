@@ -14,8 +14,8 @@ public:
     void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
     void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 private:
-    EntityUserData* userDataA;
-    EntityUserData* userDataB;
+    //EntityUserData* userDataA;
+    //EntityUserData* userDataB;
 
     bool GetFirstContact(Tag entityTag, EntityID id);
     bool GetSecondContact(Tag entityTag, EntityID id);
