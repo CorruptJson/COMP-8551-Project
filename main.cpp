@@ -192,6 +192,8 @@ int main() {
     physicsWorld->AddObject(roach);
     physicsWorld->AddObject(wall);
     physicsWorld->AddObject(mike);
+
+    coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
     //physicsWorld->AddObjects(coordinator);
 
     while (!glfwWindowShouldClose(window))

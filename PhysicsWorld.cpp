@@ -13,6 +13,7 @@ PhysicsWorld::PhysicsWorld() {
     world->SetContactListener(contactListener);
 }
 
+// Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
@@ -44,10 +45,11 @@ void PhysicsWorld::AddObject(EntityID id) {
         transformComponent->setPhysicsBody(physComponent->box2dBody);
     }
 
-    physComponent->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
 
 }
 
+// THIS IS CURRENTLY OUTDATED AND NOT BEING USED
+// Adds all objects in the world using the entity coordinator
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
@@ -85,8 +87,6 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
             
 
             physComponents[i]->box2dBody->CreateFixture(&fixtureDef);
-
-            // need some way to pass the body to the entity so it can update in rendering
 
             transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
 
