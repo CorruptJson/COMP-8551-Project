@@ -52,13 +52,10 @@ private:
 
     // for optimizing matrix creation
     // reset after every getModelMatrix()
-    bool positionChanged;
-    bool scaleChanged;
-    bool rotationChanged;
+    bool changed;
 
     // matrix related
     void generateModelMatrix();
-    void translateModelMatrix();
 };
 
 // a function that enables transform to be directly printed as a string into cout

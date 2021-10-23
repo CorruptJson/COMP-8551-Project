@@ -15,9 +15,6 @@ Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, fl
         xScale,
         yScale
     };
-
-    scaleChanged = true;
-    generateModelMatrix();
 }
 
 Position Transform::getPosition() const {
@@ -30,13 +27,13 @@ void Transform::setPosition(float x, float y) {
     position = {
         x, y
     };
-    positionChanged = true;
+    changed = true;
 }
 
 void Transform::translate(float x, float y) {
     position.x += x;
     position.y += y;
-    positionChanged = true;
+    changed = true;
 }
 
 void Transform::setPhysicsBody(b2Body* newBody) {
@@ -54,7 +51,6 @@ void Transform::update() {
         //setPosition(position.x, position.y);
 
         //printf("In transform X-Pos: %0.2f Y-Pos %0.2f\n", position.x, position.y);
-
     }
 }
 
@@ -66,7 +62,7 @@ void Transform::setScale(float x, float y) {
     scale = {
         x, y
     };
-    scaleChanged = true;
+    changed = true;
 }
 
 Rotation Transform::getRotation() {
@@ -75,12 +71,12 @@ Rotation Transform::getRotation() {
 
 void Transform::setRotation(float r) {
     rotation = r;
-    rotationChanged = true;
+    changed = true;
 }
 
 void Transform::rotate(float rDelta) {
     rotation += rDelta;
-    rotationChanged = true;
+    changed = true;
 }
 
 
@@ -88,32 +84,19 @@ void Transform::rotate(float rDelta) {
 // contains optimization so we only need to do matrix
 // math when necessary
 glm::mat4 Transform::getModelMatrix() {
-    // if rotated or scaled, generate the whole matrix
-    // regardless whether position changed
-    if (rotationChanged || scaleChanged) {
+    if (changed) {
         generateModelMatrix();
+        // reset for next call
+        changed = false;
     }
-    // if only position changed (the above failed)
-    // then just translate => save on calculation
-    else if (positionChanged) {
-        translateModelMatrix();
-    }
-    // no change? no matrix calc
-
-    // reset for next call
-    positionChanged = false;
-    rotationChanged = false;
-    scaleChanged = false;
 
     return modelMatrix;
 }
 
 // private
 // Generate the model matrix based on the current
-// transforms at the time of call. This will
-// check everything (position, rotation, scale).
-// Use `translateModelMatrix` if you only want to
-// translate it.
+// transforms at the time of call.
+// Doesn't do rotation at the current moment.
 void Transform::generateModelMatrix() {
     glm::mat4 model = glm::mat4(1);
 
@@ -131,11 +114,4 @@ void Transform::generateModelMatrix() {
 
     modelMatrix = model;
 }
-
-void Transform::translateModelMatrix() {
-    glm::mat4 model = glm::mat4(1);
-    model = glm::translate(model, glm::vec3(position.x, position.y, 0));
-    modelMatrix = model;
-}
-
 
