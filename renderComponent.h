@@ -14,4 +14,5 @@ struct RenderComponent {
     float rowIndex;
     float colIndex;
     bool hasAnimation;
+    bool facingRight;
 };

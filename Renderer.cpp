@@ -103,22 +103,48 @@ void Renderer::loadImages() {
         const char* name;
         int rows;
         int columns;
+        Animation anims[5];
     };
+
+    Animation anim1 = Animator::createAnimation("wLeft", 0, 3, 3, true, 250.0f);
+    Animation anim2 = Animator::createAnimation("wRight", 0, 3, 2, true, 250.0f);
+
     ImgConfig configs[]{
-        {
+        /*{
             "turtles.png",
             1,
-            1
-        },
+            1,
+            {}
+        },*/
         {
             "wall.jpg",
             1,
-            1
+            1,
+            {}
         },
-        {
+        /*{
             "game_sprites.png",
             4,
-            4
+            4,
+            {anim1,anim2}
+        },*/
+        {
+            "Edgar.png",
+            1,
+            11,
+            {Animator::createAnimation("hurt",6,6,0,true,250.0f),
+            Animator::createAnimation("idle",7,8,0,true,500.0f),
+            Animator::createAnimation("falling",9,10,0,true,500.0f),
+            Animator::createAnimation("running",0,5,0,true,150.0f)
+            }
+        },
+        {
+            "Giant_Roach.png",
+            1,
+            3,
+            {Animator::createAnimation("hurt",0,0,0,true,250.0f),
+            Animator::createAnimation("run",1,2,0,true,500.0f),
+            }
         }
     };
 
@@ -131,6 +157,16 @@ void Renderer::loadImages() {
     for (ImgConfig config : configs) {
         // read the image from the file and store it
         SpriteInfo info;
+        /*if (config.name == "game_sprites.png") {
+            info.spriteAnims.insert(std::pair<const char*, Animation>(config.anims[0].animationName, config.anims[0]));
+            info.spriteAnims.insert(std::pair<const char*, Animation>(anim2.animationName, anim2));
+        }*/
+        for (Animation var : config.anims)
+        {
+            info.spriteAnims.insert(std::pair<const char*, Animation>(var.animationName, var));
+        }
+        
+
         int colChannels;
         stbi_uc* imgData = FileManager::readImageFile(config.name, &info.width, &info.height, &colChannels);
         if (!imgData) {
@@ -164,8 +200,8 @@ GLuint Renderer::createTexBuffer(SpriteInfo info, stbi_uc* imgData) {
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -359,24 +395,47 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     SpriteInfo info = sprites[spriteName];
 
+
     // find the height and width of each cell in the spritesheet
     const float SPRITESHEET_HEIGHT = 1;
     const float SPRITESHEET_WIDTH = 1;
     float cellHeight = SPRITESHEET_HEIGHT / info.rows;
     float cellWidth = SPRITESHEET_WIDTH / info.columns;
+    if (comp.facingRight) {
+        // coordinates of the texture coords in the vertices array
+        vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
+        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
 
-    // coordinates of the texture coords in the vertices array
-    vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
-    vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+        vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
+        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
 
-    vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
-    vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+        vertices[22] = cellWidth * comp.colIndex; // bottom left x
+        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
 
-    vertices[22] = cellWidth * comp.colIndex; // bottom left x
-    vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+        vertices[30] = cellWidth * comp.colIndex; // top left x
+        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+    }
+    else {
+        //we flip the x of the left and the right vertices
+        // coordinates of the texture coords in the vertices array
+        vertices[30] = cellWidth + cellWidth * comp.colIndex; // top left x flipped
+        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
 
-    vertices[30] = cellWidth * comp.colIndex; // top left x
-    vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+        vertices[6] = cellWidth* comp.colIndex; // top right x flipped
+        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+
+        vertices[14] = cellWidth * comp.colIndex; // bottom right x flipped
+        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+
+        vertices[22] = cellWidth + cellWidth * comp.colIndex; // bottom left x flipped
+        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+    }
+}
+
+Animation Renderer::getAnimation(const char* animName, const char* spriteName)
+{
+
+    return sprites[spriteName].spriteAnims[animName];
 }
 
 // called in main()
@@ -460,5 +519,13 @@ int Renderer::teardown() {
     // call this to destroy glfw
     glfwTerminate();
     return 0;
-};
+}
+Renderer* Renderer::getInstance()
+{
+    if (renderer == nullptr)
+        renderer = new Renderer();
+    return renderer;
+}
+;
 
+Renderer* Renderer::renderer = nullptr;

@@ -13,6 +13,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <stb/stb_image.h>
+#include "Animator.h"
 
 extern GLFWwindow* window;
 
@@ -25,7 +26,11 @@ public:
     int init();
     int update(EntityCoordinator* coordinator);
     int teardown();
+    static Renderer* getInstance();
+    Animation getAnimation(const char* animName, const char* spriteName);
 private:
+    static Renderer* renderer;
+    Renderer() {};
     // the vertex array object (VAO)
     // this describes how the vertex attributes are 
     // stored in the a vertex buffer object (VBO)
