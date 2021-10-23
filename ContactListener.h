@@ -6,11 +6,16 @@
 
 class ContactListener : public b2ContactListener {
 public:
+
+    ~ContactListener();
+
     void BeginContact(b2Contact* contact);
     void EndContact(b2Contact* contact);
     void PreSolve(b2Contact* contact, const b2Manifold* oldManifold);
     void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 private:
-    bool GetFirstContact(Tag entityTag, EntityID id);
-    bool GetSecondContact(Tag entityTag, EntityID id);
+    EntityUserData* userDataA;
+    EntityUserData* userDataB;
+
+    bool GetContact(Tag entityTag);
 };
