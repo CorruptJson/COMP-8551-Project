@@ -2,8 +2,8 @@
 
 ContactListener::~ContactListener()
 {
-    delete userDataA;
-    delete userDataB;
+    //delete userDataA;
+    //delete userDataB;
 }
 
 void ContactListener::BeginContact(b2Contact* contact) {
@@ -13,8 +13,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
     EntityUserData* entUserDataA = reinterpret_cast<EntityUserData*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
     EntityUserData* entUserDataB = reinterpret_cast<EntityUserData*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    userDataA = entUserDataA;
-    userDataB = entUserDataB;
+    //userDataA = entUserDataA;
+    //userDataB = entUserDataB;
 
     if (GetFirstContact(PLAYER, entUserDataA->id)) {
 
