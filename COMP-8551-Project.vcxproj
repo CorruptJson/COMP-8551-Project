@@ -190,6 +190,7 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EntityQuery.h" />
+    <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="GameEntityCreator.h" />
     <ClInclude Include="GameManager.h" />

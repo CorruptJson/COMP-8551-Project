@@ -13,14 +13,52 @@ PhysicsWorld::PhysicsWorld() {
     world->SetContactListener(contactListener);
 }
 
+// Adds an entity to the physics world by it's ID
+void PhysicsWorld::AddObject(EntityID id) {
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+
+    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
+    Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
+
+    EntityUserData* entityUserData = new EntityUserData;
+    entityUserData->id = id;
+
+    b2BodyDef bodyDef;
+    bodyDef.type = physComponent->bodyType;
+    bodyDef.position.Set(physComponent->x, physComponent->y);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+
+    physComponent->box2dBody = world->CreateBody(&bodyDef);
+
+    if (physComponent->box2dBody) {
+        b2PolygonShape dynamicBox;
+        dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
+
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &dynamicBox;
+        fixtureDef.density = physComponent->density;
+        fixtureDef.friction = physComponent->friction;
+        fixtureDef.restitution = 0;
+
+        physComponent->box2dBody->CreateFixture(&fixtureDef);
+
+        transformComponent->setPhysicsBody(physComponent->box2dBody);
+    }
+
+
+}
+
+// THIS IS CURRENTLY OUTDATED AND NOT BEING USED
+// Adds all objects in the world using the entity coordinator
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
-        
+
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
             coordinator->GetComponentType<Transform>()
         });
 
     int entitiesFound = entityQuery->totalEntitiesFound();
+    cout << "Entities found: " << entitiesFound << endl;
     std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
     std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
 
@@ -46,10 +84,9 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
             fixtureDef.density = physComponents[i]->density;
             fixtureDef.friction = physComponents[i]->friction;
             fixtureDef.restitution = 0;
+            
 
             physComponents[i]->box2dBody->CreateFixture(&fixtureDef);
-
-            // need some way to pass the body to the entity so it can update in rendering
 
             transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
 
