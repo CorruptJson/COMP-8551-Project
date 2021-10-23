@@ -30,9 +30,9 @@ Animator animator;
 Archetype standardArch;
 
 // test entities
-EntityID turtle;
+EntityID roach;
 EntityID wall;
-EntityID dude;
+EntityID mike;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -116,8 +116,8 @@ int runEngine()
     }
 
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
-        Animation anim = renderer->getAnimation("wRight", coordinator.GetComponent<RenderComponent>(dude).spriteName);
-        coordinator.GetComponent<AnimationComponent>(dude).currAnim = anim;
+        Animation anim = renderer->getAnimation("running", coordinator.GetComponent<RenderComponent>(mike).spriteName);
+        coordinator.GetComponent<AnimationComponent>(mike).currAnim = anim;
         trigger = true;
     }
 
@@ -149,32 +149,32 @@ int main() {
 
     //entity test
 
-    turtle = CreateStandardEntity("turtles.png");
+    roach = CreateStandardEntity("Giant_Roach.png");
     wall = CreateStandardEntity("wall.jpg");
-    dude = CreateStandardEntity("game_sprites.png");
+    mike = CreateStandardEntity("Edgar_TheExterminator.png");
 
     //Temporary until entityqueries are implemented
     //coordinator.AddComponent<TimerComponent>(turtle, TimerComponent());
-    coordinator.testEntity = &turtle;
+    coordinator.testEntity = &roach;
 
     // turtle
-    coordinator.GetComponent<Transform>(turtle).setScale(0.4, 0.4);
-    coordinator.GetComponent<Transform>(turtle).setPosition(0.5, 3);    
+    coordinator.GetComponent<Transform>(roach).setScale(0.4, 0.4);
+    coordinator.GetComponent<Transform>(roach).setPosition(0.5, 3);    
 
-    coordinator.GetComponent<RenderComponent>(turtle) = {
+    coordinator.GetComponent<RenderComponent>(roach) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
-        "turtles.png",
+        "Giant_Roach.png",
         0,
-        0,
-        false
+        1,
+        true
     };
-    coordinator.GetComponent<PhysicsComponent>(turtle) = {
+    coordinator.GetComponent<PhysicsComponent>(roach) = {
         b2_dynamicBody,
-        0.5f * coordinator.GetComponent<Transform>(turtle).getScale().y,
-        0.5f * coordinator.GetComponent<Transform>(turtle).getScale().x,
-        coordinator.GetComponent<Transform>(turtle).getPosition().x,
-        coordinator.GetComponent<Transform>(turtle).getPosition().y,
+        0.5f * coordinator.GetComponent<Transform>(roach).getScale().y,
+        0.5f * coordinator.GetComponent<Transform>(roach).getScale().x,
+        coordinator.GetComponent<Transform>(roach).getPosition().x,
+        coordinator.GetComponent<Transform>(roach).getPosition().y,
         1.0f,
         0.0f
     };
@@ -203,27 +203,27 @@ int main() {
 
     animator = Animator();
 
-    coordinator.GetComponent<RenderComponent>(dude) = {
+    coordinator.GetComponent<RenderComponent>(mike) = {
         "defaultVertShader.vs",
         "defaultFragShader.fs",
-        "game_sprites.png",
-        0,
-        0,
+        "Edgar_The_Exterminator.png",
+        1,
+        2,
         true
     };
 
-    coordinator.GetComponent<Transform>(dude).translate(-0.5, 0);
-    coordinator.GetComponent<PhysicsComponent>(dude) = {
+    coordinator.GetComponent<Transform>(mike).translate(-0.5, 0);
+    coordinator.GetComponent<PhysicsComponent>(mike) = {
        b2_dynamicBody,
-       0.5f * coordinator.GetComponent<Transform>(dude).getScale().y,
-       0.5f * coordinator.GetComponent<Transform>(dude).getScale().x,
-       coordinator.GetComponent<Transform>(dude).getPosition().x,
-       coordinator.GetComponent<Transform>(dude).getPosition().y,
+       0.5f * coordinator.GetComponent<Transform>(mike).getScale().y,
+       0.5f * coordinator.GetComponent<Transform>(mike).getScale().x,
+       coordinator.GetComponent<Transform>(mike).getPosition().x,
+       coordinator.GetComponent<Transform>(mike).getPosition().y,
        1.0f,
        0.0f
     };
         
-    Transform t = coordinator.GetComponent<Transform>(turtle);
+    Transform t = coordinator.GetComponent<Transform>(roach);
 
     //this is where we create the animations for a given entity (dude)
     /*Animation anim1 = Animator::createAnimation("wLeft", 0,3,3,true);
@@ -231,14 +231,17 @@ int main() {
 
     Animation anims[] = {anim1, anim2};*/
 
-    Animation anim = renderer->getAnimation("wLeft", coordinator.GetComponent<RenderComponent>(dude).spriteName);
-    coordinator.GetComponent<AnimationComponent>(dude) = animator.createAnimationComponent(anim, true);
+    Animation anim = renderer->getAnimation("idle", coordinator.GetComponent<RenderComponent>(mike).spriteName);
+    coordinator.GetComponent<AnimationComponent>(mike) = animator.createAnimationComponent(anim, true);
+    
+    anim = renderer->getAnimation("run", coordinator.GetComponent<RenderComponent>(roach).spriteName);
+    coordinator.GetComponent<AnimationComponent>(roach) = animator.createAnimationComponent(anim, true);
 
     std::cout << "turtle " << t << std::endl;
     std::cout << "wall " << coordinator.GetComponent<Transform>(wall) << std::endl;
-    std::cout << "Dude " << coordinator.GetComponent<Transform>(dude) << std::endl;
+    std::cout << "Dude " << coordinator.GetComponent<Transform>(mike) << std::endl;
         
-    std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(turtle).getPosition().x << std::endl;
+    std::cout << "From Component array: x: " << coordinator.GetComponent<Transform>(roach).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator.GetEntityCount() << std::endl;    
 
     physicsWorld->AddObjects(&coordinator);
