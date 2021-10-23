@@ -13,7 +13,6 @@ PhysicsWorld::PhysicsWorld() {
     world->SetContactListener(contactListener);
 }
 
-// NOT DONE YET
 void PhysicsWorld::AddObject(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
@@ -22,7 +21,7 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     EntityUserData* entityUserData = new EntityUserData;
     entityUserData->id = id;
-    entityUserData->tags = coordinator.getTagsForEntity(id);
+    entityUserData->tag = coordinator.getTagsForEntity(id)[0];
     entityUserData->physComponent = *physComponent;
     entityUserData->transformComponent = *transformComponent;
 
@@ -47,10 +46,13 @@ void PhysicsWorld::AddObject(EntityID id) {
 
         transformComponent->setPhysicsBody(physComponent->box2dBody);
     }
+
+    physComponent->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
+
 }
 
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
-        
+
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
             coordinator->GetComponentType<Transform>()
@@ -63,6 +65,12 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     for (int i = 0; i < entitiesFound; i++) {
         b2BodyType type = physComponents[i]->bodyType;
+
+        EntityUserData* entityUserData = new EntityUserData;
+        //entityUserData->id = id;
+        //entityUserData->tag = coordinator.getTagsForEntity(id)[0];
+        entityUserData->physComponent = *physComponents[i];
+        entityUserData->transformComponent = *transformComponents[i];
 
         b2BodyDef bodyDef;
         bodyDef.type = type;
