@@ -6,11 +6,19 @@
 #include "ContactListener.h"
 #include "EntityCoordinator.h"
 
+struct EntityUserData {
+    EntityID id;
+    vector<Tag> tags;
+    PhysicsComponent physComponent;
+    Transform transformComponent;
+};
+
 class PhysicsWorld {
 public:
     PhysicsWorld();
     ~PhysicsWorld();
 
+    void AddObject(EntityID id);
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator* coordinator);
 private:

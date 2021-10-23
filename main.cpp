@@ -189,7 +189,10 @@ int main() {
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    physicsWorld->AddObjects(coordinator);
+    physicsWorld->AddObject(roach);
+    physicsWorld->AddObject(wall);
+    physicsWorld->AddObject(mike);
+    //physicsWorld->AddObjects(coordinator);
 
     while (!glfwWindowShouldClose(window))
     {
