@@ -7,7 +7,4 @@
 
 struct EntityUserData {
     EntityID id;
-    Tag tag;
-    PhysicsComponent physComponent;
-    Transform transformComponent;
 };

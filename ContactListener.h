@@ -8,23 +8,18 @@ class ContactListener : public b2ContactListener {
     void BeginContact(b2Contact* contact) {
         std::cout << "Contact made!" << std::endl;
 
-        //PhysicsComponent* physComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-        //printf("Contact bodyA X-Pos: %0.2f Y-Pos %0.2f\n", physComponentA->x, physComponentA->y);
-        //printf("Contact bodyA X-Pos: %0.2f Y-Pos %0.2f\n", contact->GetFixtureA()->GetBody()->GetPosition().x, contact->GetFixtureA()->GetBody()->GetPosition().y);
-        //printf("Contact bodyB X-Pos: %0.2f Y-Pos %0.2f\n", contact->GetFixtureA()->GetBody()->GetPosition().x, contact->GetFixtureB()->GetBody()->GetPosition().y);
-
-        //EntityUserData* entUserDataA = reinterpret_cast<EntityUserData*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-        //EntityUserData* entUserDataB = reinterpret_cast<EntityUserData*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
-        
+        // use the ID for entity queries
         EntityUserData* entUserDataA = reinterpret_cast<EntityUserData*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
         EntityUserData* entUserDataB = reinterpret_cast<EntityUserData*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
+        PhysicsComponent physComponentA = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id);
 
-        std::cout << entUserDataA->tag << std::endl;
-        printf("Contact bodyA X-Pos: %0.2f Y-Pos %0.2f\n", entUserDataA->physComponent.x, entUserDataA->physComponent.y);
-        std::cout << entUserDataB->tag << std::endl;
-        printf("Contact bodyB X-Pos: %0.2f Y-Pos %0.2f\n", entUserDataB->physComponent.x, entUserDataB->physComponent.y);
+        if (EntityCoordinator::getInstance().entityHasTag(Tag::PLAYER, entUserDataA->id)) {
+            cout << "is player" << endl;
+        }
 
+        printf("Contact bodyA X-Pos: %0.2f Y-Pos %0.2f\n", contact->GetFixtureA()->GetBody()->GetPosition().x, contact->GetFixtureA()->GetBody()->GetPosition().y);
+        printf("Contact bodyB X-Pos: %0.2f Y-Pos %0.2f\n", contact->GetFixtureB()->GetBody()->GetPosition().x, contact->GetFixtureB()->GetBody()->GetPosition().y);
 
 
     };

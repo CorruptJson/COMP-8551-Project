@@ -21,9 +21,6 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     EntityUserData* entityUserData = new EntityUserData;
     entityUserData->id = id;
-    entityUserData->tag = coordinator.getTagsForEntity(id)[0];
-    entityUserData->physComponent = *physComponent;
-    entityUserData->transformComponent = *transformComponent;
 
     b2BodyDef bodyDef;
     bodyDef.type = physComponent->bodyType;
@@ -65,12 +62,6 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     for (int i = 0; i < entitiesFound; i++) {
         b2BodyType type = physComponents[i]->bodyType;
-
-        EntityUserData* entityUserData = new EntityUserData;
-        //entityUserData->id = id;
-        //entityUserData->tag = coordinator.getTagsForEntity(id)[0];
-        entityUserData->physComponent = *physComponents[i];
-        entityUserData->transformComponent = *transformComponents[i];
 
         b2BodyDef bodyDef;
         bodyDef.type = type;
