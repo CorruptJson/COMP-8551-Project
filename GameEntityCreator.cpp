@@ -26,7 +26,8 @@ RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteNam
     spriteName,
     0,
     0,
-    hasAnimation
+    hasAnimation,
+    true
     };
     return rc;
 }

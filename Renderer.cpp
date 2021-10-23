@@ -395,24 +395,41 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     SpriteInfo info = sprites[spriteName];
 
+
     // find the height and width of each cell in the spritesheet
     const float SPRITESHEET_HEIGHT = 1;
     const float SPRITESHEET_WIDTH = 1;
     float cellHeight = SPRITESHEET_HEIGHT / info.rows;
     float cellWidth = SPRITESHEET_WIDTH / info.columns;
+    if (comp.facingRight) {
+        // coordinates of the texture coords in the vertices array
+        vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
+        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
 
-    // coordinates of the texture coords in the vertices array
-    vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
-    vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+        vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
+        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
 
-    vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
-    vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+        vertices[22] = cellWidth * comp.colIndex; // bottom left x
+        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
 
-    vertices[22] = cellWidth * comp.colIndex; // bottom left x
-    vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+        vertices[30] = cellWidth * comp.colIndex; // top left x
+        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+    }
+    else {
+        //we flip the x of the left and the right vertices
+        // coordinates of the texture coords in the vertices array
+        vertices[30] = cellWidth + cellWidth * comp.colIndex; // top left x flipped
+        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
 
-    vertices[30] = cellWidth * comp.colIndex; // top left x
-    vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+        vertices[6] = cellWidth* comp.colIndex; // top right x flipped
+        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
+
+        vertices[14] = cellWidth * comp.colIndex; // bottom right x flipped
+        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
+
+        vertices[22] = cellWidth + cellWidth * comp.colIndex; // bottom left x flipped
+        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+    }
 }
 
 Animation Renderer::getAnimation(const char* animName, const char* spriteName)
