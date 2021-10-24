@@ -93,7 +93,7 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
         }
     }
 
-    physComponents[2]->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
+    //physComponents[2]->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
     
 }
 

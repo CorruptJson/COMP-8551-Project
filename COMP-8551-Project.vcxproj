@@ -197,6 +197,7 @@
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />
+    <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RenderComponent.h" />
