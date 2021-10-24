@@ -161,7 +161,7 @@ int runEngine()
         coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, 2.5), true);
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger && !isGrounded){
-w        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
+        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
     }
     /////////////////
    
