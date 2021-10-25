@@ -175,6 +175,7 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
+    <None Include="scene.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationComponent.h" />

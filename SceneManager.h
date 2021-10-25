@@ -1,8 +1,26 @@
 #pragma once
 #include "Types.h"
-#include <nlohmann/json.hpp>
+#include "EntityCoordinator.h"
+
 
 class SceneManager
 {
+
+
+private:
+    EntityCoordinator* coordinator;
+    json jsonArray;
+
+
+
+
+public:
+    
+    SceneManager();
+
+    void LoadJson(const char* filename);
+    void CreateEntities();
+
+
 };
 

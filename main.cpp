@@ -14,13 +14,17 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
-#include "inputSystem.h";
+#include "inputSystem.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
+#include "SceneManager.h"
+
 
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
+
+SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
@@ -49,10 +53,12 @@ int initialize()
 
     renderer->init();
     coordinator = &(EntityCoordinator::getInstance());
+    sceneManager = new SceneManager();
 
     physicsWorld = new PhysicsWorld();
 
     prevTime = Clock::now();
+
 
     return 0;
 }
@@ -74,6 +80,9 @@ int test(){
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());
+
+
+    sceneManager->CreateEntities();
 
     return 0;
 }
