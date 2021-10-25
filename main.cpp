@@ -78,18 +78,6 @@ int test(){
     return 0;
 }
 
-// Use for now to make entities with components
-//EntityID CreateStandardEntity(const char* spriteName) {
-//    EntityID e = coordinator->CreateEntity(standardArch, {}, spriteName);
-//
-//
-//    // data must be initialized
-//    // if you know the data is going to be initialized later, you don't need to initialize it here
-//    Transform t = Transform();
-//    coordinator->GetComponent<Transform>(e) = t;
-//
-//    return e;
-//}
 
 // the main update function
 // game loop will be put here eventually
