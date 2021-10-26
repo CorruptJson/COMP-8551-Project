@@ -2,7 +2,6 @@
 #include "file_manager.h"
 #include "PhysicsComponent.h"
 #include "Tags.h"
-#include "PlayerComponent.h"
 
 // Component Keys
 enum eKeys

@@ -260,9 +260,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="turtles.png">
