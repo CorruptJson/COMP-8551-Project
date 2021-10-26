@@ -15,10 +15,11 @@
 #include "InputTracker.h"
 #include "InputComponent.h"
 #include "inputSystem.h"
-#include "GameEntityCreator.h"
+//#include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
 #include "SceneManager.h"
+#include "PlayerComponent.h"
 
 
 //ChunkManager* chunkManager;
@@ -32,8 +33,8 @@ Animator animator;
 Archetype standardArch;
 
 // test entities
-EntityID roach;
-EntityID wall;
+//EntityID roach;
+//EntityID wall;
 EntityID mike;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -70,6 +71,7 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
+    coordinator->RegisterComponent<PlayerComponent>();
 
     //standardArch = coordinator->GetArchetype({
     //    coordinator->GetComponentType<Transform>(),
@@ -155,11 +157,11 @@ int main() {
     test();
 
     //entity test
-    GameEntityCreator& creator = GameEntityCreator::getInstance();
+    //GameEntityCreator& creator = GameEntityCreator::getInstance();
 
-    roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
-    wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
-    mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
+    //roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
+    //wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
+    //mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
 
     coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 
@@ -173,18 +175,18 @@ int main() {
 
     //coordinator->GetComponent<AnimationComponent>(mike) = animator.createAnimationComponent(anim1, 250.0f, true);
 
-    std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
-    std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
-    std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
+    //std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
+    //std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
+    //std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
         
-    std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
+    //std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
 
     bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
     std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
-    bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
-    std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
+    //bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
+    //std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
     physicsWorld->AddObjects(coordinator);
 

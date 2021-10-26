@@ -10,7 +10,7 @@ class SceneManager
 private:
     EntityCoordinator* coordinator;
     json jsonArray;
-
+    
 
 
 
@@ -21,6 +21,10 @@ public:
     void LoadJson(const char* filename);
     void CreateEntities();
 
+
+
+
+    std::list<EntityID> entities;
 
 };
 
