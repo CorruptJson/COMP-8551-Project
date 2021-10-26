@@ -161,6 +161,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />

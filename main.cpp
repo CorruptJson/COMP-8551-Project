@@ -14,7 +14,7 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
-#include "inputSystem.h";
+#include "inputSystem.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
@@ -116,9 +116,10 @@ int runEngine()
         catchupTime -= MS_PER_FRAME;
     }
     /////////////////
-    //Testing character controll
+    //Testing character control
     b2Vec2 currVelocity = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetLinearVelocity();
     float yVelocity = currVelocity.y;
+    //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
     float massMike = coordinator->GetComponent<PhysicsComponent>(mike).density;
     float speed = 100;
     bool isGrounded = false;
@@ -138,7 +139,9 @@ int runEngine()
         coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
         //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(2.0, 0.0));
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(1, 0), true);
+        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(1, 0), true);
+        //coordinator->GetComponent<MovementComponent>(mike).setMovement(100, 0);
+        coordinator->GetComponent<MovementComponent>(mike).addForce(100, 0);
 
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
@@ -152,16 +155,20 @@ int runEngine()
     }
     // check if the player is on the ground 
     // could also use tag: if player is contacting other objects, then isGrounded = true
-    if (yVelocity > 1) {
+    if (yVelocity > 2) {
         isGrounded = false;
     } else {
         isGrounded = true;
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger && isGrounded) {
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, 2.5), true);
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger && !isGrounded){
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger && (yVelocity < 0.1)) {
+    //    //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, 2.5), true);
+
+    //}
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger){
+        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
+        //coordinator->GetComponent<MovementComponent>(mike).setMovement(000, 100);
+        coordinator->GetComponent<MovementComponent>(mike).addForce(0, 100);
+
     }
     /////////////////
    

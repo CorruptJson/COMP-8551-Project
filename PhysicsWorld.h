@@ -21,5 +21,6 @@ private:
     ContactListener* contactListener;
 
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
+    //void UpdateMovementComponent(MovementComponent* moveComponent);
     void UpdateTransform(Transform* transform, PhysicsComponent* physComponent);
 };

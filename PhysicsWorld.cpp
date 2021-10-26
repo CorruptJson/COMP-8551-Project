@@ -19,6 +19,7 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
+    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
     EntityUserData* entityUserData = new EntityUserData;
     entityUserData->id = id;
@@ -103,16 +104,21 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
         std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<PhysicsComponent>(),
-        coordinator->GetComponentType<Transform>()
+        coordinator->GetComponentType<Transform>(),
+        coordinator->GetComponentType<MovementComponent>()
+
             });
 
         int entitiesFound = entityQuery->totalEntitiesFound();
         std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
         std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
+        std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
 
         for (int i = 0; i < entitiesFound; i++) {
             UpdatePhysicsComponent(physComponents[i]);
             UpdateTransform(transformComponents[i], physComponents[i]);
+            //UpdateMovementComponent(moveComponents[i]);
+
         }
     }
 }
@@ -122,9 +128,18 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
     physComponent->y = physComponent->box2dBody->GetTransform().p.y;
 }
 
+//void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
+//    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
+//    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
+//    b2Vec2 velocity(moveComponent->xVelocity, moveComponent->yVelocity);
+//    moveComponent->body->ApplyForceToCenter(velocity, true);
+//    
+//}
+
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
     transform->setPosition(physComponent->x, physComponent->y);
 }
+
 
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;
