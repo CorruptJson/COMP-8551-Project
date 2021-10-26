@@ -71,7 +71,6 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
-    coordinator->RegisterComponent<PlayerComponent>();
 
     //standardArch = coordinator->GetArchetype({
     //    coordinator->GetComponentType<Transform>(),
@@ -83,9 +82,18 @@ int test(){
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());
 
-
+    try {
     sceneManager->CreateEntities();
+    }
+    catch (const std::exception& e) { std::cout << e.what(); }
 
+
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasTag(Tag::PLAYER, e)) {
+            mike = e;
+        }
+
+    }
     return 0;
 }
 
@@ -113,6 +121,7 @@ int runEngine()
 
         catchupTime -= MS_PER_FRAME;
     }
+    
 
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
@@ -132,10 +141,10 @@ int runEngine()
 
     //animation
     animator.updateAnim(coordinator);
-
+    
     // render
     renderer->update(coordinator);
-
+    
     return 0;
 }
 
@@ -162,6 +171,9 @@ int main() {
     //roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
     //wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
     //mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
+    
+    
+
 
     coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 

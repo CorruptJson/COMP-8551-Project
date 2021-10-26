@@ -11,8 +11,7 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION,
-    PLAYER_COMPONENT
+    ANIMATION
 };
 
 // convert strings to enums here
@@ -22,7 +21,6 @@ std::map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
-    {"player", PLAYER_COMPONENT},
 
 };
 
@@ -35,27 +33,25 @@ std::map<std::string, Tag> tagMap = {
 
 
 
+
+// spritesheet map for converting from string to char
+std::map < std::string, const char*> spriteMap = {
+    {"wall.jpg", "wall.jpg"},
+    {"Giant_Roach.png", "Giant_Roach.png"},
+    {"Edgar.png", "Edgar.png"}
+};
+
+
+
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     this->LoadJson("scene.json");
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
+
+
+
+
+
 
 
 void SceneManager::LoadJson(const char* filename) {
@@ -70,75 +66,90 @@ void SceneManager::CreateEntities() {
         std::vector<uint8_t> components;
 
         std::vector<Tag> tags;
-        const char* spriteName;
+        const char* spriteName = "";
 
         // Makes archetype
-        // todo: clean this up and don't loop through everything twice
+        // TODO: clean this up and don't loop through everything twice
         for (auto& component : entity.value().items()) {
             //loop through json
+
+            std::cout << component.key() << std::endl;
             switch (keyMap[component.key()]) {
 
                 case TAG:
-                    //todo: allow for multiple tags
+                    //TODO: allow for multiple tags
                     tags.push_back(tagMap[component.value()]);
                     break;
 
                 case TRANSFORM : 
                     components.push_back(coordinator->GetComponentType<Transform>());
+                    
                     break;
 
                 case RENDER :
                     components.push_back(coordinator->GetComponentType<RenderComponent>());
-
+                    if (component.value().contains("sprite")) {
+                        spriteName = spriteMap[component.value()["sprite"].get<std::string>()];
+                    }
                     break;
 
                 case PHYSICS:
                     components.push_back(coordinator->GetComponentType<PhysicsComponent>());
-
                     break;
 
                 case ANIMATION:
                     components.push_back(coordinator->GetComponentType<AnimationComponent>());
+                    
+                        
 
-                    break;
-
-                case PLAYER_COMPONENT:
-                    components.push_back(coordinator->GetComponentType<PlayerComponent>());
                     break;
 
             }
 
         }
 
+
         Archetype arch = coordinator->GetArchetype(components);
+        std::cout << spriteName << std::endl;
         EntityID ent = coordinator->CreateEntity(arch, spriteName, tags);
 
 
         // loop through again to set their values
         for (auto& component : entity.value().items()) {
+            std::cout << component.key() << std::endl;
+            float xPos;
+            float yPos;
+            float xScale;
+            float yScale;
+            float rotation;
+            bool hasAnimation;
+            float friction;
+            float density;
+            b2BodyType bodyType;
+
             switch (keyMap[component.key()]) {
 
             case TRANSFORM:
 
 
                 // if component json contains postition and position contains x, use x, else 0
-                float xPos = (component.value().contains("position") && component.value().find("position").value().contains("x"))
+                xPos = (component.value().contains("position") && component.value().find("position").value().contains("x"))
                     ? component.value()["position"]["x"].get<float>() : 0.0f;
 
                 // if component json contains postition and position contains y, use y, else 0
-                float yPos = (component.value().contains("position") && component.value().find("position").value().contains("y"))
+                yPos = (component.value().contains("position") && component.value().find("position").value().contains("y"))
                     ? component.value()["position"]["y"].get<float>() : 0.0f;
 
                 // if component json contains scale and scale contains x, use x, else 0
-                float xScale = (component.value().contains("scale") && component.value().find("scale").value().contains("x"))
-                    ? component.value()["position"]["x"].get<float>() : 0.0f;
+                xScale = (component.value().contains("scale") && component.value().find("scale").value().contains("x"))
+                    ? component.value()["scale"]["x"].get<float>() : 1.0f;
 
                 // if component json contains scale and scale contains y, use y, else 0
-                float yScale = (component.value().contains("scale") && component.value().find("scale").value().contains("y"))
-                    ? component.value()["scale"]["y"].get<float>() : 0.0f;
+                yScale = (component.value().contains("scale") && component.value().find("scale").value().contains("y"))
+                    ? component.value()["scale"]["y"].get<float>() : 1.0f;
 
                 // if component contains rotation, use rotation, else 0;
-                float rotation = (component.value().contains("rotation"))
+                rotation = (component.value().contains("rotation"))
                     ? component.value()["rotation"].get<float>() : 0.0f;
 
                 coordinator->GetComponent<Transform>(ent) = {
@@ -153,7 +164,7 @@ void SceneManager::CreateEntities() {
                 break;
 
             case RENDER:
-                bool hasAnimation = component.value().contains("hasAnim") ? component.value().get<bool>() : false;
+                hasAnimation = component.value().contains("hasAnim") ? component.value()["hasAnim"].get<bool>() : false;
                 coordinator->GetComponent<RenderComponent>(ent) = {
                     "defaultVertShader.vs",
                     "defaultFragShader.fs",
@@ -167,38 +178,58 @@ void SceneManager::CreateEntities() {
                 break;
 
             case PHYSICS:
-                components.push_back(coordinator->GetComponentType<PhysicsComponent>());
+
+                // TODO: use Transform values instead
+                // 
+                // if component json contains postition and position contains x, use x, else 0
+                xPos = (component.value().contains("position") && component.value().find("position").value().contains("x"))
+                    ? component.value()["position"]["x"].get<float>() : 0.0f;
+                
+                // if component json contains postition and position contains y, use y, else 0
+                yPos = (component.value().contains("position") && component.value().find("position").value().contains("y"))
+                    ? component.value()["position"]["y"].get<float>() : 0.0f;
+
+                // if component json contains scale and scale contains x, use x, else 0
+                xScale = (component.value().contains("scale") && component.value().find("scale").value().contains("x"))
+                    ? component.value()["scale"]["x"].get<float>() : 1.0f;
+
+                // if component json contains scale and scale contains y, use y, else 0
+                yScale = (component.value().contains("scale") && component.value().find("scale").value().contains("y"))
+                    ? component.value()["scale"]["y"].get<float>() : 1.0f;
+
+
+
+
+                friction = component.value().contains("friction") ? component.value()["friction"].get<float>() : 0;
+                density = component.value().contains("density") ? component.value()["density"].get<float>() : 1;
+
+                // TODO: do more than just check for one string
+                bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody" ? b2_dynamicBody : b2_staticBody;
+
+                coordinator->GetComponent<PhysicsComponent>(ent) = {
+                bodyType,
+                0.5f * yScale,
+                0.5f * xScale,
+                xPos,
+                yPos,
+                density,
+                friction
+                };
+
+
 
                 break;
 
             case ANIMATION:
-                components.push_back(coordinator->GetComponentType<AnimationComponent>());
 
                 break;
 
             }
-
         }
+        entities.push_back(ent);
 
     }
 
 }
 
 
-
-if (component.value().contains("position")) {
-    if (component.value().find("position").value().contains("x")) {
-        //set x
-    }
-    if (component.value().find("position").value().contains("y")) {
-        //set y
-    }
-}
-
-if (component.value().contains("scale")) {
-    //set scale
-}
-
-if (component.value().contains("scale")) {
-    //set rotation
-}
