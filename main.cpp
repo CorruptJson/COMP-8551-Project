@@ -117,45 +117,42 @@ int runEngine()
     }
     /////////////////
     //Testing character control
+    float move_timer;
+
+
     b2Vec2 currVelocity = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetLinearVelocity();
     float yVelocity = currVelocity.y;
-    //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
-    float massMike = coordinator->GetComponent<PhysicsComponent>(mike).density;
-    float speed = 100;
+    float speed = 15.0f;
+    float jumpSpeed = 150.0f;
     bool isGrounded = false;
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).facingRight = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        //test: adding velocity, force to mike
-        // if grounded, y velocity should be 0
-        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(-2.0, 0.0));
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(-1, 0), true);
-
         
+        //coordinator->GetComponent<MovementComponent>(mike).addForce(-speed, 0);
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0.05*-speed, 0);
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::D) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(2.0, 0.0));
-        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(1, 0), true);
-        //coordinator->GetComponent<MovementComponent>(mike).setMovement(100, 0);
-        coordinator->GetComponent<MovementComponent>(mike).addForce(100, 0);
-
+        
+        //coordinator->GetComponent<MovementComponent>(mike).addForce(-speed, 0);
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0.05 * speed, 0);
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
         Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        speed /= 4;
-        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(0.0, -1.0));
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(b2Vec2(0, 0), true);
+        
+        coordinator->GetComponent<MovementComponent>(mike).addForce(0, -jumpSpeed);
+        coordinator->GetComponent<MovementComponent>(roach).setVelocity(-2.0f, 0);
 
     }
     // check if the player is on the ground 
     // could also use tag: if player is contacting other objects, then isGrounded = true
-    if (yVelocity > 2) {
+    if (yVelocity > 0.001) {
         isGrounded = false;
     } else {
         isGrounded = true;
@@ -165,10 +162,12 @@ int runEngine()
 
     //}
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger){
-        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
-        //coordinator->GetComponent<MovementComponent>(mike).setMovement(000, 100);
-        coordinator->GetComponent<MovementComponent>(mike).addForce(0, 100);
-
+        if (isGrounded) {
+            coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpSpeed);
+        }
+        else {
+            coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
+        }
     }
     /////////////////
    

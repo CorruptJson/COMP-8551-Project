@@ -1,43 +1,36 @@
 #include "MovementComponent.h"
 
-//
-//// public 
-//MovementComponent::MovementComponent() : MovementComponent(0, 0) { }
-//MovementComponent::MovementComponent(float x = 0, float y = 0) {
-//    movement = {
-//        x,
-//        y
-//    };
-//}
-//
-//Movement MovementComponent::getMovement() const {
-//    return movement;
-//}
-//
-//void MovementComponent::setMovement(float x, float y) {
-//    movement = {
-//        x, y
-//    };
-//    //changed = true;
-//}
-//
+
 void MovementComponent::addForce(float x, float y) {
     b2Vec2 velocityVec(x, y);
-    //b2Vec2 linearVelocity = body->GetPosition();
-    //body->SetTransform(b2Vec2(position.x, position.y), 0);
-    //setMovement(velocityVec.x, velocityVec.y);
     body->ApplyForceToCenter(velocityVec, true);
+}
 
-    ////limit the velocity of the object
-    //float MAX_SPEED = 100.0f;
-    //if (body->GetLinearVelocity().x < (-MAX_SPEED))
-    //{
-    //    body->SetLinearVelocity(b2Vec2(-MAX_SPEED, body->GetLinearVelocity().y));
-    //}
-    //else if (body->GetLinearVelocity().x > MAX_SPEED)
-    //{
-    //    body->SetLinearVelocity(b2Vec2(MAX_SPEED, body->GetLinearVelocity().y));
-   
+void MovementComponent::limitMaxSpeed() {
+    //limit the velocity of the object to MAX_SPEED
+    float MAX_SPEED = 10.0f;
+    float MAX_JUMP_SPEED = 300.0f;
+    if (body->GetLinearVelocity().x < -MAX_SPEED)
+    {
+        body->SetLinearVelocity(b2Vec2(-MAX_SPEED, body->GetLinearVelocity().y));
+    }
+    else if (body->GetLinearVelocity().x > MAX_SPEED)
+    {
+        body->SetLinearVelocity(b2Vec2(MAX_SPEED, body->GetLinearVelocity().y));
+    }
+    else if (body->GetLinearVelocity().y > MAX_JUMP_SPEED)
+    {
+        body->SetLinearVelocity(b2Vec2(body->GetLinearVelocity().x, MAX_JUMP_SPEED));
+    }
+}
+
+void MovementComponent::setVelocity(float x, float y) {
+    b2Vec2 velocityVec(x, y);
+    body->SetLinearVelocity(velocityVec);
+}
+
+b2Vec2 MovementComponent::getVelocity() {
+    return body->GetLinearVelocity();
 }
 
 void MovementComponent::setPhysicsBody(b2Body* newBody) {
@@ -51,10 +44,7 @@ b2Body* MovementComponent::getPhysicsBody() {
 void MovementComponent::update() {
 
     if (body && body->GetType() != b2_staticBody) {
-        b2Vec2 velocityVec = body->GetLinearVelocity();
-        //setMovement(velocityVec.x, velocityVec.y);
-        addForce(xVelocity, yVelocity);
-        
-        
+        // TODO: tag checking. if it is player, limit its speed
+        limitMaxSpeed();
     }
 }

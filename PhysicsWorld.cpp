@@ -117,7 +117,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++) {
             UpdatePhysicsComponent(physComponents[i]);
             UpdateTransform(transformComponents[i], physComponents[i]);
-            //UpdateMovementComponent(moveComponents[i]);
+            UpdateMovementComponent(moveComponents[i]);
 
         }
     }
@@ -128,13 +128,11 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
     physComponent->y = physComponent->box2dBody->GetTransform().p.y;
 }
 
-//void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
-//    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
-//    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
-//    b2Vec2 velocity(moveComponent->xVelocity, moveComponent->yVelocity);
-//    moveComponent->body->ApplyForceToCenter(velocity, true);
-//    
-//}
+void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
+    moveComponent->xVelocity = moveComponent->body->GetTransform().p.x;
+    moveComponent->yVelocity = moveComponent->body->GetTransform().p.y;
+    moveComponent->update();
+}
 
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
     transform->setPosition(physComponent->x, physComponent->y);
