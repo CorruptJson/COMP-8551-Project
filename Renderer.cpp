@@ -6,11 +6,11 @@ const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
 GLfloat vertices[] = {
-    // positions          // colors           // texture coords
-     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+    // positions          // texture coords
+     0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
+     0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // bottom left
+    -0.5f,  0.5f, 0.0f,   0.0f, 1.0f    // top left 
 };
 
 // for the element buffer object (EBO)
@@ -401,35 +401,32 @@ void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     const float SPRITESHEET_WIDTH = 1;
     float cellHeight = SPRITESHEET_HEIGHT / info.rows;
     float cellWidth = SPRITESHEET_WIDTH / info.columns;
-    if (comp.facingRight) {
+
+    // set the texcoords by specifying its x and y
+    float leftX = cellWidth * comp.colIndex;
+    float rightX = leftX + cellWidth; 
+    float topY = 1 - cellHeight * comp.rowIndex;
+    float bottomY = topY - cellHeight; 
+
+    if (comp.flipX) {
         // coordinates of the texture coords in the vertices array
-        vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
-        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
-
-        vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
-        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
-
-        vertices[22] = cellWidth * comp.colIndex; // bottom left x
-        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
-
-        vertices[30] = cellWidth * comp.colIndex; // top left x
-        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+        vertices[3] = rightX; // top right x
+        vertices[8] = rightX; // bottom right x
+        vertices[13] = leftX; // bottom left x
+        vertices[18] = leftX; // top left x
     }
     else {
-        //we flip the x of the left and the right vertices
-        // coordinates of the texture coords in the vertices array
-        vertices[30] = cellWidth + cellWidth * comp.colIndex; // top left x flipped
-        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
-
-        vertices[6] = cellWidth* comp.colIndex; // top right x flipped
-        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
-
-        vertices[14] = cellWidth * comp.colIndex; // bottom right x flipped
-        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
-
-        vertices[22] = cellWidth + cellWidth * comp.colIndex; // bottom left x flipped
-        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+        vertices[3] = leftX; // top right x
+        vertices[8] = leftX; // bottom right x
+        vertices[13] = rightX; // bottom left x
+        vertices[18] = rightX; // top left x
     }
+
+    // y values of the tex coords
+    vertices[4] = topY; // top right y
+    vertices[19] = topY; // top left y
+    vertices[9] = bottomY; // bottom right y
+    vertices[14] = bottomY; // bottom left y
 }
 
 Animation Renderer::getAnimation(const char* animName, const char* spriteName)
@@ -488,16 +485,12 @@ int Renderer::update(EntityCoordinator* coordinator) {
         // here: https://learnopengl.com/Getting-started/Textures
         // first param is the input index of the vertex shader (see the first few lines).
         // `aPos` is located at location 0 so we want to set the pointer for this
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        // do the same thing for the color
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-
         // do the same thing for the texture
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
 
         glUseProgram(defaultShaderProgram);
         loadUniforms(modelMatrix);
