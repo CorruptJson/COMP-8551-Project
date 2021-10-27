@@ -47,7 +47,9 @@ int initialize()
 {  
     // when the engine starts
 
-    renderer->init();
+    int viewWidth = 4;
+    int viewHeight = 4;
+    renderer->init(viewWidth, viewHeight);
     coordinator = &(EntityCoordinator::getInstance());
 
     physicsWorld = new PhysicsWorld();
@@ -117,17 +119,16 @@ int runEngine()
 
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = false;
+        coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::D) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
+        coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
         Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
 
