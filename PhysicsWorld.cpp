@@ -47,6 +47,23 @@ void PhysicsWorld::AddObject(EntityID id) {
     }
 
 
+    moveComponent->body = world->CreateBody(&bodyDef);
+
+    if (moveComponent->body) {
+        b2PolygonShape dynamicBox;
+        dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
+
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &dynamicBox;
+        fixtureDef.density = physComponent->density;
+        fixtureDef.friction = physComponent->friction;
+        fixtureDef.restitution = 0;
+
+        //physComponent->box2dBody->CreateFixture(&fixtureDef);
+        moveComponent->body->CreateFixture(&fixtureDef);
+        transformComponent->setPhysicsBody(physComponent->box2dBody);
+    }
+
 }
 
 // THIS IS CURRENTLY OUTDATED AND NOT BEING USED
@@ -55,7 +72,8 @@ void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
-            coordinator->GetComponentType<Transform>()
+            coordinator->GetComponentType<Transform>(),
+
         });
 
     int entitiesFound = entityQuery->totalEntitiesFound();
@@ -117,7 +135,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++) {
             UpdatePhysicsComponent(physComponents[i]);
             UpdateTransform(transformComponents[i], physComponents[i]);
-            //UpdateMovementComponent(moveComponents[i]);
+            UpdateMovementComponent(moveComponents[i]);
 
         }
     }
@@ -128,13 +146,13 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
     physComponent->y = physComponent->box2dBody->GetTransform().p.y;
 }
 
-//void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
-//    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
-//    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
-//    b2Vec2 velocity(moveComponent->xVelocity, moveComponent->yVelocity);
-//    moveComponent->body->ApplyForceToCenter(velocity, true);
-//    
-//}
+void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
+    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
+    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
+    b2Vec2 velocity(moveComponent->xVelocity, moveComponent->yVelocity);
+    moveComponent->body->ApplyForceToCenter(velocity, true);
+    
+}
 
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
     transform->setPosition(physComponent->x, physComponent->y);
