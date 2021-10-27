@@ -30,7 +30,7 @@ void PhysicsWorld::AddObject(EntityID id) {
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
 
     physComponent->box2dBody = world->CreateBody(&bodyDef);
-
+    moveComponent->body = physComponent->box2dBody;
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
