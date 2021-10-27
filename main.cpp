@@ -121,7 +121,7 @@ int runEngine()
     float yVelocity = currVelocity.y;
     //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
     float massMike = coordinator->GetComponent<PhysicsComponent>(mike).density;
-    float speed = 10;
+    float speed = 100;
     bool isGrounded = false;
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
@@ -139,9 +139,9 @@ int runEngine()
         coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
         //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(2.0, 0.0));
-        coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(1, 0), true);
+        //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(1, 0), true);
         //coordinator->GetComponent<MovementComponent>(mike).setMovement(100, 0);
-        //coordinator->GetComponent<MovementComponent>(mike).addForce(100000, 0);
+        coordinator->GetComponent<MovementComponent>(mike).addForce(100, 0);
 
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
@@ -167,15 +167,11 @@ int runEngine()
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger){
         //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, -2), true);
         //coordinator->GetComponent<MovementComponent>(mike).setMovement(000, 100);
-        //coordinator->GetComponent<MovementComponent>(mike).addForce(0, 100);
-
-        coordinator->GetComponent<MovementComponent>(mike).addForce(0, 10);
-        printf("velocity x is :    %d", coordinator->GetComponent<MovementComponent>(mike).xVelocity);
-        printf("velocity y is :    %d", coordinator->GetComponent<MovementComponent>(mike).xVelocity);
+        coordinator->GetComponent<MovementComponent>(mike).addForce(0, 100);
 
     }
     /////////////////
- 
+   
 
     //animation
     animator.updateAnim(coordinator);
