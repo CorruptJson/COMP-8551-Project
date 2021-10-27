@@ -47,7 +47,9 @@ int initialize()
 {  
     // when the engine starts
 
-    renderer->init();
+    int viewWidth = 4;
+    int viewHeight = 4;
+    renderer->init(viewWidth, viewHeight);
     coordinator = &(EntityCoordinator::getInstance());
 
     physicsWorld = new PhysicsWorld();

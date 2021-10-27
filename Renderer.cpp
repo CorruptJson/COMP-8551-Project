@@ -42,7 +42,7 @@ GLFWwindow* window;
 /// Initialize the Render tutorial.
 /// </summary>
 /// <returns></returns>
-int Renderer::init() {
+int Renderer::init(int viewWidth, int viewHeight) {
     int width, height;
     window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
@@ -57,14 +57,12 @@ int Renderer::init() {
 
 
     // init other OpenGL stuff
-    float projectionWidth = 4;
-    float projectionHeight = 4;
     float CENTER_X_COORD = 0;
     float CENTER_Y_COORD = 0;
-    float LEFT_X_COORD = CENTER_X_COORD - projectionWidth / 2;
-    float RIGHT_X_COORD = CENTER_X_COORD + projectionWidth / 2;
-    float BOTTOM_Y_COORD = CENTER_Y_COORD - projectionHeight / 2;
-    float TOP_Y_COORD = CENTER_Y_COORD + projectionHeight / 2;
+    float LEFT_X_COORD = CENTER_X_COORD - viewWidth / 2;
+    float RIGHT_X_COORD = CENTER_X_COORD + viewWidth / 2;
+    float BOTTOM_Y_COORD = CENTER_Y_COORD - viewHeight / 2;
+    float TOP_Y_COORD = CENTER_Y_COORD + viewHeight / 2;
     float EYE_NEAR = 0.f;
     float EYE_FAR = -1.f;
     projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
