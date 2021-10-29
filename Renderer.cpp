@@ -142,6 +142,9 @@ void Renderer::loadImages() {
     // this is because OpenGL's y-axis starts from bottoms up
     // however, images have y-axis starts top down
     stbi_set_flip_vertically_on_load(true);
+    // opengl clamp tex coord in range [0. 1];
+    const float SPRITESHEET_HEIGHT = 1.f;
+    const float SPRITESHEET_WIDTH = 1.f;
 
     for (ImgConfig config : configs) {
         // read the image from the file and store it
@@ -163,6 +166,10 @@ void Renderer::loadImages() {
         info.id = createTexBuffer(info, imgData);
         info.rows = config.rows;
         info.columns = config.columns;
+
+        // calculate the cell size
+        info.cellHeight = SPRITESHEET_HEIGHT / info.rows;
+        info.cellWidth = SPRITESHEET_WIDTH / info.columns;
 
         // store the new sprite
         sprites[config.name] = info;
@@ -380,18 +387,11 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     SpriteInfo info = sprites[spriteName];
 
-
-    // find the height and width of each cell in the spritesheet
-    const float SPRITESHEET_HEIGHT = 1;
-    const float SPRITESHEET_WIDTH = 1;
-    float cellHeight = SPRITESHEET_HEIGHT / info.rows;
-    float cellWidth = SPRITESHEET_WIDTH / info.columns;
-
     // set the texcoords by specifying its x and y
-    float leftX = cellWidth * comp.colIndex;
-    float rightX = leftX + cellWidth; 
-    float topY = 1 - cellHeight * comp.rowIndex;
-    float bottomY = topY - cellHeight; 
+    float leftX = info.cellWidth * comp.colIndex;
+    float rightX = leftX + info.cellWidth; 
+    float topY = 1 - info.cellHeight * comp.rowIndex;
+    float bottomY = topY - info.cellHeight; 
 
     if (comp.flipX) {
         // coordinates of the texture coords in the vertices array
