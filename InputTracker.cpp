@@ -4,10 +4,18 @@
 
 bool InputTracker::isKeyDown(Key aKey)
 {
-    if (aKey == Key::SPACE) { return mKeyState[0] == DOWN || mKeyState[0] == JUST_DOWN; }
-    else if (Key::ZERO <= aKey <= Key::NINE) { return mKeyState[aKey - Key::ZERO + numberStartIndex] == DOWN || mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_DOWN; }
-    else if (Key::A <= aKey <= Key::Z) { return mKeyState[aKey - Key::A + letterStartIndex] == DOWN || mKeyState[aKey - Key::A + letterStartIndex] == JUST_DOWN; }
-    else if (Key::ARROW_RIGHT <= aKey <= ARROW_UP) { return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == DOWN || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_DOWN; }
+    if (aKey == Key::SPACE) { 
+        return mKeyState[0] == DOWN || mKeyState[0] == JUST_DOWN; 
+    }
+    else if (Key::ZERO <= aKey && aKey <= Key::NINE) {
+        return mKeyState[aKey - Key::ZERO + numberStartIndex] == DOWN || mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_DOWN; 
+    }
+    else if (Key::A <= aKey && aKey <= Key::Z) {
+        return mKeyState[aKey - Key::A + letterStartIndex] == DOWN || mKeyState[aKey - Key::A + letterStartIndex] == JUST_DOWN;
+    }
+    else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
+        return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == DOWN || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_DOWN;
+    }
 }
 bool InputTracker::isKeyJustDown(Key aKey) 
 {
@@ -30,18 +38,34 @@ bool InputTracker::isKeyJustDown(Key aKey)
 
 bool InputTracker::isKeyReleased(Key aKey) 
 {
-    if (aKey == Key::SPACE) { return mKeyState[0] == RELEASED || mKeyState[0] == JUST_RELEASED; }
-    else if (Key::ZERO <= aKey <= Key::NINE) { return mKeyState[aKey - Key::ZERO + numberStartIndex] == RELEASED || mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_RELEASED; }
-    else if (Key::A <= aKey <= Key::Z) { return mKeyState[aKey - Key::A + letterStartIndex] == RELEASED || mKeyState[aKey - Key::A + letterStartIndex] == JUST_RELEASED; }
-    else if (Key::ARROW_RIGHT <= aKey <= ARROW_UP) { return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == RELEASED || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; }
+    if (aKey == Key::SPACE) { 
+        return mKeyState[0] == RELEASED || mKeyState[0] == JUST_RELEASED; 
+    }
+    else if (Key::ZERO <= aKey && aKey <= Key::NINE) {
+        return mKeyState[aKey - Key::ZERO + numberStartIndex] == RELEASED || mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_RELEASED; 
+    }
+    else if (Key::A <= aKey && aKey <= Key::Z) {
+        return mKeyState[aKey - Key::A + letterStartIndex] == RELEASED || mKeyState[aKey - Key::A + letterStartIndex] == JUST_RELEASED; 
+    }
+    else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
+        return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == RELEASED || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; 
+    }
 }
 
 bool InputTracker::isKeyJustReleased(Key aKey) 
 {
-    if (aKey == Key::SPACE) { return mKeyState[0] == JUST_RELEASED; }
-    else if (Key::ZERO <= aKey <= Key::NINE) { return mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_RELEASED; }
-    else if (Key::A <= aKey <= Key::Z) { return mKeyState[aKey - Key::A + letterStartIndex] == JUST_RELEASED; }
-    else if (Key::ARROW_RIGHT <= aKey <= ARROW_UP) { return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; }
+    if (aKey == Key::SPACE) {
+        return mKeyState[0] == JUST_RELEASED; 
+    }
+    else if (Key::ZERO <= aKey && aKey <= Key::NINE) {
+        return mKeyState[aKey - Key::ZERO + numberStartIndex] == JUST_RELEASED; 
+    }
+    else if (Key::A <= aKey && aKey <= Key::Z) {
+        return mKeyState[aKey - Key::A + letterStartIndex] == JUST_RELEASED;
+    }
+    else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
+        return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; 
+    }
 }
 
 bool InputTracker::isMouseDown(InputTracker::Mouse aMouseButton) { return mMouseState[aMouseButton - Mouse::MouseLeft] == DOWN || mMouseState[aMouseButton - Mouse::MouseLeft] == JUST_DOWN; }
