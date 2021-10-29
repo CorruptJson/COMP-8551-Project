@@ -28,6 +28,7 @@ Animator animator;
 Archetype standardArch;
 
 // test entities
+//EntityID background;
 EntityID roach;
 EntityID wall;
 EntityID mike;
@@ -39,17 +40,15 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-double countDown = 2000.0;
-bool trigger = false;
+const int VIEW_WIDTH = 4;
+const int VIEW_HEIGHT = 4;
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {  
     // when the engine starts
-
-    int viewWidth = 4;
-    int viewHeight = 4;
-    renderer->init(viewWidth, viewHeight);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
 
     physicsWorld = new PhysicsWorld();
@@ -117,17 +116,17 @@ int runEngine()
         catchupTime -= MS_PER_FRAME;
     }
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A)) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D) && !trigger) {
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D)) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S)) {
         Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
@@ -161,6 +160,7 @@ int main() {
     //entity test
     GameEntityCreator& creator = GameEntityCreator::getInstance();
 
+    //background = creator.CreateScenery(0, 1, 1, 1, "background.png", { Tag::SCENERY });
     roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
     wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
     mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
@@ -169,26 +169,18 @@ int main() {
 
     animator = Animator();
         
-    //this is where we create the animations for a given entity (dude)
-    /*Animation anim1 = Animator::createAnimation("wLeft", 0,3,3,true);
-    Animation anim2 = Animator::createAnimation("wRight", 0,3,2,true);
+    //std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
+    //std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
+    //std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
+    //    
+    //std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
+    //std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
 
-    Animation anims[] = {anim1, anim2};*/
+    //bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
+    //std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
-    //coordinator->GetComponent<AnimationComponent>(mike) = animator.createAnimationComponent(anim1, 250.0f, true);
-
-    std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
-    std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
-    std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
-        
-    std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
-    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
-
-    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
-
-    bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
-    std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
+    //bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
+    //std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
     physicsWorld->AddObjects(coordinator);
 

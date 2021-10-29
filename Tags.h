@@ -6,5 +6,6 @@ enum Tag
     ENEMY,
     ACTOR,
     BULLET,
-    PLATFORM
+    PLATFORM,
+    SCENERY
 };

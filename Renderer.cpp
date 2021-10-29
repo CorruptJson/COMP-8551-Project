@@ -104,28 +104,19 @@ void Renderer::loadImages() {
         Animation anims[5];
     };
 
-    Animation anim1 = Animator::createAnimation("wLeft", 0, 3, 3, true, 250.0f);
-    Animation anim2 = Animator::createAnimation("wRight", 0, 3, 2, true, 250.0f);
-
     ImgConfig configs[]{
-        /*{
-            "turtles.png",
+        {
+            "background.png",
             1,
             1,
             {}
-        },*/
+        },
         {
             "wall.jpg",
             1,
             1,
             {}
         },
-        /*{
-            "game_sprites.png",
-            4,
-            4,
-            {anim1,anim2}
-        },*/
         {
             "Edgar.png",
             1,
@@ -155,10 +146,6 @@ void Renderer::loadImages() {
     for (ImgConfig config : configs) {
         // read the image from the file and store it
         SpriteInfo info;
-        /*if (config.name == "game_sprites.png") {
-            info.spriteAnims.insert(std::pair<const char*, Animation>(config.anims[0].animationName, config.anims[0]));
-            info.spriteAnims.insert(std::pair<const char*, Animation>(anim2.animationName, anim2));
-        }*/
         for (Animation var : config.anims)
         {
             info.spriteAnims.insert(std::pair<const char*, Animation>(var.animationName, var));
@@ -439,7 +426,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     //camera.moveCamera(0.01, 0.0);
 
     // set background color (gray)
-    glClearColor(128 / 255.0f, 128 / 255.0f, 128 / 255.0f, 1.0f);
+    glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
 
     // recall that OpenGL works using buffers
     // this is for the foreground color.
