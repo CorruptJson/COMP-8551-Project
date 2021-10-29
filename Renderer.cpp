@@ -1,7 +1,7 @@
 #include "Renderer.h"
 
-const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
-const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
+std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
+std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
@@ -33,7 +33,6 @@ enum UNIFORMS {
 
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
-
 
 // a pointer to the context
 GLFWwindow* window;
@@ -98,7 +97,7 @@ int Renderer::init(int viewWidth, int viewHeight) {
 void Renderer::loadImages() {
     // read config data
     struct ImgConfig {
-        const char* name;
+        string name;
         int rows;
         int columns;
         Animation anims[5];
@@ -151,7 +150,7 @@ void Renderer::loadImages() {
         SpriteInfo info;
         for (Animation var : config.anims)
         {
-            info.spriteAnims.insert(std::pair<const char*, Animation>(var.animationName, var));
+            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
         }
         
 
@@ -363,7 +362,7 @@ void Renderer::loadIndicesData() {
 
 }
 
-void Renderer::loadTexture(const char* spriteName) {
+void Renderer::loadTexture(std::string spriteName) {
     // if not found
     try {
         SpriteInfo info = sprites[spriteName];
@@ -384,7 +383,7 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
-void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
+void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     SpriteInfo info = sprites[spriteName];
 
     // set the texcoords by specifying its x and y
@@ -414,10 +413,10 @@ void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
     vertices[14] = bottomY; // bottom left y
 }
 
-Animation Renderer::getAnimation(const char* animName, const char* spriteName)
+Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
 
-    return sprites[spriteName].spriteAnims[animName];
+    return &(sprites[spriteName].animations[animName]);
 }
 
 // called in main()

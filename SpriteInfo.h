@@ -3,6 +3,7 @@
 #include <map>
 #include "AnimationComponent.h"
 #include <string>
+
 // store information on a spritesheet
 struct SpriteInfo {
     // opengl texture buffer id
@@ -18,6 +19,6 @@ struct SpriteInfo {
     int columns;
     float cellWidth;
     float cellHeight;
-    std::map<const char *, Animation> spriteAnims;
+    std::map<std::string, Animation> animations;
 
 };

@@ -4,11 +4,11 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
-stbi_uc* FileManager::readImageFile(const char* fileName, int* width, int* height, int* colorChannels) {
-    return stbi_load(fileName, width, height, colorChannels, STBI_rgb_alpha);
+stbi_uc* FileManager::readImageFile(std::string fileName, int* width, int* height, int* colorChannels) {
+    return stbi_load(fileName.c_str(), width, height, colorChannels, STBI_rgb_alpha);
 }
 
-std::string FileManager::readTextFile(const char* fileName) {
+std::string FileManager::readTextFile(std::string fileName) {
     std::ifstream file;
     file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
     try {
@@ -28,6 +28,6 @@ std::string FileManager::readTextFile(const char* fileName) {
     }
 }
 
-std::string FileManager::readShaderFile(const char* fileName) {
+std::string FileManager::readShaderFile(std::string fileName) {
     return readTextFile(fileName);
 }

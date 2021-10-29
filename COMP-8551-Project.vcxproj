@@ -176,6 +176,7 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Archetype.h" />

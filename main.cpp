@@ -117,17 +117,17 @@ int runEngine()
     }
 
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::A)) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::D)) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::S)) {
-        Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+        Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
 
