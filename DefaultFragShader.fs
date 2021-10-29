@@ -3,7 +3,6 @@
 // input from the vert shader
 // name must match the output from
 // the vert shader
-in vec3 Color;
 in vec2 TexCoord;
 
 // final color to be displayed

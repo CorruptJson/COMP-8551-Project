@@ -13,18 +13,16 @@ void InputSystem::preUpdate()
     {
         std::cout << "pressed the W key!" << std::endl;
     }
-    //if (InputTracker::getInstance().isKeyDown(InputTracker::A))
-    //{
-    //    std::cout << "hold the W key!" << std::endl;
-    //}
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W))
-    //{
-    //    std::cout << "jsut release the W key!" << std::endl;
-    //}
-    //if (InputTracker::getInstance().isKeyReleased(InputTracker::W))
-    //{
-    //    std::cout << "release the W key!" << std::endl;
-    //}
+
+    if (InputTracker::getInstance().isKeyDown(InputTracker::A))
+    {
+        std::cout << "A key down!" << std::endl;
+    }
+
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A))
+    {
+        std::cout << "A key just released!" << std::endl;
+    }
 }
 
 void InputSystem::update()
