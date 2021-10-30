@@ -61,24 +61,24 @@ int initialize()
 
 int test(){
 
-    coordinator->RegisterComponent<Transform>();
-    coordinator->RegisterComponent<RenderComponent>();
-    coordinator->RegisterComponent<PhysicsComponent>();
-    coordinator->RegisterComponent<AnimationComponent>();
-    coordinator->RegisterComponent<TimerComponent>();
-    coordinator->RegisterComponent<MovementComponent>();
+coordinator->RegisterComponent<Transform>();
+coordinator->RegisterComponent<RenderComponent>();
+coordinator->RegisterComponent<PhysicsComponent>();
+coordinator->RegisterComponent<AnimationComponent>();
+coordinator->RegisterComponent<TimerComponent>();
+coordinator->RegisterComponent<MovementComponent>();
 
-    //standardArch = coordinator->GetArchetype({
-    //    coordinator->GetComponentType<Transform>(),
-    //    coordinator->GetComponentType<RenderComponent>(),
-    //    coordinator->GetComponentType<PhysicsComponent>(),
-    //    coordinator->GetComponentType<AnimationComponent>()
-    //    });
+//standardArch = coordinator->GetArchetype({
+//    coordinator->GetComponentType<Transform>(),
+//    coordinator->GetComponentType<RenderComponent>(),
+//    coordinator->GetComponentType<PhysicsComponent>(),
+//    coordinator->GetComponentType<AnimationComponent>()
+//    });
 
-    //coordinator->addSystem<InputSystem>(coordinator);    
-    coordinator->addSystem(std::make_shared<InputSystem>());
+//coordinator->addSystem<InputSystem>(coordinator);    
+coordinator->addSystem(std::make_shared<InputSystem>());
 
-    return 0;
+return 0;
 }
 
 // Use for now to make entities with components
@@ -119,57 +119,72 @@ int runEngine()
     }
     /////////////////
     //Testing character control
-    float move_timer;
 
-
-    b2Vec2 currVelocity = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetLinearVelocity();
-    float yVelocity = currVelocity.y;
-    float speed = 15.0f;
-    float jumpSpeed = 150.0f;
-    bool isGrounded = false;
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
+    float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
+    float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
+    float speed = 2.0f;
+    float jumpForce = 160.0f;
+    int jumpCount = 0;
+    int jumpLimit = 1;
+    bool isReset = false;
+    // Colliding with Platform count as ground check
+    bool isCollided = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetContactList();
+    //float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
+    //force /= 3;
+    if (InputTracker::getInstance().isKeyDown(InputTracker::A) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        
-        //coordinator->GetComponent<MovementComponent>(mike).addForce(-speed, 0);
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0.05*-speed, 0);
+
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D) && !trigger) {
+    if (InputTracker::getInstance().isKeyDown(InputTracker::D) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        
-        //coordinator->GetComponent<MovementComponent>(mike).addForce(-speed, 0);
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0.05 * speed, 0);
+
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
+    if (InputTracker::getInstance().isKeyDown(InputTracker::S) && !trigger) {
         Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-        
-        coordinator->GetComponent<MovementComponent>(mike).addForce(0, -jumpSpeed);
-        coordinator->GetComponent<MovementComponent>(roach).setVelocity(-2.0f, 0);
 
+        coordinator->GetComponent<MovementComponent>(roach).setVelocity(0, 0);
     }
-    // check if the player is on the ground 
-    // could also use tag: if player is contacting other objects, then isGrounded = true
-    if (yVelocity > 0.001) {
-        isGrounded = false;
-    } else {
-        isGrounded = true;
-    }
-    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger && (yVelocity < 0.1)) {
-    //    //coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->ApplyForceToCenter(speed * massMike * b2Vec2(0, 2.5), true);
 
-    //}
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W) && !trigger){
-        if (isGrounded) {
-            coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpSpeed);
-        }
-        else {
-            coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
+    if (isCollided) {
+        isReset = true;
+        jumpCount = 0;
+    }
+    else {
+        isReset = false;
+    }
+
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
+        if (isReset) {
+            if (jumpCount < jumpLimit) {
+                coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
+                jumpCount++;
+            }
         }
     }
+
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        if (yVelocity > 0) {
+            coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+        }
+    }
+    //std::cout << "xVelocity: " << xVelocity << std::endl;
+    //std::cout << "yVelocity: " << yVelocity << std::endl;
     /////////////////
    
 
@@ -230,6 +245,7 @@ int main() {
 
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
+
 
     physicsWorld->AddObject(roach);
     physicsWorld->AddObject(wall);

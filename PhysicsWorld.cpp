@@ -129,8 +129,8 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
 }
 
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
-    moveComponent->xVelocity = moveComponent->body->GetTransform().p.x;
-    moveComponent->yVelocity = moveComponent->body->GetTransform().p.y;
+    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
+    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
     moveComponent->update();
 }
 
