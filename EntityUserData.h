@@ -1,7 +1,12 @@
 #pragma once
 
+#include "Types.h"
 #include "Transform.h"
-#include "RenderComponent.h"
 #include "PhysicsComponent.h"
-#include "AnimationComponent.h"
+#include "EntityCoordinator.h"
 #include "MovementComponent.h"
+
+
+struct EntityUserData {
+    EntityID id;
+};

@@ -135,6 +135,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -250,6 +253,12 @@
     </ClInclude>
     <ClInclude Include="Tags.h">
       <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityUserData.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
