@@ -20,6 +20,11 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<MovementComponent>()
 
         });
+
+    //sceneryArchetype = ec.GetArchetype({
+    //    ec.GetComponentType<Transform>(),
+    //    ec.GetComponentType<RenderComponent>()
+    //    });
 }
 
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
@@ -81,3 +86,14 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
 
     return ent;
 }
+
+//EntityID GameEntityCreator::CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
+//{
+//    EntityCoordinator& ec = EntityCoordinator::getInstance();
+//    EntityID ent = ec.CreateEntity(sceneryArchetype, spriteName, tags);
+//
+//    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
+//    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+//
+//    return ent;
+//}

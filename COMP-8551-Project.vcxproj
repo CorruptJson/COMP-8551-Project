@@ -177,6 +177,7 @@
     <None Include="DefaultVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Archetype.h" />
@@ -216,10 +217,11 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="background.png" />
+    <Image Include="bullet.png" />
     <Image Include="Edgar_The_Exterminator.png" />
-    <Image Include="game_sprites.png" />
     <Image Include="Giant_Roach.png" />
-    <Image Include="turtles.png" />
+    <Image Include="platform.png" />
     <Image Include="wall.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

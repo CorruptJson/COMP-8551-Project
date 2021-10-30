@@ -39,17 +39,15 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-double countDown = 2000.0;
-bool trigger = false;
+const int VIEW_WIDTH = 4;
+const int VIEW_HEIGHT = 4;
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {  
     // when the engine starts
-
-    int viewWidth = 4;
-    int viewHeight = 4;
-    renderer->init(viewWidth, viewHeight);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
 
     physicsWorld = new PhysicsWorld();
@@ -61,24 +59,23 @@ int initialize()
 
 int test(){
 
-coordinator->RegisterComponent<Transform>();
-coordinator->RegisterComponent<RenderComponent>();
-coordinator->RegisterComponent<PhysicsComponent>();
-coordinator->RegisterComponent<AnimationComponent>();
-coordinator->RegisterComponent<TimerComponent>();
-coordinator->RegisterComponent<MovementComponent>();
+    coordinator->RegisterComponent<Transform>();
+    coordinator->RegisterComponent<RenderComponent>();
+    coordinator->RegisterComponent<PhysicsComponent>();
+    coordinator->RegisterComponent<AnimationComponent>();
+    coordinator->RegisterComponent<TimerComponent>();
 
-//standardArch = coordinator->GetArchetype({
-//    coordinator->GetComponentType<Transform>(),
-//    coordinator->GetComponentType<RenderComponent>(),
-//    coordinator->GetComponentType<PhysicsComponent>(),
-//    coordinator->GetComponentType<AnimationComponent>()
-//    });
+    //standardArch = coordinator->GetArchetype({
+    //    coordinator->GetComponentType<Transform>(),
+    //    coordinator->GetComponentType<RenderComponent>(),
+    //    coordinator->GetComponentType<PhysicsComponent>(),
+    //    coordinator->GetComponentType<AnimationComponent>()
+    //    });
 
-//coordinator->addSystem<InputSystem>(coordinator);    
-coordinator->addSystem(std::make_shared<InputSystem>());
+    //coordinator->addSystem<InputSystem>(coordinator);    
+    coordinator->addSystem(std::make_shared<InputSystem>());
 
-return 0;
+    return 0;
 }
 
 // Use for now to make entities with components
@@ -135,58 +132,16 @@ int runEngine()
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
     }
     if (InputTracker::getInstance().isKeyDown(InputTracker::D) && !trigger) {
         Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
     }
     if (InputTracker::getInstance().isKeyDown(InputTracker::S) && !trigger) {
         Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-
-        coordinator->GetComponent<MovementComponent>(roach).setVelocity(0, 0);
     }
-
-    if (isCollided) {
-        isReset = true;
-        jumpCount = 0;
-    }
-    else {
-        isReset = false;
-    }
-
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
-        if (isReset) {
-            if (jumpCount < jumpLimit) {
-                coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
-                jumpCount++;
-            }
-        }
-    }
-
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
-    }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
-    }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
-        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
-    }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-        if (yVelocity > 0) {
-            coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
-        }
-    }
-    //std::cout << "xVelocity: " << xVelocity << std::endl;
-    //std::cout << "yVelocity: " << yVelocity << std::endl;
-    /////////////////
-   
 
     //animation
     animator.updateAnim(coordinator);
@@ -246,13 +201,7 @@ int main() {
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-
-    physicsWorld->AddObject(roach);
-    physicsWorld->AddObject(wall);
-    physicsWorld->AddObject(mike);
-
-
-    //physicsWorld->AddObjects(coordinator);
+    physicsWorld->AddObjects(coordinator);
 
     while (!glfwWindowShouldClose(window))
     {
