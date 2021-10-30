@@ -7,18 +7,14 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>(),
         ec.GetComponentType<RenderComponent>(),
         ec.GetComponentType<PhysicsComponent>(),
-        ec.GetComponentType<AnimationComponent>(),
-        ec.GetComponentType<MovementComponent>()
-
+        ec.GetComponentType<AnimationComponent>()
         });
 
     platformArchetype = ec.GetArchetype({
         ec.GetComponentType<Transform>(),
         ec.GetComponentType<RenderComponent>(),
         ec.GetComponentType<PhysicsComponent>(),
-        ec.GetComponentType<AnimationComponent>(),
-        ec.GetComponentType<MovementComponent>()
-
+        ec.GetComponentType<AnimationComponent>()
         });
 
     //sceneryArchetype = ec.GetArchetype({

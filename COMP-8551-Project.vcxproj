@@ -161,7 +161,6 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
-    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
@@ -192,14 +191,12 @@
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EntityQuery.h" />
-    <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="GameEntityCreator.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />
-    <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="RenderComponent.h" />
