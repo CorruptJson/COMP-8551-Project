@@ -259,6 +259,7 @@
     </ClInclude>
     <ClInclude Include="MovementComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
