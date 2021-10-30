@@ -128,21 +128,56 @@ int runEngine()
     bool isCollided = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetContactList();
     //float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
     //force /= 3;
-    if (InputTracker::getInstance().isKeyDown(InputTracker::A) && !trigger) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    if (InputTracker::getInstance().isKeyDown(InputTracker::A)) {
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyDown(InputTracker::D) && !trigger) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    if (InputTracker::getInstance().isKeyDown(InputTracker::D)) {
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyDown(InputTracker::S) && !trigger) {
-        Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    if (InputTracker::getInstance().isKeyDown(InputTracker::S)) {
+        Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
 
+    }
+    if (isCollided) {
+        isReset = true;
+        jumpCount = 0;
+    }
+    else {
+        isReset = false;
+    }
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
+        if (isReset) {
+            if (jumpCount < jumpLimit) {
+                coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
+                jumpCount++;
+            }
+        }
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
+        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    }
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+        if (yVelocity > 0) {
+            coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+        }
+    }
+    //std::cout << "xVelocity: " << xVelocity << std::endl;
+    //std::cout << "yVelocity: " << yVelocity << std::endl;
+    /////////////////   
     //animation
     animator.updateAnim(coordinator);
 
@@ -201,7 +236,9 @@ int main() {
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    physicsWorld->AddObjects(coordinator);
+    physicsWorld->AddObject(roach);
+    physicsWorld->AddObject(wall);
+    physicsWorld->AddObject(mike);
 
     while (!glfwWindowShouldClose(window))
     {
