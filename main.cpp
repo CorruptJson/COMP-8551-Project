@@ -74,7 +74,9 @@ int test(){
     //    });
 
     //coordinator->addSystem<InputSystem>(coordinator);    
-    coordinator->addSystem(std::make_shared<InputSystem>());
+    //coordinator->addSystem(std::make_shared<InputSystem>());
+    coordinator->addSystem<InputSystem>();
+    coordinator->addSystem<TestSystem>();
 
     return 0;
 }

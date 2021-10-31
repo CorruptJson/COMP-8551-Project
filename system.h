@@ -6,7 +6,7 @@ class EntityCoordinator;
 class System {
 public:
     //EntityCoordinator* coordinator;
-    //System() {};
+    System() {};
     //System(EntityCoordinator* coord) :coordinator{ coord }{};
     virtual void preUpdate() {};
     virtual void update() {};

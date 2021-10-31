@@ -76,6 +76,11 @@ public:
     };
 
     template<typename T>
+    shared_ptr<T> addSystem() {
+        return mSystemManager->addSystem<T>();
+    };
+
+    template<typename T>
     bool entityHasComponent(EntityID id)
     {
         return mChunkManager->entityHasComponent(GetComponentType<T>(),id);

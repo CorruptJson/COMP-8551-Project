@@ -12,13 +12,12 @@ class SystemManager
 {
 public:
     //EntityCoordinator* coordinator;
-    //template<typename T>
-    //shared_ptr<T> addSystem(EntityCoordinator* coord) {
-    //    auto system = std::make_shared<T>();
-    //    systemList.push_back(system);
-    //    system->coordinator = coord;
-    //    return system;
-    //}
+    template<typename T>
+    shared_ptr<T> addSystem() {
+        auto system = std::make_shared<T>();
+        systemList.push_back(system);
+        return system;
+    }
 
     void addSystem(std::shared_ptr<System> system);
 

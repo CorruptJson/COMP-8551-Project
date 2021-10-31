@@ -8,7 +8,6 @@ class TestSystem : public System
 {
 public:
     TestSystem() {};
-    //TestSystem(EntityCoordinator* coord) : System{ coord } { }
     void preUpdate() override;
     void update() override;
 };
