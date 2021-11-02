@@ -254,21 +254,27 @@
     <ClInclude Include="EntityUserData.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="turtles.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="wall.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="game_sprites.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Edgar_The_Exterminator.png">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Giant_Roach.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="bullet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="platform.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

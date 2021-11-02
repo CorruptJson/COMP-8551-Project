@@ -20,17 +20,16 @@ extern GLFWwindow* window;
 class Renderer
 {
 public:
-    static const char *DEFAULT_VERT_SHADER_NAME;
-    static const char *DEFAULT_FRAG_SHADER_NAME;
+    static std::string DEFAULT_VERT_SHADER_NAME;
+    static std::string DEFAULT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
-    int init();
+    int init(int viewWidth, int viewHeight);
     int update(EntityCoordinator* coordinator);
     int teardown();
     static Renderer* getInstance();
-    Animation getAnimation(const char* animName, const char* spriteName);
+    Animation* getAnimation(std::string animName, std::string spriteName);
 private:
     static Renderer* renderer;
-    Renderer() {};
     // the vertex array object (VAO)
     // this describes how the vertex attributes are 
     // stored in the a vertex buffer object (VBO)
@@ -49,21 +48,20 @@ private:
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
 
-
     glm::mat4 projectionMatrix;
     Camera camera;
 
     // store the sprites that have been read
     // from the image files
-    std::map<const char*, SpriteInfo> sprites;
+    std::map<std::string, SpriteInfo> sprites;
 
     GLuint createDefaultShaderProgram();
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
-    void loadTexture(const char* spriteName);
+    void loadTexture(std::string spriteName);
     void loadUniforms(mat4 modelMatrix);
     void loadImages();
-    void updateTexCoord(RenderComponent comp, const char* spriteName);
+    void updateTexCoord(RenderComponent comp, std::string spriteName);
 };
 

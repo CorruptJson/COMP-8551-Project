@@ -1,16 +1,16 @@
 #include "Renderer.h"
 
-const char *Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
-const char *Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
+std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
+std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
 GLfloat vertices[] = {
-    // positions          // colors           // texture coords
-     0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
-     0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+    // positions          // texture coords
+     0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
+     0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // bottom left
+    -0.5f,  0.5f, 0.0f,   0.0f, 1.0f    // top left 
 };
 
 // for the element buffer object (EBO)
@@ -34,7 +34,6 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
-
 // a pointer to the context
 GLFWwindow* window;
 
@@ -42,7 +41,7 @@ GLFWwindow* window;
 /// Initialize the Render tutorial.
 /// </summary>
 /// <returns></returns>
-int Renderer::init() {
+int Renderer::init(int viewWidth, int viewHeight) {
     int width, height;
     window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
@@ -57,14 +56,12 @@ int Renderer::init() {
 
 
     // init other OpenGL stuff
-    float projectionWidth = 4;
-    float projectionHeight = 4;
     float CENTER_X_COORD = 0;
     float CENTER_Y_COORD = 0;
-    float LEFT_X_COORD = CENTER_X_COORD - projectionWidth / 2;
-    float RIGHT_X_COORD = CENTER_X_COORD + projectionWidth / 2;
-    float BOTTOM_Y_COORD = CENTER_Y_COORD - projectionHeight / 2;
-    float TOP_Y_COORD = CENTER_Y_COORD + projectionHeight / 2;
+    float LEFT_X_COORD = CENTER_X_COORD - viewWidth / 2;
+    float RIGHT_X_COORD = CENTER_X_COORD + viewWidth / 2;
+    float BOTTOM_Y_COORD = CENTER_Y_COORD - viewHeight / 2;
+    float TOP_Y_COORD = CENTER_Y_COORD + viewHeight / 2;
     float EYE_NEAR = 0.f;
     float EYE_FAR = -1.f;
     projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
@@ -100,34 +97,25 @@ int Renderer::init() {
 void Renderer::loadImages() {
     // read config data
     struct ImgConfig {
-        const char* name;
+        string name;
         int rows;
         int columns;
         Animation anims[5];
     };
 
-    Animation anim1 = Animator::createAnimation("wLeft", 0, 3, 3, true, 250.0f);
-    Animation anim2 = Animator::createAnimation("wRight", 0, 3, 2, true, 250.0f);
-
     ImgConfig configs[]{
-        /*{
-            "turtles.png",
+        {
+            "background.png",
             1,
             1,
             {}
-        },*/
+        },
         {
             "wall.jpg",
             1,
             1,
             {}
         },
-        /*{
-            "game_sprites.png",
-            4,
-            4,
-            {anim1,anim2}
-        },*/
         {
             "Edgar.png",
             1,
@@ -153,17 +141,16 @@ void Renderer::loadImages() {
     // this is because OpenGL's y-axis starts from bottoms up
     // however, images have y-axis starts top down
     stbi_set_flip_vertically_on_load(true);
+    // opengl clamp tex coord in range [0. 1];
+    const float SPRITESHEET_HEIGHT = 1.f;
+    const float SPRITESHEET_WIDTH = 1.f;
 
     for (ImgConfig config : configs) {
         // read the image from the file and store it
         SpriteInfo info;
-        /*if (config.name == "game_sprites.png") {
-            info.spriteAnims.insert(std::pair<const char*, Animation>(config.anims[0].animationName, config.anims[0]));
-            info.spriteAnims.insert(std::pair<const char*, Animation>(anim2.animationName, anim2));
-        }*/
         for (Animation var : config.anims)
         {
-            info.spriteAnims.insert(std::pair<const char*, Animation>(var.animationName, var));
+            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
         }
         
 
@@ -178,6 +165,10 @@ void Renderer::loadImages() {
         info.id = createTexBuffer(info, imgData);
         info.rows = config.rows;
         info.columns = config.columns;
+
+        // calculate the cell size
+        info.cellHeight = SPRITESHEET_HEIGHT / info.rows;
+        info.cellWidth = SPRITESHEET_WIDTH / info.columns;
 
         // store the new sprite
         sprites[config.name] = info;
@@ -371,7 +362,7 @@ void Renderer::loadIndicesData() {
 
 }
 
-void Renderer::loadTexture(const char* spriteName) {
+void Renderer::loadTexture(std::string spriteName) {
     // if not found
     try {
         SpriteInfo info = sprites[spriteName];
@@ -392,50 +383,40 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
 
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
-void Renderer::updateTexCoord(RenderComponent comp, const char* spriteName) {
+void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     SpriteInfo info = sprites[spriteName];
 
+    // set the texcoords by specifying its x and y
+    float leftX = info.cellWidth * comp.colIndex;
+    float rightX = leftX + info.cellWidth; 
+    float topY = 1 - info.cellHeight * comp.rowIndex;
+    float bottomY = topY - info.cellHeight; 
 
-    // find the height and width of each cell in the spritesheet
-    const float SPRITESHEET_HEIGHT = 1;
-    const float SPRITESHEET_WIDTH = 1;
-    float cellHeight = SPRITESHEET_HEIGHT / info.rows;
-    float cellWidth = SPRITESHEET_WIDTH / info.columns;
-    if (comp.facingRight) {
+    if (comp.flipX) {
         // coordinates of the texture coords in the vertices array
-        vertices[6] = cellWidth + cellWidth * comp.colIndex; // top right x
-        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
-
-        vertices[14] = cellWidth + cellWidth * comp.colIndex; // bottom right x
-        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
-
-        vertices[22] = cellWidth * comp.colIndex; // bottom left x
-        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
-
-        vertices[30] = cellWidth * comp.colIndex; // top left x
-        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
+        vertices[3] = rightX; // top right x
+        vertices[8] = rightX; // bottom right x
+        vertices[13] = leftX; // bottom left x
+        vertices[18] = leftX; // top left x
     }
     else {
-        //we flip the x of the left and the right vertices
-        // coordinates of the texture coords in the vertices array
-        vertices[30] = cellWidth + cellWidth * comp.colIndex; // top left x flipped
-        vertices[31] = 1 - cellHeight * comp.rowIndex; // top left y
-
-        vertices[6] = cellWidth* comp.colIndex; // top right x flipped
-        vertices[7] = 1 - cellHeight * comp.rowIndex; // top right y
-
-        vertices[14] = cellWidth * comp.colIndex; // bottom right x flipped
-        vertices[15] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom right y
-
-        vertices[22] = cellWidth + cellWidth * comp.colIndex; // bottom left x flipped
-        vertices[23] = (1 - cellHeight) - cellHeight * comp.rowIndex; // bottom left y
+        vertices[3] = leftX; // top right x
+        vertices[8] = leftX; // bottom right x
+        vertices[13] = rightX; // bottom left x
+        vertices[18] = rightX; // top left x
     }
+
+    // y values of the tex coords
+    vertices[4] = topY; // top right y
+    vertices[19] = topY; // top left y
+    vertices[9] = bottomY; // bottom right y
+    vertices[14] = bottomY; // bottom left y
 }
 
-Animation Renderer::getAnimation(const char* animName, const char* spriteName)
+Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
 
-    return sprites[spriteName].spriteAnims[animName];
+    return &(sprites[spriteName].animations[animName]);
 }
 
 // called in main()
@@ -444,7 +425,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     //camera.moveCamera(0.01, 0.0);
 
     // set background color (gray)
-    glClearColor(128 / 255.0f, 128 / 255.0f, 128 / 255.0f, 1.0f);
+    glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
 
     // recall that OpenGL works using buffers
     // this is for the foreground color.
@@ -488,16 +469,12 @@ int Renderer::update(EntityCoordinator* coordinator) {
         // here: https://learnopengl.com/Getting-started/Textures
         // first param is the input index of the vertex shader (see the first few lines).
         // `aPos` is located at location 0 so we want to set the pointer for this
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
         glEnableVertexAttribArray(0);
 
-        // do the same thing for the color
-        glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-
         // do the same thing for the texture
-        glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-        glEnableVertexAttribArray(2);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+        glEnableVertexAttribArray(1);
 
         glUseProgram(defaultShaderProgram);
         loadUniforms(modelMatrix);
