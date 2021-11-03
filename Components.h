@@ -5,3 +5,4 @@
 #include "PhysicsComponent.h"
 #include "AnimationComponent.h"
 #include "MovementComponent.h"
+#include "StateComponent.h"

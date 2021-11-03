@@ -5,6 +5,8 @@
 #include "PhysicsComponent.h"
 #include "EntityCoordinator.h"
 #include "MovementComponent.h"
+#include "StateComponent.h"
+
 
 
 struct EntityUserData {

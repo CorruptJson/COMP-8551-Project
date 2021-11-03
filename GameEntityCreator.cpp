@@ -8,7 +8,8 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<RenderComponent>(),
         ec.GetComponentType<PhysicsComponent>(),
         ec.GetComponentType<AnimationComponent>(),
-        ec.GetComponentType<MovementComponent>()
+        ec.GetComponentType<MovementComponent>(),
+        ec.GetComponentType<StateComponent>()
 
         });
 
@@ -17,7 +18,9 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<RenderComponent>(),
         ec.GetComponentType<PhysicsComponent>(),
         ec.GetComponentType<AnimationComponent>(),
-        ec.GetComponentType<MovementComponent>()
+        ec.GetComponentType<MovementComponent>(),
+        ec.GetComponentType<StateComponent>()
+
 
         });
 

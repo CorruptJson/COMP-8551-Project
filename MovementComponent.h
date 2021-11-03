@@ -5,18 +5,6 @@
 #include <string>
 #include "Libraries/include/box2d/box2d.h"
 
-//struct MovementComponent
-//{
-//    float xVelocity;
-//    float yVelocity;
-//    b2Body* body;
-//};
-//struct Movement
-//{
-//    float xVelocity;
-//    float yVelocity;
-//};
-//
 class MovementComponent
 {
 public:

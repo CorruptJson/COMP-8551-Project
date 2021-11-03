@@ -9,7 +9,7 @@ InputSystem::InputSystem()
 
 void InputSystem::preUpdate()
 {
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
+    /*if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
     {
         std::cout << "pressed the W key!" << std::endl;
     }
@@ -22,7 +22,7 @@ void InputSystem::preUpdate()
     if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W))
     {
         std::cout << "W key just released!" << std::endl;
-    }
+    }*/
 }
 
 void InputSystem::update()
