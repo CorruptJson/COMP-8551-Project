@@ -43,15 +43,15 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-double countDown = 2000.0;
-bool trigger = false;
+const int VIEW_WIDTH = 4;
+const int VIEW_HEIGHT = 4;
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {  
     // when the engine starts
-
-    renderer->init();
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
@@ -117,19 +117,18 @@ int runEngine()
     }
     
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A) && !trigger) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = false;
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A)) {
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+        coordinator->GetComponent<RenderComponent>(mike).flipX = false;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D) && !trigger) {
-        Animation anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D)) {
+        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+        coordinator->GetComponent<RenderComponent>(mike).flipX = true;
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S) && !trigger) {
-        Animation anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).facingRight = true;
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S)) {
+        Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
         coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
     }
 
@@ -161,15 +160,28 @@ int main() {
 
 
 
+
     coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 
     animator = Animator();
-        
+
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
 
     bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
     std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
+    //std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
+    //std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
+    //std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
+    //    
+    //std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
+    //std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
+
+    //bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
+    //std::cout << "Is dude the player? " << isdudeplayer << std::endl;
+
+    //bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
+    //std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
     physicsWorld->AddObjects(coordinator);
 
