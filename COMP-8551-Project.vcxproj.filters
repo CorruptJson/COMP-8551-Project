@@ -251,6 +251,9 @@
     <ClInclude Include="Tags.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
+    <ClInclude Include="EntityUserData.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
