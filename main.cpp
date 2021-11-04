@@ -14,21 +14,24 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
-#include "inputSystem.h";
+#include "inputSystem.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
+#include "PlayerControlSystem.h"
+
 
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
 
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
+PlayerControlSystem* playerControl;
+
 Animator animator;
 Archetype standardArch;
 
 // test entities
-//EntityID background;
 EntityID roach;
 EntityID wall;
 EntityID mike;
@@ -115,22 +118,70 @@ int runEngine()
 
         catchupTime -= MS_PER_FRAME;
     }
+    /////////////////
+    //Testing character control
+    playerControl->processEntity(mike);
+    //float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
+    //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
+    //float speed = 2.0f;
+    //float jumpForce = 160.0f;
+    //int jumpCount = 0;
+    //int jumpLimit = 1;
+    //bool isReset = false;
+    //// Colliding with Platform count as ground check
+    //bool isCollided = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetContactList();
+    ////float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
+    ////force /= 3;
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::A)) {
+    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<RenderComponent>(mike).flipX = false;
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::D)) {
+    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<RenderComponent>(mike).flipX = true;
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::S)) {
+    //    Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A)) {
-        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).flipX = false;
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D)) {
-        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).flipX = true;
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S)) {
-        Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-
+    //}
+    //if (isCollided) {
+    //    isReset = true;
+    //    jumpCount = 0;
+    //}
+    //else {
+    //    isReset = false;
+    //}
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
+    //    if (isReset) {
+    //        if (jumpCount < jumpLimit) {
+    //            coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
+    //            jumpCount++;
+    //        }
+    //    }
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    if (yVelocity > 0) {
+    //        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    //    }
+    //}
+    //std::cout << "xVelocity: " << xVelocity << std::endl;
+    //std::cout << "yVelocity: " << yVelocity << std::endl;
+    /////////////////   
     //animation
     animator.updateAnim(coordinator);
 
@@ -160,7 +211,6 @@ int main() {
     //entity test
     GameEntityCreator& creator = GameEntityCreator::getInstance();
 
-    //background = creator.CreateScenery(0, 1, 1, 1, "background.png", { Tag::SCENERY });
     roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
     wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
     mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
@@ -169,25 +219,30 @@ int main() {
 
     animator = Animator();
         
-    //std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
-    //std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
-    //std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
-    //    
-    //std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
-    //std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
+    //this is where we create the animations for a given entity (dude)
+    /*Animation anim1 = Animator::createAnimation("wLeft", 0,3,3,true);
+    Animation anim2 = Animator::createAnimation("wRight", 0,3,2,true);
 
-    //bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    //std::cout << "Is dude the player? " << isdudeplayer << std::endl;
+    Animation anims[] = {anim1, anim2};*/
 
-    //bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
-    //std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
+    //coordinator->GetComponent<AnimationComponent>(mike) = animator.createAnimationComponent(anim1, 250.0f, true);
+
+    std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
+    std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
+    std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
+        
+    std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
+    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
+
+    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
+    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
+
+    bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
+    std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
     physicsWorld->AddObject(roach);
     physicsWorld->AddObject(wall);
     physicsWorld->AddObject(mike);
-
-    coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
-    //physicsWorld->AddObjects(coordinator);
 
     while (!glfwWindowShouldClose(window))
     {

@@ -47,6 +47,7 @@ b2Body* Transform::getPhysicsBody() {
 void Transform::update() {
     if (body && body->GetType() != b2_staticBody) {
         b2Vec2 position = body->GetPosition();
+
         //body->SetTransform(b2Vec2(position.x, position.y), 0);
         //setPosition(position.x, position.y);
 
