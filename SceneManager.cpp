@@ -46,6 +46,7 @@ std::map < std::string, const char*> spriteMap = {
 
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
+    renderer = Renderer::getInstance();
     this->LoadJson("scene.json");
 }
 
@@ -94,6 +95,10 @@ void SceneManager::CreateEntities() {
         // RenderComponent
         bool hasAnimation = false;
 
+        // AnimationComponent
+        bool animIsPlaying = false;
+        std::string animName = "";
+
         // Physics
         float density = 1.0f;
         float friction = 0.0f;
@@ -129,7 +134,7 @@ void SceneManager::CreateEntities() {
                         ? component.value()["rotation"].get<float>() : rotation;
 
                     break;
-                
+
                 case RENDER:
                     // Entities with Render always have transform
                     renderComponent = true;
@@ -139,10 +144,10 @@ void SceneManager::CreateEntities() {
 
                     // Todo: Stop using a map to convert from string to string
                     spriteName = (component.value().contains("sprite"))
-                        ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName; 
+                        ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName;
 
                     hasAnimation = component.value().contains("hasAnim")
-                        ? component.value()["hasAnim"].get<bool>() : false;
+                        ? component.value()["hasAnim"].get<bool>() : hasAnimation;
 
                     break;
 
@@ -154,19 +159,27 @@ void SceneManager::CreateEntities() {
                     stateComponent = true;
 
                     // TODO: do more than just check for one string
-                    bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody" 
+                    bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
                         ? b2_dynamicBody : bodyType;
 
-                    friction = component.value().contains("friction") 
-                        ? component.value()["friction"].get<float>() : 0;
+                    friction = component.value().contains("friction")
+                        ? component.value()["friction"].get<float>() : friction;
 
-                    density = component.value().contains("density") 
-                        ? component.value()["density"].get<float>() : 1;
+                    density = component.value().contains("density")
+                        ? component.value()["density"].get<float>() : density;
 
                     break;
 
                 case ANIMATION:
                     animationComponent = true;
+                    renderComponent = true;
+
+                    animIsPlaying = component.value().contains("isPlaying")
+                        ? component.value()["isPlaying"].get<bool>() : animIsPlaying;
+
+                    animName = component.value().contains("animName")
+                        ? component.value()["animName"].get<std::string>() : animName;
+
                     break;
 
             }
@@ -221,7 +234,12 @@ void SceneManager::CreateEntities() {
             };
 
         }
-        
+
+        if (animationComponent) {
+            coordinator->GetComponent<AnimationComponent>(ent) =
+                Animator::createAnimationComponent(renderer->getAnimation(animName, spriteName), true);
+        }
+
     }
 
 }

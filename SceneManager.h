@@ -1,6 +1,7 @@
 #pragma once
 #include "Types.h"
 #include "EntityCoordinator.h"
+#include "Renderer.h"
 
 
 class SceneManager
@@ -8,6 +9,7 @@ class SceneManager
 
 
 private:
+    Renderer* renderer;
     EntityCoordinator* coordinator;
     json jsonArray;
     

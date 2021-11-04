@@ -18,7 +18,6 @@
         },
         "animation": {
             "animName": "idle",
-            "spriteName": "Edgar.png",
             "isPlaying": true
         }
     },
