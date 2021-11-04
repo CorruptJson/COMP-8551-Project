@@ -135,6 +135,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
     <ClCompile Include="MovementComponent.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -151,6 +154,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="DefaultFragShader.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="scene.json">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
@@ -258,6 +264,9 @@
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Tags.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="EntityUserData.h">

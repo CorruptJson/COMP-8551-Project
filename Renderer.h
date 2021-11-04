@@ -59,6 +59,7 @@ private:
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
+
     void loadTexture(std::string spriteName);
     void loadUniforms(mat4 modelMatrix);
     void loadImages();
