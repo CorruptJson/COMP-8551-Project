@@ -6,6 +6,8 @@
 #include <ratio>
 #include <chrono>
 #include <string>
+#include <ft2build.h>
+#include FT_FREETYPE_H  
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 #include "EntityCoordinator.h"
