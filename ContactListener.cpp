@@ -2,8 +2,8 @@
 
 ContactListener::~ContactListener()
 {
-    delete userDataA;
-    delete userDataB;
+    //delete userDataA;
+    //delete userDataB;
 }
 
 void ContactListener::BeginContact(b2Contact* contact) {
@@ -13,25 +13,41 @@ void ContactListener::BeginContact(b2Contact* contact) {
     EntityUserData* entUserDataA = reinterpret_cast<EntityUserData*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
     EntityUserData* entUserDataB = reinterpret_cast<EntityUserData*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    userDataA = entUserDataA;
-    userDataB = entUserDataB;
+    //userDataA = entUserDataA;
+    //userDataB = entUserDataB;
 
-    if (GetContact(PLAYER)) {
+    if (GetFirstContact(PLAYER, entUserDataA->id)) {
+
         cout << "Player contact with: ";
-        if (GetContact(PLATFORM)) {
+        if (GetSecondContact(PLATFORM, entUserDataB->id)) {
             cout << "platform" << endl;
         }
-        else if (GetContact(ENEMY)) {
+        else if (GetSecondContact(ENEMY, entUserDataB->id)) {
+            // testing enemy move on collision
+            PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id);
+            physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
+            cout << "enemy" << endl;
+        }
+    }
+    else if (GetFirstContact(PLAYER, entUserDataB->id)) {
+        cout << "Player contact with: ";
+        if (GetSecondContact(PLATFORM, entUserDataA->id)) {
+            cout << "platform" << endl;
+        }
+        else if (GetSecondContact(ENEMY, entUserDataA->id)) {
+            // testing enemy move on collision
+            PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id);
+            physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
             cout << "enemy" << endl;
         }
     }
 
-    if (GetContact(ENEMY)) {
+    if (GetFirstContact(ENEMY, entUserDataA->id)) {
         cout << "Enemy contact with: ";
-        if (GetContact(PLATFORM)) {
+        if (GetSecondContact(PLATFORM, entUserDataB->id)) {
             cout << "platform" << endl;
         }
-        else if (GetContact(PLAYER)) {
+        else if (GetSecondContact(PLAYER, entUserDataB->id)) {
             cout << "player" << endl;
         }
     }
@@ -54,7 +70,10 @@ void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impu
 
 }
 
-bool ContactListener::GetContact(Tag entityTag) {
-    return EntityCoordinator::getInstance().entityHasTag(entityTag, userDataA->id) 
-        || EntityCoordinator::getInstance().entityHasTag(entityTag, userDataB->id);
+bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {
+    return EntityCoordinator::getInstance().entityHasTag(entityTag, id);
+}
+
+bool ContactListener::GetSecondContact(Tag entityTag, EntityID id) {
+    return EntityCoordinator::getInstance().entityHasTag(entityTag, id);
 }
