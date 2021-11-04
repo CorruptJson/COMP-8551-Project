@@ -207,9 +207,6 @@ int main() {
     test();
 
 
-
-    coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
-
     animator = Animator();
 
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;

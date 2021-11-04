@@ -46,6 +46,7 @@ std::map < std::string, const char*> spriteMap = {
 
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
+    renderer = Renderer::getInstance();
     this->LoadJson("scene.json");
 }
 
@@ -94,6 +95,10 @@ void SceneManager::CreateEntities() {
         // RenderComponent
         bool hasAnimation = false;
 
+        // AnimationComponent
+        bool animIsPlaying = false;
+        std::string animName = "";
+
         // Physics
         float density = 1.0f;
         float friction = 0.0f;
@@ -104,70 +109,78 @@ void SceneManager::CreateEntities() {
 
             // Set component booleans and set their values in this switch statement
             switch (keyMap[component.key()]) {
-                case TAG:
-                    //TODO: allow for multiple tags
-                    tags.push_back(tagMap[component.value()]);
-                    break;
+            case TAG:
+                //TODO: allow for multiple tags
+                tags.push_back(tagMap[component.value()]);
+                break;
 
-                case TRANSFORM:
-                    transformComponent = true; // add transform to component
+            case TRANSFORM:
+                transformComponent = true; // add transform to component
 
-                    // Values
-                    xPos = (component.value().contains("xPos")) // If component Json contains xPos key
-                        ? component.value()["xPos"].get<float>() : xPos; // set the xPos to it's value, else keep it the same
+                // Values
+                xPos = (component.value().contains("xPos")) // If component Json contains xPos key
+                    ? component.value()["xPos"].get<float>() : xPos; // set the xPos to it's value, else keep it the same
 
-                    yPos = (component.value().contains("yPos"))
-                        ? component.value()["yPos"].get<float>() : yPos;
+                yPos = (component.value().contains("yPos"))
+                    ? component.value()["yPos"].get<float>() : yPos;
 
-                    xScale = (component.value().contains("xScale"))
-                        ? component.value()["xScale"].get<float>() : xScale;
+                xScale = (component.value().contains("xScale"))
+                    ? component.value()["xScale"].get<float>() : xScale;
 
-                    yScale = (component.value().contains("yScale"))
-                        ? component.value()["yScale"].get<float>() : yScale;
+                yScale = (component.value().contains("yScale"))
+                    ? component.value()["yScale"].get<float>() : yScale;
 
-                    rotation = (component.value().contains("rotation"))
-                        ? component.value()["rotation"].get<float>() : rotation;
+                rotation = (component.value().contains("rotation"))
+                    ? component.value()["rotation"].get<float>() : rotation;
 
-                    break;
-                
-                case RENDER:
-                    // Entities with Render always have transform
-                    renderComponent = true;
-                    transformComponent = true;
+                break;
 
-                    // Values
+            case RENDER:
+                // Entities with Render always have transform
+                renderComponent = true;
+                transformComponent = true;
 
-                    // Todo: Stop using a map to convert from string to string
-                    spriteName = (component.value().contains("sprite"))
-                        ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName; 
+                // Values
 
-                    hasAnimation = component.value().contains("hasAnim")
-                        ? component.value()["hasAnim"].get<bool>() : false;
+                // Todo: Stop using a map to convert from string to string
+                spriteName = (component.value().contains("sprite"))
+                    ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName;
 
-                    break;
+                hasAnimation = component.value().contains("hasAnim")
+                    ? component.value()["hasAnim"].get<bool>() : hasAnimation;
 
-                case PHYSICS:
-                    // Entties with Physics always have these components
-                    physicsComponent = true;
-                    transformComponent = true;
-                    movementComponent = true;
-                    stateComponent = true;
+                break;
 
-                    // TODO: do more than just check for one string
-                    bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody" 
-                        ? b2_dynamicBody : bodyType;
+            case PHYSICS:
+                // Entties with Physics always have these components
+                physicsComponent = true;
+                transformComponent = true;
+                movementComponent = true;
+                stateComponent = true;
 
-                    friction = component.value().contains("friction") 
-                        ? component.value()["friction"].get<float>() : 0;
+                // TODO: do more than just check for one string
+                bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
+                    ? b2_dynamicBody : bodyType;
 
-                    density = component.value().contains("density") 
-                        ? component.value()["density"].get<float>() : 1;
+                friction = component.value().contains("friction")
+                    ? component.value()["friction"].get<float>() : friction;
 
-                    break;
+                density = component.value().contains("density")
+                    ? component.value()["density"].get<float>() : density;
 
-                case ANIMATION:
-                    animationComponent = true;
-                    break;
+                break;
+
+            case ANIMATION:
+                animationComponent = true;
+                renderComponent = true;
+
+                animIsPlaying = component.value().contains("isPlaying")
+                    ? component.value()["isPlaying"].get<bool>() : animIsPlaying;
+
+                animName = component.value().contains("animName")
+                    ? component.value()["animName"].get<std::string>() : animName;
+
+                break;
 
             }
         }
@@ -221,7 +234,12 @@ void SceneManager::CreateEntities() {
             };
 
         }
-        
+
+        if (animationComponent) {
+            coordinator->GetComponent<AnimationComponent>(ent) =
+                Animator::createAnimationComponent(renderer->getAnimation(animName, spriteName), true);
+        }
+
     }
 
 }
