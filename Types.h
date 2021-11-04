@@ -13,6 +13,8 @@ using ComponentType = std::uint8_t;
 using ComponentSize = std::uint8_t;
 const ComponentType MAX_COMPONENTS = 32;
 
+using Tagset = int;
+
 using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;

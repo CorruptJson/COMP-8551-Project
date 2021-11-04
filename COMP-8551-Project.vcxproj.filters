@@ -135,6 +135,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
+    <ClCompile Include="Tags.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -253,6 +256,9 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TagFunctions.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
