@@ -42,7 +42,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //force /= 3;
     if (yVelocity == 0) {
         // Change to normal state only if previous state was falling(no mid air jump)
-        if (currState == stateComponent->myState.STATE_NORMAL) {
+        if (currState == stateComponent->myState.STATE_JUMPING) {
             stateComponent->myState.setState(stateComponent->myState.STATE_NORMAL);
         }
         // Set to moving state if not falling and moving on x axis
@@ -73,7 +73,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //else {
     //    isReset = false;
     //}
-    if (input.isKeyJustDown(InputTracker::W) &&(currState == stateComponent->myState.STATE_NORMAL || currState == stateComponent->myState.STATE_MOVING)) {
+    if (input.isKeyJustDown(InputTracker::W) && currState != stateComponent->myState.STATE_JUMPING) {
         //if (isReset) {
             if (jumpCount < jumpLimit) {
                 moveComponent->addForce(0, jumpForce);
@@ -82,12 +82,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
             }
         //}
     }
-    if (input.isKeyJustReleased(InputTracker::A) || input.isKeyJustReleased(InputTracker::W)) {
-        moveComponent->setVelocity(0, yVelocity);
-    }
-    if (input.isKeyJustReleased(InputTracker::D) || input.isKeyJustReleased(InputTracker::W)) {
-        moveComponent->setVelocity(0, yVelocity);
-    }
+
     if (input.isKeyJustReleased(InputTracker::S)) {
         moveComponent->setVelocity(xVelocity, 0);
     }
@@ -95,6 +90,10 @@ void PlayerControlSystem::processEntity(EntityID id) {
         if (yVelocity > 0) {
             moveComponent->setVelocity(xVelocity, 0);
         }
+    }
+
+    if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
+        moveComponent->setVelocity(0, yVelocity);
     }
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
