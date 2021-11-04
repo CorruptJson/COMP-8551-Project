@@ -54,7 +54,6 @@ int Renderer::init(int viewWidth, int viewHeight) {
     // init it
     gladLoadGL();
 
-
     // init other OpenGL stuff
     float CENTER_X_COORD = 0;
     float CENTER_Y_COORD = 0;
@@ -87,6 +86,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     // enable transparency for the images
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
+
+    loadTextLibrary();
 
     return 0;
 }
@@ -162,7 +163,7 @@ void Renderer::loadImages() {
         }
 
         // create the texture buffer and store its id in info
-        info.id = createTexBuffer(info, imgData);
+        info.id = createTexBuffer(info.height, info.width, imgData);
         info.rows = config.rows;
         info.columns = config.columns;
 
@@ -178,7 +179,7 @@ void Renderer::loadImages() {
     }
 }
 
-GLuint Renderer::createTexBuffer(SpriteInfo info, stbi_uc* imgData) {
+GLuint Renderer::createTexBuffer(int height, int width, unsigned char* imgData) {
     // create a texture buffer
     GLuint id;
     glGenTextures(1, &id);
@@ -187,7 +188,7 @@ GLuint Renderer::createTexBuffer(SpriteInfo info, stbi_uc* imgData) {
     //note* needs to be above any texture functions so that it is applied to the binded texture
     glBindTexture(GL_TEXTURE_2D, id);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, info.width, info.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, imgData);
     glGenerateMipmap(GL_TEXTURE_2D);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
@@ -315,6 +316,62 @@ GLuint Renderer::createDefaultShaderProgram() {
 	return shaderProgram;
 }
 
+/// <summary>
+/// Load the FreeType text library and the fonts we'll use for the game.
+/// </summary>
+void Renderer::loadTextLibrary() {
+    // init the library
+    FT_Library ft;
+    if (FT_Init_FreeType(&ft)) {
+        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        return;
+    }
+
+    // load the font file so we get a texture
+    FT_Face face;
+    if (FT_New_Face(ft, "Pixeboy.ttf", 0, &face))
+    {
+        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        return;
+    }
+    FT_Set_Pixel_Sizes(face, 0, 48);
+
+    // load the characters into the characters
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
+
+    // load the characters from the font file
+    for (unsigned char c = 0; c < 128; c++) {
+        // load character glyph 
+        if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
+            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+            continue;
+        }
+
+        // generate texture
+        int height = face->glyph->bitmap.rows;
+        int width = face->glyph->bitmap.width;
+        unsigned char* data = face->glyph->bitmap.buffer;
+        GLuint textureId = createTexBuffer(height, width, data);
+
+        // now store character for later use
+        Character character = {
+            textureId,
+            face->glyph->bitmap.width,
+            face->glyph->bitmap.rows,
+            face->glyph->bitmap_left,
+            face->glyph->bitmap_top,
+            face->glyph->advance.x
+        };
+        characters.insert(std::pair<unsigned char, Character>(c, character));
+    }
+
+    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+    // we are done with the free type
+    FT_Done_Face(face);
+    FT_Done_FreeType(ft);
+}
+
 // load the vertex data for the object
 void Renderer::loadVertexData() {
 	// now we need to bind the VBO so OpenGL knows to draw it
@@ -415,7 +472,6 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
 
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
-
     return &(sprites[spriteName].animations[animName]);
 }
 

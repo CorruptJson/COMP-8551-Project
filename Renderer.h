@@ -2,6 +2,8 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H  
 #include <map>
 #include "Camera.h"
 #include "SpriteInfo.h"
@@ -14,6 +16,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <stb/stb_image.h>
 #include "Animator.h"
+#include "Character.h"
 
 extern GLFWwindow* window;
 
@@ -55,10 +58,14 @@ private:
     // from the image files
     std::map<std::string, SpriteInfo> sprites;
 
+    // store the text characters
+    std::map<unsigned char, Character> characters;
+
     GLuint createDefaultShaderProgram();
     void loadVertexData();
     void loadIndicesData();
-    GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
+    GLuint createTexBuffer(int height, int width, unsigned char* imgData);
+    void loadTextLibrary();
 
     void loadTexture(std::string spriteName);
     void loadUniforms(mat4 modelMatrix);
