@@ -44,16 +44,18 @@ std::map < std::string, const char*> spriteMap = {
 
 
 
+
+
+
+
+
+
+
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
     this->LoadJson("scene.json");
 }
-
-
-
-
-
 
 
 void SceneManager::LoadJson(const char* filename) {
@@ -66,182 +68,151 @@ void SceneManager::CreateEntities() {
     // loop through entities
     for (auto& entity : jsonArray.items()) {
 
-        std::vector<uint8_t> components;
-
-        std::vector<Tag> tags;
-        const char* spriteName = "";
-
-        // - Components ------------------------
-        // 
-        // Use to add components to entity
-        bool transformComponent = false;
-        bool renderComponent = false;
-        bool physicsComponent = false;
-        bool animationComponent = false;
-        bool movementComponent = false;
-        bool stateComponent = false;
-
-
-
-        // - Component Values -----------------------------
-
-        // Transform
-        float xPos = 0.0f;
-        float yPos = 0.0f;
-        float xScale = 1.0f;
-        float yScale = 1.0f;
-        float rotation = 0.0f;
-
-        // RenderComponent
-        bool hasAnimation = false;
-
-        // AnimationComponent
-        bool animIsPlaying = false;
-        std::string animName = "";
-
-        // Physics
-        float density = 1.0f;
-        float friction = 0.0f;
-        b2BodyType bodyType = b2_staticBody;
-
-        //loop through components in the entity
-        for (auto& component : entity.value().items()) {
-
-            // Set component booleans and set their values in this switch statement
-            switch (keyMap[component.key()]) {
-                case TAG:
-                    //TODO: allow for multiple tags
-                    tags.push_back(tagMap[component.value()]);
-                    break;
-
-                case TRANSFORM:
-                    transformComponent = true; // add transform to component
-
-                    // Values
-                    xPos = (component.value().contains("xPos")) // If component Json contains xPos key
-                        ? component.value()["xPos"].get<float>() : xPos; // set the xPos to it's value, else keep it the same
-
-                    yPos = (component.value().contains("yPos"))
-                        ? component.value()["yPos"].get<float>() : yPos;
-
-                    xScale = (component.value().contains("xScale"))
-                        ? component.value()["xScale"].get<float>() : xScale;
-
-                    yScale = (component.value().contains("yScale"))
-                        ? component.value()["yScale"].get<float>() : yScale;
-
-                    rotation = (component.value().contains("rotation"))
-                        ? component.value()["rotation"].get<float>() : rotation;
-
-                    break;
-
-                case RENDER:
-                    // Entities with Render always have transform
-                    renderComponent = true;
-                    transformComponent = true;
-
-                    // Values
-
-                    // Todo: Stop using a map to convert from string to string
-                    spriteName = (component.value().contains("sprite"))
-                        ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName;
-
-                    hasAnimation = component.value().contains("hasAnim")
-                        ? component.value()["hasAnim"].get<bool>() : hasAnimation;
-
-                    break;
-
-                case PHYSICS:
-                    // Entties with Physics always have these components
-                    physicsComponent = true;
-                    transformComponent = true;
-                    movementComponent = true;
-                    stateComponent = true;
-
-                    // TODO: do more than just check for one string
-                    bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
-                        ? b2_dynamicBody : bodyType;
-
-                    friction = component.value().contains("friction")
-                        ? component.value()["friction"].get<float>() : friction;
-
-                    density = component.value().contains("density")
-                        ? component.value()["density"].get<float>() : density;
-
-                    break;
-
-                case ANIMATION:
-                    animationComponent = true;
-                    renderComponent = true;
-
-                    animIsPlaying = component.value().contains("isPlaying")
-                        ? component.value()["isPlaying"].get<bool>() : animIsPlaying;
-
-                    animName = component.value().contains("animName")
-                        ? component.value()["animName"].get<std::string>() : animName;
-
-                    break;
-
-            }
-        }
+        // For setting all the entity and component values
+        // See EntityValue class in the SceneManager.h to add more
+        EntityValues ev;
+        this->ParseEntityValues(ev, entity.value()); // parses json and updates entityvalue object
 
         // add components to archetype if they're enabled
-        if (transformComponent) components.push_back(coordinator->GetComponentType<Transform>());
-        if (renderComponent) components.push_back(coordinator->GetComponentType<RenderComponent>());
-        if (physicsComponent) components.push_back(coordinator->GetComponentType<PhysicsComponent>());
-        if (animationComponent) components.push_back(coordinator->GetComponentType<AnimationComponent>());
-        if (movementComponent) components.push_back(coordinator->GetComponentType<MovementComponent>());
-        if (stateComponent) components.push_back(coordinator->GetComponentType<StateComponent>());
+        if (ev.transformComponent) ev.components.push_back(coordinator->GetComponentType<Transform>());
+        if (ev.renderComponent) ev.components.push_back(coordinator->GetComponentType<RenderComponent>());
+        if (ev.physicsComponent) ev.components.push_back(coordinator->GetComponentType<PhysicsComponent>());
+        if (ev.animationComponent) ev.components.push_back(coordinator->GetComponentType<AnimationComponent>());
+        if (ev.movementComponent) ev.components.push_back(coordinator->GetComponentType<MovementComponent>());
+        if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
 
-        Archetype arch = coordinator->GetArchetype(components);
-        std::cout << spriteName << std::endl;
-        EntityID ent = coordinator->CreateEntity(arch, spriteName, tags);
+        Archetype arch = coordinator->GetArchetype(ev.components);
+        std::cout << ev.spriteName << std::endl;
+        EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
 
         entities.push_back(ent);
 
         // Set component values from before here
-        if (transformComponent) {
+        if (ev.transformComponent) {
             coordinator->GetComponent<Transform>(ent) = {
-                    xPos,
-                    yPos,
-                    rotation,
-                    xScale,
-                    yScale
+                    ev.xPos,
+                    ev.yPos,
+                    ev.rotation,
+                    ev.xScale,
+                    ev.yScale
             };
         }
 
-        if (renderComponent) {
+        if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
                     "defaultVertShader.vs",
                     "defaultFragShader.fs",
-                    spriteName,
+                    ev.spriteName,
                     0,
                     0,
-                    hasAnimation,
+                    ev.hasAnimation,
                     true
             };
         }
 
-        if (physicsComponent) {
+        if (ev.physicsComponent) {
             coordinator->GetComponent<PhysicsComponent>(ent) = {
-                bodyType,
-                0.5f * yScale,
-                0.5f * xScale,
-                xPos,
-                yPos,
-                density,
-                friction
+                ev.bodyType,
+                0.5f * ev.yScale,
+                0.5f * ev.xScale,
+                ev.xPos,
+                ev.yPos,
+                ev.density,
+                ev.friction
             };
 
         }
 
-        if (animationComponent) {
+        if (ev.animationComponent) {
             coordinator->GetComponent<AnimationComponent>(ent) =
-                Animator::createAnimationComponent(renderer->getAnimation(animName, spriteName), true);
+                Animator::createAnimationComponent(renderer->getAnimation(ev.animName, ev.spriteName), true);
         }
 
     }
-
 }
 
 
+void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
+
+    //loop through components in the entity
+    for (auto& component : jsonObject.items()) {
+
+        // Set component booleans and set their values in this switch statement
+        switch (keyMap[component.key()]) {
+        case TAG:
+            //TODO: allow for multiple tags
+            ev.tags.push_back(tagMap[component.value()]);
+            break;
+
+        case TRANSFORM:
+            ev.transformComponent = true; // add transform to component
+
+            // Values
+            ev.xPos = (component.value().contains("xPos")) // If component Json contains xPos key
+                ? component.value()["xPos"].get<float>() : ev.xPos; // set the xPos to it's value, else keep it the same
+
+            ev.yPos = (component.value().contains("yPos"))
+                ? component.value()["yPos"].get<float>() : ev.yPos;
+
+            ev.xScale = (component.value().contains("xScale"))
+                ? component.value()["xScale"].get<float>() : ev.xScale;
+
+            ev.yScale = (component.value().contains("yScale"))
+                ? component.value()["yScale"].get<float>() : ev.yScale;
+
+            ev.rotation = (component.value().contains("rotation"))
+                ? component.value()["rotation"].get<float>() : ev.rotation;
+
+            break;
+
+        case RENDER:
+            // Entities with Render always have transform
+            ev.renderComponent = true;
+            ev.transformComponent = true;
+
+            // Values
+
+            // Todo: Stop using a map to convert from string to string
+            ev.spriteName = (component.value().contains("sprite"))
+                ? spriteMap[component.value()["sprite"].get<std::string>()] : ev.spriteName;
+
+            ev.hasAnimation = component.value().contains("hasAnim")
+                ? component.value()["hasAnim"].get<bool>() : ev.hasAnimation;
+
+            break;
+
+        case PHYSICS:
+            // Entties with Physics always have these components
+            ev.physicsComponent = true;
+            ev.transformComponent = true;
+            ev.movementComponent = true;
+            ev.stateComponent = true;
+
+            // TODO: do more than just check for one string
+            ev.bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
+                ? b2_dynamicBody : ev.bodyType;
+
+            ev.friction = component.value().contains("friction")
+                ? component.value()["friction"].get<float>() : ev.friction;
+
+            ev.density = component.value().contains("density")
+                ? component.value()["density"].get<float>() : ev.density;
+
+            break;
+
+        case ANIMATION:
+            ev.animationComponent = true;
+            ev.renderComponent = true;
+
+            ev.animIsPlaying = component.value().contains("isPlaying")
+                ? component.value()["isPlaying"].get<bool>() : ev.animIsPlaying;
+
+            ev.animName = component.value().contains("animName")
+                ? component.value()["animName"].get<std::string>() : ev.animName;
+
+            break;
+
+        }
+    }
+
+};

@@ -3,6 +3,44 @@
 #include "EntityCoordinator.h"
 #include "Renderer.h"
 
+struct EntityValues {
+    std::vector<uint8_t> components;
+
+    std::vector<Tag> tags;
+    const char* spriteName = "";
+
+    // - Components ------------------------
+    // 
+    // Use to add components to entity
+    bool transformComponent = false;
+    bool renderComponent = false;
+    bool physicsComponent = false;
+    bool animationComponent = false;
+    bool movementComponent = false;
+    bool stateComponent = false;
+
+    // - Component Values -----------------------------
+
+    // Transform
+    float xPos = 0.0f;
+    float yPos = 0.0f;
+    float xScale = 1.0f;
+    float yScale = 1.0f;
+    float rotation = 0.0f;
+
+    // RenderComponent
+    bool hasAnimation = false;
+
+    // AnimationComponent
+    bool animIsPlaying = false;
+    std::string animName = "";
+
+    // Physics
+    float density = 1.0f;
+    float friction = 0.0f;
+    b2BodyType bodyType = b2_staticBody;
+};
+
 
 class SceneManager
 {
@@ -12,7 +50,7 @@ private:
     Renderer* renderer;
     EntityCoordinator* coordinator;
     json jsonArray;
-    
+    void ParseEntityValues(EntityValues& ev, const json& jsonObject);
 
 
 
@@ -22,7 +60,7 @@ public:
 
     void LoadJson(const char* filename);
     void CreateEntities();
-
+    
 
 
 
