@@ -25,11 +25,13 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
 
     // Character control
-    float xVelocity = moveComponent->xVelocity;
-    float yVelocity = moveComponent->yVelocity;
+    float xVelocity = moveComponent->getVelocity().x;
+    float yVelocity = moveComponent->getVelocity().y;
+    // state
+    int currState = stateComponent->myState.getState();
 
     float speed = 2.0f;
-    float jumpForce = 160.0f;
+    float jumpForce = 260.0f;
     int jumpCount = 0;
     int jumpLimit = 1;
     bool isReset = false;
@@ -38,6 +40,16 @@ void PlayerControlSystem::processEntity(EntityID id) {
     bool isCollided = physComponent->box2dBody->GetContactList();
     //float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
     //force /= 3;
+    if (yVelocity == 0) {
+        // Change to normal state only if previous state was falling(no mid air jump)
+        if (currState == stateComponent->myState.STATE_NORMAL) {
+            stateComponent->myState.setState(stateComponent->myState.STATE_NORMAL);
+        }
+        // Set to moving state if not falling and moving on x axis
+        if (xVelocity != 0) {
+            stateComponent->myState.setState(stateComponent->myState.STATE_MOVING);
+        }
+    }
 
     // Animation, flip, and velocity
     if (input.isKeyDown(InputTracker::A)) {
@@ -54,31 +66,32 @@ void PlayerControlSystem::processEntity(EntityID id) {
         animationComponent->currAnim = animHurting;
         moveComponent->setVelocity(0, 0);
     }
-    if (isCollided) {
-        isReset = true;
-        jumpCount = 0;
-    }
-    else {
-        isReset = false;
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
-        if (isReset) {
+    //if (isCollided) {
+    //    isReset = true;
+    //    jumpCount = 0;
+    //}
+    //else {
+    //    isReset = false;
+    //}
+    if (input.isKeyJustDown(InputTracker::W) &&(currState == stateComponent->myState.STATE_NORMAL || currState == stateComponent->myState.STATE_MOVING)) {
+        //if (isReset) {
             if (jumpCount < jumpLimit) {
                 moveComponent->addForce(0, jumpForce);
+                stateComponent->myState.setState(stateComponent->myState.STATE_JUMPING);
                 jumpCount++;
             }
-        }
+        //}
     }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    if (input.isKeyJustReleased(InputTracker::A) || input.isKeyJustReleased(InputTracker::W)) {
         moveComponent->setVelocity(0, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    if (input.isKeyJustReleased(InputTracker::D) || input.isKeyJustReleased(InputTracker::W)) {
         moveComponent->setVelocity(0, yVelocity);
     }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
+    if (input.isKeyJustReleased(InputTracker::S)) {
         moveComponent->setVelocity(xVelocity, 0);
     }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    if (input.isKeyJustReleased(InputTracker::W)) {
         if (yVelocity > 0) {
             moveComponent->setVelocity(xVelocity, 0);
         }
