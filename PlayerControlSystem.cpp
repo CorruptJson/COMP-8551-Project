@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "Renderer.h"
 
-void PlayerControlSystem::processEntity(EntityID id) {
+void PlayerControlSystem::processEntity(EntityID id, PhysicsWorld* physicsWorld) {
 
     // Getting Components needed for the player
     Renderer* renderer = Renderer::getInstance();
@@ -18,13 +18,11 @@ void PlayerControlSystem::processEntity(EntityID id) {
     StateComponent* stateComponent = &coordinator.GetComponent<StateComponent>(id);
     AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
     GameEntityCreator& creator = GameEntityCreator::getInstance();
-    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);
     Animation* animHurting = renderer->getAnimation("hurt", renderComponent->spriteName);
-    
-
+    Animation* animIdle = renderer->getAnimation("idle", renderComponent->spriteName);
 
     // Character control
     float xVelocity = moveComponent->getVelocity().x;
@@ -58,11 +56,13 @@ void PlayerControlSystem::processEntity(EntityID id) {
         renderComponent->flipX = false;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(-speed, yVelocity);
+        stateComponent->myState.faceRight = false;
     }
     if (input.isKeyDown(InputTracker::D)) {
         renderComponent->flipX = true;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(speed, yVelocity);
+        stateComponent->myState.faceRight = true;
     }
     if (input.isKeyDown(InputTracker::S)) {
         animationComponent->currAnim = animHurting;
@@ -96,13 +96,23 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
+        animationComponent->currFrame = animationComponent->currAnim->endFrame;
+        animationComponent->currAnim = animIdle;
     }
 
     if (input.isKeyJustDown(InputTracker::J)) {
-        float xPos = transformComponent->getPosition().x + transformComponent->getScale().x;
-        float yPos = transformComponent->getPosition().y + transformComponent->getScale().y;
-        //EntityID bullet = creator.CreateActor(xPos, yPos, 1, 1, "bullet.png", { Tag::BULLET }, false);
-        //physWorld.AddObject(bullet);
+        float xPos = (stateComponent->myState.faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
+        float yPos = transformComponent->getPosition().y/2;
+        EntityID bullet = creator.CreateActor(xPos, yPos, 0.5, 0.5, "bullet.png", { Tag::BULLET }, false);
+        if (!stateComponent->myState.faceRight) {
+            RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
+            bulletrenderComp->flipX = false;
+        }
+        physicsWorld->AddBullet(bullet);
+
+        PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
+        b2Vec2 bulletVelocity = (stateComponent->myState.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
+        bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
     }
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;

@@ -10,6 +10,7 @@ public:
 
     static PhysicsWorld& getInstance();
     void AddObject(EntityID id);
+    void AddBullet(EntityID id);
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
 private:
@@ -22,6 +23,6 @@ private:
     ContactListener* contactListener;
 
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
-    void UpdateMovementComponent(MovementComponent* moveComponent);
+    void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);
     void UpdateTransform(Transform* transform, PhysicsComponent* physComponent);
 };

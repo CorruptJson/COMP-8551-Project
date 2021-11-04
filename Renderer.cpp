@@ -117,6 +117,12 @@ void Renderer::loadImages() {
             {}
         },
         {
+            "bullet.png",
+            1,
+            1,
+            {}
+        },
+        {
             "Edgar.png",
             1,
             11,

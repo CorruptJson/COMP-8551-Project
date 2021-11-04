@@ -39,7 +39,11 @@ b2Body* MovementComponent::getPhysicsBody() {
 
 void MovementComponent::update() {
 
-    if (physComponent->box2dBody && physComponent->box2dBody->GetType() != b2_staticBody) {
+    if (physComponent->box2dBody->IsBullet()) {
+        physComponent->box2dBody->SetGravityScale(0);
+        physComponent->box2dBody->SetLinearVelocity(b2Vec2(physComponent->box2dBody->GetLinearVelocity().x, 0));
+    } 
+    else if (physComponent->box2dBody && physComponent->box2dBody->GetType() != b2_staticBody) {
         // TODO: tag checking. if it is player, limit its speed
         limitMaxSpeed();
     }

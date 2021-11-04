@@ -9,7 +9,7 @@ class PlayerControlSystem {
 public:
     PlayerControlSystem();
     ~PlayerControlSystem();
-    void processEntity(EntityID id);
+    void processEntity(EntityID id, PhysicsWorld* physicsWorld);
     //void Update(EntityCoordinator* coordinator);
 
 private:

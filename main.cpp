@@ -25,7 +25,7 @@
 EntityCoordinator* coordinator;
 
 Renderer* renderer = Renderer::getInstance();
-//PhysicsWorld* physicsWorld;
+PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
 
 Animator animator;
@@ -55,7 +55,7 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
 
     //physicsWorld = new PhysicsWorld();
-    //PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
+    physicsWorld = &(PhysicsWorld::getInstance());
 
     prevTime = Clock::now();
 
@@ -105,7 +105,6 @@ int runEngine()
     Duration delta = currTime - prevTime;
     prevTime = currTime;
     catchupTime += delta.count();
-    PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
     // check input
 
     while (catchupTime >= MS_PER_FRAME)
@@ -113,7 +112,7 @@ int runEngine()
         InputTracker::getInstance().perFrameUpdate(window);
 
         // run physics
-        physicsWorld.Update(coordinator);
+        physicsWorld->Update(coordinator);
         // run ECS systems
         coordinator->runSystemUpdates();
 
@@ -121,7 +120,7 @@ int runEngine()
     }
     /////////////////
     //Testing character control
-    playerControl->processEntity(mike);
+    playerControl->processEntity(mike, physicsWorld);
     //float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
     //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
     //float speed = 2.0f;
@@ -241,11 +240,9 @@ int main() {
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
-
-    physicsWorld.AddObject(roach);
-    physicsWorld.AddObject(wall);
-    physicsWorld.AddObject(mike);
+    physicsWorld->AddObject(roach);
+    physicsWorld->AddObject(wall);
+    physicsWorld->AddObject(mike);
 
     while (!glfwWindowShouldClose(window))
     {

@@ -58,6 +58,43 @@ void PhysicsWorld::AddObject(EntityID id) {
 
 }
 
+void PhysicsWorld::AddBullet(EntityID id)
+{
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+
+    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
+    Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
+    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
+
+    moveComponent->physComponent = physComponent;
+
+    EntityUserData* entityUserData = new EntityUserData;
+    entityUserData->id = id;
+
+    b2BodyDef bodyDef;
+    bodyDef.type = physComponent->bodyType;
+    bodyDef.position.Set(physComponent->x, physComponent->y);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+
+    bodyDef.bullet = true;
+
+    physComponent->box2dBody = world->CreateBody(&bodyDef);
+    if (physComponent->box2dBody) {
+        b2PolygonShape dynamicBox;
+        dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
+
+        b2FixtureDef fixtureDef;
+        fixtureDef.shape = &dynamicBox;
+        fixtureDef.density = physComponent->density;
+        fixtureDef.friction = physComponent->friction;
+        fixtureDef.restitution = 0;
+
+        physComponent->box2dBody->CreateFixture(&fixtureDef);
+
+        transformComponent->setPhysicsBody(physComponent->box2dBody);
+    }
+}
+
 // THIS IS CURRENTLY OUTDATED AND NOT BEING USED
 // Adds all objects in the world using the entity coordinator
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
@@ -126,7 +163,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++) {
             UpdatePhysicsComponent(physComponents[i]);
             UpdateTransform(transformComponents[i], physComponents[i]);
-            UpdateMovementComponent(moveComponents[i]);
+            UpdateMovementComponent(moveComponents[i], physComponents[i]);
 
         }
     }
@@ -137,9 +174,9 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
     physComponent->y = physComponent->box2dBody->GetTransform().p.y;
 }
 
-void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
-    moveComponent->xVelocity = moveComponent->physComponent->box2dBody->GetLinearVelocity().x;
-    moveComponent->yVelocity = moveComponent->physComponent->box2dBody->GetLinearVelocity().y;
+void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
+    moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
+    moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
     moveComponent->update();
 }
 
