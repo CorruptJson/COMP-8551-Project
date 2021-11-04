@@ -2,6 +2,8 @@
 #include "file_manager.h"
 #include "PhysicsComponent.h"
 #include "Tags.h"
+#include "MovementComponent.h"
+#include "StateComponent.h"
 
 // Component Keys
 enum eKeys
@@ -94,6 +96,8 @@ void SceneManager::CreateEntities() {
 
                 case PHYSICS:
                     components.push_back(coordinator->GetComponentType<PhysicsComponent>());
+                    components.push_back(coordinator->GetComponentType<MovementComponent>());
+                    components.push_back(coordinator->GetComponentType<StateComponent>());
                     break;
 
                 case ANIMATION:

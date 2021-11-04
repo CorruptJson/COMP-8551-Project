@@ -15,10 +15,11 @@
 #include "InputTracker.h"
 #include "InputComponent.h"
 #include "inputSystem.h"
-//#include "GameEntityCreator.h"
+#include "SceneManager.h"
+#include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
-#include "SceneManager.h"
+#include "PlayerControlSystem.h"
 
 
 //ChunkManager* chunkManager;
@@ -28,12 +29,12 @@ SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
+PlayerControlSystem* playerControl;
+
 Animator animator;
 Archetype standardArch;
 
 // test entities
-//EntityID roach;
-//EntityID wall;
 EntityID mike;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -116,22 +117,69 @@ int runEngine()
         catchupTime -= MS_PER_FRAME;
     }
     
+    /////////////////
+    //Testing character control
+    playerControl->processEntity(mike);
+    //float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
+    //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
+    //float speed = 2.0f;
+    //float jumpForce = 160.0f;
+    //int jumpCount = 0;
+    //int jumpLimit = 1;
+    //bool isReset = false;
+    //// Colliding with Platform count as ground check
+    //bool isCollided = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetContactList();
+    ////float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
+    ////force /= 3;
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::A)) {
+    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<RenderComponent>(mike).flipX = false;
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::D)) {
+    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<RenderComponent>(mike).flipX = true;
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyDown(InputTracker::S)) {
+    //    Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
+    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::A)) {
-        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).flipX = false;
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::D)) {
-        Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<RenderComponent>(mike).flipX = true;
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::S)) {
-        Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-        coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    }
-
+    //}
+    //if (isCollided) {
+    //    isReset = true;
+    //    jumpCount = 0;
+    //}
+    //else {
+    //    isReset = false;
+    //}
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
+    //    if (isReset) {
+    //        if (jumpCount < jumpLimit) {
+    //            coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
+    //            jumpCount++;
+    //        }
+    //    }
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
+    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    //}
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
+    //    if (yVelocity > 0) {
+    //        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
+    //    }
+    //}
+    //std::cout << "xVelocity: " << xVelocity << std::endl;
+    //std::cout << "yVelocity: " << yVelocity << std::endl;
     //animation
     animator.updateAnim(coordinator);
     
@@ -160,7 +208,6 @@ int main() {
 
 
 
-
     coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 
     animator = Animator();
@@ -170,20 +217,18 @@ int main() {
     bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
     std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
-    //std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
-    //std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
-    //std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
-    //    
-    //std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
-    //std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
 
-    //bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    //std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
-    //bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
-    //std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    physicsWorld->AddObjects(coordinator);
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
+            
+            physicsWorld->AddObject(e);
+        }
+
+    }
+
+    
 
     while (!glfwWindowShouldClose(window))
     {
