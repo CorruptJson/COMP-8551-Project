@@ -81,7 +81,7 @@ int test(){
     catch (const std::exception& e) { std::cout << e.what(); }
 
     // For testing different archetypes
-    //coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
+    coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
@@ -182,7 +182,7 @@ int runEngine()
     //std::cout << "yVelocity: " << yVelocity << std::endl;
     //animation
     animator.updateAnim(coordinator);
-    
+    std::cout << "after update anim" << std::endl;
     // render
     renderer->update(coordinator);
     
@@ -231,8 +231,9 @@ int main() {
     {
         // tell glfw to keep track of window resize 
         // and input events
-        glfwPollEvents();        
-        runEngine();        
+        glfwPollEvents();     
+        runEngine();    
+        std::cout << "after run" << std::endl;
     }    
 
     teardown();

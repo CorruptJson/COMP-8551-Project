@@ -33,10 +33,9 @@ void Animator::setSpeed()
 
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
-
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<RenderComponent>(),
-        coordinator->GetComponentType<AnimationComponent>()
+        coordinator->GetComponentType<AnimationComponent>() // no way to check whether we need this or not
         });
 
     int entitiesFound = entityQuery->totalEntitiesFound();
@@ -44,7 +43,7 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
     std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
     
     for (int i = 0; i < coordinator->GetEntityCount(); i++) {
-
+        std::cout << "ITERATION: " << i << std::endl;
         AnimationComponent* animationComponent = (animComps[i]);
         RenderComponent* renderCompnent = (renderComps[i]);
 

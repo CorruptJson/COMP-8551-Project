@@ -55,7 +55,13 @@ std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<Compo
     //        return eq;
     //    }
     //}
-    return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
+
+    // CRASHING DUE TO ANIMCOMP LEFT NULL ISSUE EXISTS HERE
+    // Right now everything needs to have every component
+    std::cout << "bef GetEntityQuery" << std::endl;
+    std::unique_ptr<EntityQuery> test = std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
+    std::cout << "after GetEntityQuery" << std::endl;
+    return test;
 }
 
 uint32_t EntityCoordinator::GetEntityCount()
