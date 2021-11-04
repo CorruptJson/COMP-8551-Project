@@ -1,120 +1,62 @@
-
 [
     {
-        "tag": "enemy",
-        "transform": {
-
-            "position": {
-                "x": 0.5,
-                "y": 3
-            },
-
-            "scale": {
-                "x": 0.4,
-                "y": 0.4
-            }
-        },
-
-        "render": {
-            "sprite": "Giant_Roach.png"
-        },
-
-        "physics": {
-            "b2bodytype": "b2_dynamicBody",
-            "density": 1,
-            "friction": 0,
-            "position": {
-                "x": 0.5,
-                "y": 3
-            },
-
-            "scale": {
-                "x": 0.4,
-                "y": 0.4
-            }
-        },
-        "animation": {}
-
-    },
-
-    {
-        "tag":"platform",
-        "transform": {
-
-            "position": {
-                "x": 0,
-                "y": -1
-            },
-
-            "scale": {
-                "x": 2,
-                "y": 1
-            }
-        },
-
-        "render": {
-            "sprite": "wall.jpg"
-        },
-        
-        "physics": {
-            "b2bodytype": "b2_staticBody",
-            "density": 1,
-            "friction": 0,
-            "position": {
-                "x": 0,
-                "y": -1
-            },
-
-            "scale": {
-                "x": 2,
-                "y": 1
-            }
-        },
-        "animation": {}
-    },
-
-    {
-
         "tag": "player",
         "transform": {
-
-            "position": {
-                "x": -0.5,
-                "y": 0
-            },
-
-            "scale": {
-                "x": 1,
-                "y": 1
-            }
+            "xPos": -0.5,
+            "yPos": 0,
+            "xScale": 1,
+            "yScale": 1
         },
-
         "render": {
             "sprite": "Edgar.png",
             "hasAnim": true
-
         },
-
         "physics": {
             "b2bodytype": "b2_dynamicBody",
             "density": 1,
-            "friction": 0,
-            "position": {
-                "x": -0.5,
-                "y": 0
-            },
-
-            "scale": {
-                "x": 1,
-                "y": 1
-            }
+            "friction": 0
         },
-
         "animation": {
             "animName": "idle",
             "spriteName": "Edgar.png",
             "isPlaying": true
         }
+    },
+    {
+        "tag": "enemy",
+        "transform": {
+            "xPos": 0.5,
+            "yPos": 5,
+            "xScale": 0.4,
+            "yScale": 0.4
+        },
+        "render": {
+            "sprite": "Giant_Roach.png"
+        },
+        "physics": {
+            "b2bodytype": "b2_dynamicBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {}
+    },
+    {
+        "tag": "platform",
+        "transform": {
+            "xPos": 0,
+            "yPos": -1,
+            "xScale": 2,
+            "yScale": 1
+        },
+        "render": {
+            "sprite": "wall.jpg"
+        },
+        "physics": {
+            "b2bodytype": "b2_staticBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {}
     }
 
 ]
