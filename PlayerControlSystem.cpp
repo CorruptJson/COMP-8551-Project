@@ -101,15 +101,17 @@ void PlayerControlSystem::processEntity(EntityID id, PhysicsWorld* physicsWorld)
     }
 
     if (input.isKeyJustDown(InputTracker::J)) {
+        // create a new entity for bullet
         float xPos = (stateComponent->myState.faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
-        float yPos = transformComponent->getPosition().y/2;
+        float yPos = transformComponent->getPosition().y;
         EntityID bullet = creator.CreateActor(xPos, yPos, 0.5, 0.5, "bullet.png", { Tag::BULLET }, false);
         if (!stateComponent->myState.faceRight) {
             RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
             bulletrenderComp->flipX = false;
         }
-        physicsWorld->AddBullet(bullet);
+        physicsWorld->AddObject(bullet);
 
+        // set velocity to the bullet entity
         PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
         b2Vec2 bulletVelocity = (stateComponent->myState.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
         bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);

@@ -10,9 +10,9 @@ public:
 
     static PhysicsWorld& getInstance();
     void AddObject(EntityID id);
-    void AddBullet(EntityID id);
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
+    void DestoryObject(EntityID id);
 private:
     const float timeStep = 1.0f / 60.0f;
     const int velocityIterations = 6;

@@ -1,6 +1,11 @@
 #include "PhysicsWorld.h"
 
-b2Body* test;
+enum collisionCategory {
+    C_PLAYER = 0x0001,
+    C_ENEMY = 0x0002,
+    C_PLATFORM = 0x0004,
+    C_BULLET = 0x0008
+};
 
 PhysicsWorld::PhysicsWorld() {
 
@@ -37,46 +42,7 @@ void PhysicsWorld::AddObject(EntityID id) {
     bodyDef.position.Set(physComponent->x, physComponent->y);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
 
-    physComponent->box2dBody = world->CreateBody(&bodyDef);
-    if (physComponent->box2dBody) {
-        b2PolygonShape dynamicBox;
-        dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
-
-        b2FixtureDef fixtureDef;
-        fixtureDef.shape = &dynamicBox;
-        fixtureDef.density = physComponent->density;
-        fixtureDef.friction = physComponent->friction;
-        fixtureDef.restitution = 0;
-
-        physComponent->box2dBody->CreateFixture(&fixtureDef);
-
-        transformComponent->setPhysicsBody(physComponent->box2dBody);
-        //moveComponent->setPhysicsBody(physComponent->box2dBody);
-
-    }
-
-
-}
-
-void PhysicsWorld::AddBullet(EntityID id)
-{
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-
-    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
-    Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
-    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
-
-    moveComponent->physComponent = physComponent;
-
-    EntityUserData* entityUserData = new EntityUserData;
-    entityUserData->id = id;
-
-    b2BodyDef bodyDef;
-    bodyDef.type = physComponent->bodyType;
-    bodyDef.position.Set(physComponent->x, physComponent->y);
-    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
-
-    bodyDef.bullet = true;
+    bodyDef.bullet = (coordinator.entityHasTag(BULLET, id)) ? true : false;
 
     physComponent->box2dBody = world->CreateBody(&bodyDef);
     if (physComponent->box2dBody) {
@@ -88,6 +54,24 @@ void PhysicsWorld::AddBullet(EntityID id)
         fixtureDef.density = physComponent->density;
         fixtureDef.friction = physComponent->friction;
         fixtureDef.restitution = 0;
+
+        // set collision filter base on tag
+        if (coordinator.entityHasTag(PLAYER, id)) {
+            fixtureDef.filter.categoryBits = C_PLAYER;
+            fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
+        }
+        else if (coordinator.entityHasTag(ENEMY, id)) {
+            fixtureDef.filter.categoryBits = C_ENEMY;
+            fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
+        }
+        else if (coordinator.entityHasTag(PLATFORM, id)) {
+            fixtureDef.filter.categoryBits = C_PLATFORM;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY | C_BULLET;
+        }
+        else if (coordinator.entityHasTag(BULLET, id)) {
+            fixtureDef.filter.categoryBits = C_BULLET;
+            fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
+        }
 
         physComponent->box2dBody->CreateFixture(&fixtureDef);
 
@@ -167,6 +151,15 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
         }
     }
+}
+
+// Destroy an object from physics world
+void PhysicsWorld::DestoryObject(EntityID id)
+{
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+
+    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
+    world->DestroyBody(physComponent->box2dBody);
 }
 
 void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
