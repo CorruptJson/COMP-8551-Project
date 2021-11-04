@@ -109,78 +109,78 @@ void SceneManager::CreateEntities() {
 
             // Set component booleans and set their values in this switch statement
             switch (keyMap[component.key()]) {
-            case TAG:
-                //TODO: allow for multiple tags
-                tags.push_back(tagMap[component.value()]);
-                break;
+                case TAG:
+                    //TODO: allow for multiple tags
+                    tags.push_back(tagMap[component.value()]);
+                    break;
 
-            case TRANSFORM:
-                transformComponent = true; // add transform to component
+                case TRANSFORM:
+                    transformComponent = true; // add transform to component
 
-                // Values
-                xPos = (component.value().contains("xPos")) // If component Json contains xPos key
-                    ? component.value()["xPos"].get<float>() : xPos; // set the xPos to it's value, else keep it the same
+                    // Values
+                    xPos = (component.value().contains("xPos")) // If component Json contains xPos key
+                        ? component.value()["xPos"].get<float>() : xPos; // set the xPos to it's value, else keep it the same
 
-                yPos = (component.value().contains("yPos"))
-                    ? component.value()["yPos"].get<float>() : yPos;
+                    yPos = (component.value().contains("yPos"))
+                        ? component.value()["yPos"].get<float>() : yPos;
 
-                xScale = (component.value().contains("xScale"))
-                    ? component.value()["xScale"].get<float>() : xScale;
+                    xScale = (component.value().contains("xScale"))
+                        ? component.value()["xScale"].get<float>() : xScale;
 
-                yScale = (component.value().contains("yScale"))
-                    ? component.value()["yScale"].get<float>() : yScale;
+                    yScale = (component.value().contains("yScale"))
+                        ? component.value()["yScale"].get<float>() : yScale;
 
-                rotation = (component.value().contains("rotation"))
-                    ? component.value()["rotation"].get<float>() : rotation;
+                    rotation = (component.value().contains("rotation"))
+                        ? component.value()["rotation"].get<float>() : rotation;
 
-                break;
+                    break;
 
-            case RENDER:
-                // Entities with Render always have transform
-                renderComponent = true;
-                transformComponent = true;
+                case RENDER:
+                    // Entities with Render always have transform
+                    renderComponent = true;
+                    transformComponent = true;
 
-                // Values
+                    // Values
 
-                // Todo: Stop using a map to convert from string to string
-                spriteName = (component.value().contains("sprite"))
-                    ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName;
+                    // Todo: Stop using a map to convert from string to string
+                    spriteName = (component.value().contains("sprite"))
+                        ? spriteMap[component.value()["sprite"].get<std::string>()] : spriteName;
 
-                hasAnimation = component.value().contains("hasAnim")
-                    ? component.value()["hasAnim"].get<bool>() : hasAnimation;
+                    hasAnimation = component.value().contains("hasAnim")
+                        ? component.value()["hasAnim"].get<bool>() : hasAnimation;
 
-                break;
+                    break;
 
-            case PHYSICS:
-                // Entties with Physics always have these components
-                physicsComponent = true;
-                transformComponent = true;
-                movementComponent = true;
-                stateComponent = true;
+                case PHYSICS:
+                    // Entties with Physics always have these components
+                    physicsComponent = true;
+                    transformComponent = true;
+                    movementComponent = true;
+                    stateComponent = true;
 
-                // TODO: do more than just check for one string
-                bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
-                    ? b2_dynamicBody : bodyType;
+                    // TODO: do more than just check for one string
+                    bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
+                        ? b2_dynamicBody : bodyType;
 
-                friction = component.value().contains("friction")
-                    ? component.value()["friction"].get<float>() : friction;
+                    friction = component.value().contains("friction")
+                        ? component.value()["friction"].get<float>() : friction;
 
-                density = component.value().contains("density")
-                    ? component.value()["density"].get<float>() : density;
+                    density = component.value().contains("density")
+                        ? component.value()["density"].get<float>() : density;
 
-                break;
+                    break;
 
-            case ANIMATION:
-                animationComponent = true;
-                renderComponent = true;
+                case ANIMATION:
+                    animationComponent = true;
+                    renderComponent = true;
 
-                animIsPlaying = component.value().contains("isPlaying")
-                    ? component.value()["isPlaying"].get<bool>() : animIsPlaying;
+                    animIsPlaying = component.value().contains("isPlaying")
+                        ? component.value()["isPlaying"].get<bool>() : animIsPlaying;
 
-                animName = component.value().contains("animName")
-                    ? component.value()["animName"].get<std::string>() : animName;
+                    animName = component.value().contains("animName")
+                        ? component.value()["animName"].get<std::string>() : animName;
 
-                break;
+                    break;
 
             }
         }
