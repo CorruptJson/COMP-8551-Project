@@ -43,7 +43,7 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
     std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
     std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
     
-    for (int i = 0; i < coordinator->GetEntityCount(); i++) {
+    for (int i = 0; i < entitiesFound; i++) {
 
         AnimationComponent* animationComponent = (animComps[i]);
         RenderComponent* renderCompnent = (renderComps[i]);
