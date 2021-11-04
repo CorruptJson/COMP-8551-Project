@@ -21,6 +21,8 @@ void PhysicsWorld::AddObject(EntityID id) {
     Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
     MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
+    moveComponent->physComponent = physComponent;
+
     EntityUserData* entityUserData = new EntityUserData;
     entityUserData->id = id;
 
@@ -43,7 +45,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         physComponent->box2dBody->CreateFixture(&fixtureDef);
 
         transformComponent->setPhysicsBody(physComponent->box2dBody);
-        moveComponent->setPhysicsBody(physComponent->box2dBody);
+        //moveComponent->setPhysicsBody(physComponent->box2dBody);
 
     }
 
@@ -130,8 +132,8 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
 }
 
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent) {
-    moveComponent->xVelocity = moveComponent->body->GetLinearVelocity().x;
-    moveComponent->yVelocity = moveComponent->body->GetLinearVelocity().y;
+    moveComponent->xVelocity = moveComponent->physComponent->box2dBody->GetLinearVelocity().x;
+    moveComponent->yVelocity = moveComponent->physComponent->box2dBody->GetLinearVelocity().y;
     moveComponent->update();
 }
 

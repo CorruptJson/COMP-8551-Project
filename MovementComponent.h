@@ -4,11 +4,13 @@
 #include <ostream>
 #include <string>
 #include "Libraries/include/box2d/box2d.h"
+#include "EntityCoordinator.h"
+#include "PhysicsComponent.h"
 
 class MovementComponent
 {
 public:
-    b2Body* body;
+    PhysicsComponent* physComponent;
     float xVelocity;
     float yVelocity;
 
@@ -17,7 +19,6 @@ public:
     b2Vec2 getVelocity();
     void limitMaxSpeed();
 
-    void setPhysicsBody(b2Body* body);
     b2Body* getPhysicsBody();
     void update();
 };
