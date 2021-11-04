@@ -17,6 +17,8 @@ void PlayerControlSystem::processEntity(EntityID id) {
     MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
     StateComponent* stateComponent = &coordinator.GetComponent<StateComponent>(id);
     AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
+    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);
@@ -94,6 +96,13 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
+    }
+
+    if (input.isKeyJustDown(InputTracker::J)) {
+        float xPos = transformComponent->getPosition().x + transformComponent->getScale().x;
+        float yPos = transformComponent->getPosition().y + transformComponent->getScale().y;
+        //EntityID bullet = creator.CreateActor(xPos, yPos, 1, 1, "bullet.png", { Tag::BULLET }, false);
+        //physWorld.AddObject(bullet);
     }
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;

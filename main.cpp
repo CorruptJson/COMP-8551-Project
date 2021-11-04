@@ -25,7 +25,7 @@
 EntityCoordinator* coordinator;
 
 Renderer* renderer = Renderer::getInstance();
-PhysicsWorld* physicsWorld;
+//PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
 
 Animator animator;
@@ -54,7 +54,8 @@ int initialize()
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
 
-    physicsWorld = new PhysicsWorld();
+    //physicsWorld = new PhysicsWorld();
+    //PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
 
     prevTime = Clock::now();
 
@@ -104,7 +105,7 @@ int runEngine()
     Duration delta = currTime - prevTime;
     prevTime = currTime;
     catchupTime += delta.count();
-
+    PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
     // check input
 
     while (catchupTime >= MS_PER_FRAME)
@@ -112,7 +113,7 @@ int runEngine()
         InputTracker::getInstance().perFrameUpdate(window);
 
         // run physics
-        physicsWorld->Update(coordinator);
+        physicsWorld.Update(coordinator);
         // run ECS systems
         coordinator->runSystemUpdates();
 
@@ -199,7 +200,7 @@ int teardown()
     // when the engine closes
     renderer->teardown();
 
-    delete physicsWorld;
+    
 
     return 0;
 }
@@ -240,9 +241,11 @@ int main() {
     bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
     std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    physicsWorld->AddObject(roach);
-    physicsWorld->AddObject(wall);
-    physicsWorld->AddObject(mike);
+    PhysicsWorld& physicsWorld = PhysicsWorld::getInstance();
+
+    physicsWorld.AddObject(roach);
+    physicsWorld.AddObject(wall);
+    physicsWorld.AddObject(mike);
 
     while (!glfwWindowShouldClose(window))
     {

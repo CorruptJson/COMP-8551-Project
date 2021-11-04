@@ -8,6 +8,7 @@ public:
     PhysicsWorld();
     ~PhysicsWorld();
 
+    static PhysicsWorld& getInstance();
     void AddObject(EntityID id);
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);

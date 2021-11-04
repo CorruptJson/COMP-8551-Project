@@ -13,6 +13,12 @@ PhysicsWorld::PhysicsWorld() {
     world->SetContactListener(contactListener);
 }
 
+PhysicsWorld& PhysicsWorld::getInstance()
+{
+    static PhysicsWorld physicsWorld;
+    return physicsWorld;
+}
+
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
