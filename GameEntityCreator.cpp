@@ -17,6 +17,10 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<AnimationComponent>()
         });
 
+    testArchetype = ec.GetArchetype({
+        ec.GetComponentType<TimerComponent>()
+        });
+
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
@@ -59,6 +63,7 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         1.0f,
         0.0f
     };
+    //ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
 
     return ent;
 }
@@ -79,7 +84,7 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         1.0f,
         0.0f
     };
-
+    //ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
     return ent;
 }
 

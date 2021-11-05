@@ -1,15 +1,7 @@
-#include <string>
-using namespace std;
-
-template <typename T>
-class Event
-{
-public:
-    Event();
-    Event(Ttype, const string& name = "") : typee(type), name(name) {};
-    
-    string name;
-    T type;
-    bool active = false;
-    
+#pragma once
+enum class Event {
+    //Timer events
+    TIMER_REACHED_200,
+    //Enemy events (unused)
+    ENEMY_WALL_BUMP
 };

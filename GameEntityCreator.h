@@ -7,6 +7,7 @@ class GameEntityCreator
 private:
     Archetype actorArchetype;
     Archetype platformArchetype;
+    Archetype testArchetype;
     //Archetype sceneryArchetype;
     GameEntityCreator();
     RenderComponent standardRenderComponent(const char* spriteName, bool hasAnimation);

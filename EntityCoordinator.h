@@ -71,8 +71,8 @@ public:
     void runSystemUpdates();
 
     template<typename T>
-    void addSystem(std::shared_ptr<T> system) {
-        mSystemManager->addSystem(std::static_pointer_cast<System>(system));
+    shared_ptr<T> addSystem(std::shared_ptr<T> system) {
+        return mSystemManager->addSystem(std::static_pointer_cast<System>(system));
     };
 
     template<typename T>

@@ -75,8 +75,17 @@ int test(){
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     //coordinator->addSystem(std::make_shared<InputSystem>());
-    coordinator->addSystem<InputSystem>();
-    coordinator->addSystem<TestSystem>();
+
+    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+
+
+    //Equivalent to attaching code below
+    shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
+    shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
+    testSys.get()->Attach(printerSys.get());
+    
+
+    //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
     return 0;
 }

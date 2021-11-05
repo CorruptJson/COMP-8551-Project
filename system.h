@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "ISubject.h"
+#include "IObserver.h"
 
 using namespace std;
 class EntityCoordinator;
