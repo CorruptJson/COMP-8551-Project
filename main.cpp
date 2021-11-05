@@ -209,6 +209,7 @@ int main() {
     test();
 
 
+
     animator = Animator();
 
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;

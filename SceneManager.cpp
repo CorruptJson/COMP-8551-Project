@@ -141,7 +141,15 @@ void SceneManager::CreateEntities() {
         }
 
         if (ev.movementComponent) {
-            coordinator->GetComponent<MovementComponent>(ent) = {};
+            coordinator->GetComponent<MovementComponent>(ent) = {
+            0,
+            0
+            };
+        }
+        if (ev.stateComponent) {
+            coordinator->GetComponent<StateComponent>(ent) = {
+            0
+            };
         }
 
     }
