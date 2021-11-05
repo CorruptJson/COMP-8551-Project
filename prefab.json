@@ -5,7 +5,7 @@
             "tag": "enemy",
             "transform": {
                 "xPos": 0.5,
-                "yPos": 5,
+                "yPos": 1,
                 "xScale": 0.4,
                 "yScale": 0.4
             },
@@ -38,6 +38,27 @@
                 "xScale": 0.1,
                 "yScale": 0.1
             }
+        }
+    },
+    {
+        "setPrefab": "Wall",
+        "prefabValues": {
+            "tag": "platform",
+            "transform": {
+                "xPos": 0,
+                "yPos": -1,
+                "xScale": 2,
+                "yScale": 1
+            },
+            "render": {
+                "sprite": "wall.jpg"
+            },
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            },
+            "animation": {}
         }
     }
 ]
