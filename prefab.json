@@ -21,14 +21,22 @@
         }
     },
     {
-        "setPrefab": "Large Roach",
+        "setPrefab": "BigRoach",
         "prefabValues": {
             "usePrefab": "Roach",
             "transform": {
-                "xPos": 0.5,
-                "yPos": 5,
-                "xScale": 0.4,
-                "yScale": 0.4
+                "xScale": 0.7,
+                "yScale": 0.7
+            }
+        }
+    },
+    {
+        "setPrefab": "SmallRoach",
+        "prefabValues": {
+            "usePrefab": "Roach",
+            "transform": {
+                "xScale": 0.1,
+                "yScale": 0.1
             }
         }
     }

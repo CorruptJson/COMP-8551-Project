@@ -3,6 +3,8 @@
 #include "EntityCoordinator.h"
 #include "Renderer.h"
 
+
+// class for storing values to pass around scene manager
 struct EntityValues {
     std::vector<uint8_t> components;
 
@@ -41,15 +43,16 @@ struct EntityValues {
     b2BodyType bodyType = b2_staticBody;
 };
 
-
+// Scene Manager class
 class SceneManager
 {
-
-
 private:
     Renderer* renderer;
     EntityCoordinator* coordinator;
-    json jsonArray;
+    json sceneJsonArray;
+    json prefabJsonArray;
+    unordered_map<std::string, json> prefabMap;
+
     void ParseEntityValues(EntityValues& ev, const json& jsonObject);
 
 
@@ -58,8 +61,10 @@ public:
     
     SceneManager();
 
-    void LoadJson(const char* filename);
+    void LoadScene(std::string filename);
+    void LoadPrefabs(std::string filename);
     void CreateEntities();
+    
     
 
 
