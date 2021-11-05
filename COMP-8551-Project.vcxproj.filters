@@ -156,6 +156,9 @@
     <None Include="scene.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="prefab.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">

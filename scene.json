@@ -22,22 +22,7 @@
         }
     },
     {
-        "tag": "enemy",
-        "transform": {
-            "xPos": 0.5,
-            "yPos": 5,
-            "xScale": 0.4,
-            "yScale": 0.4
-        },
-        "render": {
-            "sprite": "Giant_Roach.png"
-        },
-        "physics": {
-            "b2bodytype": "b2_dynamicBody",
-            "density": 1,
-            "friction": 0
-        },
-        "animation": {}
+        "usePrefab": "BigRoach"
     },
     {
         "tag": "platform",
