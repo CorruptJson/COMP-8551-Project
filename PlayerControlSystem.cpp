@@ -6,6 +6,12 @@
 #include "Renderer.h"
 
 void PlayerControlSystem::processEntity(EntityID id) {
+    const int STATE_NORMAL = 0;
+    const int STATE_JUMPING = 1;
+    const int STATE_FALLING = 2;
+    const int STATE_MOVING = 3;
+    const int STATE_HIT = 4;
+    const int STATE_SHOOTING = 5;
 
     // Getting Components needed for the player
     Renderer* renderer = Renderer::getInstance();
@@ -28,7 +34,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     float xVelocity = moveComponent->getVelocity().x;
     float yVelocity = moveComponent->getVelocity().y;
     // state
-    int currState = stateComponent->myState.getState();
+    int currState = stateComponent->state;
 
     float speed = 2.0f;
     float jumpForce = 260.0f;
@@ -42,12 +48,12 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //force /= 3;
     if (yVelocity == 0) {
         // Change to normal state only if previous state was falling(no mid air jump)
-        if (currState == stateComponent->myState.STATE_JUMPING) {
-            stateComponent->myState.setState(stateComponent->myState.STATE_NORMAL);
+        if (currState == stateComponent->state == STATE_JUMPING) {
+            stateComponent->state = STATE_NORMAL;
         }
         // Set to moving state if not falling and moving on x axis
         if (xVelocity != 0) {
-            stateComponent->myState.setState(stateComponent->myState.STATE_MOVING);
+            stateComponent->state = STATE_MOVING;
         }
     }
 
@@ -73,11 +79,11 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //else {
     //    isReset = false;
     //}
-    if (input.isKeyJustDown(InputTracker::W) && currState != stateComponent->myState.STATE_JUMPING) {
+    if (input.isKeyJustDown(InputTracker::W) && currState != STATE_JUMPING) {
         //if (isReset) {
             if (jumpCount < jumpLimit) {
                 moveComponent->addForce(0, jumpForce);
-                stateComponent->myState.setState(stateComponent->myState.STATE_JUMPING);
+                stateComponent->state = STATE_JUMPING;
                 jumpCount++;
             }
         //}

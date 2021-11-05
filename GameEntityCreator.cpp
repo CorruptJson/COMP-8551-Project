@@ -50,7 +50,7 @@ GameEntityCreator& GameEntityCreator::getInstance()
     return gec;
 }
 
-EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation)
+EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation, int state)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
@@ -66,11 +66,13 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         1.0f,
         0.0f
     };
-
+    ec.GetComponent<StateComponent>(ent) = {
+      state
+    };
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, int state)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
@@ -85,6 +87,9 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         yPos,
         1.0f,
         0.0f
+    };
+    ec.GetComponent<StateComponent>(ent) = {
+        state
     };
 
     return ent;
