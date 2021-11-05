@@ -15,6 +15,7 @@
 #include "InputTracker.h"
 #include "InputComponent.h"
 #include "inputSystem.h"
+#include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
@@ -24,6 +25,8 @@
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
 
+SceneManager* sceneManager;
+
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
@@ -32,8 +35,6 @@ Animator animator;
 Archetype standardArch;
 
 // test entities
-EntityID roach;
-EntityID wall;
 EntityID mike;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -53,10 +54,12 @@ int initialize()
     // when the engine starts
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
+    sceneManager = new SceneManager();
 
     physicsWorld = new PhysicsWorld();
 
     prevTime = Clock::now();
+
 
     return 0;
 }
@@ -69,31 +72,28 @@ int test(){
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
 
-    //standardArch = coordinator->GetArchetype({
-    //    coordinator->GetComponentType<Transform>(),
-    //    coordinator->GetComponentType<RenderComponent>(),
-    //    coordinator->GetComponentType<PhysicsComponent>(),
-    //    coordinator->GetComponentType<AnimationComponent>()
-    //    });
-
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());
 
+    try {
+    sceneManager->CreateEntities();
+    }
+    catch (const std::exception& e) { std::cout << e.what(); }
+
+    // For testing different archetypes
+    //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
+    //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
+
+
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasTag(Tag::PLAYER, e)) {
+            mike = e;
+        }
+
+    }
     return 0;
 }
 
-// Use for now to make entities with components
-//EntityID CreateStandardEntity(const char* spriteName) {
-//    EntityID e = coordinator->CreateEntity(standardArch, {}, spriteName);
-//
-//
-//    // data must be initialized
-//    // if you know the data is going to be initialized later, you don't need to initialize it here
-//    Transform t = Transform();
-//    coordinator->GetComponent<Transform>(e) = t;
-//
-//    return e;
-//}
 
 // the main update function
 // game loop will be put here eventually
@@ -118,6 +118,7 @@ int runEngine()
 
         catchupTime -= MS_PER_FRAME;
     }
+    
     /////////////////
     //Testing character control
     playerControl->processEntity(mike);
@@ -181,13 +182,12 @@ int runEngine()
     //}
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
-    /////////////////   
     //animation
     animator.updateAnim(coordinator);
-
+    
     // render
     renderer->update(coordinator);
-
+    
     return 0;
 }
 
@@ -208,41 +208,27 @@ int main() {
     initialize();
     test();
 
-    //entity test
-    GameEntityCreator& creator = GameEntityCreator::getInstance();
 
-    roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false, 0);
-    wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM }, 0);
-    mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true, 0);
-
-    coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 
     animator = Animator();
-        
-    //this is where we create the animations for a given entity (dude)
-    /*Animation anim1 = Animator::createAnimation("wLeft", 0,3,3,true);
-    Animation anim2 = Animator::createAnimation("wRight", 0,3,2,true);
 
-    Animation anims[] = {anim1, anim2};*/
-
-    //coordinator->GetComponent<AnimationComponent>(mike) = animator.createAnimationComponent(anim1, 250.0f, true);
-
-    std::cout << "turtle " << coordinator->GetComponent<Transform>(roach) << std::endl;
-    std::cout << "wall " << coordinator->GetComponent<Transform>(wall) << std::endl;
-    std::cout << "Dude " << coordinator->GetComponent<Transform>(mike) << std::endl;
-        
-    std::cout << "From Component array: x: " << coordinator->GetComponent<Transform>(roach).getPosition().x << std::endl;
     std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
 
     bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
     std::cout << "Is dude the player? " << isdudeplayer << std::endl;
 
-    bool isturtleplayer = coordinator->entityHasTag(Tag::PLAYER, roach);
-    std::cout << "Is turtle the player? " << isturtleplayer << std::endl;
 
-    physicsWorld->AddObject(roach);
-    physicsWorld->AddObject(wall);
-    physicsWorld->AddObject(mike);
+
+
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
+            
+            physicsWorld->AddObject(e);
+        }
+
+    }
+
+    
 
     while (!glfwWindowShouldClose(window))
     {

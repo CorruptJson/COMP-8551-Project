@@ -1,0 +1,41 @@
+[
+    {
+        "tag": "player",
+        "transform": {
+            "xPos": -0.5,
+            "yPos": 0,
+            "xScale": 1,
+            "yScale": 1
+        },
+        "render": {
+            "sprite": "Edgar.png",
+            "hasAnim": true
+        },
+        "physics": {
+            "b2bodytype": "b2_dynamicBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {
+            "animName": "idle",
+            "isPlaying": true
+        },
+        "state": {}
+    },
+    {
+        "usePrefab": "Roach"
+    },
+    {
+        "usePrefab": "Wall"
+    },
+    {
+        "usePrefab": "Wall",
+        "transform": {
+            "yPos": 2,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    }
+
+
+]

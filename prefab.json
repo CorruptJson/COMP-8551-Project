@@ -1,0 +1,64 @@
+[
+    {
+        "setPrefab": "Roach",
+        "prefabValues": {
+            "tag": "enemy",
+            "transform": {
+                "xPos": 0.5,
+                "yPos": 1,
+                "xScale": 0.4,
+                "yScale": 0.4
+            },
+            "render": {
+                "sprite": "Giant_Roach.png"
+            },
+            "physics": {
+                "b2bodytype": "b2_dynamicBody",
+                "density": 1,
+                "friction": 0
+            },
+            "animation": {}
+        }
+    },
+    {
+        "setPrefab": "BigRoach",
+        "prefabValues": {
+            "usePrefab": "Roach",
+            "transform": {
+                "xScale": 0.7,
+                "yScale": 0.7
+            }
+        }
+    },
+    {
+        "setPrefab": "SmallRoach",
+        "prefabValues": {
+            "usePrefab": "Roach",
+            "transform": {
+                "xScale": 0.1,
+                "yScale": 0.1
+            }
+        }
+    },
+    {
+        "setPrefab": "Wall",
+        "prefabValues": {
+            "tag": "platform",
+            "transform": {
+                "xPos": 0,
+                "yPos": -1,
+                "xScale": 2,
+                "yScale": 1
+            },
+            "render": {
+                "sprite": "wall.jpg"
+            },
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            },
+            "animation": {}
+        }
+    }
+]
