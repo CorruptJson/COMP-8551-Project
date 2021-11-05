@@ -20,6 +20,7 @@
 #include "Components.h"
 #include "Tags.h"
 #include "PlayerControlSystem.h"
+#include "GameManager.h"
 
 
 //ChunkManager* chunkManager;
@@ -32,6 +33,9 @@ PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
 
 Animator animator;
+
+GameManager& gameManager = GameManager::getInstance();
+
 Archetype standardArch;
 
 // test entities
@@ -117,6 +121,8 @@ int runEngine()
         coordinator->runSystemUpdates();
 
         catchupTime -= MS_PER_FRAME;
+
+        gameManager.countFrame();
     }
     
     /////////////////
