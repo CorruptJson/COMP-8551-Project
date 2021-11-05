@@ -13,5 +13,4 @@ public:
     //void Update(EntityCoordinator* coordinator);
 
 private:
-
 };

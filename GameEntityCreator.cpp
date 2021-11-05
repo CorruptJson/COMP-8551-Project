@@ -67,7 +67,8 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         0.0f
     };
     ec.GetComponent<StateComponent>(ent) = {
-      state
+      state,
+      true
     };
     return ent;
 }

@@ -63,13 +63,13 @@ void PlayerControlSystem::processEntity(EntityID id) {
         renderComponent->flipX = false;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(-speed, yVelocity);
-        stateComponent->myState.faceRight = false;
+        stateComponent->faceRight = false;
     }
     if (input.isKeyDown(InputTracker::D)) {
         renderComponent->flipX = true;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(speed, yVelocity);
-        stateComponent->myState.faceRight = true;
+        stateComponent->faceRight = true;
     }
     if (input.isKeyDown(InputTracker::S)) {
         animationComponent->currAnim = animHurting;
@@ -95,11 +95,11 @@ void PlayerControlSystem::processEntity(EntityID id) {
     if (input.isKeyJustReleased(InputTracker::S)) {
         moveComponent->setVelocity(xVelocity, 0);
     }
-    if (input.isKeyJustReleased(InputTracker::W)) {
-        if (yVelocity > 0) {
-            moveComponent->setVelocity(xVelocity, 0);
-        }
-    }
+    //if (input.isKeyJustReleased(InputTracker::W)) {
+    //    if (yVelocity > 0) {
+    //        moveComponent->setVelocity(xVelocity, 0);
+    //    }
+    //}
 
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
@@ -109,18 +109,18 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     if (input.isKeyJustDown(InputTracker::J)) {
         // create a new entity for bullet
-        float xPos = (stateComponent->myState.faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
+        float xPos = (stateComponent->faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
         float yPos = transformComponent->getPosition().y;
-        EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false);
-        if (!stateComponent->myState.faceRight) {
-            RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-            bulletrenderComp->flipX = false;
-        }
+        EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
+
+        RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
+        bulletrenderComp->flipX = (stateComponent->faceRight) ? true : false;
+
         physWorld.AddObject(bullet);
 
         // set velocity to the bullet entity
         PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
-        b2Vec2 bulletVelocity = (stateComponent->myState.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
+        b2Vec2 bulletVelocity = (stateComponent->faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
         bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
     }
     // Testing output
