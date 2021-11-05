@@ -84,6 +84,7 @@ int test(){
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
     //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
 
+
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
