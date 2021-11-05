@@ -120,7 +120,7 @@ int runEngine()
     
     /////////////////
     //Testing character control
-    playerControl->processEntity(mike, physicsWorld);
+    playerControl->processEntity(mike);
     //float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
     //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
     //float speed = 2.0f;

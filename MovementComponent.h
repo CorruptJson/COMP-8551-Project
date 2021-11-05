@@ -1,6 +1,4 @@
 #pragma once
-
-#pragma once
 #include <ostream>
 #include <string>
 #include "Libraries/include/box2d/box2d.h"

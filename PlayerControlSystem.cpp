@@ -5,7 +5,7 @@
 #include "Animation.h"
 #include "Renderer.h"
 
-void PlayerControlSystem::processEntity(EntityID id, PhysicsWorld* physicsWorld) {
+void PlayerControlSystem::processEntity(EntityID id) {
 
     // Getting Components needed for the player
     Renderer* renderer = Renderer::getInstance();
@@ -18,6 +18,7 @@ void PlayerControlSystem::processEntity(EntityID id, PhysicsWorld* physicsWorld)
     StateComponent* stateComponent = &coordinator.GetComponent<StateComponent>(id);
     AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
     GameEntityCreator& creator = GameEntityCreator::getInstance();
+    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);
@@ -104,12 +105,12 @@ void PlayerControlSystem::processEntity(EntityID id, PhysicsWorld* physicsWorld)
         // create a new entity for bullet
         float xPos = (stateComponent->myState.faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
         float yPos = transformComponent->getPosition().y;
-        EntityID bullet = creator.CreateActor(xPos, yPos, 0.5, 0.5, "bullet.png", { Tag::BULLET }, false);
+        EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false);
         if (!stateComponent->myState.faceRight) {
             RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
             bulletrenderComp->flipX = false;
         }
-        physicsWorld->AddObject(bullet);
+        physWorld.AddObject(bullet);
 
         // set velocity to the bullet entity
         PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);

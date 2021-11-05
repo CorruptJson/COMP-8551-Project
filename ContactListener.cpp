@@ -24,8 +24,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (GetSecondContact(ENEMY, entUserDataB->id)) {
             // testing enemy move on collision
-            PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id);
-            physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
+            //PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id);
+            //physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
             cout << "enemy" << endl;
         }
     }
@@ -36,8 +36,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (GetSecondContact(ENEMY, entUserDataA->id)) {
             // testing enemy move on collision
-            PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id);
-            physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
+            //PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id);
+            //physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
             cout << "enemy" << endl;
         }
     }
@@ -49,6 +49,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (GetSecondContact(PLAYER, entUserDataB->id)) {
             cout << "player" << endl;
+        }
+        else if (GetSecondContact(BULLET, entUserDataB->id)) {
+            cout << "bullet" << endl;
         }
     }
 }
