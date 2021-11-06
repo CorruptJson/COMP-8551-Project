@@ -22,6 +22,9 @@ class Renderer
 public:
     static std::string DEFAULT_VERT_SHADER_NAME;
     static std::string DEFAULT_FRAG_SHADER_NAME;
+    
+    static std::string DOODLE_VERT_SHADER_NAME;
+    static std::string DOODLE_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init(int viewWidth, int viewHeight);
     int update(EntityCoordinator* coordinator);
@@ -50,12 +53,14 @@ private:
 
     glm::mat4 projectionMatrix;
     Camera camera;
-
+    float time;
+    int counter;
     // store the sprites that have been read
     // from the image files
     std::map<std::string, SpriteInfo> sprites;
 
     GLuint createDefaultShaderProgram();
+    GLuint createDoodleShaderProgram();
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);

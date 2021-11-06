@@ -162,6 +162,12 @@
     <None Include="prefab.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="DoodleFragShader.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="DoodleVertShader.vs">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">

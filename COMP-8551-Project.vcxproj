@@ -178,6 +178,8 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
+    <None Include="DoodleFragShader.fs" />
+    <None Include="DoodleVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
   </ItemGroup>

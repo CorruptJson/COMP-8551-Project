@@ -3,6 +3,9 @@
 std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
+std::string Renderer::DOODLE_VERT_SHADER_NAME = "DoodleVertShader.vs";
+std::string Renderer::DOODLE_FRAG_SHADER_NAME = "DoodleFragShader.fs";
+
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
 GLfloat vertices[] = {
@@ -28,6 +31,7 @@ enum UNIFORMS {
     MODEL_MATRIX_LOCATION,
     VIEW_MATRIX_LOCATION,
     PROJECTION_MATRIX_LOCATION,
+    TIME,
     NUM_OF_UNIFORMS
 };
 
@@ -54,7 +58,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     // init it
     gladLoadGL();
 
-
+    time = 0.0f;
+    counter = 0;
     // init other OpenGL stuff
     float CENTER_X_COORD = 0;
     float CENTER_Y_COORD = 0;
@@ -66,7 +71,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     float EYE_FAR = -1.f;
     projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
     Camera camera(0.0, 0.0, 0.0, 0.0);
-    defaultShaderProgram = createDefaultShaderProgram();
+    //defaultShaderProgram = createDefaultShaderProgram();
+    defaultShaderProgram = createDoodleShaderProgram();
     loadImages();
 
     // create all the OpenGL buffers at the start so we can
@@ -315,6 +321,77 @@ GLuint Renderer::createDefaultShaderProgram() {
 	return shaderProgram;
 }
 
+GLuint Renderer::createDoodleShaderProgram() {
+	// shaders are OpenGL objects => we need to init them
+	// and store a reference to them so we can use them later
+
+	// init an empty shader and store the ref OpenGL returns
+	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    std::string vertShaderSource = FileManager::readShaderFile(Renderer::DOODLE_VERT_SHADER_NAME);
+    const char* vertCStr = vertShaderSource.c_str();
+
+	// first param is the pointer/ID that we will use the as ref
+	// to the shader (the one we create above), 1 is the number of strings
+	// we are storing the shader in, &vertexShaderSource is a pointer
+	// to the shader code string, and NULL is the length that we will
+    // read from the vertCStr => NULL means we keep reading until we see
+    // a NUL EOF char.
+	glShaderSource(vertexShader, 1, &vertCStr, NULL);
+	glCompileShader(vertexShader);
+
+    // check for success
+    int success;
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
+
+	// do the same thing for the fragment shader
+	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    std::string fragShaderSource = FileManager::readShaderFile(Renderer::DOODLE_FRAG_SHADER_NAME);
+    const char* fragCStr = fragShaderSource.c_str();
+
+	// first param is the pointer/ID that we will use the as ref
+	// to the shader, 1 is the number of strings
+	// we are storing the shader in, &fragmentShaderSource is a pointer
+	// to the shader code string, and NULL is unimportant
+	glShaderSource(fragmentShader, 1, &fragCStr, NULL);
+	glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
+
+	// now that we have the shaders, we have to create and 
+	// a "shader program" and attach them so it can work
+	GLuint shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertexShader);
+	glAttachShader(shaderProgram, fragmentShader);
+	// link the program to the rendering pipeline
+	glLinkProgram(shaderProgram);
+
+    // clean up and delete the shader refs
+	// we already compile and link them to the program
+	// so we don't need them anymore
+	glDeleteShader(vertexShader);
+	glDeleteShader(fragmentShader);
+
+    // load the uniforms
+    // see the uniforms defined in the vertex shader 
+    // we get their locations here
+    uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    uniformsLocation[TIME] = glGetUniformLocation(shaderProgram, "time");
+
+	return shaderProgram;
+}
+
 // load the vertex data for the object
 void Renderer::loadVertexData() {
 	// now we need to bind the VBO so OpenGL knows to draw it
@@ -379,6 +456,7 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
     glUniformMatrix4fv(uniformsLocation[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
     glUniformMatrix4fv(uniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
     glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
+    glUniform1f(uniformsLocation[TIME], time);
 }
 
 // update the tex coord vertex data so it draws 
@@ -423,6 +501,11 @@ Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
+    ++counter;
+    if (counter >= 60) {
+        counter = 0;
+        time++;
+    }
 
     // set background color (gray)
     glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
