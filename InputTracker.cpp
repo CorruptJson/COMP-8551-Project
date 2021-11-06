@@ -28,8 +28,7 @@ bool InputTracker::isKeyJustDown(Key aKey)
     }
     else if (Key::A <= aKey && aKey <= Key::Z) {
         int index = aKey - Key::A + letterStartIndex;
-        ButtonState state = mKeyState[index];
-        return state == JUST_DOWN;
+        return mKeyState[index] == JUST_DOWN;
     }
     else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
         return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_DOWN; 
