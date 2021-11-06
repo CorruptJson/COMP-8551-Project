@@ -19,23 +19,28 @@
         "animation": {
             "animName": "idle",
             "isPlaying": true
-        },
-        "state": {}
-    },
-    {
-        "usePrefab": "Roach"
-    },
-    {
-        "usePrefab": "Wall"
-    },
-    {
-        "usePrefab": "Wall",
-        "transform": {
-            "yPos": 2,
-            "xScale": 3,
-            "yScale": 0.5
         }
+    },
+    {
+        "usePrefab": "BigRoach"
+    },
+    {
+        "tag": "platform",
+        "transform": {
+            "xPos": 0,
+            "yPos": -1,
+            "xScale": 2,
+            "yScale": 1
+        },
+        "render": {
+            "sprite": "wall.jpg"
+        },
+        "physics": {
+            "b2bodytype": "b2_staticBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {}
     }
-
 
 ]
