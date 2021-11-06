@@ -9,7 +9,11 @@ in vec2 TexCoord;
 out vec4 FragColor;
 
 uniform sampler2D ourTexture;
+uniform float time;
 
 void main() {
-   FragColor = texture(ourTexture, TexCoord);
+    float f_range = (sin(time) + 1.0)/2.0;
+    vec4 color = texture(ourTexture, TexCoord);
+    color.a *= f_range;
+    FragColor = color;//texture(ourTexture, TexCoord);// * f_range;
 }

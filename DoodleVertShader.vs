@@ -29,7 +29,7 @@ void main()
    TexCoord = inTexCoord;
 
    float _time = snap(time, 5);
-   float noise = rand(TexCoord + _time) * 0.0125 - 0.00825;
+   float noise = rand(TexCoord + _time) * 0.0125 - 0.008;
    TexCoord.xy += noise;
 
     // Set gl_Position with transformed vertex position
