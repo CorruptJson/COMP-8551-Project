@@ -149,7 +149,8 @@ void SceneManager::CreateEntities() {
         }
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
-            0
+            0,
+            true
             };
         }
 
