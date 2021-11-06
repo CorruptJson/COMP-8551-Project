@@ -22,14 +22,13 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
 
         int k = 0;
 
-        for (int j = 0; j < compTypes.size(); j++)
+        for (int j = 0; j < compTypes.size() && k < archTypes.size(); j++)
         {
-            if (compTypes[j] != archTypes[k])
+            for (; k < archTypes.size(); k++)
             {
-                k++;
-                if (k == archTypes.size())
+                if (compTypes[j] == archTypes[k])
                 {
-                    continue;
+                    break;
                 }
             }
         }
