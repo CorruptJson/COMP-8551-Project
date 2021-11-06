@@ -130,7 +130,8 @@ void SceneManager::CreateEntities() {
                 ev.xPos,
                 ev.yPos,
                 ev.density,
-                ev.friction
+                ev.friction,
+                false
             };
 
         }

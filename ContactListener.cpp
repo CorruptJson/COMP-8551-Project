@@ -52,6 +52,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (GetSecondContact(BULLET, entUserDataB->id)) {
             cout << "bullet" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id).isFlaggedForDelete = true;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id).isFlaggedForDelete = true;
         }
     }
 }

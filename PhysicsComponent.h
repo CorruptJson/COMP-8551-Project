@@ -14,5 +14,7 @@ struct PhysicsComponent {
     float density;
     float friction;
 
+    bool isFlaggedForDelete;
+
     b2Body* box2dBody;
 };
