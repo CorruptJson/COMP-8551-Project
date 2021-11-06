@@ -15,7 +15,7 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
         Archetype arch = allChunks[i]->getArchetype();
         std::vector<ComponentType> archTypes = arch.getComponentTypeArray();
         int k = 0;
-        for (int j = 0; j < compTypes.size(); j++)
+        for (int j = 0; j < compTypes.size() && k < archTypes.size(); j++)
         {
             for (; k < archTypes.size(); k++)
             {
