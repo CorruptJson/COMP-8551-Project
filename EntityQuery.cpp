@@ -17,12 +17,11 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
         int k = 0;
         for (int j = 0; j < compTypes.size(); j++)
         {
-            if (compTypes[j] != archTypes[k])
+            for (; k < archTypes.size(); k++)
             {
-                k++;
-                if (k == archTypes.size())
+                if (compTypes[j] == archTypes[k])
                 {
-                    continue;
+                    break;
                 }
             }
         }
@@ -32,7 +31,6 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
             chunks.push_back(allChunks[i]);
             entityCount += allChunks[i]->getCurrEntCount();
             //std::cout << "found chunk " << std::endl;
-
         }
     }
 }
