@@ -15,5 +15,6 @@ public:
     static GameEntityCreator& getInstance();
     EntityID CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation);
     EntityID CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
+    EntityID CreateTimer(const char* spriteName, std::vector<Tag> tags);
     //EntityID CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
 };

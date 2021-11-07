@@ -14,7 +14,6 @@ void TestSystem::update(){
     int entitiesFound = entityQuery->totalEntitiesFound();
     
     if (entitiesFound > 0) {
-        cout << "EQ found " << entitiesFound << endl;
         vector<TimerComponent*> compList = entityQuery->getComponentArray<TimerComponent>();
         TimerComponent* testTimer;
         list<int> triggeredIndexes;

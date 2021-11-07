@@ -63,7 +63,6 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         1.0f,
         0.0f
     };
-    //ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
 
     return ent;
 }
@@ -84,7 +83,15 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         1.0f,
         0.0f
     };
-    //ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
+    return ent;
+}
+
+EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(testArchetype, spriteName, tags);
+
+    ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
     return ent;
 }
 

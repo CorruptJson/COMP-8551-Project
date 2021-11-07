@@ -32,6 +32,7 @@ Archetype standardArch;
 EntityID roach;
 EntityID wall;
 EntityID mike;
+EntityID timer;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -78,14 +79,14 @@ int test(){
 
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
 
-
+    /*
     //Equivalent to attaching code below
     shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
     shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
     testSys.get()->Attach(printerSys.get());
-    
+    */
 
-    //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
+    coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
     return 0;
 }
@@ -175,6 +176,8 @@ int main() {
     roach = creator.CreateActor(0.5, 3, 0.4, 0.4, "Giant_Roach.png", { Tag::ENEMY }, false);
     wall = creator.CreatePlatform(0, -1, 2, 1, "wall.jpg", { Tag:: PLATFORM });
     mike = creator.CreateActor(-0.5, 0, 1,1, "Edgar.png", { Tag::PLAYER }, true);
+
+    timer = creator.CreateTimer("wall.png", { Tag::PLATFORM });
 
     coordinator->GetComponent<AnimationComponent>(mike) = Animator::createAnimationComponent(renderer->getAnimation("idle", "Edgar.png"),true);
 
