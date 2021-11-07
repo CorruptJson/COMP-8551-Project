@@ -119,7 +119,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLFW_INCLUDE_NONE;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -161,12 +161,16 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
+    <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="printerSystem.cpp" />
+    <ClCompile Include="PlayerControlSystem.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="test_system.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -175,6 +179,8 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
+    <None Include="prefab.json" />
+    <None Include="scene.json" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -192,6 +198,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="Event.h" />
+    <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
     <ClInclude Include="GameEntityCreator.h" />
     <ClInclude Include="GameManager.h" />
@@ -200,14 +207,19 @@
     <ClInclude Include="InputTracker.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="ISubject.h" />
+    <ClInclude Include="printerSystem.h" />
+    <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
-    <ClInclude Include="printerSystem.h" />
+    <ClInclude Include="PlayerControlSystem.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="RenderComponent.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpriteInfo.h" />
+    <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="system_manager.h" />
     <ClInclude Include="TagList.h" />

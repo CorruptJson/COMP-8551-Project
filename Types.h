@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Transform.h"
 #include "renderComponent.h"
+#include <nlohmann/json.hpp>
+
 
 // ECS
 //using Entity = std::uint32_t;
@@ -28,6 +30,9 @@ struct EntityID
     int index;
     int version;
 };
+
+
+using json = nlohmann::json;
 
 // enables us to directly print entityID as a string into cout
 inline std::ostream& operator<<(std::ostream& str, EntityID const& ca)
