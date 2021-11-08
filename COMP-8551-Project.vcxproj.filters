@@ -61,6 +61,12 @@
     <Filter Include="Source Files\GameManagerStuff">
       <UniqueIdentifier>{566c7777-5adb-4b3e-8e70-0c07e17b6550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Events">
+      <UniqueIdentifier>{99e770db-b719-4048-a929-1b4a2c0fede7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Events">
+      <UniqueIdentifier>{7798eabf-2453-472d-92fb-8dab1ec8ca01}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -135,6 +141,9 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
+    <ClCompile Include="printerSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -174,9 +183,6 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="ComponentArray.h">
@@ -280,6 +286,18 @@
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="IObserver.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="ISubject.h">
+      <Filter>Header Files\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="printerSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="StateComponent.h">
       <Filter>Header Files\Components</Filter>

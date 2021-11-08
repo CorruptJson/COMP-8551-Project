@@ -40,6 +40,7 @@ Archetype standardArch;
 
 // test entities
 EntityID mike;
+EntityID timer;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -79,7 +80,18 @@ int test(){
     coordinator->RegisterComponent<MovementComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
-    coordinator->addSystem(std::make_shared<InputSystem>());
+    //coordinator->addSystem(std::make_shared<InputSystem>());
+
+    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+
+    /*
+    //Equivalent to attaching code below
+    shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
+    shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
+    testSys.get()->Attach(printerSys.get());
+    */
+
+    coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
 
     
@@ -159,8 +171,6 @@ int teardown()
 int main() {
     initialize();
     test();
-
-
 
     animator = Animator();
 
