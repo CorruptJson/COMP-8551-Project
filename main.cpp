@@ -62,6 +62,8 @@ int initialize()
 
     //physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
+    playerControl = new PlayerControlSystem();
+
 
     prevTime = Clock::now();
 
@@ -76,19 +78,20 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
+    coordinator->RegisterComponent<StateComponent>();
+    coordinator->RegisterComponent<MovementComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());
 
-    try {
-    sceneManager->CreateEntities();
-    }
-    catch (const std::exception& e) { std::cout << e.what(); }
+
+    
+
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
     //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
-
+    sceneManager->CreateEntities();
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
