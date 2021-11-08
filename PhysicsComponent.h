@@ -17,4 +17,5 @@ struct PhysicsComponent {
     bool isFlaggedForDelete;
 
     b2Body* box2dBody;
+    EntityID entityID;
 };

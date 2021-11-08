@@ -42,9 +42,10 @@ void PhysicsWorld::AddObject(EntityID id) {
     bodyDef.position.Set(physComponent->x, physComponent->y);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
 
-    bodyDef.bullet = (coordinator.entityHasTag(BULLET, id)) ? true : false;
+    bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
 
-    physComponent->box2dBody = world->CreateBody(&bodyDef);
+    physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
+    physComponent->entityID = id;
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
@@ -168,8 +169,8 @@ void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
     physComponent->x = physComponent->box2dBody->GetTransform().p.x;
     physComponent->y = physComponent->box2dBody->GetTransform().p.y;
     if (physComponent->isFlaggedForDelete) {
-        EntityCoordinator::getInstance().DestroyEntity(reinterpret_cast<EntityUserData*>(physComponent->box2dBody->GetUserData().pointer)->id);
         world->DestroyBody(physComponent->box2dBody);
+        EntityCoordinator::getInstance().DestroyEntity(physComponent->entityID);
     };
 }
 
