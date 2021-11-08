@@ -75,6 +75,8 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
+    coordinator->RegisterComponent<MovementComponent>();
+    coordinator->RegisterComponent<StateComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     coordinator->addSystem(std::make_shared<InputSystem>());

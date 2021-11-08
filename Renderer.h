@@ -73,6 +73,7 @@ private:
 
     void loadTexture(std::string spriteName);
     void loadUniforms(mat4 modelMatrix);
+    void loadTextUniforms(mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
     void setTexCoordToDefault();

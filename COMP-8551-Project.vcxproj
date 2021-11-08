@@ -180,6 +180,8 @@
     <None Include="DefaultVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
+    <None Include="TextFragShader.fs" />
+    <None Include="TextVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -235,6 +237,7 @@
     <Image Include="wall.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <Font Include="arial.ttf" />
     <Font Include="Pixeboy.ttf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

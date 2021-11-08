@@ -36,6 +36,11 @@ enum UNIFORMS {
 // store the locations of the shaders uniforms
 GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
+//text stuff
+GLuint textUniformsLocation[NUM_OF_UNIFORMS];
+GLuint vao;
+GLuint vbo;
+
 // a pointer to the context
 GLFWwindow* window;
 
@@ -67,8 +72,15 @@ int Renderer::init(int viewWidth, int viewHeight) {
     float EYE_FAR = -1.f;
     projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
     Camera camera(0.0, 0.0, 0.0, 0.0);
+
     defaultShaderProgram = createDefaultShaderProgram();
     textShaderProgram = createTextShaderProgram();
+
+    //glUseProgram(textShaderProgram);
+    /*glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
+    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "viewMatrix"),1,GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "modelMatrix"),1,GL_FALSE, glm::value_ptr(glm::mat4(1.0)));*/
+
     loadImages();
 
     // create all the OpenGL buffers at the start so we can
@@ -326,7 +338,7 @@ GLuint Renderer::createTextShaderProgram() {
 
 	// init an empty shader and store the ref OpenGL returns
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    std::string vertShaderSource = FileManager::readShaderFile(Renderer::TEXT_SHADER_NAME);
+    std::string vertShaderSource = FileManager::readShaderFile(Renderer::TEXT_VERT_SHADER_NAME);
     const char* vertCStr = vertShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
@@ -349,7 +361,7 @@ GLuint Renderer::createTextShaderProgram() {
 
 	// do the same thing for the fragment shader
 	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    std::string fragShaderSource = FileManager::readShaderFile(Renderer::DEFAULT_FRAG_SHADER_NAME);
+    std::string fragShaderSource = FileManager::readShaderFile(Renderer::TEXT_FRAG_SHADER_NAME);
     const char* fragCStr = fragShaderSource.c_str();
 
 	// first param is the pointer/ID that we will use the as ref
@@ -383,9 +395,9 @@ GLuint Renderer::createTextShaderProgram() {
     // load the uniforms
     // see the uniforms defined in the vertex shader 
     // we get their locations here
-    uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
-    uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
-    uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    textUniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    textUniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    textUniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
 
 	return shaderProgram;
 }
@@ -403,7 +415,7 @@ void Renderer::loadTextLibrary() {
 
     // load the font file so we get a texture
     FT_Face face;
-    if (FT_New_Face(ft, "Pixeboy.ttf", 0, &face))
+    if (FT_New_Face(ft, "arial.ttf", 0, &face))
     {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
         return;
@@ -422,14 +434,37 @@ void Renderer::loadTextLibrary() {
         }
 
         // generate texture
+        //do it without create texbuffer for testing purposes
+        GLuint texture;
+        glGenTextures(1, &texture);
+        glBindTexture(GL_TEXTURE_2D, texture);
+
         int height = face->glyph->bitmap.rows;
         int width = face->glyph->bitmap.width;
         unsigned char* data = face->glyph->bitmap.buffer;
-        GLuint textureId = createTexBuffer(height, width, data);
+        
+        //GLuint textureId = createTexBuffer(height, width, data);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RED,
+            width,
+            height,
+            0,
+            GL_RED,
+            GL_UNSIGNED_BYTE,
+            data
+        );
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
         // now store character for later use
         Character character = {
-            textureId,
+            //textureId,
+            texture,
             face->glyph->bitmap.width,
             face->glyph->bitmap.rows,
             face->glyph->bitmap_left,
@@ -444,6 +479,20 @@ void Renderer::loadTextLibrary() {
     // we are done with the free type
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
+
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glBindVertexArray(vao);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindVertexArray(0);
 }
 
 // load the vertex data for the object
@@ -512,6 +561,13 @@ void Renderer::loadUniforms(mat4 modelMatrix) {
     glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
 }
 
+void Renderer::loadTextUniforms(mat4 modelMatrix) {
+    // pass in the uniforms value
+    glUniformMatrix4fv(textUniformsLocation[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
+    glUniformMatrix4fv(textUniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
+    glUniformMatrix4fv(textUniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
+}
+
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
 void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
@@ -564,10 +620,84 @@ void Renderer::setTexCoordToDefault() {
     vertices[14] = bottomY; // bottom left y
 }
 
+//void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
+//{
+//    ////sets the current shader program to the text shader program
+//    glUseProgram(textShaderProgram);
+//
+//    ////creates a model matrix for the text
+//    ////updates the text uniforms in the text shader.
+//    //glm::mat4 matrix = glm::mat4(1);
+//    //matrix = glm::translate(matrix, vec3(x, y, 0.0f));
+//    //loadTextUniforms(matrix);
+//
+//    glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindVertexArray(vao);
+//
+//    std::string::const_iterator c;
+//    for (c = text.begin(); c != text.end(); c++) {
+//        Character ch = characters[*c];
+//
+//        float xpos = x + ch.bearingX * scale;
+//        float ypos = y - (ch.height - ch.bearingY) * scale;
+//
+//        float w = ch.width * scale;
+//        float h = ch.height * scale;
+//
+//        float vertices[6][4] = {
+//            {xpos,  ypos + h,        0.0f,0.0f},
+//            {xpos,  ypos,            0.0f, 1.0f},
+//            {xpos + w, ypos,        1.0f, 1.0f},
+//
+//            {xpos, ypos + h,         0.0f, 0.0f},
+//            {xpos + w, ypos,         1.0f, 1.0f},
+//            {xpos + w, ypos + h,     1.0f, 0.0f}
+//        };
+//        glBindVertexArray(vao);
+//
+//        //binds the current characters text
+//        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+//
+//        //loading vertex data
+//        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+//
+//        //glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+//        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+//        glEnableVertexAttribArray(0);
+//
+//        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+//        glEnableVertexAttribArray(1);
+//
+//        //shaderprogram stuff
+//        //sets the current shader program to the text shader program
+//        glUseProgram(textShaderProgram);
+//
+//        //creates a model matrix for the text
+//        //updates the text uniforms in the text shader.
+//        glm::mat4 matrix = glm::mat4(1);
+//        matrix = glm::translate(matrix, vec3(x, y, 0.0f));
+//        loadTextUniforms(matrix);
+//
+//        glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
+//
+//        glDrawArrays(GL_TRIANGLES, 0, 6);
+//
+//        x += (ch.Advance >> 6) * scale;
+//    }
+//
+//    glBindVertexArray(0);
+//    glBindTexture(GL_TEXTURE_2D, 0);
+//}
+
 void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
+    ////sets the current shader program to the text shader program
+    glUseProgram(textShaderProgram);
+    glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(vertexBuffer);
+    glBindVertexArray(vao);
 
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++) {
@@ -579,19 +709,20 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
         float w = ch.width * scale;
         float h = ch.height * scale;
 
-        float vertices[6][4] = {
-            {xpos,  ypos + h,        0.0f,0.0f},
+        float verts[6][4] = {
+            {xpos,  ypos + h,        0.0f, 0.0f},
             {xpos,  ypos,            0.0f, 1.0f},
-            {xpos + w, ypos,        1.0f, 1.0f},
-
-            {xpos, ypos + h,         0.0f, 1.0f},
             {xpos + w, ypos,         1.0f, 1.0f},
-            {xpos + w, ypos + h,     1.0f, 0.0f},
-        };
 
+            {xpos, ypos + h,         0.0f, 0.0f},
+            {xpos + w, ypos,         1.0f, 1.0f},
+            {xpos + w, ypos + h,     1.0f, 0.0f}
+        };
+        
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -671,9 +802,11 @@ int Renderer::update(EntityCoordinator* coordinator) {
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
-    setTexCoordToDefault();
+    //setTexCoordToDefault();
 
-    renderText("SAMPLE TEXT", 0.0f, 0.0f, 0.0f, glm::vec3(0.0f,0.0f,0.0f));
+    renderText("SAMPLE TEXT", 0.0f, 1.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
+    renderText("SAMPLE TEXT", 0.0f, 2.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
+    renderText("SAMPLE TEXT", 0.0f, 3.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
