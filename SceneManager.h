@@ -32,6 +32,8 @@ struct EntityValues {
 
     // RenderComponent
     bool hasAnimation = false;
+    float rowIndex = 0;
+    float colIndex = 0;
 
     // AnimationComponent
     bool animIsPlaying = false;
