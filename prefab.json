@@ -41,17 +41,27 @@
         }
     },
     {
-        "setPrefab": "Wall",
+        "setPrefab": "SmoothPlatform",
         "prefabValues": {
             "tag": "platform",
-            "transform": {
-                "xPos": 0,
-                "yPos": -1,
-                "xScale": 2,
-                "yScale": 1
-            },
             "render": {
-                "sprite": "wall.jpg"
+                "sprite": "platform.png"
+            },
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            },
+            "animation": {}
+        }
+    },
+    {
+        "setPrefab": "RoughtPlatform",
+        "prefabValues": {
+            "tag": "platform",
+            "render": {
+                "sprite": "platform.png",
+                "rowIndex":  1
             },
             "physics": {
                 "b2bodytype": "b2_staticBody",

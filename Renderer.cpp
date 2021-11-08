@@ -103,8 +103,8 @@ void Renderer::loadImages() {
             {}
         },
         {
-            "wall.jpg",
-            1,
+            "platform.png",
+            2,
             1,
             {}
         },
@@ -221,6 +221,7 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     // Make a window with size 800x800 with name of "Chunky Soup"
     // pass in monitor for the 3rd param if we want it to be full screen
     GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
+    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
     //glfwSetWindowPos(window, 0, 0);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
