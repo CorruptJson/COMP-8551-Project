@@ -470,6 +470,65 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     vertices[14] = bottomY; // bottom left y
 }
 
+void Renderer::setTexCoordToDefault() {
+    // coordinates of the texture coords in the vertices array
+    float rightX = 1.0f;
+    float leftX = 0.0f;
+    float topY = 1.0f;
+    float bottomY = 0.0f;
+
+    // x values
+    vertices[3] = rightX; // top right x
+    vertices[8] = rightX; // bottom right x
+    vertices[13] = leftX; // bottom left x
+    vertices[18] = leftX; // top left x
+
+    // y values of the tex coords
+    vertices[4] = topY; // top right y
+    vertices[19] = topY; // top left y
+    vertices[9] = bottomY; // bottom right y
+    vertices[14] = bottomY; // bottom left y
+}
+
+void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
+{
+    glActiveTexture(GL_TEXTURE0);
+    glBindVertexArray(vertexBuffer);
+
+    std::string::const_iterator c;
+    for (c = text.begin(); c != text.end(); c++) {
+        Character ch = characters[*c];
+
+        float xpos = x + ch.bearingX * scale;
+        float ypos = y - (ch.height - ch.bearingY) * scale;
+
+        float w = ch.width * scale;
+        float h = ch.height * scale;
+
+        float vertices[6][4] = {
+            {xpos,  ypos + h,        0.0f,0.0f},
+            {xpos,  ypos,            0.0f, 1.0f},
+            {xpos + w, ypos,        1.0f, 1.0f},
+
+            {xpos, ypos + h,         0.0f, 1.0f},
+            {xpos + w, ypos,         1.0f, 1.0f},
+            {xpos + w, ypos + h,     1.0f, 0.0f},
+        };
+
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+        glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        x += (ch.Advance >> 6) * scale;
+    }
+
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
     return &(sprites[spriteName].animations[animName]);
@@ -537,6 +596,10 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
+
+    setTexCoordToDefault();
+
+    renderText("SAMPLE TEXT", 0.0f, 0.0f, 0.0f, glm::vec3(0.0f,0.0f,0.0f));
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color

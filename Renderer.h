@@ -71,5 +71,7 @@ private:
     void loadUniforms(mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
+    void setTexCoordToDefault();
+    void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
 };
 
