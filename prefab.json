@@ -10,14 +10,18 @@
                 "yScale": 0.4
             },
             "render": {
-                "sprite": "Giant_Roach.png"
+                "sprite": "Giant_Roach.png",
+                "hasAnim": true
             },
             "physics": {
                 "b2bodytype": "b2_dynamicBody",
                 "density": 1,
                 "friction": 0
             },
-            "animation": {}
+            "animation": {
+                "animName": "run",
+                "isPlaying": true
+            }
         }
     },
     {
@@ -44,6 +48,9 @@
         "setPrefab": "SmoothPlatform",
         "prefabValues": {
             "tag": "platform",
+            "transform": {
+                "yScale": 0.5
+            },
             "render": {
                 "sprite": "platform.png"
             },
@@ -56,9 +63,12 @@
         }
     },
     {
-        "setPrefab": "RoughtPlatform",
+        "setPrefab": "RoughPlatform",
         "prefabValues": {
             "tag": "platform",
+            "transform": {
+                "yScale": 0.5
+            },
             "render": {
                 "sprite": "platform.png",
                 "rowIndex":  1
@@ -69,6 +79,57 @@
                 "friction": 0
             },
             "animation": {}
+        }
+    },
+    {
+        "setPrefab": "CeilingPlatform",
+        "prefabValues": {
+            "usePrefab":  "SmoothPlatform",
+            "transform": {
+                "yPos": 4.75,
+                "xScale": 6.5
+            }
+        }
+    },
+    {
+        "setPrefab": "FloorPlatform",
+        "prefabValues": {
+            "usePrefab":  "CeilingPlatform",
+            "transform": {
+                "yPos": -4.5,
+                "yScale":  1
+            }
+        }
+    },
+    {
+        "setPrefab": "Wall",
+        "prefabValues": {
+            "usePrefab":  "SmoothPlatform",
+            "transform": {
+                "yPos": 0.25,
+                "yScale": 8.5
+            }
+        }
+    },
+    {
+        "setPrefab": "LeanPlatform",
+        "prefabValues": {
+            "usePrefab":  "RoughPlatform",
+            "transform": {
+                "yPos": 0.75,
+                "xScale": 4
+            }
+        }
+    },
+    {
+        "setPrefab": "ThickPlatform",
+        "prefabValues": {
+            "usePrefab":  "RoughPlatform",
+            "transform": {
+                "yPos": -3.5,
+                "xScale": 2.5,
+                "yScale": 1
+            }
         }
     }
 ]

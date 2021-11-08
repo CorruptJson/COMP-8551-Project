@@ -31,65 +31,95 @@
         }
     },
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "Wall",
         "_comment": "left wall",
         "transform": {
-            "xPos": -7,
-            "yScale": 9
+            "xPos": -7
         }
     },
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "Wall",
         "_comment": "right wall",
         "transform": {
-            "xPos": 7,
-            "yScale": 9
+            "xPos": 7
         }
     },
 
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "CeilingPlatform",
         "_comment": "top left ceiling",
         "transform": {
-            "xPos": 4.25,
-            "yPos": 5,
-            "xScale": 6.5
+            "xPos": -4.25
         }
     },
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "CeilingPlatform",
         "_comment": "top right ceiling",
         "transform": {
-            "xPos": -4.25,
-            "yPos": 5,
-            "xScale": 6.5
+            "xPos": 4.25
         }
     },
 
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "FloorPlatform",
         "_comment": "bottom left floor",
         "transform": {
-            "xPos": 4.25,
-            "yPos": -5,
-            "xScale": 6.5
+            "xPos": -4.25
         }
     },
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "FloorPlatform",
         "_comment": "bottom right floor",
         "transform": {
-            "xPos": -4.25,
-            "yPos": -5,
-            "xScale": 6.5
+            "xPos": 4.25
         }
     },
 
     {
-        "usePrefab": "SmoothPlatform",
+        "usePrefab": "RoughPlatform",
+        "_comment": "top most platform",
+        "transform": {
+            "yPos": 2.75,
+            "xScale": 4
+        }
+    },
+
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top left second top platform",
+        "transform": {
+            "xPos": -4.5
+        }
+    },
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top right second top platform",
+        "transform": {
+            "xPos": 4.5
+        }
+    },
+
+    {
+        "usePrefab": "RoughPlatform",
         "_comment": "middle platform",
         "transform": {
+            "yPos": -1.25,
             "xScale": 6
+        }
+    },
+
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom left bottom platform",
+        "transform": {
+            "xPos": -5.25
+        }
+    },
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom right bottom platform",
+        "transform": {
+            "xPos": 5.25
         }
     }
 
