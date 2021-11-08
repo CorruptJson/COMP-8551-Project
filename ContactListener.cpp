@@ -64,6 +64,15 @@ void ContactListener::BeginContact(b2Contact* contact) {
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id).isFlaggedForDelete = true;
         }
     }
+    else if (GetFirstContact(BULLET, entUserDataB->id))
+    {
+        cout << "bullet contact with: ";
+        if (GetSecondContact(PLATFORM, entUserDataA->id))
+        {
+            cout << "platform" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id).isFlaggedForDelete = true;
+        }
+    }
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
