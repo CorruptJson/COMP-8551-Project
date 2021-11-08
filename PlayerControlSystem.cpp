@@ -37,8 +37,8 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // state
     int currState = stateComponent->state;
 
-    float speed = 2.0f;
-    float jumpForce = 260.0f;
+    float speed = 4.0f;
+    float jumpForce = 500.0f;
     int jumpCount = 0;
     int jumpLimit = 1;
     bool isReset = false;

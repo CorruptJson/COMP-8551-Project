@@ -57,10 +57,12 @@ void PhysicsWorld::AddObject(EntityID id) {
 
         // set collision filter base on tag
         if (coordinator.entityHasTag(PLAYER, id)) {
+            physComponent->box2dBody->SetGravityScale(1.5);
             fixtureDef.filter.categoryBits = C_PLAYER;
             fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
         }
         else if (coordinator.entityHasTag(ENEMY, id)) {
+            physComponent->box2dBody->SetGravityScale(1.5);
             fixtureDef.filter.categoryBits = C_ENEMY;
             fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
         }

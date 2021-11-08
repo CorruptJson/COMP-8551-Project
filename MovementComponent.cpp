@@ -8,8 +8,8 @@ void MovementComponent::addForce(float x, float y) {
 
 void MovementComponent::limitMaxSpeed() {
     //limit the velocity of the object to MAX_SPEED
-    float MAX_SPEED = 5.0f;
-    float MAX_JUMP_SPEED = 200.0f;
+    float MAX_SPEED = 8.0f;
+    float MAX_JUMP_SPEED = 300.0f;
     if (physComponent->box2dBody->GetLinearVelocity().x < -MAX_SPEED)
     {
         physComponent->box2dBody->SetLinearVelocity(b2Vec2(-MAX_SPEED, physComponent->box2dBody->GetLinearVelocity().y));
