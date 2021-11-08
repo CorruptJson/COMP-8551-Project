@@ -159,7 +159,7 @@ void PhysicsWorld::DestoryObject(EntityID id)
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
-    world->DestroyBody(physComponent->box2dBody);
+    physComponent->isFlaggedForDelete = true;
 }
 
 void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
