@@ -165,7 +165,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     //loop through components in the entity
     for (auto& component : jsonObject.items()) {
-
+        std::cout << "component"<<component.key() << std::endl;
         // Set component booleans and set their values in this switch statement
         if (keyMap.find(component.key()) != keyMap.end()) {
             switch (keyMap[component.key()]) {
