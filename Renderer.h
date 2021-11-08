@@ -25,6 +25,8 @@ class Renderer
 public:
     static std::string DEFAULT_VERT_SHADER_NAME;
     static std::string DEFAULT_FRAG_SHADER_NAME;
+    static std::string TEXT_VERT_SHADER_NAME;
+    static std::string TEXT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init(int viewWidth, int viewHeight);
     int update(EntityCoordinator* coordinator);
@@ -50,6 +52,7 @@ private:
     // the default shader program
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
+    GLuint textShaderProgram;
 
     glm::mat4 projectionMatrix;
     Camera camera;
@@ -62,6 +65,7 @@ private:
     std::map<unsigned char, Character> characters;
 
     GLuint createDefaultShaderProgram();
+    GLuint createTextShaderProgram();
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
