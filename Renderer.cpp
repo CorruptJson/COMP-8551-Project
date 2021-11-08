@@ -76,10 +76,10 @@ int Renderer::init(int viewWidth, int viewHeight) {
     defaultShaderProgram = createDefaultShaderProgram();
     textShaderProgram = createTextShaderProgram();
 
-    //glUseProgram(textShaderProgram);
-    /*glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
-    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "viewMatrix"),1,GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
-    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "modelMatrix"),1,GL_FALSE, glm::value_ptr(glm::mat4(1.0)));*/
+    glUseProgram(textShaderProgram);
+    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
+    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "viewMatrix"),1,GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
+    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "modelMatrix"),1,GL_FALSE, glm::value_ptr(glm::mat4(1.0)));*/
 
     loadImages();
 
@@ -451,7 +451,7 @@ void Renderer::loadTextLibrary() {
             width,
             height,
             0,
-            GL_RED,
+            GL_ALPHA,
             GL_UNSIGNED_BYTE,
             data
         );
@@ -804,9 +804,8 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     //setTexCoordToDefault();
 
-    renderText("SAMPLE TEXT", 0.0f, 1.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
-    renderText("SAMPLE TEXT", 0.0f, 2.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
-    renderText("SAMPLE TEXT", 0.0f, 3.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
+    renderText("SAMPLE TEXT", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
+
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color

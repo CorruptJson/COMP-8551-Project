@@ -18,5 +18,6 @@ void main()
 {
    TexCoord = inTexCoord;
     // Set gl_Position with transformed vertex position
-   gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPos, 0, 1);
+   //gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPos, 0, 1);
+   gl_Position = projectionMatrix * vec4(inPos, 0, 1);
 }
