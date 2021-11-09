@@ -71,10 +71,10 @@ void PlayerControlSystem::processEntity(EntityID id) {
         moveComponent->setVelocity(speed, yVelocity);
         stateComponent->faceRight = true;
     }
-    if (input.isKeyDown(InputTracker::S)) {
-        animationComponent->currAnim = animHurting;
-        moveComponent->setVelocity(0, 0);
-    }
+    //if (input.isKeyDown(InputTracker::S)) {
+    //    animationComponent->currAnim = animHurting;
+    //    moveComponent->setVelocity(0, 0);
+    //}
     //if (isCollided) {
     //    isReset = true;
     //    jumpCount = 0;
@@ -92,9 +92,9 @@ void PlayerControlSystem::processEntity(EntityID id) {
         //}
     }
 
-    if (input.isKeyJustReleased(InputTracker::S)) {
-        moveComponent->setVelocity(xVelocity, 0);
-    }
+    //if (input.isKeyJustReleased(InputTracker::S)) {
+    //    moveComponent->setVelocity(xVelocity, 0);
+    //}
     //if (input.isKeyJustReleased(InputTracker::W)) {
     //    if (yVelocity > 0) {
     //        moveComponent->setVelocity(xVelocity, 0);
