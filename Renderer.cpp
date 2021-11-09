@@ -445,8 +445,6 @@ int Renderer::update(EntityCoordinator* coordinator) {
         Transform t = *(transformComps[i]);
         glm::mat4 modelMatrix = t.getModelMatrix();
 
-        transformComps[i]->update();
-
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
         glBindVertexArray(vertexAttribs);

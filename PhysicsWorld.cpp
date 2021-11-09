@@ -77,8 +77,6 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
 
         physComponent->box2dBody->CreateFixture(&fixtureDef);
-
-        transformComponent->setPhysicsBody(physComponent->box2dBody);
     }
 }
 
@@ -148,7 +146,11 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
 
         for (int i = 0; i < entitiesFound; i++) {
-            UpdatePhysicsComponent(physComponents[i]);
+            if (physComponents[i]->isFlaggedForDelete) {
+                PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
+                EntityCoordinator::getInstance().DestroyEntity(physComponents[i]->entityID);
+                continue;
+            }
             UpdateTransform(transformComponents[i], physComponents[i]);
             UpdateMovementComponent(moveComponents[i], physComponents[i]);
 
@@ -165,15 +167,6 @@ void PhysicsWorld::DestoryObject(EntityID id)
     physComponent->isFlaggedForDelete = true;
 }
 
-void PhysicsWorld::UpdatePhysicsComponent(PhysicsComponent* physComponent) {
-    physComponent->x = physComponent->box2dBody->GetTransform().p.x;
-    physComponent->y = physComponent->box2dBody->GetTransform().p.y;
-    if (physComponent->isFlaggedForDelete) {
-        world->DestroyBody(physComponent->box2dBody);
-        EntityCoordinator::getInstance().DestroyEntity(physComponent->entityID);
-    };
-}
-
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
     moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
     moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
@@ -181,7 +174,7 @@ void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, Phy
 }
 
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
-    transform->setPosition(physComponent->x, physComponent->y);
+    transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
 
 
