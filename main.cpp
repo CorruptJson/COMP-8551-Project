@@ -60,8 +60,11 @@ int initialize()
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
+
+    //physicsWorld = new PhysicsWorld();
+    physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
-    physicsWorld = new PhysicsWorld();
+
 
     prevTime = Clock::now();
 
@@ -163,7 +166,7 @@ int teardown()
     // when the engine closes
     renderer->teardown();
 
-    delete physicsWorld;
+    
 
     return 0;
 }

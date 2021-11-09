@@ -3,6 +3,7 @@
 struct StateComponent {
     //PlayerState myState;
     int state;
+    bool faceRight;
     //const int STATE_NORMAL = 0;
     //const int STATE_JUMPING = 1;
     //const int STATE_FALLING = 2;

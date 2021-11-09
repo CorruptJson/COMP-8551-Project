@@ -109,6 +109,12 @@ void Renderer::loadImages() {
             {}
         },
         {
+            "bullet.png",
+            1,
+            1,
+            {}
+        },
+        {
             "Edgar.png",
             1,
             11,
@@ -438,8 +444,6 @@ int Renderer::update(EntityCoordinator* coordinator) {
         RenderComponent component = *(renderComps[i]);
         Transform t = *(transformComps[i]);
         glm::mat4 modelMatrix = t.getModelMatrix();
-
-        transformComps[i]->update();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO

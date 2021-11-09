@@ -129,7 +129,8 @@ void SceneManager::CreateEntities() {
                 ev.xPos,
                 ev.yPos,
                 ev.density,
-                ev.friction
+                ev.friction,
+                false
             };
 
         }
@@ -147,7 +148,8 @@ void SceneManager::CreateEntities() {
         }
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
-            0
+            0,
+            true
             };
         }
 
