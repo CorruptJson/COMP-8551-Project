@@ -8,5 +8,5 @@ struct Character {
     int width; // the width of the glyph
     int bearingX; // the horizontal bearing e.g. the horizontal position (in pixels) of the bitmap relative to the origin accessed via
     int bearingY; // the vertical bearing e.g. the horizontal position (in pixels) of the bitmap relative to the origin accessed via
-    unsigned int Advance;    // Offset to advance to next glyph;
+    int Advance;    // Offset to advance to next glyph;
 };

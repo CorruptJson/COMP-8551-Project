@@ -77,7 +77,7 @@ int Renderer::init(int viewWidth, int viewHeight) {
     textShaderProgram = createTextShaderProgram();
 
     glUseProgram(textShaderProgram);
-    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
+    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
     //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "viewMatrix"),1,GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
     //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "modelMatrix"),1,GL_FALSE, glm::value_ptr(glm::mat4(1.0)));*/
 
@@ -424,6 +424,7 @@ void Renderer::loadTextLibrary() {
 
     // load the characters into the characters
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
+    glPixelStoref(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
     // load the characters from the font file
     for (unsigned char c = 0; c < 128; c++) {
@@ -451,7 +452,7 @@ void Renderer::loadTextLibrary() {
             width,
             height,
             0,
-            GL_ALPHA,
+            GL_RED,
             GL_UNSIGNED_BYTE,
             data
         );
@@ -469,7 +470,7 @@ void Renderer::loadTextLibrary() {
             face->glyph->bitmap.rows,
             face->glyph->bitmap_left,
             face->glyph->bitmap_top,
-            face->glyph->advance.x
+            face->glyph->advance.x,
         };
         characters.insert(std::pair<unsigned char, Character>(c, character));
     }
@@ -693,11 +694,23 @@ void Renderer::setTexCoordToDefault() {
 
 void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
-    ////sets the current shader program to the text shader program
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+
+    //glEnable(GL_BLEND);
+   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    //no need to disable depth test, already disabled
+
+   ////sets the current shader program to the text shader program
     glUseProgram(textShaderProgram);
+    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+
     glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
+    //uniform location for the shader text
+    glUniform1i(glGetUniformLocation(textShaderProgram, "text"), 0);
+    //the uniform is flagged as the texture to be used
     glActiveTexture(GL_TEXTURE0);
-    glBindVertexArray(vao);
+
 
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++) {
@@ -709,23 +722,43 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
         float w = ch.width * scale;
         float h = ch.height * scale;
 
-        float verts[6][4] = {
-            {xpos,  ypos + h,        0.0f, 0.0f},
-            {xpos,  ypos,            0.0f, 1.0f},
-            {xpos + w, ypos,         1.0f, 1.0f},
+        /*float verts[6][4] = {
+            {xpos,      ypos + h,    0.0f, 1.0f},
+            {xpos + w,  ypos,        1.0f, 0.0f},
+            {xpos,      ypos,        0.0f, 0.0f},
 
-            {xpos, ypos + h,         0.0f, 0.0f},
-            {xpos + w, ypos,         1.0f, 1.0f},
-            {xpos + w, ypos + h,     1.0f, 0.0f}
+            {xpos,     ypos + h,     0.0f, 1.0f},
+            {xpos + w, ypos + h,     1.0f, 1.0f},
+            {xpos + w, ypos,         1.0f, 0.0f}
+        };*/
+
+        GLfloat verts[6][4] =
+        {
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos,     ypos,       0.0f, 1.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f }
         };
         
+        glBindVertexArray(vao);
+
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         x += (ch.Advance >> 6) * scale;
     }
@@ -802,9 +835,14 @@ int Renderer::update(EntityCoordinator* coordinator) {
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
+    //unbinds the current vao and vbo
+
+    glBindVertexArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+
     //setTexCoordToDefault();
 
-    renderText("SAMPLE TEXT", 25.0f, 25.0f, 1.0f, glm::vec3(1.0f,0.0f,0.0f));
+    renderText("= + - &", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
 
 
     // foreground is currently cleared (default to white)
