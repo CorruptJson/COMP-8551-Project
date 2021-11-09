@@ -442,7 +442,7 @@ void Renderer::loadTextLibrary() {
 
         int height = face->glyph->bitmap.rows;
         int width = face->glyph->bitmap.width;
-        unsigned char* data = face->glyph->bitmap.buffer;
+        unsigned char* &data = face->glyph->bitmap.buffer;
         
         //GLuint textureId = createTexBuffer(height, width, data);
         glTexImage2D(
@@ -466,16 +466,12 @@ void Renderer::loadTextLibrary() {
         Character character = {
             //textureId,
             texture,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            face->glyph->bitmap_left,
-            face->glyph->bitmap_top,
-            face->glyph->advance.x,
+            glm::ivec2(face->glyph->bitmap.width,face->glyph->bitmap.rows),
+            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
+            (unsigned int)face->glyph->advance.x,
         };
         characters.insert(std::pair<unsigned char, Character>(c, character));
     }
-
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
     // we are done with the free type
     FT_Done_Face(face);
@@ -716,21 +712,11 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
     for (c = text.begin(); c != text.end(); c++) {
         Character ch = characters[*c];
 
-        float xpos = x + ch.bearingX * scale;
-        float ypos = y - (ch.height - ch.bearingY) * scale;
+        float xpos = x + ch.bearing.x * scale;
+        float ypos = y - (ch.size.y - ch.bearing.y) * scale;
 
-        float w = ch.width * scale;
-        float h = ch.height * scale;
-
-        /*float verts[6][4] = {
-            {xpos,      ypos + h,    0.0f, 1.0f},
-            {xpos + w,  ypos,        1.0f, 0.0f},
-            {xpos,      ypos,        0.0f, 0.0f},
-
-            {xpos,     ypos + h,     0.0f, 1.0f},
-            {xpos + w, ypos + h,     1.0f, 1.0f},
-            {xpos + w, ypos,         1.0f, 0.0f}
-        };*/
+        float w = ch.size.x * scale;
+        float h = ch.size.y * scale;
 
         GLfloat verts[6][4] =
         {
@@ -760,6 +746,7 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+        //x += (ch.Advance >> 6) * scale;
         x += (ch.Advance >> 6) * scale;
     }
 
@@ -842,7 +829,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     //setTexCoordToDefault();
 
-    renderText("= + - &", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
+    renderText("hello", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
 
 
     // foreground is currently cleared (default to white)
