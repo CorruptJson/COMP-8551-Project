@@ -38,8 +38,10 @@ GLuint uniformsLocation[NUM_OF_UNIFORMS];
 GLFWwindow* window;
 
 /// <summary>
-/// Initialize the Render tutorial.
+/// 
 /// </summary>
+/// <param name="viewWidth">The width of the camera view in OpenGL coordinates</param>
+/// <param name="viewHeight">The height of the camera view in OpenGL coordinates</param>
 /// <returns></returns>
 int Renderer::init(int viewWidth, int viewHeight) {
     int width, height;
@@ -54,18 +56,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     // init it
     gladLoadGL();
 
-
     // init other OpenGL stuff
-    float CENTER_X_COORD = 0;
-    float CENTER_Y_COORD = 0;
-    float LEFT_X_COORD = CENTER_X_COORD - viewWidth / 2;
-    float RIGHT_X_COORD = CENTER_X_COORD + viewWidth / 2;
-    float BOTTOM_Y_COORD = CENTER_Y_COORD - viewHeight / 2;
-    float TOP_Y_COORD = CENTER_Y_COORD + viewHeight / 2;
-    float EYE_NEAR = 0.f;
-    float EYE_FAR = -1.f;
-    projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
-    Camera camera(0.0, 0.0, 0.0, 0.0);
+    camera.setViewSize(viewWidth, viewHeight);
     defaultShaderProgram = createDefaultShaderProgram();
     loadImages();
 
@@ -111,8 +103,8 @@ void Renderer::loadImages() {
             {}
         },
         {
-            "wall.jpg",
-            1,
+            "platform.png",
+            2,
             1,
             {}
         },
@@ -223,12 +215,13 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     //*height = monitorInfo->height;
 
     // make a small width and a height for ease of testing
-    *width = 1000;
-    *height = 1000;
+    *width = 1800;
+    *height = 1200;
 
     // Make a window with size 800x800 with name of "Chunky Soup"
     // pass in monitor for the 3rd param if we want it to be full screen
     GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
+    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
     //glfwSetWindowPos(window, 0, 0);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -374,11 +367,11 @@ void Renderer::loadTexture(std::string spriteName) {
     }
 }
 
-void Renderer::loadUniforms(mat4 modelMatrix) {
+void Renderer::loadUniforms(glm::mat4 modelMatrix) {
     // pass in the uniforms value
     glUniformMatrix4fv(uniformsLocation[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
     glUniformMatrix4fv(uniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
-    glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(projectionMatrix));
+    glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(camera.getProjectionMatrix()));
 }
 
 // update the tex coord vertex data so it draws 
@@ -444,7 +437,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     for (int i = 0; i < entitiesFound; i++) {
         RenderComponent component = *(renderComps[i]);
         Transform t = *(transformComps[i]);
-        mat4 modelMatrix = t.getModelMatrix();
+        glm::mat4 modelMatrix = t.getModelMatrix();
 
         transformComps[i]->update();
 
@@ -503,6 +496,5 @@ Renderer* Renderer::getInstance()
         renderer = new Renderer();
     return renderer;
 }
-;
 
 Renderer* Renderer::renderer = nullptr;

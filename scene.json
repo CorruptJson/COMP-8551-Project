@@ -2,10 +2,9 @@
     {
         "tag": "player",
         "transform": {
-            "xPos": -0.5,
-            "yPos": 0,
             "xScale": 1,
-            "yScale": 1
+            "yScale": 1,
+            "yPos":  1
         },
         "render": {
             "sprite": "Edgar.png",
@@ -19,28 +18,109 @@
         "animation": {
             "animName": "idle",
             "isPlaying": true
+        },
+        "state": {}
+    },
+    {
+        "usePrefab": "Roach",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "xPos":  4,
+            "yPos":  1
         }
     },
     {
-        "usePrefab": "BigRoach"
+        "usePrefab": "Wall",
+        "_comment": "left wall",
+        "transform": {
+            "xPos": -7
+        }
     },
     {
-        "tag": "platform",
+        "usePrefab": "Wall",
+        "_comment": "right wall",
         "transform": {
-            "xPos": 0,
-            "yPos": -1,
-            "xScale": 2,
-            "yScale": 1
-        },
-        "render": {
-            "sprite": "wall.jpg"
-        },
-        "physics": {
-            "b2bodytype": "b2_staticBody",
-            "density": 1,
-            "friction": 0
-        },
-        "animation": {}
+            "xPos": 7
+        }
+    },
+
+    {
+        "usePrefab": "CeilingPlatform",
+        "_comment": "top left ceiling",
+        "transform": {
+            "xPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "CeilingPlatform",
+        "_comment": "top right ceiling",
+        "transform": {
+            "xPos": 4.25
+        }
+    },
+
+    {
+        "usePrefab": "FloorPlatform",
+        "_comment": "bottom left floor",
+        "transform": {
+            "xPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "FloorPlatform",
+        "_comment": "bottom right floor",
+        "transform": {
+            "xPos": 4.25
+        }
+    },
+
+    {
+        "usePrefab": "RoughPlatform",
+        "_comment": "top most platform",
+        "transform": {
+            "yPos": 2.75,
+            "xScale": 4
+        }
+    },
+
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top left second top platform",
+        "transform": {
+            "xPos": -4.5
+        }
+    },
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top right second top platform",
+        "transform": {
+            "xPos": 4.5
+        }
+    },
+
+    {
+        "usePrefab": "RoughPlatform",
+        "_comment": "middle platform",
+        "transform": {
+            "yPos": -1.25,
+            "xScale": 6
+        }
+    },
+
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom left bottom platform",
+        "transform": {
+            "xPos": -5.25
+        }
+    },
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom right bottom platform",
+        "transform": {
+            "xPos": 5.25
+        }
     }
 
 ]

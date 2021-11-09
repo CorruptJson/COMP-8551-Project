@@ -37,7 +37,7 @@ unordered_map<std::string, Tag> tagMap = {
 
 // spritesheet map for converting from string to char
 unordered_map <std::string, const char*> spriteMap = {
-    {"wall.jpg", "wall.jpg"},
+    {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
     {"Edgar.png", "Edgar.png"}
 };
@@ -207,6 +207,12 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
                 ev.hasAnimation = component.value().contains("hasAnim")
                     ? component.value()["hasAnim"].get<bool>() : ev.hasAnimation;
+
+                ev.rowIndex = component.value().contains("rowIndex")
+                    ? component.value()["rowIndex"].get<int>() : ev.rowIndex;
+
+                ev.colIndex = component.value().contains("colIndex")
+                    ? component.value()["colIndex"].get<int>() : ev.colIndex;
 
                 break;
 

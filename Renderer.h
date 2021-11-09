@@ -48,7 +48,6 @@ private:
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
 
-    glm::mat4 projectionMatrix;
     Camera camera;
 
     // store the sprites that have been read
@@ -61,7 +60,7 @@ private:
     GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
 
     void loadTexture(std::string spriteName);
-    void loadUniforms(mat4 modelMatrix);
+    void loadUniforms(glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
 };
