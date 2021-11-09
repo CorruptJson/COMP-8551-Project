@@ -68,10 +68,12 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
-      state
+      state,
+      true
     };
     return ent;
 }
@@ -90,7 +92,8 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
         state

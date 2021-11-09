@@ -102,9 +102,6 @@
     <ClCompile Include="ContactListener.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
-    <ClCompile Include="Box2DTutorial.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="InputTracker.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
@@ -214,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="ArchetypeManager.h">
       <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="Box2DTutorial.h">
-      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="ContactListener.h">
       <Filter>Header Files\Physics</Filter>
