@@ -76,10 +76,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     defaultShaderProgram = createDefaultShaderProgram();
     textShaderProgram = createTextShaderProgram();
 
+    //sets the text shader to be used currently
     glUseProgram(textShaderProgram);
-    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1,GL_FALSE, glm::value_ptr(projectionMatrix));
-    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "viewMatrix"),1,GL_FALSE, glm::value_ptr(camera.getViewMatrix()));
-    //glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "modelMatrix"),1,GL_FALSE, glm::value_ptr(glm::mat4(1.0)));*/
 
     loadImages();
 
@@ -102,6 +100,7 @@ int Renderer::init(int viewWidth, int viewHeight) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
+    //loads the text library for printing characters
     loadTextLibrary();
 
     return 0;
@@ -477,14 +476,18 @@ void Renderer::loadTextLibrary() {
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 
+    //sets up the vao and vbo for the text
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+
+    // vertex location = inPos
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
 
+    //vertex location = inTexCoord
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
 
@@ -617,94 +620,23 @@ void Renderer::setTexCoordToDefault() {
     vertices[14] = bottomY; // bottom left y
 }
 
-//void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
-//{
-//    ////sets the current shader program to the text shader program
-//    glUseProgram(textShaderProgram);
-//
-//    ////creates a model matrix for the text
-//    ////updates the text uniforms in the text shader.
-//    //glm::mat4 matrix = glm::mat4(1);
-//    //matrix = glm::translate(matrix, vec3(x, y, 0.0f));
-//    //loadTextUniforms(matrix);
-//
-//    glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
-//    glActiveTexture(GL_TEXTURE0);
-//    glBindVertexArray(vao);
-//
-//    std::string::const_iterator c;
-//    for (c = text.begin(); c != text.end(); c++) {
-//        Character ch = characters[*c];
-//
-//        float xpos = x + ch.bearingX * scale;
-//        float ypos = y - (ch.height - ch.bearingY) * scale;
-//
-//        float w = ch.width * scale;
-//        float h = ch.height * scale;
-//
-//        float vertices[6][4] = {
-//            {xpos,  ypos + h,        0.0f,0.0f},
-//            {xpos,  ypos,            0.0f, 1.0f},
-//            {xpos + w, ypos,        1.0f, 1.0f},
-//
-//            {xpos, ypos + h,         0.0f, 0.0f},
-//            {xpos + w, ypos,         1.0f, 1.0f},
-//            {xpos + w, ypos + h,     1.0f, 0.0f}
-//        };
-//        glBindVertexArray(vao);
-//
-//        //binds the current characters text
-//        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-//
-//        //loading vertex data
-//        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
-//
-//        //glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-//        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-//        glEnableVertexAttribArray(0);
-//
-//        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-//        glEnableVertexAttribArray(1);
-//
-//        //shaderprogram stuff
-//        //sets the current shader program to the text shader program
-//        glUseProgram(textShaderProgram);
-//
-//        //creates a model matrix for the text
-//        //updates the text uniforms in the text shader.
-//        glm::mat4 matrix = glm::mat4(1);
-//        matrix = glm::translate(matrix, vec3(x, y, 0.0f));
-//        loadTextUniforms(matrix);
-//
-//        glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
-//
-//        glDrawArrays(GL_TRIANGLES, 0, 6);
-//
-//        x += (ch.Advance >> 6) * scale;
-//    }
-//
-//    glBindVertexArray(0);
-//    glBindTexture(GL_TEXTURE_2D, 0);
-//}
-
+//function for rendering the text, later will be changed to render text components instead
 void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
-
-    //glEnable(GL_BLEND);
-   // glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //no need to disable depth test, already disabled
 
    ////sets the current shader program to the text shader program
     glUseProgram(textShaderProgram);
+    //sets the current shader program to use the projection matrix.
     glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
 
+    //
     glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), color.x, color.y, color.z);
     //uniform location for the shader text
     glUniform1i(glGetUniformLocation(textShaderProgram, "text"), 0);
-    //the uniform is flagged as the texture to be used
+    //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
 
@@ -731,8 +663,10 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
         
         glBindVertexArray(vao);
 
+        //loads the characters texture
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
+        //sets the vbo and vao before drawing
         glBindBuffer(GL_ARRAY_BUFFER, vbo);
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
 
@@ -746,7 +680,7 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-        //x += (ch.Advance >> 6) * scale;
+        //bitshift by 6 to get value in pixels (2^6 = 64)
         x += (ch.Advance >> 6) * scale;
     }
 
