@@ -38,7 +38,6 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
             chunks.push_back(allChunks[i]);
             entityCount += allChunks[i]->getCurrEntCount();
             //std::cout << "found chunk " << std::endl;
-
         }
     }
 }

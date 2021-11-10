@@ -24,6 +24,10 @@ GameEntityCreator::GameEntityCreator()
 
         });
 
+    testArchetype = ec.GetArchetype({
+        ec.GetComponentType<TimerComponent>()
+        });
+
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
@@ -64,10 +68,12 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
-      state
+      state,
+      true
     };
     return ent;
 }
@@ -86,12 +92,21 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
         state
     };
+    return ent;
+}
 
+EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(testArchetype, spriteName, tags);
+    
+    ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
     return ent;
 }
 

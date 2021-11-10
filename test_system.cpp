@@ -2,12 +2,35 @@
 #include "EntityCoordinator.h"
 
 void TestSystem::preUpdate(){
-    //cout << "Test preUpdate ran" << endl;
-    //TimerComponent testTransform = coordinator->GetComponent<TimerComponent>(*coordinator->testEntity);
-    //cout << "Timer Tick: " << testTransform.ticksPassed << endl;
-    //coordinator->GetComponent<TimerComponent>(*coordinator->testEntity).ticksPassed++;
+    //TODO
 }
 
 void TestSystem::update(){
-    //cout << "Test update ran" << endl;
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    
+    std::unique_ptr<EntityQuery> entityQuery = ec.GetEntityQuery({
+        ec.GetComponentType<TimerComponent>()
+        });
+    int entitiesFound = entityQuery->totalEntitiesFound();
+    
+    if (entitiesFound > 0) {
+        vector<TimerComponent*> compList = entityQuery->getComponentArray<TimerComponent>();
+        TimerComponent* testTimer;
+        list<int> triggeredIndexes;
+        for (int i = 0; i < entityQuery->totalEntitiesFound(); i++) {
+            testTimer = compList[i];
+            testTimer->ticksPassed++;
+            if (testTimer->ticksPassed == 200) {
+                triggeredIndexes.push_back(i);
+            }
+        }
+        if (triggeredIndexes.size() > 0)
+            Notify(entityQuery.get(), triggeredIndexes);
+    }
+}
+
+void TestSystem::Notify(EntityQuery* eq, list<int> indexList) {
+    for (IObserver* o : observerList) {
+        o->Receive(Event::TIMER_REACHED_200, eq, indexList);
+    }
 }
