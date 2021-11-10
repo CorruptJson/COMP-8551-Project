@@ -44,16 +44,6 @@ b2Body* Transform::getPhysicsBody() {
     return body;
 }
 
-void Transform::update() {
-    if (body && body->GetType() != b2_staticBody) {
-        b2Vec2 position = body->GetPosition();
-        //body->SetTransform(b2Vec2(position.x, position.y), 0);
-        //setPosition(position.x, position.y);
-
-        //printf("In transform X-Pos: %0.2f Y-Pos %0.2f\n", position.x, position.y);
-    }
-}
-
 Scale Transform::getScale() const {
     return scale;
 }

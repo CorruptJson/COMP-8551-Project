@@ -1,0 +1,127 @@
+[
+    {
+        "tag": "player",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "yPos":  1
+        },
+        "render": {
+            "sprite": "Edgar.png",
+            "hasAnim": true
+        },
+        "physics": {
+            "b2bodytype": "b2_dynamicBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {
+            "animName": "idle",
+            "isPlaying": true
+        },
+        "state": {}
+    },
+    {
+        "usePrefab": "Roach",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "xPos":  4,
+            "yPos":  1
+        }
+    },
+    {
+        "usePrefab": "Wall",
+        "_comment": "left wall",
+        "transform": {
+            "xPos": -7
+        }
+    },
+    {
+        "usePrefab": "Wall",
+        "_comment": "right wall",
+        "transform": {
+            "xPos": 7
+        }
+    },
+
+    {
+        "usePrefab": "CeilingPlatform",
+        "_comment": "top left ceiling",
+        "transform": {
+            "xPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "CeilingPlatform",
+        "_comment": "top right ceiling",
+        "transform": {
+            "xPos": 4.25
+        }
+    },
+
+    {
+        "usePrefab": "FloorPlatform",
+        "_comment": "bottom left floor",
+        "transform": {
+            "xPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "FloorPlatform",
+        "_comment": "bottom right floor",
+        "transform": {
+            "xPos": 4.25
+        }
+    },
+
+    {
+        "usePrefab": "RoughPlatform",
+        "_comment": "top most platform",
+        "transform": {
+            "yPos": 2.75,
+            "xScale": 4
+        }
+    },
+
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top left second top platform",
+        "transform": {
+            "xPos": -4.5
+        }
+    },
+    {
+        "usePrefab": "LeanPlatform",
+        "_comment": "top right second top platform",
+        "transform": {
+            "xPos": 4.5
+        }
+    },
+
+    {
+        "usePrefab": "RoughPlatform",
+        "_comment": "middle platform",
+        "transform": {
+            "yPos": -1.25,
+            "xScale": 6
+        }
+    },
+
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom left bottom platform",
+        "transform": {
+            "xPos": -5.25
+        }
+    },
+    {
+        "usePrefab": "ThickPlatform",
+        "_comment": "bottom right bottom platform",
+        "transform": {
+            "xPos": 5.25
+        }
+    }
+
+
+]

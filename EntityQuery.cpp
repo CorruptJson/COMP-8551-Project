@@ -8,21 +8,32 @@ EntityQuery::EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chu
     searchChunks(allChunks);
 }
 
+std::vector<Chunk*> EntityQuery::foundChunks()
+{
+    return chunks;
+}
+
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
 {
     for (int i = 0; i < allChunks.size(); i++)
     {
         Archetype arch = allChunks[i]->getArchetype();
         std::vector<ComponentType> archTypes = arch.getComponentTypeArray();
-        int k = 0;
-        for (int j = 0; j < compTypes.size(); j++)
+
+        if (archTypes.size() < compTypes.size())
         {
-            if (compTypes[j] != archTypes[k])
+            continue;
+        }
+
+        int k = 0;
+
+        for (int j = 0; j < compTypes.size() && k < archTypes.size(); j++)
+        {
+            for (; k < archTypes.size(); k++)
             {
-                k++;
-                if (k == archTypes.size())
+                if (compTypes[j] == archTypes[k])
                 {
-                    continue;
+                    break;
                 }
             }
         }
@@ -32,7 +43,6 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
             chunks.push_back(allChunks[i]);
             entityCount += allChunks[i]->getCurrEntCount();
             //std::cout << "found chunk " << std::endl;
-
         }
     }
 }
@@ -56,3 +66,4 @@ Chunk* EntityQuery::chunk(int i)
 {
     return chunks[i];
 }
+

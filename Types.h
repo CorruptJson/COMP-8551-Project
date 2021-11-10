@@ -5,6 +5,8 @@
 #include <iostream>
 #include "Transform.h"
 #include "renderComponent.h"
+#include <nlohmann/json.hpp>
+
 
 // ECS
 //using Entity = std::uint32_t;
@@ -19,7 +21,7 @@ using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;
 
-using Spritesheet = const char*;
+//using std::string = const char*;
 
 using Byte = unsigned char;
 
@@ -30,6 +32,9 @@ struct EntityID
     int index;
     int version;
 };
+
+
+using json = nlohmann::json;
 
 // enables us to directly print entityID as a string into cout
 inline std::ostream& operator<<(std::ostream& str, EntityID const& ca)

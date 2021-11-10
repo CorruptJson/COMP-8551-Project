@@ -30,7 +30,7 @@ public:
     // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
     // creates a new chunk if no matching chunk is found
     // all entities in the chunk must share the same spritshseet
-    EntityID CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags);
+    EntityID CreateEntity(Archetype arch, std::string sprite, std::vector<Tag> tags);
 
     // get a validated archetype object from a list of component types
     // an archetype defines which components an entity has
@@ -71,8 +71,13 @@ public:
     void runSystemUpdates();
 
     template<typename T>
-    void addSystem(std::shared_ptr<T> system) {
-        mSystemManager->addSystem(std::static_pointer_cast<System>(system));
+    shared_ptr<T> addSystem(std::shared_ptr<T> system) {
+        return mSystemManager->addSystem(std::static_pointer_cast<System>(system));
+    };
+
+    template<typename T>
+    shared_ptr<T> addSystem() {
+        return mSystemManager->addSystem<T>();
     };
 
     template<typename T>
