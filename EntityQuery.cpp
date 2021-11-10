@@ -8,6 +8,11 @@ EntityQuery::EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chu
     searchChunks(allChunks);
 }
 
+std::vector<Chunk*> EntityQuery::foundChunks()
+{
+    return chunks;
+}
+
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -61,3 +66,4 @@ Chunk* EntityQuery::chunk(int i)
 {
     return chunks[i];
 }
+

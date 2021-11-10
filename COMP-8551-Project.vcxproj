@@ -150,6 +150,7 @@
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
     <ClCompile Include="chunkManager.cpp" />
+    <ClCompile Include="ComponentIterator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="coordinator.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ComponentIterator.h" />
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />

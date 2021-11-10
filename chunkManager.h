@@ -14,17 +14,15 @@ class ChunkManager
 private:
     
     std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
-    std::unordered_map<Spritesheet, Chunk*> chunksBySpritesheet;
-
-    std::unordered_map<const char*, Chunk*> chunksPerSpritesheet;
+    std::unordered_map<std::string, Chunk*> chunksBySpritesheet;
     std::vector<Chunk*> allChunks;
     int currChunks = 0;
 
-    Chunk* createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
+    Chunk* createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
 public:
 
-    EntityID assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
+    EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void releaseEntity(EntityID id);
 

@@ -30,7 +30,7 @@ public:
     // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
     // creates a new chunk if no matching chunk is found
     // all entities in the chunk must share the same spritshseet
-    EntityID CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags);
+    EntityID CreateEntity(Archetype arch, std::string sprite, std::vector<Tag> tags);
 
     // get a validated archetype object from a list of component types
     // an archetype defines which components an entity has

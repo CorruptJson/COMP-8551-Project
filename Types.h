@@ -19,7 +19,7 @@ using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;
 
-using Spritesheet = const char*;
+//using std::string = const char*;
 
 using Byte = unsigned char;
 

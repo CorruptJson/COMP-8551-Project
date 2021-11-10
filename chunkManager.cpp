@@ -1,6 +1,6 @@
 #include "chunkManager.h"
 
-Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
+Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, tags, sizemap);
     allChunks.push_back(newChunk);
@@ -8,7 +8,7 @@ Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, std::v
     return newChunk;
 }
 
-EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
+EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     std::sort(tags.begin(),tags.end());
 

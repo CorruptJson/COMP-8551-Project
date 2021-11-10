@@ -2,7 +2,7 @@
 #include "chunk.h"
 
 
-Chunk::Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
+Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     this->arch = archetype;
     this->chunkID = chunkID;
@@ -27,7 +27,7 @@ void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
     }
 }
 
-Spritesheet Chunk::GetSpritesheet()
+std::string Chunk::GetSpritesheet()
 {
     return spritesheet;
 }
