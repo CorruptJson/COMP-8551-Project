@@ -714,11 +714,11 @@ void Renderer::renderTextComponent(TextComponent* text)
     for (c = Text.begin(); c != Text.end(); c++) {
         Character ch = characters[*c];
 
-        float xpos = x + ch.bearing.x * 1.0f;
-        float ypos = y - (ch.size.y - ch.bearing.y) * 1.0f;
+        float xpos = x + ch.bearing.x * text->size;
+        float ypos = y - (ch.size.y - ch.bearing.y) * text->size;
 
-        float w = ch.size.x * 1.0f;
-        float h = ch.size.y * 1.0f;
+        float w = ch.size.x * text->size;
+        float h = ch.size.y * text->size;
 
         GLfloat verts[6][4] =
         {
@@ -751,7 +751,7 @@ void Renderer::renderTextComponent(TextComponent* text)
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
         //bitshift by 6 to get value in pixels (2^6 = 64)
-        x += (ch.Advance >> 6) * 1.0f;
+        x += (ch.Advance >> 6) * text->size;
     }
 
     glBindVertexArray(0);

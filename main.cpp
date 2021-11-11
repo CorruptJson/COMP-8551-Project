@@ -110,7 +110,7 @@ int test(){
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, {});
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
     
 
 
