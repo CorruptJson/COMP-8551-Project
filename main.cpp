@@ -14,6 +14,7 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
+#include "TextComponent.h"
 #include "inputSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
@@ -41,6 +42,7 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
+EntityID text;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -81,6 +83,7 @@ int test(){
     coordinator->RegisterComponent<TimerComponent>();
     coordinator->RegisterComponent<StateComponent>();
     coordinator->RegisterComponent<MovementComponent>();
+    coordinator->RegisterComponent<TextComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
     //coordinator->addSystem(std::make_shared<InputSystem>());
@@ -96,6 +99,12 @@ int test(){
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
     //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
     sceneManager->CreateEntities();
+
+    //creating text
+    //                                                                   X      Y      R     G     B     Tags
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+    
+
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {

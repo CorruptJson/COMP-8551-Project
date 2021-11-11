@@ -423,3 +423,4 @@ FodyWeavers.xsd
 lib/*
 !/Libraries/lib/glfw.lib
 !/Libraries/lib/box2d.lib
+!/Libraries/lib/freetyped.lib
