@@ -38,7 +38,7 @@ unordered_map<std::string, Tag> tagMap = {
 
 // spritesheet map for converting from string to char
 unordered_map <std::string, const char*> spriteMap = {
-    {"wall.jpg", "wall.jpg"},
+    {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
     {"Edgar.png", "Edgar.png"}
 };
@@ -130,7 +130,8 @@ void SceneManager::CreateEntities() {
                 ev.xPos,
                 ev.yPos,
                 ev.density,
-                ev.friction
+                ev.friction,
+                false
             };
 
         }
@@ -148,7 +149,8 @@ void SceneManager::CreateEntities() {
         }
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
-            0
+            0,
+            true
             };
         }
 
@@ -165,7 +167,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     //loop through components in the entity
     for (auto& component : jsonObject.items()) {
-
+        std::cout << "component"<<component.key() << std::endl;
         // Set component booleans and set their values in this switch statement
         if (keyMap.find(component.key()) != keyMap.end()) {
             switch (keyMap[component.key()]) {
@@ -208,6 +210,12 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
                 ev.hasAnimation = component.value().contains("hasAnim")
                     ? component.value()["hasAnim"].get<bool>() : ev.hasAnimation;
+
+                ev.rowIndex = component.value().contains("rowIndex")
+                    ? component.value()["rowIndex"].get<int>() : ev.rowIndex;
+
+                ev.colIndex = component.value().contains("colIndex")
+                    ? component.value()["colIndex"].get<int>() : ev.colIndex;
 
                 break;
 

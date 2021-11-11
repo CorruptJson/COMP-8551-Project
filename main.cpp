@@ -40,6 +40,7 @@ Archetype standardArch;
 
 // test entities
 EntityID mike;
+EntityID timer;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -48,8 +49,8 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-const int VIEW_WIDTH = 4;
-const int VIEW_HEIGHT = 4;
+const int VIEW_WIDTH = 15;
+const int VIEW_HEIGHT = 10;
 
 // gets called once when engine starts
 // put initilization code here
@@ -60,7 +61,10 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
-    physicsWorld = new PhysicsWorld();
+    //physicsWorld = new PhysicsWorld();
+    physicsWorld = &(PhysicsWorld::getInstance());
+    playerControl = new PlayerControlSystem();
+
 
     prevTime = Clock::now();
 
@@ -75,21 +79,31 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
-    coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<StateComponent>();
+    coordinator->RegisterComponent<MovementComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
-    coordinator->addSystem(std::make_shared<InputSystem>());
+    //coordinator->addSystem(std::make_shared<InputSystem>());
 
-    try {
-    sceneManager->CreateEntities();
-    }
-    catch (const std::exception& e) { std::cout << e.what(); }
+    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+
+    /*
+    //Equivalent to attaching code below
+    shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
+    shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
+    testSys.get()->Attach(printerSys.get());
+    */
+
+    coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
+
+
+    
+
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
     //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
-
+    sceneManager->CreateEntities();
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
@@ -152,7 +166,7 @@ int teardown()
     // when the engine closes
     renderer->teardown();
 
-    delete physicsWorld;
+    
 
     return 0;
 }
@@ -160,8 +174,6 @@ int teardown()
 int main() {
     initialize();
     test();
-
-
 
     animator = Animator();
 

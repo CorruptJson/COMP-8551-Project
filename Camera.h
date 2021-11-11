@@ -2,20 +2,18 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-using namespace glm;
 
 class Camera
 {
 public:
-    Camera(float posX, float posY, float rotZ, float zoomFactor);
+    Camera(float posX, float posY);
     Camera();
     void moveCamera(float x, float y);
-    mat4 getViewMatrix();
-    vec2 position;
-    //void rotateCamera(float x, float y);
-    //void zoom(float factor);
+    void setViewSize(int viewWidth, int viewHeight);
+    glm::mat4 getViewMatrix();
+    glm::mat4 getProjectionMatrix();
 private:
-    //float rotation;
-    //float zoomFactor;
+    glm::vec2 position;
+    glm::mat4 projectionMatrix;
 };
 

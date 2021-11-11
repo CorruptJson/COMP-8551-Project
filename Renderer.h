@@ -54,7 +54,6 @@ private:
     GLuint defaultShaderProgram;
     GLuint textShaderProgram;
 
-    glm::mat4 projectionMatrix;
     Camera camera;
 
     // store the sprites that have been read
@@ -72,8 +71,8 @@ private:
     void loadTextLibrary();
 
     void loadTexture(std::string spriteName);
-    void loadUniforms(mat4 modelMatrix);
-    void loadTextUniforms(mat4 modelMatrix);
+    void loadUniforms(glm::mat4 modelMatrix);
+    void loadTextUniforms(glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
     void setTexCoordToDefault();
