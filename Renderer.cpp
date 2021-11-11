@@ -437,25 +437,33 @@ int Renderer::update(EntityCoordinator* coordinator) {
         });
 
     int entitiesFound = entityQuery->totalEntitiesFound();
+
+    ComponentIterator<RenderComponent> renderComps2 = ComponentIterator<RenderComponent>(entityQuery);
+    ComponentIterator<Transform> transformComps2 = ComponentIterator<Transform>(entityQuery);
+
     std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
     std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
 
     for (int i = 0; i < entitiesFound; i++) {
-        RenderComponent component = *(renderComps[i]);
-        Transform t = *(transformComps[i]);
-        glm::mat4 modelMatrix = t.getModelMatrix();
+        //RenderComponent component = *(renderComps[i]);
+        //Transform t = *(transformComps[i]);
+
+        RenderComponent* component = renderComps2.nextComponent();
+        Transform* t = transformComps2.nextComponent();
+
+        glm::mat4 modelMatrix = t->getModelMatrix();
 
         // tell OpenGL to use this VAO (set it as active)
         // need to do this before put data into the VAO
         glBindVertexArray(vertexAttribs);
 
         //calculate the tex coord from the component.index
-        updateTexCoord(component, component.spriteName);
+        updateTexCoord(*component, component->spriteName);
 
         // load the data
         loadVertexData();
         loadIndicesData();
-        loadTexture(component.spriteName);
+        loadTexture(component->spriteName);
 
         // create vertex attrib pointers
         // has to do this after loading data into buffers

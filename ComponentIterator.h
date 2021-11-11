@@ -1,8 +1,8 @@
 #pragma once
 #include <vector>
-//#include <>
-#include "chunk.h"
+#include <iostream>
 #include "EntityQuery.h"
+#include "chunk.h"
 
 template<typename T>
 class ComponentIterator
@@ -23,23 +23,28 @@ public:
         }        
     }
 
-    ComponentIterator(EntityQuery& query)
+    ComponentIterator(std::unique_ptr<EntityQuery>& query)
     {
-        if (query.entityCount == 0)
+        if (query->totalEntitiesFound() > 0)
         {
-            std
+            chunks = query->foundChunks();
+            componentArray = chunks[0]->getComponentArray<T>();
+        }
+        else
+        {
+            std::cout << "no entities for comp iterator" << std::endl;
         }
     }
 
-    T& nextComponent() {
-        T* comp = componentArray[currEnt];
-        currEnt++;
+    T* nextComponent() {
         if (currEnt >= chunks[currChunk]->getCurrEntCount())
         {
             currChunk++;
             currEnt = 0;
             componentArray = chunks[currChunk]->getComponentArray<T>();
         }
+        T* comp = &(componentArray[currEnt]);
+        currEnt++;
         return comp;
     }
 };

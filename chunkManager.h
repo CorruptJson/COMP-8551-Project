@@ -13,9 +13,10 @@ class ChunkManager
 
 private:
     
-    std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
-    std::unordered_map<std::string, Chunk*> chunksBySpritesheet;
+    std::unordered_map<ArchetypeType, std::vector<Chunk*>> chunksByArch;
+    std::unordered_map<std::string, std::vector<Chunk*>> chunksBySpritesheet;
     std::vector<Chunk*> allChunks;
+    std::vector<EntityID> entitiesToDelete;
     int currChunks = 0;
 
     Chunk* createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
@@ -24,7 +25,7 @@ public:
 
     EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
-    void releaseEntity(EntityID id);
+    void scheduleToDelete(EntityID id);
 
     template<typename T>
     T& getComponentRef(EntityID ca) {
@@ -37,6 +38,7 @@ public:
     bool entityHasComponent(ComponentType type, EntityID id);
     bool entityHasTag(Tag tag, EntityID id);
     std::vector<Tag> getTagsForEntity(EntityID id);
+    void deleteScheduledEntities();
 
     ~ChunkManager();
 };

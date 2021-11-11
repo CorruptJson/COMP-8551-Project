@@ -108,6 +108,8 @@ public:
 
     std::vector<Tag> getAllTags();
 
+    EntityID entityAt(int i);
+
     ~Chunk();
 };
 

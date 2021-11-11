@@ -36,9 +36,9 @@ Archetype EntityCoordinator::GetArchetype(std::vector<ComponentType> compTypes)
 }
 
 // not yet fully implemented
-void EntityCoordinator::DestroyEntity(EntityID entity)
+void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 {
-    mChunkManager->releaseEntity(entity);
+    mChunkManager->scheduleToDelete(entity);
 }
 
 // returns an entity query, an object which contains the search results upon creation
@@ -76,5 +76,10 @@ bool EntityCoordinator::entityHasTag(Tag tag, EntityID id)
 std::vector<Tag> EntityCoordinator::getTagsForEntity(EntityID id)
 {
     return mChunkManager->getTagsForEntity(id);
+}
+
+void EntityCoordinator::endOfUpdate()
+{
+    mChunkManager->deleteScheduledEntities();
 }
 

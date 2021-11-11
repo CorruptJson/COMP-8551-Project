@@ -194,6 +194,7 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentIterator.h" />

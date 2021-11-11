@@ -9,6 +9,7 @@
 #include "Types.h"
 #include "EntityQuery.h"
 #include "system_manager.h"
+#include "ComponentIterator.h"
 
 class EntityCoordinator
 {
@@ -38,7 +39,7 @@ public:
     Archetype GetArchetype(std::vector<ComponentType> compTypes);
 
     // not yet fully implemented
-    void DestroyEntity(EntityID entity);
+    void scheduleEntityToDelete(EntityID entity);
 
     // Register component with the component manager
     // all components must be registered before use
@@ -89,10 +90,5 @@ public:
     bool entityHasTag(Tag tag, EntityID id);
     std::vector<Tag> getTagsForEntity(EntityID id);
 
-    //bool entityHasTag(Tag tag, EntityID id);
-    //std::vector<Tag> getTagsForEntity(EntityID id);
-    //RenderArrays renderArraysForSpriteSheet(const char* spriteSheet)
-    //{
-    //    
-    //}
+    void endOfUpdate();
 };

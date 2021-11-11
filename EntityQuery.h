@@ -25,11 +25,12 @@ private:
     // the components the query is searching for 
     std::vector<ComponentType> compTypes;
 
+    // 
+    std::vector<EntityID> entityIDs;
+
     void searchChunks(std::vector<Chunk*>& allChunks);
 
     EntityQuery();
-
-
 
 public:
 
@@ -60,6 +61,7 @@ public:
             T* compArray = chunks[i]->getComponentArray<T>();
             for (int j = 0; j < chunkEnts; j++)
             {
+                entityIDs.push_back(chunks[i]->entityAt(j));
                 list.push_back(compArray);
                 compArray++;
             }

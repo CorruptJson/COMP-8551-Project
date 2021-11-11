@@ -138,6 +138,11 @@ bool Chunk::hasTag(Tag tag)
     return std::find(tags.begin(),tags.end(),tag) != tags.end();
 }
 
+EntityID Chunk::entityAt(int i)
+{
+    return { chunkID,i,versions[i] };
+}
+
 std::vector<Tag> Chunk::getAllTags()
 {
     return tags;

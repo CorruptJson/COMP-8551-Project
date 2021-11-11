@@ -125,6 +125,8 @@ void fixedFrameUpdate()
     coordinator->runSystemUpdates();
 
     playerControl->processEntity(mike);
+
+    coordinator->endOfUpdate();
 }
 
 void graphicsUpdate()

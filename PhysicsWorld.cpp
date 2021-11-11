@@ -148,7 +148,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++) {
             if (physComponents[i]->isFlaggedForDelete) {
                 PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
-                EntityCoordinator::getInstance().DestroyEntity(physComponents[i]->entityID);
+                EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);
                 continue;
             }
             UpdateTransform(transformComponents[i], physComponents[i]);
