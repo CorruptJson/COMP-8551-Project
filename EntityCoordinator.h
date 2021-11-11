@@ -91,4 +91,6 @@ public:
     std::vector<Tag> getTagsForEntity(EntityID id);
 
     void endOfUpdate();
+
+    bool doesEntityExist(EntityID id);
 };

@@ -39,6 +39,7 @@ public:
     bool entityHasTag(Tag tag, EntityID id);
     std::vector<Tag> getTagsForEntity(EntityID id);
     void deleteScheduledEntities();
+    bool doesEntityExist(EntityID id);
 
     ~ChunkManager();
 };

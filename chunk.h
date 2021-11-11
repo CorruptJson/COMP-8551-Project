@@ -110,6 +110,8 @@ public:
 
     EntityID entityAt(int i);
 
+    bool doesEntityExist(EntityID id);
+
     ~Chunk();
 };
 

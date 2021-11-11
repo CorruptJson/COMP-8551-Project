@@ -143,6 +143,11 @@ EntityID Chunk::entityAt(int i)
     return { chunkID,i,versions[i] };
 }
 
+bool Chunk::doesEntityExist(EntityID id)
+{
+    return (entToDat[id.index] != -1 && id.version == versions[id.index]);
+}
+
 std::vector<Tag> Chunk::getAllTags()
 {
     return tags;

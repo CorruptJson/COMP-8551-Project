@@ -118,7 +118,6 @@ int test(){
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
         }
-
     }
     return 0;
 }

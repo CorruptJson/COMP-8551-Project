@@ -118,3 +118,8 @@ void ChunkManager::deleteScheduledEntities() {
     entitiesToDelete.clear();
 }
 
+bool ChunkManager::doesEntityExist(EntityID id)
+{
+    return allChunks[id.chunkID]->doesEntityExist(id);
+}
+

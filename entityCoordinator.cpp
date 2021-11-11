@@ -83,3 +83,8 @@ void EntityCoordinator::endOfUpdate()
     mChunkManager->deleteScheduledEntities();
 }
 
+bool EntityCoordinator::doesEntityExist(EntityID id)
+{
+    return mChunkManager->doesEntityExist(id);
+}
+
