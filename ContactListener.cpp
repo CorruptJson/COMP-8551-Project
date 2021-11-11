@@ -15,6 +15,26 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
     //userDataA = entUserDataA;
     //userDataB = entUserDataB;
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(entUserDataA->id)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(entUserDataB->id)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB)
+    {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = entUserDataA->id;
+        entSecond = entUserDataB->id;
+    }
+    else
+    {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = entUserDataB->id;
+        entSecond = entUserDataA->id;
+    }
 
     if (GetFirstContact(PLAYER, entUserDataA->id)) {
 

@@ -186,20 +186,6 @@ int main() {
     initialize();
     test();
 
-    Tagset a = Tag::ENEMY;
-    Tagset b = CombineTags({Tag::ENEMY,Tag::ACTOR,Tag::SCENERY});
-    Tagset c = Tag::BULLET;
-    Tagset d = CombineTags({Tag::ENEMY,Tag::BULLET});
-    
-    Tagset e = CombineTags({Tag::ENEMY,Tag::SCENERY });
-    bool test = DoesLeftContainRight(b, a);
-    std::cout << "tag test first: " << test << " should be 1" << std::endl;
-    test = DoesLeftContainRight(a, b);
-    std::cout << "tag test second: " << test << " should be 0" << std::endl;
-    std::cout << "tag test third: " << DoesLeftContainRight(b, c) << " should be 0" << std::endl;
-    std::cout << "tag test third: " << DoesLeftContainRight(b, d) << " should be 0" << std::endl;
-    std::cout << "tag test third: " << DoesLeftContainRight(b, e) << " should be 1" << std::endl;
-
     //entity test
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     animator = Animator();
