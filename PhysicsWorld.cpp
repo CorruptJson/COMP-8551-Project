@@ -147,6 +147,11 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
         for (int i = 0; i < entitiesFound; i++) {
             if (physComponents[i]->isFlaggedForDelete) {
+
+                // delete user data
+
+                delete reinterpret_cast<EntityUserData*>(physComponents[i]->box2dBody->GetUserData().pointer);
+
                 PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
                 EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);
                 continue;
