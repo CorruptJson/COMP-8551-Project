@@ -832,18 +832,18 @@ int Renderer::update(EntityCoordinator* coordinator) {
     //setTexCoordToDefault();
 
     //text rendering begins here
-    //std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
-    //    coordinator->GetComponentType<TextComponent>(),
-    //    });
+    std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<TextComponent>(),
+        });
 
-    //int textFound = TextQuery->totalEntitiesFound();
-    ////std::vector<TextComponent*> textComps = entityQuery->getComponentArray<TextComponent>();
+    int textFound = TextQuery->totalEntitiesFound();
+    std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
 
-    //for (int i = 0; i < entitiesFound; i++) {
-    //    //renderTextComponent(textComps[i]);
-    //}
+    for (int i = 0; i < textFound; i++) {
+        renderTextComponent(textComps[i]);
+    }
 
-    renderText("hello", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
+    //renderText("hello", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
 
 
     // foreground is currently cleared (default to white)

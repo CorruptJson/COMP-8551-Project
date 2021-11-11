@@ -109,7 +109,10 @@ int test(){
     sceneManager->CreateEntities();
 
     //creating text
-    //text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, {});
+    //                                                                   X      Y      R     G     B     Tags
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, {});
+    
+
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {

@@ -2,7 +2,7 @@
 #pragma once
 struct TextComponent {
     //string to be rendered
-    std::string value;
+    const char* value;
     float x, y;
     float R = 1.0f;
     float G = 0.0f;
