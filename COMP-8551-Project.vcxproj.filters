@@ -114,9 +114,6 @@
     <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="test_system.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="system_manager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -137,9 +134,6 @@
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
-    </ClCompile>
-    <ClCompile Include="printerSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\ECS</Filter>
@@ -233,9 +227,6 @@
     <ClInclude Include="TimerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="test_system.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="system_manager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -286,9 +277,6 @@
     </ClInclude>
     <ClInclude Include="ISubject.h">
       <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="printerSystem.h">
-      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Events</Filter>

@@ -86,19 +86,11 @@ int test(){
     //coordinator->addSystem(std::make_shared<InputSystem>());
 
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
-
-    /*
-    //Equivalent to attaching code below
-    shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
-    shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
-    testSys.get()->Attach(printerSys.get());
-    */
-
-    coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
-
-
     
-
+    //Subscribe playercontrol to recieve inputSystem events
+    inputSys->Attach(playerControl);
+    
+    //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
@@ -108,6 +100,7 @@ int test(){
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
+            gameManager.SetPlayerID(mike);
         }
 
     }
