@@ -14,7 +14,6 @@ void InputSystem::preUpdate()
     // jump test
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
     {
-        std::cout << "pressed the W key on frame " << currFrame << std::endl;
         Notify(Event::INPUT_JUMP, nullptr);
     }
 
