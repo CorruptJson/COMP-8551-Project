@@ -226,6 +226,7 @@
     <ClInclude Include="TagList.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="test_system.h" />
+    <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />

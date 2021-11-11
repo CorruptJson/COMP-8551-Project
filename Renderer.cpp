@@ -687,6 +687,77 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+void Renderer::renderTextComponent(TextComponent* text)
+{
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+
+    //no need to disable depth test, already disabled
+
+   ////sets the current shader program to the text shader program
+    glUseProgram(textShaderProgram);
+    //sets the current shader program to use the projection matrix.
+    glUniformMatrix4fv(glGetUniformLocation(textShaderProgram, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+
+    //
+    glUniform3f(glGetUniformLocation(textShaderProgram, "textColor"), text->R, text->G, text->B);
+    //uniform location for the shader text
+    glUniform1i(glGetUniformLocation(textShaderProgram, "text"), 0);
+    //need to tell opengl which sampler2d to use
+    glActiveTexture(GL_TEXTURE0);
+
+    std::string Text(text->value);
+
+    float x = text->x;
+    float y = text->y;
+
+    std::string::const_iterator c;
+    for (c = Text.begin(); c != Text.end(); c++) {
+        Character ch = characters[*c];
+
+        float xpos = x + ch.bearing.x * 1.0f;
+        float ypos = y - (ch.size.y - ch.bearing.y) * 1.0f;
+
+        float w = ch.size.x * 1.0f;
+        float h = ch.size.y * 1.0f;
+
+        GLfloat verts[6][4] =
+        {
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos,     ypos,       0.0f, 1.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+
+            { xpos,     ypos + h,   0.0f, 0.0f },
+            { xpos + w, ypos,       1.0f, 1.0f },
+            { xpos + w, ypos + h,   1.0f, 0.0f }
+        };
+        
+        glBindVertexArray(vao);
+
+        //loads the characters texture
+        glBindTexture(GL_TEXTURE_2D, ch.TextureID);
+
+        //sets the vbo and vao before drawing
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
+
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
+
+        glEnableVertexAttribArray(1);
+        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
+
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+        //bitshift by 6 to get value in pixels (2^6 = 64)
+        x += (ch.Advance >> 6) * 1.0f;
+    }
+
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
+
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
     return &(sprites[spriteName].animations[animName]);
@@ -759,6 +830,18 @@ int Renderer::update(EntityCoordinator* coordinator) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     //setTexCoordToDefault();
+
+    //text rendering begins here
+    //std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
+    //    coordinator->GetComponentType<TextComponent>(),
+    //    });
+
+    //int textFound = TextQuery->totalEntitiesFound();
+    ////std::vector<TextComponent*> textComps = entityQuery->getComponentArray<TextComponent>();
+
+    //for (int i = 0; i < entitiesFound; i++) {
+    //    //renderTextComponent(textComps[i]);
+    //}
 
     renderText("hello", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));
 

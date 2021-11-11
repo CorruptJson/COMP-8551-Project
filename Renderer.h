@@ -9,6 +9,7 @@
 #include "SpriteInfo.h"
 #include "EntityCoordinator.h"
 #include "RenderComponent.h"
+#include "TextComponent.h"
 #include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
@@ -77,5 +78,6 @@ private:
     void updateTexCoord(RenderComponent comp, std::string spriteName);
     void setTexCoordToDefault();
     void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
+    void renderTextComponent(TextComponent* text);
 };
 
