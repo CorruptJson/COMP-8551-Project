@@ -2,11 +2,14 @@
 #include <iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <ft2build.h>
+#include FT_FREETYPE_H  
 #include <map>
 #include "Camera.h"
 #include "SpriteInfo.h"
 #include "EntityCoordinator.h"
 #include "RenderComponent.h"
+#include "TextComponent.h"
 #include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
@@ -14,6 +17,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <stb/stb_image.h>
 #include "Animator.h"
+#include "Character.h"
 
 extern GLFWwindow* window;
 
@@ -25,6 +29,10 @@ public:
     
     static std::string DOODLE_VERT_SHADER_NAME;
     static std::string DOODLE_FRAG_SHADER_NAME;
+
+    static std::string TEXT_VERT_SHADER_NAME;
+    static std::string TEXT_FRAG_SHADER_NAME;
+
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init(int viewWidth, int viewHeight);
     int update(EntityCoordinator* coordinator);
@@ -50,24 +58,35 @@ private:
     // the default shader program
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
+    GLuint textShaderProgram;
 
-    glm::mat4 projectionMatrix;
     Camera camera;
     float time;
     int counter;
     // store the sprites that have been read
     // from the image files
     std::map<std::string, SpriteInfo> sprites;
+    std::map<std::string, GLuint> shaders;
+
+    // store the text characters
+    std::map<unsigned char, Character> characters;
 
     GLuint createDefaultShaderProgram();
     GLuint createDoodleShaderProgram();
+    GLuint createTextShaderProgram();
+    GLuint createShaderProgram(std::string vertPath, std::string fragPath);
     void loadVertexData();
     void loadIndicesData();
-    GLuint createTexBuffer(SpriteInfo info, stbi_uc* imgData);
+    GLuint createTexBuffer(int height, int width, unsigned char* imgData);
+    void loadTextLibrary();
 
     void loadTexture(std::string spriteName);
-    void loadUniforms(mat4 modelMatrix);
+    void loadUniforms(glm::mat4 modelMatrix);
+    void loadTextUniforms(glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
+    void setTexCoordToDefault();
+    void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
+    void renderTextComponent(TextComponent* text);
 };
 

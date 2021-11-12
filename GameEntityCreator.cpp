@@ -24,6 +24,14 @@ GameEntityCreator::GameEntityCreator()
 
         });
 
+    testArchetype = ec.GetArchetype({
+        ec.GetComponentType<TimerComponent>()
+        });
+    
+    textArchetype = ec.GetArchetype({
+        ec.GetComponentType<TextComponent>()
+        });
+
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
@@ -64,10 +72,12 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
-      state
+      state,
+      true
     };
     return ent;
 }
@@ -86,12 +96,21 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
         xPos,
         yPos,
         1.0f,
-        0.0f
+        0.0f,
+        false
     };
     ec.GetComponent<StateComponent>(ent) = {
         state
     };
+    return ent;
+}
 
+EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(testArchetype, spriteName, tags);
+    
+    ec.GetComponent<TimerComponent>(ent).ticksPassed = 0;
     return ent;
 }
 
@@ -105,3 +124,17 @@ EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX,
 //
 //    return ent;
 //}
+
+EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
+
+    ec.GetComponent<TextComponent>(ent).value = text;
+    ec.GetComponent<TextComponent>(ent).x = x;
+    ec.GetComponent<TextComponent>(ent).y = y;
+    //ec.GetComponent<TextComponent>(ent).size = 1.0f;
+    ec.GetComponent<TextComponent>(ent).size = size;
+    ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    return ent;
+}

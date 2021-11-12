@@ -20,3 +20,13 @@ void GameManager::SetPlayerID(EntityID id)
 {
     player = id;
 }
+
+void GameManager::countFrame()
+{
+    frameCount++;
+}
+
+int GameManager::getCurrFrame()
+{
+    return frameCount;
+}

@@ -9,11 +9,16 @@ InputSystem::InputSystem()
 
 void InputSystem::preUpdate()
 {
-    /*if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
-    {
-        std::cout << "pressed the W key!" << std::endl;
-    }
+    int currFrame = GameManager::getInstance().getCurrFrame();
 
+    // jump test
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
+    //{
+    //    std::cout << "pressed the W key on frame " << currFrame << std::endl;
+    //}
+
+
+    /*
     if (InputTracker::getInstance().isKeyDown(InputTracker::W))
     {
         std::cout << "W key down!" << std::endl;

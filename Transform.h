@@ -32,8 +32,6 @@ public:
     void setPhysicsBody(b2Body* newBody);
     b2Body* getPhysicsBody();
 
-    void update();
-
     Scale getScale() const;
     void setScale(float x, float y);
 

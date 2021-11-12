@@ -14,12 +14,14 @@
 #include "Animator.h"
 #include "InputTracker.h"
 #include "InputComponent.h"
+#include "TextComponent.h"
 #include "inputSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
 #include "PlayerControlSystem.h"
+#include "GameManager.h"
 
 
 //ChunkManager* chunkManager;
@@ -32,10 +34,15 @@ PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
 
 Animator animator;
+
+GameManager& gameManager = GameManager::getInstance();
+
 Archetype standardArch;
 
 // test entities
 EntityID mike;
+EntityID timer;
+EntityID text;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -44,8 +51,8 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-const int VIEW_WIDTH = 4;
-const int VIEW_HEIGHT = 4;
+const int VIEW_WIDTH = 15;
+const int VIEW_HEIGHT = 10;
 
 // gets called once when engine starts
 // put initilization code here
@@ -56,7 +63,10 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
-    physicsWorld = new PhysicsWorld();
+    //physicsWorld = new PhysicsWorld();
+    physicsWorld = &(PhysicsWorld::getInstance());
+    playerControl = new PlayerControlSystem();
+
 
     prevTime = Clock::now();
 
@@ -71,18 +81,37 @@ int test(){
     coordinator->RegisterComponent<PhysicsComponent>();
     coordinator->RegisterComponent<AnimationComponent>();
     coordinator->RegisterComponent<TimerComponent>();
+    coordinator->RegisterComponent<StateComponent>();
+    coordinator->RegisterComponent<MovementComponent>();
+    coordinator->RegisterComponent<TextComponent>();
 
     //coordinator->addSystem<InputSystem>(coordinator);    
-    coordinator->addSystem(std::make_shared<InputSystem>());
+    //coordinator->addSystem(std::make_shared<InputSystem>());
 
-    try {
-    sceneManager->CreateEntities();
-    }
-    catch (const std::exception& e) { std::cout << e.what(); }
+    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+
+    /*
+    //Equivalent to attaching code below
+    shared_ptr<TestSystem> testSys = coordinator->addSystem<TestSystem>();
+    shared_ptr<PrinterSystem> printerSys = coordinator->addSystem<PrinterSystem>();
+    testSys.get()->Attach(printerSys.get());
+    */
+
+    coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
+
+
+    
+
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
     //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
+    sceneManager->CreateEntities();
+
+    //creating text
+    //                                                                   X      Y      R     G     B     Tags
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+    
 
 
     for (auto const& e : sceneManager->entities) {
@@ -94,6 +123,24 @@ int test(){
     return 0;
 }
 
+// this update runs 60 times a second
+void fixedFrameUpdate()
+{
+    InputTracker::getInstance().perFrameUpdate(window);
+
+    // run physics
+    physicsWorld->Update(coordinator);
+    // run ECS systems
+    coordinator->runSystemUpdates();
+
+    playerControl->processEntity(mike);
+}
+
+void graphicsUpdate()
+{
+    animator.updateAnim(coordinator);
+    renderer->update(coordinator);
+}
 
 // the main update function
 // game loop will be put here eventually
@@ -105,92 +152,21 @@ int runEngine()
     prevTime = currTime;
     catchupTime += delta.count();
 
-    // check input
-
+    // Game engine loop
+    // this loop runs 60 times a second
     while (catchupTime >= MS_PER_FRAME)
     {
-        InputTracker::getInstance().perFrameUpdate(window);
-
-        // run physics
-        physicsWorld->Update(coordinator);
-        // run ECS systems
-        coordinator->runSystemUpdates();
+        fixedFrameUpdate();
 
         catchupTime -= MS_PER_FRAME;
+        gameManager.countFrame();
     }
-    
-    /////////////////
-    //Testing character control
-    playerControl->processEntity(mike);
-    //float xVelocity = coordinator->GetComponent<MovementComponent>(mike).xVelocity;
-    //float yVelocity = coordinator->GetComponent<MovementComponent>(mike).yVelocity;
-    //float speed = 2.0f;
-    //float jumpForce = 160.0f;
-    //int jumpCount = 0;
-    //int jumpLimit = 1;
-    //bool isReset = false;
-    //// Colliding with Platform count as ground check
-    //bool isCollided = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetContactList();
-    ////float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
-    ////force /= 3;
-    //if (InputTracker::getInstance().isKeyDown(InputTracker::A)) {
-    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-    //    coordinator->GetComponent<RenderComponent>(mike).flipX = false;
-    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(-speed, yVelocity);
-    //}
-    //if (InputTracker::getInstance().isKeyDown(InputTracker::D)) {
-    //    Animation* anim = renderer->getAnimation("running", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-    //    coordinator->GetComponent<RenderComponent>(mike).flipX = true;
-    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(speed, yVelocity);
-    //}
-    //if (InputTracker::getInstance().isKeyDown(InputTracker::S)) {
-    //    Animation* anim = renderer->getAnimation("hurt", coordinator->GetComponent<RenderComponent>(mike).spriteName);
-    //    coordinator->GetComponent<AnimationComponent>(mike).currAnim = anim;
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, 0);
-
-    //}
-    //if (isCollided) {
-    //    isReset = true;
-    //    jumpCount = 0;
-    //}
-    //else {
-    //    isReset = false;
-    //}
-    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::W)) {
-    //    if (isReset) {
-    //        if (jumpCount < jumpLimit) {
-    //            coordinator->GetComponent<MovementComponent>(mike).addForce(0, jumpForce);
-    //            jumpCount++;
-    //        }
-    //    }
-    //}
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::A) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
-    //}
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::D) || InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(0, yVelocity);
-    //}
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::S)) {
-    //    coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
-    //}
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::W)) {
-    //    if (yVelocity > 0) {
-    //        coordinator->GetComponent<MovementComponent>(mike).setVelocity(xVelocity, 0);
-    //    }
-    //}
-    //std::cout << "xVelocity: " << xVelocity << std::endl;
-    //std::cout << "yVelocity: " << yVelocity << std::endl;
-    //animation
-    animator.updateAnim(coordinator);
-    
-    // render
-    renderer->update(coordinator);
+        
+    // Graphics code runs independently from the fixed-frame game update
+    graphicsUpdate();
     
     return 0;
 }
-
 
 // gets called once when engine ends
 // put teardown code here
@@ -199,7 +175,7 @@ int teardown()
     // when the engine closes
     renderer->teardown();
 
-    delete physicsWorld;
+    
 
     return 0;
 }
@@ -207,8 +183,6 @@ int teardown()
 int main() {
     initialize();
     test();
-
-
 
     animator = Animator();
 
