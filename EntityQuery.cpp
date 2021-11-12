@@ -13,6 +13,16 @@ std::vector<Chunk*> EntityQuery::foundChunks()
     return chunks;
 }
 
+EntityQuery::EntityQuery(std::vector<Chunk*>& chosenChunks)
+{
+    chunks = chosenChunks;
+    for (int i = 0; i < chunks.size(); i++)
+    {
+        entityCount += chunks[i]->getCurrEntCount();
+    }
+}
+
+
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -47,6 +57,11 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
     }
 }
 
+EntityQuery::EntityQuery()
+{
+    int entityCount = 0;
+}
+
 int EntityQuery::totalEntitiesFound()
 {
     return entityCount;
@@ -66,4 +81,5 @@ Chunk* EntityQuery::chunk(int i)
 {
     return chunks[i];
 }
+
 

@@ -88,3 +88,8 @@ bool EntityCoordinator::doesEntityExist(EntityID id)
     return mChunkManager->doesEntityExist(id);
 }
 
+std::shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::string spritesheet)
+{
+    return mChunkManager->entitiesWithSpriteSheet(spritesheet);
+}
+

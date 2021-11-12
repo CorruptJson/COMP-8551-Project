@@ -123,3 +123,18 @@ bool ChunkManager::doesEntityExist(EntityID id)
     return allChunks[id.chunkID]->doesEntityExist(id);
 }
 
+
+
+std::shared_ptr<EntityQuery> ChunkManager::entitiesWithSpriteSheet(std::string spritesheet)
+{
+    auto find = chunksBySpritesheet.find(spritesheet);
+    if (find != chunksBySpritesheet.end())
+    {
+        return std::make_shared<EntityQuery>(find->second);
+    }
+    else
+    {
+        return std::make_shared<EntityQuery>();
+    }    
+}
+

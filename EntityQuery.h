@@ -29,15 +29,17 @@ private:
     std::vector<EntityID> entityIDs;
 
     void searchChunks(std::vector<Chunk*>& allChunks);
-
-    EntityQuery();
-
+    
 public:
 
+    EntityQuery();
     int totalEntitiesFound();
     int chunkCount();
     int getChunkListVersion();
     Chunk* chunk(int i);
+
+    // skip search if you already know the chunks you want
+    EntityQuery(std::vector<Chunk*>& chosenChunks);
 
     // entity queries perform their search when they are created
     EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chunk*>& allChunks);
@@ -47,11 +49,11 @@ public:
     template<typename T>
     std::vector<T*> getComponentArray()
     {
-        ComponentType type = ComponentManager::GetComponentType<T>();
-        if (std::find(compTypes.begin(),compTypes.end(),type) == compTypes.end())
-        {
-            throw "cannot get component array from query: query does not contain this type";
-        }
+        //ComponentType type = ComponentManager::GetComponentType<T>();
+        //if (std::find(compTypes.begin(),compTypes.end(),type) == compTypes.end())
+        //{
+        //    throw "cannot get component array from query: query does not contain this type";
+        //}
 
         std::vector<T*> list;
 

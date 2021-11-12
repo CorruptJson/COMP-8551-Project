@@ -776,60 +776,63 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<RenderComponent>(),
-        coordinator->GetComponentType<Transform>()
-        });
+    // draw entities by the spritesheet they use, so only need to load each sprite sheet once
+    auto mapIterator = sprites.begin();
+    for (; mapIterator != sprites.end(); mapIterator++)
+    {
+        std::string spriteSheet = mapIterator->first;
+        std::shared_ptr<EntityQuery> entsWithSprite = coordinator->entitiesWithSpriteSheet(spriteSheet);
 
-    int entitiesFound = entityQuery->totalEntitiesFound();
+        // no entities using this sprite sheet, go to next loop
+        if (entsWithSprite->totalEntitiesFound() == 0)
+        {
+            continue;
+        }
 
-    ComponentIterator<RenderComponent> renderComps2 = ComponentIterator<RenderComponent>(entityQuery);
-    ComponentIterator<Transform> transformComps2 = ComponentIterator<Transform>(entityQuery);
+        loadTexture(spriteSheet);
+        ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
+        ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);
+        int entitiesFound = entsWithSprite->totalEntitiesFound();
 
-    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
+        for (int i = 0; i < entitiesFound; i++)
+        {
+            RenderComponent* r = renderComponents.nextComponent();
+            Transform* t = transformComponents.nextComponent();
 
-    for (int i = 0; i < entitiesFound; i++) {
-        //RenderComponent component = *(renderComps[i]);
-        //Transform t = *(transformComps[i]);
+            glm::mat4 modelMatrix = t->getModelMatrix();
+            
+            // tell OpenGL to use this VAO (set it as active)
+            // need to do this before put data into the VAO
+            glBindVertexArray(vertexAttribs);
 
-        RenderComponent* component = renderComps2.nextComponent();
-        Transform* t = transformComps2.nextComponent();
+            //calculate the tex coord from the component.index
+            updateTexCoord(*r, spriteSheet);
 
-        glm::mat4 modelMatrix = t->getModelMatrix();
+            // load the data
+            loadVertexData();
+            loadIndicesData();
 
-        // tell OpenGL to use this VAO (set it as active)
-        // need to do this before put data into the VAO
-        glBindVertexArray(vertexAttribs);
+            // create vertex attrib pointers
+            // has to do this after loading data into buffers
+            // tell OpenGL how to intepret the vertex data that 
+            // we pass in. In memory, it just know we give it a chunk
+            // of bytes => tell it how many bytes make a vertex
+            // it helps to see the image at "Applying Texture"
+            // here: https://learnopengl.com/Getting-started/Textures
+            // first param is the input index of the vertex shader (see the first few lines).
+            // `aPos` is located at location 0 so we want to set the pointer for this
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+            glEnableVertexAttribArray(0);
 
-        //calculate the tex coord from the component.index
-        updateTexCoord(*component, component->spriteName);
+            // do the same thing for the texture
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+            glEnableVertexAttribArray(1);
 
-        // load the data
-        loadVertexData();
-        loadIndicesData();
-        loadTexture(component->spriteName);
+            glUseProgram(defaultShaderProgram);
+            loadUniforms(modelMatrix);
 
-        // create vertex attrib pointers
-        // has to do this after loading data into buffers
-        // tell OpenGL how to intepret the vertex data that 
-        // we pass in. In memory, it just know we give it a chunk
-        // of bytes => tell it how many bytes make a vertex
-        // it helps to see the image at "Applying Texture"
-        // here: https://learnopengl.com/Getting-started/Textures
-        // first param is the input index of the vertex shader (see the first few lines).
-        // `aPos` is located at location 0 so we want to set the pointer for this
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
-
-        // do the same thing for the texture
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
-
-        glUseProgram(defaultShaderProgram);
-        loadUniforms(modelMatrix);
-
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
     }
 
     //unbinds the current vao and vbo

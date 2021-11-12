@@ -93,4 +93,6 @@ public:
     void endOfUpdate();
 
     bool doesEntityExist(EntityID id);
+
+    std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
 };

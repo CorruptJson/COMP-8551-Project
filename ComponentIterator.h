@@ -36,6 +36,19 @@ public:
         }
     }
 
+    ComponentIterator(std::shared_ptr<EntityQuery>& query)
+    {
+        if (query->totalEntitiesFound() > 0)
+        {
+            chunks = query->foundChunks();
+            componentArray = chunks[0]->getComponentArray<T>();
+        }
+        else
+        {
+            std::cout << "no entities for comp iterator" << std::endl;
+        }
+    }
+
     T* nextComponent() {
         if (currEnt >= chunks[currChunk]->getCurrEntCount())
         {

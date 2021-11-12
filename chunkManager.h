@@ -6,6 +6,7 @@
 #include <vector>
 #include "Types.h"
 #include "chunk.h"
+#include "EntityQuery.h"
 
 class ChunkManager
 {
@@ -40,6 +41,8 @@ public:
     std::vector<Tag> getTagsForEntity(EntityID id);
     void deleteScheduledEntities();
     bool doesEntityExist(EntityID id);
+
+    std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
 
     ~ChunkManager();
 };

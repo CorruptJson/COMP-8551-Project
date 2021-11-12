@@ -92,7 +92,7 @@ public:
         if ( find  == componentArrays.end())
         {
             // type is not in chunk component type array map
-            throw "type is not in chunk component type array map";
+            throw "getComponentArray: component type is not in chunk component type array map";
         }
         Byte* arr = find->second;
         //T* compArr = std::static_cast<T*>(arr);
