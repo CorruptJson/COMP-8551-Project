@@ -782,17 +782,17 @@ int Renderer::update(EntityCoordinator* coordinator) {
     {
         std::string spriteSheet = mapIterator->first;
         std::shared_ptr<EntityQuery> entsWithSprite = coordinator->entitiesWithSpriteSheet(spriteSheet);
+        int entitiesFound = entsWithSprite->totalEntitiesFound();
 
         // no entities using this sprite sheet, go to next loop
-        if (entsWithSprite->totalEntitiesFound() == 0)
+        if (entitiesFound == 0)
         {
             continue;
         }
 
         loadTexture(spriteSheet);
         ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
-        ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);
-        int entitiesFound = entsWithSprite->totalEntitiesFound();
+        ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);        
 
         for (int i = 0; i < entitiesFound; i++)
         {
