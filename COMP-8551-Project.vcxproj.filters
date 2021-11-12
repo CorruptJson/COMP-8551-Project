@@ -340,7 +340,7 @@
     <Image Include="platform.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="wall.jpg">
+    <Image Include="logo.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

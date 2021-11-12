@@ -239,15 +239,23 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     *width = 1800;
     *height = 1200;
 
-    // Make a window with size 800x800 with name of "Chunky Soup"
+    // Make a window with size 800x800 with name of "Edgar the Exterminator"
     // pass in monitor for the 3rd param if we want it to be full screen
-    GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
-    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
-    //glfwSetWindowPos(window, 0, 0);
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
     }
+
+    // set window in the center of the monitor
+    // origin is top left corner
+    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
+
+    // set the window's icon
+    GLFWimage icon;
+    int colChannel;
+    icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
+    glfwSetWindowIcon(window, 1, &icon);
 
     // tell glfw that the window we just create will
     // be used to draw on
