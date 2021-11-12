@@ -46,6 +46,7 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
     physComponent->entityID = id;
+    physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
