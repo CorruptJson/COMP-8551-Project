@@ -58,8 +58,7 @@
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
                 "friction": 0
-            },
-            "animation": {}
+            }
         }
     },
     {
@@ -77,8 +76,7 @@
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
                 "friction": 0
-            },
-            "animation": {}
+            }
         }
     },
     {
