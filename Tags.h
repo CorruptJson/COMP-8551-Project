@@ -8,5 +8,6 @@ enum Tag
     BULLET,
     PLATFORM,
     SCENERY,
-    STAR
+    STAR,
+    FIRE
 };

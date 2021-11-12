@@ -156,6 +156,14 @@ void Renderer::loadImages() {
             {
                 Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
             }
+        },
+        {
+            "fire.png",
+            1,
+            4,
+            {
+                Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
+            }
         }
     };
 

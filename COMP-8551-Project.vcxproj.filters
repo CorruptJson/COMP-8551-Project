@@ -346,6 +346,9 @@
     <Image Include="star.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="fire.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Pixeboy.ttf">

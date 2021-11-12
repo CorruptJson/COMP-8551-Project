@@ -32,6 +32,7 @@ unordered_map<std::string, Tag> tagMap = {
     {"platform", PLATFORM},
     {"player", PLAYER},
     {"star", STAR},
+    {"fire", FIRE}
 };
 
 
@@ -42,7 +43,8 @@ unordered_map <std::string, const char*> spriteMap = {
     {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
     {"Edgar.png", "Edgar.png"},
-    {"star.png", "star.png"}
+    {"star.png", "star.png"},
+    {"fire.png", "fire.png"}
 };
 
 
@@ -96,7 +98,6 @@ void SceneManager::CreateEntities() {
         if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
-        std::cout << ev.spriteName << std::endl;
         EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
 
         entities.push_back(ent);

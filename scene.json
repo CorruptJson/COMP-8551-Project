@@ -128,7 +128,20 @@
         "transform": {
             "xPos": 5.25
         }
+    },
+    {
+        "usePrefab": "Fire",
+        "_comment": "left fire",
+        "transform": {
+            "xPos": -0.5
+        }
+    },
+    {
+        "usePrefab": "Fire",
+        "_comment": "right fire",
+        "transform": {
+            "xPos": 0.5
+        }
     }
-
 
 ]
