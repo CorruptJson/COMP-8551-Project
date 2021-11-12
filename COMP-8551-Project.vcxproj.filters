@@ -61,6 +61,15 @@
     <Filter Include="Source Files\GameManagerStuff">
       <UniqueIdentifier>{566c7777-5adb-4b3e-8e70-0c07e17b6550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{539d7d29-4610-426f-ac82-b34023263712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Font">
+      <UniqueIdentifier>{be653d43-ab8e-4bc7-9530-871ae3c5f7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{9ec80f7b-ad79-4ec2-9d6c-1865ce50c4d4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{99e770db-b719-4048-a929-1b4a2c0fede7}</UniqueIdentifier>
     </Filter>
@@ -114,9 +123,6 @@
     <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="test_system.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="system_manager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -138,9 +144,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
-    <ClCompile Include="printerSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -156,17 +159,23 @@
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="DefaultVertShader.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="DefaultFragShader.fs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="scene.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="DefaultVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DefaultFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
     <None Include="prefab.json">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="TextFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="TextVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -233,9 +242,6 @@
     <ClInclude Include="TimerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="test_system.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="system_manager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -287,9 +293,6 @@
     <ClInclude Include="ISubject.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
-    <ClInclude Include="printerSystem.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -302,25 +305,39 @@
     <ClInclude Include="PlayerState.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="wall.jpg">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Edgar_The_Exterminator.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="Giant_Roach.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="background.png">
+      <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="bullet.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="background.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Edgar_The_Exterminator.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Giant_Roach.png">
+      <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="platform.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="wall.jpg">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Pixeboy.ttf">
+      <Filter>Resource Files\Font</Filter>
+    </Font>
+    <Font Include="arial.ttf">
+      <Filter>Resource Files\Font</Filter>
+    </Font>
   </ItemGroup>
 </Project>

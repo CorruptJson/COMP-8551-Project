@@ -5,14 +5,12 @@
 #include "Animation.h"
 #include "Renderer.h"
 
-void PlayerControlSystem::processEntity(EntityID id) {
-    const int STATE_NORMAL = 0;
-    const int STATE_JUMPING = 1;
-    const int STATE_FALLING = 2;
-    const int STATE_MOVING = 3;
-    const int STATE_HIT = 4;
-    const int STATE_SHOOTING = 5;
+PlayerControlSystem::~PlayerControlSystem()
+{
+}
 
+void PlayerControlSystem::processEntity(EntityID id) {
+    
     // Getting Components needed for the player
     Renderer* renderer = Renderer::getInstance();
     InputTracker& input = InputTracker::getInstance();
@@ -82,15 +80,15 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //else {
     //    isReset = false;
     //}
-    if (input.isKeyJustDown(InputTracker::W) && currState != STATE_JUMPING) {
-        //if (isReset) {
-            if (jumpCount < jumpLimit) {
-                moveComponent->addForce(0, jumpForce);
-                stateComponent->state = STATE_JUMPING;
-                jumpCount++;
-            }
-        //}
-    }
+    //if (input.isKeyJustDown(InputTracker::W) && currState != STATE_JUMPING) {
+    //    //if (isReset) {
+    //        if (jumpCount < jumpLimit) {
+    //            moveComponent->addForce(0, jumpForce);
+    //            stateComponent->state = STATE_JUMPING;
+    //            jumpCount++;
+    //        }
+    //    //}
+    //}
 
     //if (input.isKeyJustReleased(InputTracker::S)) {
     //    moveComponent->setVelocity(xVelocity, 0);
@@ -107,23 +105,76 @@ void PlayerControlSystem::processEntity(EntityID id) {
         animationComponent->currAnim = animIdle;
     }
 
-    if (input.isKeyJustDown(InputTracker::J)) {
-        // create a new entity for bullet
-        float xPos = (stateComponent->faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
-        float yPos = transformComponent->getPosition().y;
-        EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
+    //if (input.isKeyJustDown(InputTracker::J)) {
+    //    // create a new entity for bullet
+    //    float xPos = (stateComponent->faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
+    //    float yPos = transformComponent->getPosition().y;
+    //    EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
 
-        RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-        bulletrenderComp->flipX = (stateComponent->faceRight) ? true : false;
+    //    RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
+    //    bulletrenderComp->flipX = (stateComponent->faceRight) ? true : false;
 
-        physWorld.AddObject(bullet);
+    //    physWorld.AddObject(bullet);
 
-        // set velocity to the bullet entity
-        PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
-        b2Vec2 bulletVelocity = (stateComponent->faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
-        bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
-    }
+    //    // set velocity to the bullet entity
+    //    PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
+    //    b2Vec2 bulletVelocity = (stateComponent->faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
+    //    bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+    //}
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+}
+
+void PlayerControlSystem::jump()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+
+    MovementComponent& moveComponent = coordinator.GetComponent<MovementComponent>(gm.PlayerID());
+
+    float jumpForce = 500.0f;
+
+    if (stateComponent.state != STATE_JUMPING) {
+        moveComponent.addForce(0, jumpForce);
+        stateComponent.state = STATE_JUMPING;
+    }
+}
+
+void PlayerControlSystem::shoot()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
+    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+
+    // create a new entity for bullet
+    float xPos = (stateComponent.faceRight) ? transformComponent.getPosition().x + transformComponent.getScale().x / 2 : transformComponent.getPosition().x - transformComponent.getScale().x / 2;
+    float yPos = transformComponent.getPosition().y;
+    EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
+
+    RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
+    bulletrenderComp->flipX = (stateComponent.faceRight) ? true : false;
+
+    physWorld.AddObject(bullet);
+
+    // set velocity to the bullet entity
+    PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
+    b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
+    bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+}
+
+void PlayerControlSystem::Receive(Event e, void* args)
+{
+    switch (e) {
+    case(Event::INPUT_JUMP):
+        jump();
+        break;
+    case(Event::INPUT_SHOOT):
+        shoot();
+        break;
+    }
 }

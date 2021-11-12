@@ -8,5 +8,5 @@ using namespace std;
 class IObserver {
 public:
     virtual ~IObserver() {};
-    virtual void Receive(Event event, EntityQuery* eq, list<int> indexList) = 0;
+    virtual void Receive(Event e, void* args) = 0;
 };
