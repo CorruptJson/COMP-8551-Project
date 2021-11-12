@@ -238,6 +238,7 @@
     <Image Include="Giant_Roach.png" />
     <Image Include="logo.png" />
     <Image Include="platform.png" />
+    <Image Include="star.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />

@@ -30,7 +30,8 @@ unordered_map<std::string, eKeys> keyMap = {
 unordered_map<std::string, Tag> tagMap = {
     {"enemy", ENEMY},
     {"platform", PLATFORM},
-    {"player", PLAYER}
+    {"player", PLAYER},
+    {"star", STAR},
 };
 
 
@@ -40,7 +41,8 @@ unordered_map<std::string, Tag> tagMap = {
 unordered_map <std::string, const char*> spriteMap = {
     {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
-    {"Edgar.png", "Edgar.png"}
+    {"Edgar.png", "Edgar.png"},
+    {"star.png", "star.png"}
 };
 
 

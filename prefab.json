@@ -129,5 +129,24 @@
                 "yScale": 1
             }
         }
+    },
+    {
+        "setPrefab": "Star",
+        "prefabValues": {
+            "tag": "star",
+            "render": {
+                "sprite": "star.png",
+                "hasAnim": true
+            },
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            },
+            "animation": {
+                "animName": "flicker",
+                "isPlaying": true
+            }
+        }
     }
 ]

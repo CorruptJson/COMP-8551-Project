@@ -133,18 +133,28 @@ void Renderer::loadImages() {
             "Edgar.png",
             1,
             11,
-            {Animator::createAnimation("hurt",6,6,0,true,250.0f),
-            Animator::createAnimation("idle",7,8,0,true,500.0f),
-            Animator::createAnimation("falling",9,10,0,true,500.0f),
-            Animator::createAnimation("running",0,5,0,true,150.0f)
+            {
+                Animator::createAnimation("hurt",6,6,0,true,250.0f),
+                Animator::createAnimation("idle",7,8,0,true,500.0f),
+                Animator::createAnimation("falling",9,10,0,true,500.0f),
+                Animator::createAnimation("running",0,5,0,true,150.0f)
             }
         },
         {
             "Giant_Roach.png",
             1,
             3,
-            {Animator::createAnimation("hurt",0,0,0,true,250.0f),
-            Animator::createAnimation("run",1,2,0,true,500.0f),
+            {
+                Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
+                Animator::createAnimation("run",1,2, 0, true, 500.0f),
+            }
+        },
+        {
+            "star.png",
+            1,
+            13,
+            {
+                Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
             }
         }
     };
@@ -256,6 +266,7 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     int colChannel;
     icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
     glfwSetWindowIcon(window, 1, &icon);
+    stbi_image_free(icon.pixels); // free memory
 
     // tell glfw that the window we just create will
     // be used to draw on

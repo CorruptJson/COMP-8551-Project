@@ -7,5 +7,6 @@ enum Tag
     ACTOR,
     BULLET,
     PLATFORM,
-    SCENERY
+    SCENERY,
+    STAR
 };
