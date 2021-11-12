@@ -27,6 +27,12 @@ EntityID EntityCoordinator::CreateEntity(Archetype arch, std::string sprite, std
     return mChunkManager->assignNewEntity(arch, sprite, tags, mComponentManager->mComponentSizes);
 }
 
+// Creates entity with no sprite sheet
+EntityID EntityCoordinator::CreateEntity(Archetype arch, std::vector<Tag> tags)
+{
+    return mChunkManager->assignNewEntity(arch, noSprite, tags, mComponentManager->mComponentSizes);
+}
+
 // get a validated archetype object from a list of component types
 // an archetype defines which components an entity has
 // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
@@ -45,16 +51,7 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 // the entity query searches for all entities that contain these components
 std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
 {
-    //std::sort(compTypes.begin(), compTypes.end());
-    //auto find = queryCache.find(compTypes);
-    //if (find != queryCache.end())
-    //{
-    //    EntityQuery eq = queryCache[compTypes];
-    //    if (eq.getChunkListVersion() == mChunkManager->getChunkCount())
-    //    {
-    //        return eq;
-    //    }
-    //}
+
     return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
 }
 

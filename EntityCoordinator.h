@@ -19,6 +19,7 @@ private:
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
     std::unique_ptr<SystemManager> mSystemManager;
 
+    const std::string noSprite = "NO_SPRITE";
     //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
     //int queryCacheVersion = 0;
 
@@ -32,6 +33,9 @@ public:
     // creates a new chunk if no matching chunk is found
     // all entities in the chunk must share the same spritshseet
     EntityID CreateEntity(Archetype arch, std::string sprite, std::vector<Tag> tags);
+
+    // Creates entity with no sprite sheet
+    EntityID CreateEntity(Archetype arch, std::vector<Tag> tags);
 
     // get a validated archetype object from a list of component types
     // an archetype defines which components an entity has
