@@ -34,13 +34,13 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     moveComponent->physComponent = physComponent;
 
-    EntityUserData* entityUserData = new EntityUserData;
-    entityUserData->id = id;
+    //EntityUserData* entityUserData = new EntityUserData;
+    //entityUserData->id = id;
 
     b2BodyDef bodyDef;
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
-    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
 

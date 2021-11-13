@@ -171,13 +171,13 @@ bool PlayerControlSystem::isGrounded()
 {
     GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
-    b2ContactEdge* contactList = physComponent->box2dBody->GetContactList();
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
     
     while (contactList != nullptr) {
-        EntityUserData* entUserData = reinterpret_cast<EntityUserData*>(contactList->other->GetUserData().pointer);
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
-        if (coordinator.entityHasTag(PLATFORM, entUserData->id) && contactList->contact->GetManifold()->localPoint.y == -0.5) {
+        if (coordinator.entityHasTag(PLATFORM, physComponetB->entityID) && contactList->contact->GetManifold()->localPoint.y == -0.5) {
             return true;
         }
 
