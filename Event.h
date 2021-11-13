@@ -1,7 +1,8 @@
 #pragma once
 enum class Event {
-    //Timer events
-    TIMER_REACHED_200,
+    //Input events
+    INPUT_JUMP,
+    INPUT_SHOOT,
     //Enemy events (unused)
     ENEMY_WALL_BUMP
 };
