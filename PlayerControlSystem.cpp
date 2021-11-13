@@ -136,7 +136,7 @@ void PlayerControlSystem::jump()
 
     float jumpForce = 500.0f;
 
-    if (stateComponent.state != STATE_JUMPING) {
+    if (isGrounded()) {
         moveComponent.addForce(0, jumpForce);
         stateComponent.state = STATE_JUMPING;
     }
@@ -165,6 +165,26 @@ void PlayerControlSystem::shoot()
     PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
     b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
     bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+}
+
+bool PlayerControlSystem::isGrounded()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponent->box2dBody->GetContactList();
+    
+    while (contactList != nullptr) {
+        EntityUserData* entUserData = reinterpret_cast<EntityUserData*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(PLATFORM, entUserData->id) && contactList->contact->GetManifold()->localPoint.y == -0.5) {
+            return true;
+        }
+
+        contactList = contactList->next;
+    }
+
+    return false;
 }
 
 void PlayerControlSystem::Receive(Event e, void* args)

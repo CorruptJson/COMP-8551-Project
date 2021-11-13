@@ -12,6 +12,7 @@ public:
     void processEntity(EntityID id);
     void jump();
     void shoot();
+    bool isGrounded();
     const int STATE_NORMAL = 0;
     const int STATE_JUMPING = 1;
     const int STATE_FALLING = 2;
