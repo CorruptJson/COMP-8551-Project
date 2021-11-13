@@ -59,7 +59,8 @@ const int VIEW_HEIGHT = 10;
 int initialize()
 {  
     // when the engine starts
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
+    glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 

@@ -29,7 +29,7 @@ public:
     static std::string TEXT_VERT_SHADER_NAME;
     static std::string TEXT_FRAG_SHADER_NAME;
     static GLFWwindow* setupGLFW(int *width, int *height);
-    int init(int viewWidth, int viewHeight);
+    int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor);
     int update(EntityCoordinator* coordinator);
     int teardown();
     static Renderer* getInstance();
@@ -63,6 +63,9 @@ private:
 
     // store the text characters
     std::map<unsigned char, Character> characters;
+
+    // the background color of the scene
+    glm::vec4 backgroundColor;
 
     GLuint createDefaultShaderProgram();
     GLuint createTextShaderProgram();

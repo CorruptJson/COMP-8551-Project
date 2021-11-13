@@ -50,7 +50,8 @@ GLFWwindow* window;
 /// <param name="viewWidth">The width of the camera view in OpenGL coordinates</param>
 /// <param name="viewHeight">The height of the camera view in OpenGL coordinates</param>
 /// <returns></returns>
-int Renderer::init(int viewWidth, int viewHeight) {
+int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) {
+    backgroundColor = newBackgroundColor;
     int width, height;
     window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
@@ -133,18 +134,36 @@ void Renderer::loadImages() {
             "Edgar.png",
             1,
             11,
-            {Animator::createAnimation("hurt",6,6,0,true,250.0f),
-            Animator::createAnimation("idle",7,8,0,true,500.0f),
-            Animator::createAnimation("falling",9,10,0,true,500.0f),
-            Animator::createAnimation("running",0,5,0,true,150.0f)
+            {
+                Animator::createAnimation("hurt",6,6,0,true,250.0f),
+                Animator::createAnimation("idle",7,8,0,true,500.0f),
+                Animator::createAnimation("falling",9,10,0,true,500.0f),
+                Animator::createAnimation("running",0,5,0,true,150.0f)
             }
         },
         {
             "Giant_Roach.png",
             1,
             3,
-            {Animator::createAnimation("hurt",0,0,0,true,250.0f),
-            Animator::createAnimation("run",1,2,0,true,500.0f),
+            {
+                Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
+                Animator::createAnimation("run",1,2, 0, true, 500.0f),
+            }
+        },
+        {
+            "star.png",
+            1,
+            13,
+            {
+                Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
+            }
+        },
+        {
+            "fire.png",
+            1,
+            4,
+            {
+                Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
             }
         }
     };
@@ -239,15 +258,24 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     *width = 1800;
     *height = 1200;
 
-    // Make a window with size 800x800 with name of "Chunky Soup"
+    // Make a window with size 800x800 with name of "Edgar the Exterminator"
     // pass in monitor for the 3rd param if we want it to be full screen
-    GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
-    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
-    //glfwSetWindowPos(window, 0, 0);
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
     }
+
+    // set window in the center of the monitor
+    // origin is top left corner
+    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
+
+    // set the window's icon
+    GLFWimage icon;
+    int colChannel;
+    icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
+    glfwSetWindowIcon(window, 1, &icon);
+    stbi_image_free(icon.pixels); // free memory
 
     // tell glfw that the window we just create will
     // be used to draw on
@@ -768,8 +796,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
-    // set background color (gray)
-    glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
     // recall that OpenGL works using buffers
     // this is for the foreground color.
