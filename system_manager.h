@@ -2,8 +2,6 @@
 
 #include <vector>
 #include "system.h"
-#include "test_system.h"
-#include "printerSystem.h"
 
 //using namespace std;
 //class EntityCoordinator;

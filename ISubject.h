@@ -9,7 +9,7 @@ public:
     virtual ~ISubject() {};
     void Attach(IObserver* observer) { observerList.push_back(observer); };
     void Detach(IObserver* observer) { observerList.remove(observer); };
-    virtual void Notify(EntityQuery* eq, list<int> indexList) {};
+    virtual void Notify(Event e, void* args) {};
 
 protected:
     list<IObserver*> observerList;
