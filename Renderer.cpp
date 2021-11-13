@@ -2,6 +2,7 @@
 
 std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
+
 std::string Renderer::TEXT_VERT_SHADER_NAME = "TextVertShader.vs";
 std::string Renderer::TEXT_FRAG_SHADER_NAME = "TextFragShader.fs";
 
@@ -22,19 +23,6 @@ GLfloat vertices[] = {
 GLuint indices[] = {
     0, 1, 3, //indices to create the first triangle
     1, 2, 3 //indices to create the second triangle
-};
-
-
-// the shaders uniforms we are using
-// uniforms are extra data that we pass in
-// manually to the shaders. They stay 
-// the same in both vertex and fragment shaders.
-enum UNIFORMS {
-    MODEL_MATRIX_LOCATION,
-    VIEW_MATRIX_LOCATION,
-    PROJECTION_MATRIX_LOCATION,
-    TIME,
-    NUM_OF_UNIFORMS
 };
 
 // store the locations of the shaders uniforms
@@ -71,8 +59,8 @@ int Renderer::init(int viewWidth, int viewHeight) {
     //defaultShaderProgram = createDoodleShaderProgram();
     // init other OpenGL stuff
     camera.setViewSize(viewWidth, viewHeight);
-    defaultShaderProgram = createDefaultShaderProgram();
-    textShaderProgram = createTextShaderProgram();
+    defaultShaderProgram = createShaderProgram("Default", DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);//createDefaultShaderProgram();
+    textShaderProgram = createShaderProgram("Text", TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);//createTextShaderProgram();
 
     //sets the text shader to be used currently
     glUseProgram(textShaderProgram);
@@ -263,7 +251,8 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     return window;
 }
 
-GLuint Renderer::createShaderProgram(std::string vertPath, std::string fragPath) {
+GLuint Renderer::createShaderProgram(std::string shaderName, std::string vertPath, std::string fragPath) {
+        
     // shaders are OpenGL objects => we need to init them
     // and store a reference to them so we can use them later
 
@@ -323,12 +312,20 @@ GLuint Renderer::createShaderProgram(std::string vertPath, std::string fragPath)
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
+    Shader shader =
+    {
+        shaderProgram,
+    };
+
     // load the uniforms
     // see the uniforms defined in the vertex shader 
     // we get their locations here
-    uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
-    uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
-    uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
+    shader.Uniforms[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    shader.Uniforms[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    shader.Uniforms[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
+
+    //add the shader to the map
+    shaders[shaderName] = shader;
 
     return shaderProgram;
 }
@@ -639,6 +636,13 @@ void Renderer::loadUniforms(glm::mat4 modelMatrix) {
     glUniformMatrix4fv(uniformsLocation[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
     glUniformMatrix4fv(uniformsLocation[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(camera.getProjectionMatrix()));
 }
+
+//void Renderer::loadShaderUniforms(Shader shader, glm::mat4 modelMatrix) {
+//    // pass in the uniforms value
+//    glUniformMatrix4fv(shader.Uniforms[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
+//    glUniformMatrix4fv(shader.Uniforms[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
+//    glUniformMatrix4fv(shader.Uniforms[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(camera.getProjectionMatrix()));
+//}
 
 void Renderer::loadTextUniforms(glm::mat4 modelMatrix) {
     // pass in the uniforms value

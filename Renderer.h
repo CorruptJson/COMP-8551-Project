@@ -21,6 +21,23 @@
 
 extern GLFWwindow* window;
 
+// the shaders uniforms we are using
+// uniforms are extra data that we pass in
+// manually to the shaders. They stay 
+// the same in both vertex and fragment shaders.
+enum UNIFORMS {
+    MODEL_MATRIX_LOCATION,
+    VIEW_MATRIX_LOCATION,
+    PROJECTION_MATRIX_LOCATION,
+    TIME,
+    NUM_OF_UNIFORMS
+};
+
+struct Shader {
+    GLuint Program;
+    GLuint Uniforms[NUM_OF_UNIFORMS];
+};
+
 class Renderer
 {
 public:
@@ -66,7 +83,7 @@ private:
     // store the sprites that have been read
     // from the image files
     std::map<std::string, SpriteInfo> sprites;
-    std::map<std::string, GLuint> shaders;
+    std::map<std::string, Shader> shaders;
 
     // store the text characters
     std::map<unsigned char, Character> characters;
@@ -74,7 +91,7 @@ private:
     GLuint createDefaultShaderProgram();
     GLuint createDoodleShaderProgram();
     GLuint createTextShaderProgram();
-    GLuint createShaderProgram(std::string vertPath, std::string fragPath);
+    GLuint createShaderProgram(std::string shaderName,std::string vertPath, std::string fragPath);
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
@@ -82,6 +99,7 @@ private:
 
     void loadTexture(std::string spriteName);
     void loadUniforms(glm::mat4 modelMatrix);
+    //void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadTextUniforms(glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);

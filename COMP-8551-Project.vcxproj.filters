@@ -177,16 +177,16 @@
     <None Include="prefab.json">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="DoodleFragShader.fs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="DoodleVertShader.vs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="TextFragShader.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
     <None Include="TextVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DoodleFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DoodleVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
