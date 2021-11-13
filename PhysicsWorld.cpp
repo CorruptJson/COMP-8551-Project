@@ -34,18 +34,19 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     moveComponent->physComponent = physComponent;
 
-    EntityUserData* entityUserData = new EntityUserData;
-    entityUserData->id = id;
+    //EntityUserData* entityUserData = new EntityUserData;
+    //entityUserData->id = id;
 
     b2BodyDef bodyDef;
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
-    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
 
     physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
     physComponent->entityID = id;
+    physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
