@@ -50,7 +50,8 @@ GLFWwindow* window;
 /// <param name="viewWidth">The width of the camera view in OpenGL coordinates</param>
 /// <param name="viewHeight">The height of the camera view in OpenGL coordinates</param>
 /// <returns></returns>
-int Renderer::init(int viewWidth, int viewHeight) {
+int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) {
+    backgroundColor = newBackgroundColor;
     int width, height;
     window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
@@ -795,8 +796,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
-    // set background color (gray)
-    glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
     // recall that OpenGL works using buffers
     // this is for the foreground color.

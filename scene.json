@@ -67,6 +67,24 @@
         }
     },
 
+
+    {
+        "usePrefab": "InvisiblePlatform",
+        "_comment": "block the top left ceiling",
+        "transform": {
+            "xPos": -1.5,
+            "yPos": 5.5
+        }
+    },
+    {
+        "usePrefab": "InvisiblePlatform",
+        "_comment": "block the top right ceiling",
+        "transform": {
+            "xPos": 1.5,
+            "yPos": 5.5
+        }
+    },
+
     {
         "usePrefab": "FloorPlatform",
         "_comment": "bottom left floor",

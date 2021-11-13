@@ -45,6 +45,17 @@
         }
     },
     {
+        "setPrefab": "InvisiblePlatform",
+        "prefabValues": {
+            "tag": "platform",
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            }
+        }
+    },
+    {
         "setPrefab": "SmoothPlatform",
         "prefabValues": {
             "tag": "platform",
