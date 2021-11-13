@@ -113,15 +113,9 @@ void Renderer::loadImages() {
 
     ImgConfig configs[]{
         {
-            "background.png",
-            1,
-            1,
-            {}
-        },
-        {
             "platform.png",
-            2,
-            1,
+            6,
+            3,
             {}
         },
         {

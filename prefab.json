@@ -56,32 +56,18 @@
         }
     },
     {
-        "setPrefab": "SmoothPlatform",
+        "setPrefab": "Platform",
+        "_comment":  "black platform is the default",
         "prefabValues": {
             "tag": "platform",
             "transform": {
-                "yScale": 0.5
-            },
-            "render": {
-                "sprite": "platform.png"
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
-            }
-        }
-    },
-    {
-        "setPrefab": "RoughPlatform",
-        "prefabValues": {
-            "tag": "platform",
-            "transform": {
+                "xScale": 0.5,
                 "yScale": 0.5
             },
             "render": {
                 "sprite": "platform.png",
-                "rowIndex":  1
+                "rowIndex":  1,
+                "colIndex":  1
             },
             "physics": {
                 "b2bodytype": "b2_staticBody",
@@ -90,54 +76,64 @@
             }
         }
     },
+
     {
-        "setPrefab": "CeilingPlatform",
+        "setPrefab": "PlatformLeftCorner",
         "prefabValues": {
-            "usePrefab":  "SmoothPlatform",
-            "transform": {
-                "yPos": 4.75,
-                "xScale": 6.5
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  0
             }
         }
     },
     {
-        "setPrefab": "FloorPlatform",
+        "setPrefab": "PlatformMiddle",
         "prefabValues": {
-            "usePrefab":  "CeilingPlatform",
-            "transform": {
-                "yPos": -4.5,
-                "yScale":  1
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  1
             }
         }
     },
     {
-        "setPrefab": "Wall",
+        "setPrefab": "PlatformRightCorner",
         "prefabValues": {
-            "usePrefab":  "SmoothPlatform",
-            "transform": {
-                "yPos": 0.25,
-                "yScale": 8.5
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  2
             }
         }
     },
     {
-        "setPrefab": "LeanPlatform",
+        "setPrefab": "WallLeft",
         "prefabValues": {
-            "usePrefab":  "RoughPlatform",
-            "transform": {
-                "yPos": 0.75,
-                "xScale": 4
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  1,
+                "colIndex":  0
             }
         }
     },
     {
-        "setPrefab": "ThickPlatform",
+        "setPrefab": "WallRight",
         "prefabValues": {
-            "usePrefab":  "RoughPlatform",
-            "transform": {
-                "yPos": -3.5,
-                "xScale": 2.5,
-                "yScale": 1
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  1,
+                "colIndex":  2
+            }
+        }
+    },
+    {
+        "setPrefab": "Ceiling",
+        "prefabValues": {
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  1
             }
         }
     },
