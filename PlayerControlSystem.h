@@ -5,6 +5,15 @@
 #include "PhysicsWorld.h"
 #include "GameManager.h"
 
+enum playerState {
+    STATE_NORMAL,
+    STATE_JUMPING,
+    STATE_FALLING,
+    STATE_MOVING,
+    STATE_HIT,
+    STATE_SHOOTING,
+};
+
 class PlayerControlSystem : public IObserver {
 
 public:
@@ -13,12 +22,6 @@ public:
     void jump();
     void shoot();
     bool isGrounded();
-    const int STATE_NORMAL = 0;
-    const int STATE_JUMPING = 1;
-    const int STATE_FALLING = 2;
-    const int STATE_MOVING = 3;
-    const int STATE_HIT = 4;
-    const int STATE_SHOOTING = 5;
 
     void Receive(Event e, void* args) override;
     //void Update(EntityCoordinator* coordinator);
