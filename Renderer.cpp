@@ -872,6 +872,7 @@ int Renderer::teardown() {
     glfwTerminate();
     return 0;
 }
+
 Renderer* Renderer::getInstance()
 {
     if (renderer == nullptr)

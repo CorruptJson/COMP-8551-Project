@@ -108,7 +108,7 @@ public:
 
     std::vector<Tag> getAllTags();
 
-    EntityID entityAt(int i);
+    EntityID entityAtComponentIndex(int i);
 
     bool doesEntityExist(EntityID id);
 

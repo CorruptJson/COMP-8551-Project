@@ -62,8 +62,13 @@ public:
             int chunkEnts = chunks[i]->getCurrEntCount();
             T* compArray = chunks[i]->getComponentArray<T>();
             for (int j = 0; j < chunkEnts; j++)
-            {
-                entityIDs.push_back(chunks[i]->entityAt(j));
+            {                
+                EntityID id = chunks[i]->entityAtComponentIndex(j);
+                entityIDs.push_back(id);
+                if (!chunks[i]->doesEntityExist(id))
+                {
+                    throw "what";
+                }
                 list.push_back(compArray);
                 compArray++;
             }

@@ -138,9 +138,11 @@ bool Chunk::hasTag(Tag tag)
     return std::find(tags.begin(),tags.end(),tag) != tags.end();
 }
 
-EntityID Chunk::entityAt(int i)
+EntityID Chunk::entityAtComponentIndex(int i)
 {
-    return { chunkID,i,versions[i] };
+    int entIndex = datToEnt[i];
+
+    return { chunkID,entIndex,versions[entIndex] };
 }
 
 bool Chunk::doesEntityExist(EntityID id)

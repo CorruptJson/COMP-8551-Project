@@ -26,6 +26,9 @@ PhysicsWorld& PhysicsWorld::getInstance()
 
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
+
+    //std::cout << "adding to phys: " << id << std::endl;
+
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
@@ -37,7 +40,8 @@ void PhysicsWorld::AddObject(EntityID id) {
     EntityUserData* entityUserData = new EntityUserData;
     entityUserData->id = id;
 
-    b2BodyDef bodyDef;
+    //b2BodyDef bodyDef = b2BodyDef();
+    b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
@@ -150,7 +154,35 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
                 // delete user data
 
-                delete reinterpret_cast<EntityUserData*>(physComponents[i]->box2dBody->GetUserData().pointer);
+                //delete reinterpret_cast<EntityUserData*>(physComponents[i]->box2dBody->GetUserData().pointer);
+                auto find = destroyedPointers.find(physComponents[i]->box2dBody);
+                if (find != destroyedPointers.end())
+                {
+                    EntityID other = find->second;
+                    std::cout << "destroying pointer for a second time? Other: "<< other << std::endl;
+                    if (coordinator->doesEntityExist(other))
+                    {
+                        std::cout << "other does exist" << std::endl;
+                    }
+                    else if (other == physComponents[i]->entityID) {
+                        std::cout << "other is self?" << std::endl;
+                    }
+                    else
+                    {
+                        std::cout << "other does NOT exist" << std::endl;
+                    }
+                    destroyedPointers.erase(physComponents[i]->box2dBody);
+                    destroyedPointers.emplace(physComponents[i]->box2dBody, physComponents[i]->entityID);
+                }
+                else
+                {
+                    destroyedPointers.emplace(physComponents[i]->box2dBody, physComponents[i]->entityID);
+                }
+                
+
+                std::cout << "Deleting physics for " << physComponents[i]->entityID << std::endl;
+
+                b2Fixture* fixtures = physComponents[i]->box2dBody->GetFixtureList();
 
                 PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
                 EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);

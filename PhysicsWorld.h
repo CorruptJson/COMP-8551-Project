@@ -3,6 +3,9 @@
 #include "ContactListener.h"
 #include "EntityUserData.h"
 
+// thompson testing
+#include <set>
+
 class PhysicsWorld {
 public:
     PhysicsWorld();
@@ -21,6 +24,9 @@ private:
     b2Vec2* gravity;
     b2World* world;
     ContactListener* contactListener;
+
+    // thompson testing
+    std::map<b2Body*,EntityID> destroyedPointers;
 
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
     void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);

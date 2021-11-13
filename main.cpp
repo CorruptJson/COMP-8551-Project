@@ -173,9 +173,11 @@ int runEngine()
 // put teardown code here
 int teardown()
 {
+    std::cout << "ending programing" << std::endl;
+
     // when the engine closes
     renderer->teardown();
-
+    delete physicsWorld;
     
 
     return 0;
@@ -189,17 +191,11 @@ int main() {
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     animator = Animator();
 
-    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
-
-    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
-
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
             
             physicsWorld->AddObject(e);
         }
-
     }    
 
     while (!glfwWindowShouldClose(window))

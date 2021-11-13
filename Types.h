@@ -31,8 +31,17 @@ struct EntityID
     int chunkID;
     int index;
     int version;
+
+    bool isEqual(const EntityID& other) const
+    {
+        return other.chunkID == this->chunkID && other.index == this->index && other.version == this->version;
+    }
 };
 
+inline bool operator==(const EntityID& lhs, const EntityID& rhs)
+{
+    return lhs.isEqual(rhs);
+}
 
 using json = nlohmann::json;
 
