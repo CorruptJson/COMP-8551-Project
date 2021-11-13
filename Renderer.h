@@ -88,19 +88,14 @@ private:
     // store the text characters
     std::map<unsigned char, Character> characters;
 
-    GLuint createDefaultShaderProgram();
-    GLuint createDoodleShaderProgram();
-    GLuint createTextShaderProgram();
-    GLuint createShaderProgram(std::string shaderName,std::string vertPath, std::string fragPath);
+    void createShaderProgram(std::string shaderName,std::string vertPath, std::string fragPath);
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
 
     void loadTexture(std::string spriteName);
-    void loadUniforms(glm::mat4 modelMatrix);
-    //void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
-    void loadTextUniforms(glm::mat4 modelMatrix);
+    void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
     void setTexCoordToDefault();
