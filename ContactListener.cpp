@@ -29,34 +29,34 @@ void ContactListener::BeginContact(b2Contact* contact) {
         entSecond = physicsComponentA->entityID;
     }
 
-    
-    switch (tagFirst) {
-        case PLAYER:
-            cout << "Player contact with: ";
-            if (tagSecond == PLATFORM) {
-                cout << "Platform" << endl;
-            }
-            break;
-        case ENEMY:
-            cout << "Enemy contact with: ";
-            if (tagSecond == PLATFORM) {
-                cout << "Platform" << endl;
-            }
-            else if (tagSecond == BULLET) {
-                cout << "Bullet" << endl;
-                EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
-                EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
-            }
-            break;
-        case BULLET:
-            cout << "Bullet contact with: ";
-            if (tagSecond == PLATFORM) {
-                cout << "Platform" << endl;
-                EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
-            }
-            break;
-    }
 
+    if (tagFirst == PLAYER) {
+        cout << "Player contact with: ";
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
+        }
+        else if (tagSecond == ENEMY) {
+            cout << "Enemy" << endl;
+        }
+    }
+    else if (tagFirst == ENEMY) {
+        cout << "Enemy contact with: ";
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
+        }
+        else if (tagSecond == BULLET) {
+            cout << "Bullet" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+        }
+    }
+    else if (tagFirst == BULLET) {
+        cout << "Bullet contact with: ";
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+        }
+    }
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
