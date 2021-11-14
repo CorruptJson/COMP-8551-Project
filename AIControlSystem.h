@@ -11,12 +11,9 @@ class AIControlSystem
 public:
     ~AIControlSystem();
     void processEntity(EntityID id);
-    void handleWallCollision(EntityID id);
     //void Receive(Event e, void* args)
 private:
-    float speed = 2.5f;
-    bool collided;
-
+    bool isWallCollision(EntityID id);
     void switchDirection(EntityID id);
 };
 

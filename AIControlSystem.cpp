@@ -24,12 +24,13 @@ void AIControlSystem::processEntity(EntityID id) {
 
     // Currently testing this way because there is no state connected to entities with ENEMY tag
 
+    float speed = 2.0f;
     xVelocity = speed;
     moveComponent->setVelocity(xVelocity, yVelocity);
-    handleWallCollision(id);
+    
 }
 
-void AIControlSystem::handleWallCollision(EntityID id) {
+bool AIControlSystem::isWallCollision(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     b2ContactEdge* contactList = physComponent->box2dBody->GetContactList();
@@ -43,17 +44,22 @@ void AIControlSystem::handleWallCollision(EntityID id) {
                 switchDirection(id);
             }
         }
-
+        return true;
     }
 
+    return false;
 }
 
 void AIControlSystem::switchDirection(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
+    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
+
+    float xVelocity = moveComponent->getVelocity().x;
+    float yVelocity = moveComponent->getVelocity().y;
 
     renderComponent->flipX = !renderComponent->flipX;
-    speed = -speed;
+    moveComponent->setVelocity(-xVelocity, yVelocity);
 }
 
 /*void AIControlSystem::Receive(Event e, void* args) {
