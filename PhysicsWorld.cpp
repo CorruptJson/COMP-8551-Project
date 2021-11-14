@@ -82,7 +82,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(FIRE, id)) {
             fixtureDef.filter.categoryBits = C_FIRE;
-            fixtureDef.filter.maskBits = C_NONE;
+            fixtureDef.filter.maskBits = C_ENEMY;
         }
 
         physComponent->box2dBody->CreateFixture(&fixtureDef);

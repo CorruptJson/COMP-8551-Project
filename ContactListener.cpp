@@ -66,8 +66,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
-
-            //cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
     }
     else if (tagFirst == BULLET) {
