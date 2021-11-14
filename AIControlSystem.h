@@ -13,10 +13,7 @@ public:
     void processEntity(EntityID id);
     //void Receive(Event e, void* args);
 private:
-
-
-
-    void handleWallCollision(EntityID id);
-    void switchDirection(EntityID id);
+    int isWallCollision(EntityID id);
+    void switchDirection(EntityID id, float contactPoint);
 };
 

@@ -43,6 +43,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
         cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
             cout << "Platform" << endl;
+            
+            MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
+
+            float yVel = moveComponent->getVelocity().y;
+            if (contact->GetManifold()->localPoint.x == -0.5) {
+                moveComponent->setVelocity(2.0f, yVel);
+            }
+            else if (contact->GetManifold()->localPoint.x == 0.5) {
+                moveComponent->setVelocity(-2.0f, yVel);
+            }
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;

@@ -21,7 +21,6 @@
 #include "Components.h"
 #include "Tags.h"
 #include "PlayerControlSystem.h"
-#include "AIControlSystem.h"
 #include "GameManager.h"
 
 
@@ -33,8 +32,6 @@ SceneManager* sceneManager;
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
-AIControlSystem* aiControl;
-
 
 Animator animator;
 
@@ -70,7 +67,6 @@ int initialize()
     //physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
-    aiControl = new AIControlSystem();
 
     prevTime = Clock::now();
 
@@ -130,11 +126,11 @@ void fixedFrameUpdate()
 
     playerControl->processEntity(mike);
 
-    for (auto const& e : sceneManager->entities) {
-        if (coordinator->entityHasTag(Tag::ENEMY, e)) {
-            aiControl->processEntity(e);
-        }
-    }
+    //for (auto const& e : sceneManager->entities) {
+    //    if (coordinator->entityHasTag(Tag::ENEMY, e)) {
+    //        aiControl->processEntity(e);
+    //    }
+    //}
 }
 
 void graphicsUpdate()
