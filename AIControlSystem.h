@@ -11,7 +11,12 @@ class AIControlSystem
 public:
     ~AIControlSystem();
     void processEntity(EntityID id);
-    bool enemyDeleted();
+    void handleWallCollision(EntityID id);
+    //void Receive(Event e, void* args)
 private:
+    float speed = 2.5f;
+    bool collided;
+
+    void switchDirection(EntityID id);
 };
 

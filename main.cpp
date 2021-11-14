@@ -35,6 +35,7 @@ PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
 AIControlSystem* aiControl;
 
+
 Animator animator;
 
 GameManager& gameManager = GameManager::getInstance();
@@ -45,8 +46,6 @@ Archetype standardArch;
 EntityID mike;
 EntityID timer;
 EntityID text;
-//EntityID roach;
-vector<EntityID> enemies;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -114,9 +113,6 @@ int test(){
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-        if (coordinator->entityHasTag(Tag::ENEMY, e)) {
-            enemies.push_back(e);
-        }
 
     }
     return 0;
@@ -134,10 +130,11 @@ void fixedFrameUpdate()
 
     playerControl->processEntity(mike);
 
-    for (auto const& e : enemies) {
-        aiControl->processEntity(e);        
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasTag(Tag::ENEMY, e)) {
+            aiControl->processEntity(e);
+        }
     }
-    //aiControl->processEntity(roach);
 }
 
 void graphicsUpdate()
@@ -178,13 +175,6 @@ int teardown()
 {
     // when the engine closes
     renderer->teardown();
-
-    delete coordinator;
-    delete sceneManager;
-
-    delete physicsWorld;
-    delete playerControl;
-    delete aiControl;
 
 
     return 0;
