@@ -111,6 +111,7 @@ public:
     EntityID entityAtComponentIndex(int i);
 
     bool doesEntityExist(EntityID id);
+    bool isIndexActive(int i);
 
     ~Chunk();
 };

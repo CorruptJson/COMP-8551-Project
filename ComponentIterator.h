@@ -12,6 +12,7 @@ private:
     T* componentArray;
     int currChunk = 0;
     int currEnt = 0;
+    int currIndex = 0;
     ComponentIterator() {};
 public:
     ComponentIterator(std::vector<Chunk*>& _chunks)
@@ -54,10 +55,22 @@ public:
         {
             currChunk++;
             currEnt = 0;
+            currIndex = 0;
             componentArray = chunks[currChunk]->getComponentArray<T>();
         }
-        T* comp = &(componentArray[currEnt]);
+        int whileCounter = 0;
+        while (!chunks[currChunk]->isIndexActive(currIndex))
+        {
+            currIndex++;
+            whileCounter++;
+            if (whileCounter > 16)
+            {
+                throw "loop limit reached";
+            }
+        }
+        T* comp = &(componentArray[currIndex]);
         currEnt++;
+        currIndex++;
         return comp;
     }
 };

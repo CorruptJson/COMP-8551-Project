@@ -16,6 +16,9 @@ public:
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
     void DestoryObject(EntityID id);
+    void DeleteB2DBodyGuardFunction(b2Body* body, EntityID id);
+    void AddB2BodyGuardFunction(b2Body* body, EntityID id);
+
 private:
     const float timeStep = 1.0f / 60.0f;
     const int velocityIterations = 6;
@@ -27,6 +30,8 @@ private:
 
     // thompson testing
     std::map<b2Body*,EntityID> destroyedPointers;
+    std::set<b2Body*> activeBodies;
+    std::set<b2Body*> deactivatedBodies;
 
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
     void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);

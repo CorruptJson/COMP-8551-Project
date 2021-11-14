@@ -87,6 +87,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
         {
             cout << "player" << endl;
         }
+        else
+        {
+            cout << endl;
+        }
     }
     else if (GetFirstContact(BULLET, entUserDataB->id))
     {
@@ -99,6 +103,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (GetSecondContact(PLAYER, entUserDataA->id))
         {
             cout << "player" << endl;
+        }
+        else
+        {
+            cout << endl;
         }
     }
 }

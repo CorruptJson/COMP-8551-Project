@@ -12,6 +12,7 @@ Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vec
     for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
     {
         entToDat[i] = -1;
+        datToEnt[i] = i;
     }
 }
 
@@ -49,8 +50,9 @@ EntityID Chunk::assignNewEntity()
                 id.chunkID = chunkID;
                 id.index = i;
                 id.version = versions[i];
-                entToDat[i] = currEnts;
-                datToEnt[currEnts] = i;
+                entToDat[i] = i;
+                //entToDat[i] = currEnts;
+                //datToEnt[currEnts] = i;
 
                 currEnts++;
 
@@ -81,34 +83,34 @@ void Chunk::releaseEntity(EntityID id)
         throw "trying to delete entity that no longer exists?";
     }
 
-    int releasedEntDataIndex = entToDat[id.index];
-    int lastIndex = currEnts - 1;
-    if (releasedEntDataIndex != lastIndex)
-    {
-        std::vector<ComponentType> componentTypes = arch.getComponentTypeArray();              
+    //int releasedEntDataIndex = entToDat[id.index];
+    //int lastIndex = currEnts - 1;
+    //if (releasedEntDataIndex != lastIndex)
+    //{
+    //    std::vector<ComponentType> componentTypes = arch.getComponentTypeArray();              
 
-        // must swap data!
-        for (int i = 0; i < componentArrays.size(); i++)
-        {
-            ComponentType type = componentTypes[i];
-            ComponentSize c_size = ComponentManager::GetComponentSize(type);
-            // these are the starting data indexes for this specific component type
-            int releasedCDataIndex = releasedEntDataIndex * c_size;
-            int lastCDatIndex = lastIndex * c_size;
-            Byte* arr = componentArrays[type];
-            for (int j = 0; j < c_size; j++)
-            {
-                int indexR = releasedCDataIndex + j;
-                int indexL = lastCDatIndex + j;
-                arr[indexR] = arr[indexL];
-            }
-        }
+    //    // must swap data!
+    //    for (int i = 0; i < componentArrays.size(); i++)
+    //    {
+    //        ComponentType type = componentTypes[i];
+    //        ComponentSize c_size = ComponentManager::GetComponentSize(type);
+    //        // these are the starting data indexes for this specific component type
+    //        int releasedCDataIndex = releasedEntDataIndex * c_size;
+    //        int lastCDatIndex = lastIndex * c_size;
+    //        Byte* arr = componentArrays[type];
+    //        for (int j = 0; j < c_size; j++)
+    //        {
+    //            int indexR = releasedCDataIndex + j;
+    //            int indexL = lastCDatIndex + j;
+    //            arr[indexR] = arr[indexL];
+    //        }
+    //    }
 
-        // then swap indexes
-        int entWithLastData = datToEnt[lastIndex];
-        datToEnt[releasedEntDataIndex] = entWithLastData;
-        entToDat[entWithLastData] = releasedEntDataIndex;
-    }
+    //    // then swap indexes
+    //    int entWithLastData = datToEnt[lastIndex];
+    //    datToEnt[releasedEntDataIndex] = entWithLastData;
+    //    entToDat[entWithLastData] = releasedEntDataIndex;
+    //}
 
     entToDat[id.index] = -1;
     versions[id.index] = versions[id.index] + 1;
@@ -148,6 +150,10 @@ EntityID Chunk::entityAtComponentIndex(int i)
 bool Chunk::doesEntityExist(EntityID id)
 {
     return (entToDat[id.index] != -1 && id.version == versions[id.index]);
+}
+
+bool Chunk::isIndexActive(int i) {
+    return entToDat[i] != -1;
 }
 
 std::vector<Tag> Chunk::getAllTags()

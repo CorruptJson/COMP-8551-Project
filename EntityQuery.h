@@ -61,16 +61,22 @@ public:
         {
             int chunkEnts = chunks[i]->getCurrEntCount();
             T* compArray = chunks[i]->getComponentArray<T>();
-            for (int j = 0; j < chunkEnts; j++)
+            int c_index = 0;
+            for (int j = 0; j < chunkEnts; j++, c_index++)
             {                
-                EntityID id = chunks[i]->entityAtComponentIndex(j);
-                entityIDs.push_back(id);
-                if (!chunks[i]->doesEntityExist(id))
+                int whileCounter = 0;
+                while (!chunks[i]->isIndexActive(c_index))
                 {
-                    throw "what";
+                    c_index++;
+                    whileCounter++;
+                    if (whileCounter > 16)
+                    {
+                        throw "loop limit reached";
+                    }
                 }
-                list.push_back(compArray);
-                compArray++;
+                EntityID id = chunks[i]->entityAtComponentIndex(c_index);
+                entityIDs.push_back(id);
+                list.push_back(compArray + c_index);
             }
         }
 
