@@ -11,7 +11,9 @@ class AIControlSystem
 public:
     ~AIControlSystem();
     void processEntity(EntityID id);
-    //void Receive(Event e, void* args)
+    void Update(EntityCoordinator* coordinator);
+
+    //void Receive(Event e, void* args);
 private:
     bool isWallCollision(EntityID id);
     void switchDirection(EntityID id);
