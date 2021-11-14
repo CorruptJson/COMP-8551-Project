@@ -65,7 +65,7 @@ public:
             for (int j = 0; j < chunkEnts; j++, c_index++)
             {                
                 int whileCounter = 0;
-                while (!chunks[i]->isIndexActive(c_index))
+                while (!chunks[i]->isDataIndexActive(c_index))
                 {
                     c_index++;
                     whileCounter++;

@@ -59,7 +59,7 @@ public:
             componentArray = chunks[currChunk]->getComponentArray<T>();
         }
         int whileCounter = 0;
-        while (!chunks[currChunk]->isIndexActive(currIndex))
+        while (!chunks[currChunk]->isDataIndexActive(currIndex))
         {
             currIndex++;
             whileCounter++;

@@ -16,8 +16,8 @@ public:
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
     void DestoryObject(EntityID id);
-    void DeleteB2DBodyGuardFunction(b2Body* body, EntityID id);
-    void AddB2BodyGuardFunction(b2Body* body, EntityID id);
+    void B2DBodyDeleteGuardFunction(b2Body* body, EntityID id);
+    void B2DBodyAddGuardFunction(b2Body* body, EntityID id);
 
 private:
     const float timeStep = 1.0f / 60.0f;

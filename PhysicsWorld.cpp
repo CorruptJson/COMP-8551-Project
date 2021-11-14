@@ -53,7 +53,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         std::cout << "b2 world is nullptr" << std::endl;
     }
     physComponent->box2dBody = world->CreateBody(&bodyDef);
-    AddB2BodyGuardFunction(physComponent->box2dBody,id);
+    B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
     physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
@@ -158,41 +158,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++) {
             if (physComponents[i]->isFlaggedForDelete) {
 
-                // delete user data
-
-                delete reinterpret_cast<EntityUserData*>(physComponents[i]->box2dBody->GetUserData().pointer);
-
-                //auto find = destroyedPointers.find(physComponents[i]->box2dBody);
-                //if (find != destroyedPointers.end())
-                //{
-                //    EntityID other = find->second;
-                //    std::cout << "destroying pointer for a second time? Other: "<< other << std::endl;
-                //    if (coordinator->doesEntityExist(other))
-                //    {
-                //        std::cout << "other does exist" << std::endl;
-                //    }
-                //    else if (other == physComponents[i]->entityID) {
-                //        std::cout << "other is self?" << std::endl;
-                //    }
-                //    else
-                //    {
-                //        std::cout << "other does NOT exist" << std::endl;
-                //    }
-                //    destroyedPointers.erase(physComponents[i]->box2dBody);
-                //    destroyedPointers.emplace(physComponents[i]->box2dBody, physComponents[i]->entityID);
-                //}
-                //else
-                //{
-                //    destroyedPointers.emplace(physComponents[i]->box2dBody, physComponents[i]->entityID);
-                //}
-                
-
-                std::cout << "Deleting physics for " << physComponents[i]->entityID << std::endl;
-
-                //b2Fixture* fixtures = physComponents[i]->box2dBody->GetFixtureList();
-
-                //PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
-                DeleteB2DBodyGuardFunction(physComponents[i]->box2dBody, physComponents[i]->entityID);
+                B2DBodyDeleteGuardFunction(physComponents[i]->box2dBody, physComponents[i]->entityID);
                 EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);
                 continue;
             }
@@ -212,7 +178,7 @@ void PhysicsWorld::DestoryObject(EntityID id)
     physComponent->isFlaggedForDelete = true;
 }
 
-void PhysicsWorld::DeleteB2DBodyGuardFunction(b2Body* body,EntityID id)
+void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
 {
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
@@ -237,7 +203,7 @@ void PhysicsWorld::DeleteB2DBodyGuardFunction(b2Body* body,EntityID id)
     PhysicsWorld::getInstance().world->DestroyBody(body);
 }
 
-void PhysicsWorld::AddB2BodyGuardFunction(b2Body* body, EntityID id)
+void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
 {
     auto activeFind = activeBodies.find(body);
     if (activeFind != activeBodies.end())

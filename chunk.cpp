@@ -152,7 +152,7 @@ bool Chunk::doesEntityExist(EntityID id)
     return (entToDat[id.index] != -1 && id.version == versions[id.index]);
 }
 
-bool Chunk::isIndexActive(int i) {
+bool Chunk::isDataIndexActive(int i) {
     return entToDat[i] != -1;
 }
 
