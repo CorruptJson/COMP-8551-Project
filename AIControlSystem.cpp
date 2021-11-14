@@ -1,15 +1,13 @@
 #include "AIControlSystem.h"
 
-AIControlSystem::~AIControlSystem() {
-
+AIControlSystem::~AIControlSystem() 
+{
 }
 
 void AIControlSystem::processEntity(EntityID id) {
-
     // Components for enemy
     //EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
-    //PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     //RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
     //MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
@@ -17,55 +15,53 @@ void AIControlSystem::processEntity(EntityID id) {
     //float xVelocity = moveComponent->getVelocity().x;
     //float yVelocity = moveComponent->getVelocity().y;
 
-    if (isWallCollision(id)) {
-        switchDirection(id);
-    }
+    //if (isWallCollision(id)) {
+        //switchDirection(id);
+    //}
+
+    handleWallCollision(id);
 }
 
-void AIControlSystem::Update(EntityCoordinator* coordinator) {
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<MovementComponent>(),
-    });
-
-    int entitiesFound = entityQuery->totalEntitiesFound();
-    std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
-
-    for (int i = 0; i < entitiesFound; i++) {
-    }
-}
-
-bool AIControlSystem::isWallCollision(EntityID id) {
+void AIControlSystem::handleWallCollision(EntityID id) {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
+    RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
     MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
     b2ContactEdge* contactList = physComponent->box2dBody->GetContactList();
+
+    float yVelocity = moveComponent->getVelocity().y;
 
     while (contactList != nullptr) {
         // 0.5 from left, -0.5 from right
         PhysicsComponent* physComponentB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
         if (coordinator.entityHasTag(PLATFORM, physComponentB->entityID)) {
-            if (contactList->contact->GetManifold()->localPoint.x == -0.5 || contactList->contact->GetManifold()->localPoint.x == 0.5) {
-                //cout << "X point: " << contactList->contact->GetManifold()->localPoint.x << 
-                //    " Y point: " << contactList->contact->GetManifold()->localPoint.y << endl;
+            //cout << "X point: " << contactList->contact->GetManifold()->localPoint.x << endl;
 
-                return true;
+            if (contactList->contact->GetManifold()->localPoint.x == 0.5) {
+                renderComponent->flipX = !renderComponent->flipX;
+                moveComponent->setVelocity(2.0f, yVelocity);
+                //return true;
             }
+            else if (contactList->contact->GetManifold()->localPoint.x == 0.5) {
+                moveComponent->setVelocity(-2.0f, yVelocity);
+                //return true;
+            }
+
         }
 
         contactList = contactList->next;
     }
-
-    return false;
+    //return false;
 }
 
 void AIControlSystem::switchDirection(EntityID id) {
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
-    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
+    //EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    //RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
+    //MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
-    float xVelocity = moveComponent->getVelocity().x;
-    float yVelocity = moveComponent->getVelocity().y;
+    //float xVelocity = moveComponent->getVelocity().x;
+    //float yVelocity = moveComponent->getVelocity().y;
 
     //renderComponent->flipX = !renderComponent->flipX;
     //moveComponent->setVelocity(-xVelocity, yVelocity);

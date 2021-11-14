@@ -11,11 +11,12 @@ class AIControlSystem
 public:
     ~AIControlSystem();
     void processEntity(EntityID id);
-    void Update(EntityCoordinator* coordinator);
-
     //void Receive(Event e, void* args);
 private:
-    bool isWallCollision(EntityID id);
+
+
+
+    void handleWallCollision(EntityID id);
     void switchDirection(EntityID id);
 };
 

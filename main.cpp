@@ -176,6 +176,12 @@ int teardown()
     // when the engine closes
     renderer->teardown();
 
+    delete coordinator;
+    delete sceneManager;
+
+    delete physicsWorld;
+    delete playerControl;
+    delete aiControl;
 
     return 0;
 }
