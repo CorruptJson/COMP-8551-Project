@@ -65,7 +65,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(ENEMY, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
-            moveComponent->setVelocity(2.0, 0);
+            moveComponent->setVelocity(2.0, 0); // temporary, for testing
             fixtureDef.filter.categoryBits = C_ENEMY;
             fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
         }

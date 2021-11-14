@@ -43,8 +43,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
         cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
             cout << "Platform" << endl;
-
-            cout << "X point: " << contact->GetManifold()->localPoint.x << " Y point: " << contact->GetManifold()->localPoint.y << endl;
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;
