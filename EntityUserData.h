@@ -7,8 +7,6 @@
 #include "MovementComponent.h"
 #include "StateComponent.h"
 
-
-
 struct EntityUserData {
     EntityID id;
 };

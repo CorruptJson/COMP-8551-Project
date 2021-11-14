@@ -154,7 +154,6 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
             }
             UpdateTransform(transformComponents[i], physComponents[i]);
             UpdateMovementComponent(moveComponents[i], physComponents[i]);
-
         }
     }
 }

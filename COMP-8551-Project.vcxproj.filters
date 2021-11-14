@@ -156,6 +156,9 @@
     <ClCompile Include="PlayerControlSystem.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="AIControlSystem.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AIControlSystem.h">
+      <Filter>Header Files\Physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
