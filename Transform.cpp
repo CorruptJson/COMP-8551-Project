@@ -1,5 +1,6 @@
+#define _USE_MATH_DEFINES
+#include <math.h>
 #include "Transform.h"
-#include <iostream>
 
 // public 
 Transform::Transform() : Transform(0, 0, 0, 1, 1) { }
@@ -56,10 +57,13 @@ void Transform::setScale(float x, float y) {
 }
 
 Rotation Transform::getRotation() {
-    return rotation;
+    // Convert from radians to degrees then return
+    return (rotation * (180.0f/M_PI));
 }
 
 void Transform::setRotation(float r) {
+    // Convert the degree value to radians so openGL can use it
+    r = r * (M_PI / 180.0f);
     rotation = r;
     changed = true;
 }

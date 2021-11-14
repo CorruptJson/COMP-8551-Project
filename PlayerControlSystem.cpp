@@ -75,8 +75,9 @@ void PlayerControlSystem::processEntity(EntityID id) {
     }
     // added to test rotation
     if (input.isKeyDown(InputTracker::R)) {
-        int rot = transformComponent->getRotation();
-        transformComponent->setRotation(rot + 45.0f);
+        /*int rot = transformComponent->getRotation();
+        transformComponent->setRotation(rot + 45.0f);*/
+        transformComponent->setRotation(90.0f);
     }
     //if (isCollided) {
     //    isReset = true;
