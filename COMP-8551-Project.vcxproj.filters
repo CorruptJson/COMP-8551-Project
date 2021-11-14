@@ -266,9 +266,6 @@
     <ClInclude Include="GameEntityCreator.h">
       <Filter>Header Files\GameManagerStuff</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files\GameManagerStuff</Filter>
-    </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -323,6 +320,9 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png">
@@ -340,7 +340,13 @@
     <Image Include="platform.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="wall.jpg">
+    <Image Include="logo.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="star.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="fire.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

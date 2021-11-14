@@ -236,9 +236,11 @@
     <Image Include="background.png" />
     <Image Include="bullet.png" />
     <Image Include="Edgar_The_Exterminator.png" />
+    <Image Include="fire.png" />
     <Image Include="Giant_Roach.png" />
+    <Image Include="logo.png" />
     <Image Include="platform.png" />
-    <Image Include="wall.jpg" />
+    <Image Include="star.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />

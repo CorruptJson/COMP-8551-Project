@@ -9,7 +9,9 @@ enum Tag
     ACTOR,   
     BULLET,  
     PLATFORM,
-    SCENERY  
+    SCENERY,
+    STAR,
+    FIRE
 };
 
 //Tagset CombineTags(std::vector<Tag> tags);
