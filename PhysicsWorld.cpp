@@ -1,10 +1,12 @@
 #include "PhysicsWorld.h"
 
 enum collisionCategory {
+    C_NONE = 0x0000,
     C_PLAYER = 0x0001,
     C_ENEMY = 0x0002,
     C_PLATFORM = 0x0004,
-    C_BULLET = 0x0008
+    C_BULLET = 0x0008,
+    C_FIRE = 0x0016
 };
 
 PhysicsWorld::PhysicsWorld() {
@@ -65,7 +67,8 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(ENEMY, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
-            moveComponent->setVelocity(2.0, 0); // temporary, for testing
+            moveComponent->setVelocity(2.0, 0); // THIS IS TEMPORARY, 
+
             fixtureDef.filter.categoryBits = C_ENEMY;
             fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
         }
@@ -76,6 +79,10 @@ void PhysicsWorld::AddObject(EntityID id) {
         else if (coordinator.entityHasTag(BULLET, id)) {
             fixtureDef.filter.categoryBits = C_BULLET;
             fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
+        }
+        else if (coordinator.entityHasTag(FIRE, id)) {
+            fixtureDef.filter.categoryBits = C_FIRE;
+            fixtureDef.filter.maskBits = C_NONE;
         }
 
         physComponent->box2dBody->CreateFixture(&fixtureDef);
