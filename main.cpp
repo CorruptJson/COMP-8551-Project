@@ -130,13 +130,11 @@ void fixedFrameUpdate()
 
     playerControl->processEntity(mike);
 
-    aiControl->Update(coordinator);
-
-    //for (auto const& e : sceneManager->entities) {
-    //    if (coordinator->entityHasTag(Tag::ENEMY, e)) {
-    //        aiControl->processEntity(e);
-    //    }
-    //}
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasTag(Tag::ENEMY, e)) {
+            aiControl->processEntity(e);
+        }
+    }
 }
 
 void graphicsUpdate()

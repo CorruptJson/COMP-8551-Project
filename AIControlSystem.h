@@ -15,7 +15,7 @@ public:
 
     //void Receive(Event e, void* args);
 private:
-    bool isWallCollision(EntityID id);
+    void handleWallCollision(EntityID id);
     void switchDirection(EntityID id);
 };
 

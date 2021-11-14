@@ -17,14 +17,6 @@ void AIControlSystem::processEntity(EntityID id) {
     float xVelocity = moveComponent->getVelocity().x;
     float yVelocity = moveComponent->getVelocity().y;
 
-    // Currently testing this way because there is no state connected to entities with ENEMY tag
-
-    //float speed = 2.0f;
-    //xVelocity = speed;
-    //moveComponent->setVelocity(xVelocity, yVelocity);
-
-
-
     if (isWallCollision(id)) {
         switchDirection(id);
     }
@@ -32,13 +24,14 @@ void AIControlSystem::processEntity(EntityID id) {
 
 void AIControlSystem::Update(EntityCoordinator* coordinator) {
     std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<MovementComponent>()
+        coordinator->GetComponentType<MovementComponent>(),
     });
 
     int entitiesFound = entityQuery->totalEntitiesFound();
     std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
 
-
+    for (int i = 0; i < entitiesFound; i++) {
+    }
 }
 
 bool AIControlSystem::isWallCollision(EntityID id) {
