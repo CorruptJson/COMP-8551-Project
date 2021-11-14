@@ -15,11 +15,12 @@ void AIControlSystem::processEntity(EntityID id) {
     //float xVelocity = moveComponent->getVelocity().x;
     //float yVelocity = moveComponent->getVelocity().y;
 
-    //if (isWallCollision(id)) {
-        //switchDirection(id);
-    //}
-
-    //handleWallCollision(id);
+    if (isWallCollision(id) == 0) {
+        switchDirection(id, -0.5);
+    }
+    else if (isWallCollision(id) == 1) {
+        switchDirection(id, 0.5);
+    }
 }
 
 int AIControlSystem::isWallCollision(EntityID id) {
@@ -37,20 +38,18 @@ int AIControlSystem::isWallCollision(EntityID id) {
 
         if (coordinator.entityHasTag(PLATFORM, physComponentB->entityID)) {
             //cout << "X point: " << contactList->contact->GetManifold()->localPoint.x << endl;
-
             if (contactList->contact->GetManifold()->localPoint.x == -0.5) {
                 return 0;
             }
             else if (contactList->contact->GetManifold()->localPoint.x == 0.5) {
                 return 1;
             }
-
         }
 
         contactList = contactList->next;
     }
     
-    return -1;
+    return false;
 }
 
 void AIControlSystem::switchDirection(EntityID id, float contactPoint) {
@@ -69,9 +68,6 @@ void AIControlSystem::switchDirection(EntityID id, float contactPoint) {
         renderComponent->flipX = true;
         moveComponent->setVelocity(2.0f, yVelocity);
     }
-
-    //renderComponent->flipX = !renderComponent->flipX;
-    //moveComponent->setVelocity(-xVelocity, yVelocity);
 }
 
 /*void AIControlSystem::Receive(Event e, void* args) {
