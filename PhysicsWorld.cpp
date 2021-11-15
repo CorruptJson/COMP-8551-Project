@@ -100,6 +100,10 @@ void PhysicsWorld::AddObject(EntityID id) {
             fixtureDef.filter.categoryBits = C_STAR;
             fixtureDef.filter.maskBits = C_PLAYER;
         }
+        else if (coordinator.entityHasTag(ENEMYSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_ENEMYSPAWNER;
+            fixtureDef.filter.maskBits = C_PLAYER;
+        }
 
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }

@@ -46,6 +46,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
             cout << "Fire" << endl;
             //EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
+        else if (tagSecond == ENEMYSPAWNER) {
+            cout << "EnemySpawner" << endl;
+        }
         else
         {
             cout << endl;
