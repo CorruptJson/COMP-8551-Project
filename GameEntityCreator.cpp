@@ -21,7 +21,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<MovementComponent>(),
         ec.GetComponentType<StateComponent>()
 
-
         });
 
     testArchetype = ec.GetArchetype({

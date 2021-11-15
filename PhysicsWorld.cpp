@@ -28,6 +28,9 @@ PhysicsWorld& PhysicsWorld::getInstance()
 
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
+
+    //std::cout << "adding to phys: " << id << std::endl;
+
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
@@ -39,14 +42,20 @@ void PhysicsWorld::AddObject(EntityID id) {
     //EntityUserData* entityUserData = new EntityUserData;
     //entityUserData->id = id;
 
-    b2BodyDef bodyDef;
+    //b2BodyDef bodyDef = b2BodyDef();
+    b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
     bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
-
-    physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
+    b2World* world = PhysicsWorld::getInstance().world;
+    if (world == nullptr)
+    {
+        std::cout << "b2 world is nullptr" << std::endl;
+    }
+    physComponent->box2dBody = world->CreateBody(&bodyDef);
+    B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
     physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
@@ -156,8 +165,9 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
         for (int i = 0; i < entitiesFound; i++) {
             if (physComponents[i]->isFlaggedForDelete) {
-                PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
-                EntityCoordinator::getInstance().DestroyEntity(physComponents[i]->entityID);
+
+                B2DBodyDeleteGuardFunction(physComponents[i]->box2dBody, physComponents[i]->entityID);
+                EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);
                 continue;
             }
             UpdateTransform(transformComponents[i], physComponents[i]);
@@ -173,6 +183,51 @@ void PhysicsWorld::DestoryObject(EntityID id)
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     physComponent->isFlaggedForDelete = true;
+}
+
+void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind == activeBodies.end())
+    {
+        std::cout << "trying to delete body that is not active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.erase(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        std::cout << "trying to delete an inactive body? Ent: " << id << std::endl;
+    }
+    else
+    {
+        deactivatedBodies.emplace(body);
+    }
+
+    PhysicsWorld::getInstance().world->DestroyBody(body);
+}
+
+void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind != activeBodies.end())
+    {
+        std::cout << "trying to add body that is already active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.emplace(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        //std::cout << "resuin? Ent: " << id << std::endl;
+        deactivatedBodies.erase(body);
+    }
 }
 
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {

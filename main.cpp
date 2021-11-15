@@ -109,7 +109,6 @@ int test(){
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-
     }
     return 0;
 }
@@ -126,6 +125,7 @@ void fixedFrameUpdate()
 
     playerControl->processEntity(mike);
 
+    coordinator->endOfUpdate();
 }
 
 void graphicsUpdate()
@@ -164,6 +164,8 @@ int runEngine()
 // put teardown code here
 int teardown()
 {
+    std::cout << "ending programing" << std::endl;
+
     // when the engine closes
     renderer->teardown();
 
@@ -173,6 +175,7 @@ int teardown()
     delete physicsWorld;
     delete playerControl;
 
+
     return 0;
 }
 
@@ -180,25 +183,16 @@ int main() {
     initialize();
     test();
 
+    //entity test
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
     animator = Animator();
-
-    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
-
-    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
-
-
-
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
             
             physicsWorld->AddObject(e);
         }
-
-    }
-
-    
+    }    
 
     while (!glfwWindowShouldClose(window))
     {

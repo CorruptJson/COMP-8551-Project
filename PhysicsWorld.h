@@ -3,6 +3,9 @@
 #include "ContactListener.h"
 #include "EntityUserData.h"
 
+// thompson testing
+#include <set>
+
 class PhysicsWorld {
 public:
     PhysicsWorld();
@@ -13,6 +16,9 @@ public:
     void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
     void DestoryObject(EntityID id);
+    void B2DBodyDeleteGuardFunction(b2Body* body, EntityID id);
+    void B2DBodyAddGuardFunction(b2Body* body, EntityID id);
+
 private:
     const float timeStep = 1.0f / 60.0f;
     const int velocityIterations = 6;
@@ -21,6 +27,11 @@ private:
     b2Vec2* gravity;
     b2World* world;
     ContactListener* contactListener;
+
+    // thompson testing
+    std::map<b2Body*,EntityID> destroyedPointers;
+    std::set<b2Body*> activeBodies;
+    std::set<b2Body*> deactivatedBodies;
 
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
     void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);

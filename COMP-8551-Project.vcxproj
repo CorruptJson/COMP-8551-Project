@@ -151,6 +151,7 @@
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
     <ClCompile Include="chunkManager.cpp" />
+    <ClCompile Include="ComponentIterator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
@@ -171,6 +172,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="system_manager.cpp" />
+    <ClCompile Include="Tags.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -195,8 +197,10 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ComponentIterator.h" />
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />
@@ -222,6 +226,7 @@
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="system_manager.h" />
+    <ClInclude Include="TagFunctions.h" />
     <ClInclude Include="TagList.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="TextComponent.h" />
