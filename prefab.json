@@ -197,5 +197,20 @@
                 "friction": 0
             }
         }
+    },
+    {
+        "setPrefab": "PlayerSpawner",
+        "prefabValues": {
+            "tag": "scenery",
+            "transform": {
+                "xPos": 0,
+                "yPos": 0
+            },
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            }
+        }
     }
 ]

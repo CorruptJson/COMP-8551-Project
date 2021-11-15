@@ -44,7 +44,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
-            //EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            Transform* transformComponent = &EntityCoordinator::getInstance().GetComponent<Transform>(entFirst);
+            PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
+            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), 0);
+            //transformComponent->setPosition(0, 0);
+
         }
         else if (tagSecond == ENEMYSPAWNER) {
             cout << "EnemySpawner" << endl;
