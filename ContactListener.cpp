@@ -38,6 +38,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
         }
+        else if (tagSecond == STAR) {
+            cout << "Star" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+        }
+        else if (tagSecond == FIRE) {
+            cout << "Fire" << endl;
+            //EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+        }
         else
         {
             cout << endl;

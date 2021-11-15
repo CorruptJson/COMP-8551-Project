@@ -165,7 +165,7 @@
         "prefabValues": {
             "tag": "fire",
             "transform": {
-                "yPos": -4.5,
+                "yPos": -5.1,
                 "xScale": 2,
                 "yScale": 2
             },
