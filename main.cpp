@@ -59,14 +59,14 @@ const int VIEW_HEIGHT = 10;
 int initialize()
 {  
     // when the engine starts
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
+    glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
     //physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
-
 
     prevTime = Clock::now();
 
@@ -103,15 +103,12 @@ int test(){
     //creating text
     //                                                                   X      Y      R     G     B     Tags
     text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
-    
-
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-
     }
     return 0;
 }
@@ -127,6 +124,8 @@ void fixedFrameUpdate()
     coordinator->runSystemUpdates();
 
     playerControl->processEntity(mike);
+
+    coordinator->endOfUpdate();
 }
 
 void graphicsUpdate()
@@ -165,10 +164,17 @@ int runEngine()
 // put teardown code here
 int teardown()
 {
+    std::cout << "ending programing" << std::endl;
+
     // when the engine closes
     renderer->teardown();
 
-    
+    delete coordinator;
+    delete sceneManager;
+
+    delete physicsWorld;
+    delete playerControl;
+
 
     return 0;
 }
@@ -177,25 +183,16 @@ int main() {
     initialize();
     test();
 
+    //entity test
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
     animator = Animator();
-
-    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
-
-    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
-
-
-
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
             
             physicsWorld->AddObject(e);
         }
-
-    }
-
-    
+    }    
 
     while (!glfwWindowShouldClose(window))
     {

@@ -50,7 +50,8 @@ GLFWwindow* window;
 /// <param name="viewWidth">The width of the camera view in OpenGL coordinates</param>
 /// <param name="viewHeight">The height of the camera view in OpenGL coordinates</param>
 /// <returns></returns>
-int Renderer::init(int viewWidth, int viewHeight) {
+int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) {
+    backgroundColor = newBackgroundColor;
     int width, height;
     window = Renderer::setupGLFW(&width, &height);
     if (window == NULL)
@@ -133,18 +134,36 @@ void Renderer::loadImages() {
             "Edgar.png",
             1,
             11,
-            {Animator::createAnimation("hurt",6,6,0,true,250.0f),
-            Animator::createAnimation("idle",7,8,0,true,500.0f),
-            Animator::createAnimation("falling",9,10,0,true,500.0f),
-            Animator::createAnimation("running",0,5,0,true,150.0f)
+            {
+                Animator::createAnimation("hurt",6,6,0,true,250.0f),
+                Animator::createAnimation("idle",7,8,0,true,500.0f),
+                Animator::createAnimation("falling",9,10,0,true,500.0f),
+                Animator::createAnimation("running",0,5,0,true,150.0f)
             }
         },
         {
             "Giant_Roach.png",
             1,
             3,
-            {Animator::createAnimation("hurt",0,0,0,true,250.0f),
-            Animator::createAnimation("run",1,2,0,true,500.0f),
+            {
+                Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
+                Animator::createAnimation("run",1,2, 0, true, 500.0f),
+            }
+        },
+        {
+            "star.png",
+            1,
+            13,
+            {
+                Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
+            }
+        },
+        {
+            "fire.png",
+            1,
+            4,
+            {
+                Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
             }
         }
     };
@@ -239,15 +258,24 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     *width = 1800;
     *height = 1200;
 
-    // Make a window with size 800x800 with name of "Chunky Soup"
+    // Make a window with size 800x800 with name of "Edgar the Exterminator"
     // pass in monitor for the 3rd param if we want it to be full screen
-    GLFWwindow* window = glfwCreateWindow(*width, *height, "Chunky Soup", NULL, NULL);
-    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
-    //glfwSetWindowPos(window, 0, 0);
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", NULL, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
     }
+
+    // set window in the center of the monitor
+    // origin is top left corner
+    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
+
+    // set the window's icon
+    GLFWimage icon;
+    int colChannel;
+    icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
+    glfwSetWindowIcon(window, 1, &icon);
+    stbi_image_free(icon.pixels); // free memory
 
     // tell glfw that the window we just create will
     // be used to draw on
@@ -768,60 +796,70 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // calculate the modelViewMatrix
     //camera.moveCamera(0.01, 0.0);
 
-    // set background color (gray)
-    glClearColor(125 / 255.f, 125 / 255.f, 125 / 255.f, 0);
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
     // recall that OpenGL works using buffers
     // this is for the foreground color.
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<RenderComponent>(),
-        coordinator->GetComponentType<Transform>()
-        });
+    // draw entities by the spritesheet they use, so only need to load each sprite sheet once
+    auto mapIterator = sprites.begin();
+    for (; mapIterator != sprites.end(); mapIterator++)
+    {
+        std::string spriteSheet = mapIterator->first;
+        std::shared_ptr<EntityQuery> entsWithSprite = coordinator->entitiesWithSpriteSheet(spriteSheet);
+        int entitiesFound = entsWithSprite->totalEntitiesFound();
 
-    int entitiesFound = entityQuery->totalEntitiesFound();
-    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
+        // no entities using this sprite sheet, go to next loop
+        if (entitiesFound == 0)
+        {
+            continue;
+        }
 
-    for (int i = 0; i < entitiesFound; i++) {
-        RenderComponent component = *(renderComps[i]);
-        Transform t = *(transformComps[i]);
-        glm::mat4 modelMatrix = t.getModelMatrix();
+        loadTexture(spriteSheet);
+        ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
+        ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);        
 
-        // tell OpenGL to use this VAO (set it as active)
-        // need to do this before put data into the VAO
-        glBindVertexArray(vertexAttribs);
+        for (int i = 0; i < entitiesFound; i++)
+        {
+            RenderComponent* r = renderComponents.nextComponent();
+            Transform* t = transformComponents.nextComponent();
 
-        //calculate the tex coord from the component.index
-        updateTexCoord(component, component.spriteName);
+            glm::mat4 modelMatrix = t->getModelMatrix();
+            
+            // tell OpenGL to use this VAO (set it as active)
+            // need to do this before put data into the VAO
+            glBindVertexArray(vertexAttribs);
 
-        // load the data
-        loadVertexData();
-        loadIndicesData();
-        loadTexture(component.spriteName);
+            //calculate the tex coord from the component.index
+            updateTexCoord(*r, spriteSheet);
 
-        // create vertex attrib pointers
-        // has to do this after loading data into buffers
-        // tell OpenGL how to intepret the vertex data that 
-        // we pass in. In memory, it just know we give it a chunk
-        // of bytes => tell it how many bytes make a vertex
-        // it helps to see the image at "Applying Texture"
-        // here: https://learnopengl.com/Getting-started/Textures
-        // first param is the input index of the vertex shader (see the first few lines).
-        // `aPos` is located at location 0 so we want to set the pointer for this
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
+            // load the data
+            loadVertexData();
+            loadIndicesData();
 
-        // do the same thing for the texture
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
+            // create vertex attrib pointers
+            // has to do this after loading data into buffers
+            // tell OpenGL how to intepret the vertex data that 
+            // we pass in. In memory, it just know we give it a chunk
+            // of bytes => tell it how many bytes make a vertex
+            // it helps to see the image at "Applying Texture"
+            // here: https://learnopengl.com/Getting-started/Textures
+            // first param is the input index of the vertex shader (see the first few lines).
+            // `aPos` is located at location 0 so we want to set the pointer for this
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+            glEnableVertexAttribArray(0);
 
-        glUseProgram(defaultShaderProgram);
-        loadUniforms(modelMatrix);
+            // do the same thing for the texture
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+            glEnableVertexAttribArray(1);
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glUseProgram(defaultShaderProgram);
+            loadUniforms(modelMatrix);
+
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
     }
 
     //unbinds the current vao and vbo
@@ -861,6 +899,7 @@ int Renderer::teardown() {
     glfwTerminate();
     return 0;
 }
+
 Renderer* Renderer::getInstance()
 {
     if (renderer == nullptr)

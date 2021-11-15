@@ -29,7 +29,9 @@ unordered_map<std::string, eKeys> keyMap = {
 unordered_map<std::string, Tag> tagMap = {
     {"enemy", ENEMY},
     {"platform", PLATFORM},
-    {"player", PLAYER}
+    {"player", PLAYER},
+    {"star", STAR},
+    {"fire", FIRE}
 };
 
 
@@ -39,7 +41,9 @@ unordered_map<std::string, Tag> tagMap = {
 unordered_map <std::string, const char*> spriteMap = {
     {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
-    {"Edgar.png", "Edgar.png"}
+    {"Edgar.png", "Edgar.png"},
+    {"star.png", "star.png"},
+    {"fire.png", "fire.png"}
 };
 
 
@@ -93,7 +97,6 @@ void SceneManager::CreateEntities() {
         if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
-        std::cout << ev.spriteName << std::endl;
         EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
 
         entities.push_back(ent);
@@ -166,7 +169,6 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     //loop through components in the entity
     for (auto& component : jsonObject.items()) {
-        std::cout << "component"<<component.key() << std::endl;
         // Set component booleans and set their values in this switch statement
         if (keyMap.find(component.key()) != keyMap.end()) {
             switch (keyMap[component.key()]) {

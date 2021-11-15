@@ -1,11 +1,28 @@
 #pragma once
 
+#include"Types.h"
+
 enum Tag
 {
-    PLAYER,
-    ENEMY,
-    ACTOR,
-    BULLET,
+    PLAYER,  
+    ENEMY,   
+    ACTOR,   
+    BULLET,  
     PLATFORM,
-    SCENERY
+    SCENERY,
+    STAR,
+    FIRE
 };
+
+//Tagset CombineTags(std::vector<Tag> tags);
+//
+//bool DoesLeftContainRight(Tagset left, Tagset right);
+//
+//Tag GetMajorTag(Tag tag);
+
+//bool DoesLeftContainRight(Tagset left, Tag right)
+//{
+//    int masked = left & right;
+//    return right ^ left;
+//}
+

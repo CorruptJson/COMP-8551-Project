@@ -31,6 +31,13 @@
         }
     },
     {
+        "usePrefab": "Star",
+        "transform": {
+            "xPos":  -4,
+            "yPos":  1.5
+        }
+    },
+    {
         "usePrefab": "Wall",
         "_comment": "left wall",
         "transform": {
@@ -57,6 +64,24 @@
         "_comment": "top right ceiling",
         "transform": {
             "xPos": 4.25
+        }
+    },
+
+
+    {
+        "usePrefab": "InvisiblePlatform",
+        "_comment": "block the top left ceiling",
+        "transform": {
+            "xPos": -1.5,
+            "yPos": 5.5
+        }
+    },
+    {
+        "usePrefab": "InvisiblePlatform",
+        "_comment": "block the top right ceiling",
+        "transform": {
+            "xPos": 1.5,
+            "yPos": 5.5
         }
     },
 
@@ -120,6 +145,20 @@
         "_comment": "bottom right bottom platform",
         "transform": {
             "xPos": 5.25
+        }
+    },
+    {
+        "usePrefab": "Fire",
+        "_comment": "left fire",
+        "transform": {
+            "xPos": -0.5
+        }
+    },
+    {
+        "usePrefab": "Fire",
+        "_comment": "right fire",
+        "transform": {
+            "xPos": 0.5
         }
     }
 
