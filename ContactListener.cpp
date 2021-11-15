@@ -38,6 +38,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
         }
+        else
+        {
+            cout << endl;
+        }
     }
     else if (tagFirst == ENEMY) {
         cout << "Enemy contact with: ";
@@ -49,12 +53,20 @@ void ContactListener::BeginContact(b2Contact* contact) {
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
         }
+        else
+        {
+            cout << endl;
+        }
     }
     else if (tagFirst == BULLET) {
         cout << "Bullet contact with: ";
         if (tagSecond == PLATFORM) {
             cout << "Platform" << endl;
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+        }
+        else
+        {
+            cout << endl;
         }
     }
 }

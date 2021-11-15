@@ -156,6 +156,9 @@
     <ClCompile Include="PlayerControlSystem.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="ComponentIterator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -284,6 +287,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="TagFunctions.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="IObserver.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -301,6 +307,12 @@
     </ClInclude>
     <ClInclude Include="PlayerState.h">
       <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentIterator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Rendering</Filter>
