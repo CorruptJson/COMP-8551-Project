@@ -48,6 +48,10 @@
         "setPrefab": "InvisiblePlatform",
         "prefabValues": {
             "tag": "platform",
+            "transform": {
+                "xScale": 0.5,
+                "yScale": 0.5
+            },
             "physics": {
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
