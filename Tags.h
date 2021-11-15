@@ -11,7 +11,8 @@ enum Tag
     PLATFORM,
     SCENERY,
     STAR,
-    FIRE
+    FIRE,
+    ENEMYSPAWNER
 };
 
 //Tagset CombineTags(std::vector<Tag> tags);

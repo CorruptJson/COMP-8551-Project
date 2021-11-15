@@ -8,6 +8,7 @@ enum collisionCategory {
     C_BULLET = 0x0008,
     C_FIRE = 0x0016,
     C_STAR = 0x0032,
+    C_ENEMYSPAWNER = 0x0064
 
 };
 

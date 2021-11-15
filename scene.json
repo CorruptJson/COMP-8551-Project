@@ -160,6 +160,13 @@
         "transform": {
             "xPos": 0.5
         }
+    },
+    {
+        "usePrefab": "EnemySpawner",
+        "_comment": "enemy spawner top platform",
+        "transform": {
+           "yPos": 5.5
+        }
     }
 
 ]
