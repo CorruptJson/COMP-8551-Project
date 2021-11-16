@@ -45,13 +45,10 @@
         }
     },
     {
-        "setPrefab": "InvisiblePlatform",
+        "setPrefab": "Collider",
+        "_comment":  "Provides collider behaviour to objects. Usually use for platforms.",
         "prefabValues": {
             "tag": "platform",
-            "transform": {
-                "xScale": 0.5,
-                "yScale": 0.5
-            },
             "physics": {
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
@@ -61,9 +58,8 @@
     },
     {
         "setPrefab": "Platform",
-        "_comment":  "black platform is the default",
+        "_comment":  "Black platform is the default. Doesn't have any colliders attached by default.",
         "prefabValues": {
-            "tag": "platform",
             "transform": {
                 "xScale": 0.5,
                 "yScale": 0.5
@@ -72,11 +68,6 @@
                 "sprite": "platform.png",
                 "rowIndex":  1,
                 "colIndex":  1
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
             }
         }
     },
