@@ -12,8 +12,7 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION,
-    STATE
+    ANIMATION
 };
 
 // convert strings to enums here
@@ -23,7 +22,7 @@ unordered_map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
-    {"state", STATE}
+
 };
 
 
@@ -32,7 +31,9 @@ unordered_map<std::string, Tag> tagMap = {
     {"platform", PLATFORM},
     {"player", PLAYER},
     {"star", STAR},
-    {"fire", FIRE}
+    {"fire", FIRE},
+    {"enemySpawner", ENEMYSPAWNER},
+    {"playerSpawner", PLAYERSPAWNER}
 };
 
 
@@ -226,7 +227,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.physicsComponent = true;
                 ev.transformComponent = true;
                 ev.movementComponent = true;
-                
+                ev.stateComponent = true;
 
                 // TODO: do more than just check for one string
                 ev.bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
@@ -251,13 +252,11 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                     ? component.value()["animName"].get<std::string>() : ev.animName;
 
                 break;
-
-            case STATE:
-                ev.stateComponent = true;
-
-                break;
             }
         }
+        
+
+
     }
 
 };

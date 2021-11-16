@@ -165,22 +165,51 @@
         "prefabValues": {
             "tag": "fire",
             "transform": {
-                "yPos": -4.5,
-                "xScale": 2,
-                "yScale": 2
+              "yPos": -5.1,
+              "xScale": 1,
+              "yScale": 1
             },
             "render": {
-                "sprite": "fire.png",
-                "hasAnim": true
+              "sprite": "fire.png",
+              "hasAnim": true
+            },
+            "physics": {
+              "b2bodytype": "b2_staticBody",
+              "density": 1,
+              "friction": 0
+            },
+            "animation": {
+              "animName": "burn",
+              "isPlaying": true
+            }
+        }
+    },
+    {
+        "setPrefab": "EnemySpawner",
+        "prefabValues": {
+            "tag": "enemySpawner",
+            "transform": {
+                "yPos": 5.5
             },
             "physics": {
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
                 "friction": 0
+            }
+        }
+    },
+    {
+        "setPrefab": "PlayerSpawner",
+        "prefabValues": {
+            "tag": "playerSpawner",
+            "transform": {
+                "xPos": 0,
+                "yPos": 0
             },
-            "animation": {
-                "animName": "burn",
-                "isPlaying": true
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
             }
         }
     }

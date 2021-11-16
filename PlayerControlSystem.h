@@ -12,6 +12,7 @@ enum playerState {
     STATE_MOVING,
     STATE_HIT,
     STATE_SHOOTING,
+    STATE_DIE,
 };
 
 class PlayerControlSystem : public IObserver {
@@ -22,6 +23,8 @@ public:
     void jump();
     void shoot();
     bool isGrounded();
+    void checkRespawn();
+    bool isDead();
 
     void Receive(Event e, void* args) override;
     //void Update(EntityCoordinator* coordinator);

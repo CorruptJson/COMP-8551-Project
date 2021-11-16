@@ -160,6 +160,21 @@
         "transform": {
             "xPos": 0.5
         }
+    },
+    {
+        "usePrefab": "EnemySpawner",
+        "_comment": "enemy spawner top platform",
+        "transform": {
+            "yPos": 5.5
+        }
+    },
+    {
+        "usePrefab": "PlayerSpawner",
+        "_comment": "player spawner center stage",
+        "transform": {
+            "xPos": 0,
+            "yPos": 0
+        }
     }
 
 ]
