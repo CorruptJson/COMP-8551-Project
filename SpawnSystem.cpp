@@ -21,10 +21,11 @@ void SpawnSystem::SpawnStar()
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
     // create a new entity for bullet
-    float xPos = transformComponent.getPosition().x + transformComponent.getScale().x / 2;
-    float yPos = transformComponent.getPosition().y;
-    EntityID star = creator.CreateStar(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "star.png", { Tag::STAR }, false);
+    float xPos = -3.5;
+    float yPos = 1.5;
+    EntityID star = creator.CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR }, false);
 
+    /*
     std::unique_ptr<EntityQuery> eq = ec->GetEntityQuery({
         ec->GetComponentType<Transform>()
         });
@@ -45,6 +46,7 @@ void SpawnSystem::SpawnStar()
             
         }
     }
+    */
 
     physWorld.AddObject(star);
 }

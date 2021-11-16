@@ -2,7 +2,7 @@
 
 void TimerSystem::update() {
     counter++;
-    if (counter > 5000) {
+    if (counter > 200) {
         Notify(Event::SPAWN_STAR, nullptr);
         counter = 0;
     }

@@ -171,8 +171,10 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SpawnSystem.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="Tags.cpp" />
+    <ClCompile Include="TimerSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +224,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SpawnSystem.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
@@ -231,6 +234,7 @@
     <ClInclude Include="Tags.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TimerComponent.h" />
+    <ClInclude Include="TimerSystem.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>

@@ -98,7 +98,7 @@ int test(){
     
     //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
-    coordinator->addSystem<TimerSystem>().get()->Attach(coordinator->addSystem<SpawnSystem>().get());
+    coordinator->addSystem<TimerSystem>()->Attach(coordinator->addSystem<SpawnSystem>().get());
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });

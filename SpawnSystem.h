@@ -7,7 +7,7 @@
 #include "GameEntityCreator.h"
 #include "PhysicsWorld.h"
 
-class SpawnSystem: public IObserver
+class SpawnSystem: public System, public IObserver
 {
 public:
     SpawnSystem();
