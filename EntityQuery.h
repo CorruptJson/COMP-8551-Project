@@ -69,7 +69,8 @@ public:
                 {
                     c_index++;
                     whileCounter++;
-                    if (whileCounter > 16)
+                    //std::cout << "count: " << whileCounter << std::endl;
+                    if (whileCounter > 1000)
                     {
                         throw "loop limit reached";
                     }

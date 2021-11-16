@@ -263,7 +263,14 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
 void SceneManager::DeleteEntities() {
     for (auto &entity : entities) {
-        coordinator->scheduleEntityToDelete(entity);
+        if (coordinator->entityHasComponent<PhysicsComponent>(entity)) {
+
+            coordinator->GetComponent<PhysicsComponent>(entity).isFlaggedForDelete = true;
+        }
+        else {
+            //coordinator->scheduleEntityToDelete(entity);
+        }
+        
     }
     entities = {};
 }

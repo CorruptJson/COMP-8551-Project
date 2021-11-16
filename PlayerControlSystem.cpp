@@ -245,6 +245,8 @@ void PlayerControlSystem::Receive(Event e, void* args)
         break;
     case(Event::INPUT_SHOOT):
         shoot();
+        shoot();
+        shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot(); shoot();
         break;
     }
 }

@@ -131,6 +131,29 @@ void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
 
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::ONE)) {
+        sceneManager->DeleteEntities();
+        sceneManager->CreateEntities();
+        for (auto const& e : sceneManager->entities) {
+            if (coordinator->entityHasTag(Tag::PLAYER, e)) {
+                mike = e;
+                gameManager.SetPlayerID(mike);
+            }
+            if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+                mikeRespawner = e;
+                gameManager.SetPlayerRespawnerID(mikeRespawner);
+            }
+        }
+        for (auto const& e : sceneManager->entities) {
+            if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
+
+                physicsWorld->AddObject(e);
+            }
+        }
+    }
+
+
+
     // run physics
     physicsWorld->Update(coordinator);
     // run ECS systems
@@ -138,7 +161,11 @@ void fixedFrameUpdate()
 
     playerControl->processEntity(mike);
 
+
+
     coordinator->endOfUpdate();
+
+
 }
 
 void graphicsUpdate()
