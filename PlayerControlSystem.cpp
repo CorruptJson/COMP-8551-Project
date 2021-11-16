@@ -58,13 +58,13 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     // Animation, flip, and velocity
     if (input.isKeyDown(InputTracker::A)) {
-        renderComponent->flipX = false;
+        renderComponent->flipX = true;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(-speed, yVelocity);
         stateComponent->faceRight = false;
     }
     if (input.isKeyDown(InputTracker::D)) {
-        renderComponent->flipX = true;
+        renderComponent->flipX = false;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(speed, yVelocity);
         stateComponent->faceRight = true;
@@ -157,7 +157,7 @@ void PlayerControlSystem::shoot()
     EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
 
     RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-    bulletrenderComp->flipX = (stateComponent.faceRight) ? true : false;
+    bulletrenderComp->flipX = !stateComponent.faceRight;
 
     physWorld.AddObject(bullet);
 

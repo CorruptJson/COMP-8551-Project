@@ -55,11 +55,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
             if (contact->GetManifold()->localPoint.x == -0.5) {
-                renderComponent->flipX = true;
+                renderComponent->flipX = false;
                 moveComponent->setVelocity(2.0f, yVel);
             }
             else if (contact->GetManifold()->localPoint.x == 0.5) {
-                renderComponent->flipX = false;
+                renderComponent->flipX = true;
                 moveComponent->setVelocity(-2.0f, yVel);
             }
         }

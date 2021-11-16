@@ -61,11 +61,11 @@ void AIControlSystem::switchDirection(EntityID id, float contactPoint) {
     float yVelocity = moveComponent->getVelocity().y;
 
     if (contactPoint == 0.5) {
-        renderComponent->flipX = false;
+        renderComponent->flipX = true;
         moveComponent->setVelocity(-2.0f, yVelocity);
     }
     else if (contactPoint == -0.5) {
-        renderComponent->flipX = true;
+        renderComponent->flipX = false;
         moveComponent->setVelocity(2.0f, yVelocity);
     }
 }

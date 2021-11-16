@@ -600,18 +600,19 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     float topY = 1 - info.cellHeight * comp.rowIndex;
     float bottomY = topY - info.cellHeight; 
 
+    // coordinates of the texture coords in the vertices array
     if (comp.flipX) {
-        // coordinates of the texture coords in the vertices array
-        vertices[3] = rightX; // top right x
-        vertices[8] = rightX; // bottom right x
-        vertices[13] = leftX; // bottom left x
-        vertices[18] = leftX; // top left x
-    }
-    else {
         vertices[3] = leftX; // top right x
         vertices[8] = leftX; // bottom right x
         vertices[13] = rightX; // bottom left x
         vertices[18] = rightX; // top left x
+    }
+    else {
+        // normal coords
+        vertices[3] = rightX; // top right x
+        vertices[8] = rightX; // bottom right x
+        vertices[13] = leftX; // bottom left x
+        vertices[18] = leftX; // top left x
     }
 
     // y values of the tex coords

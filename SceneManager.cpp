@@ -121,7 +121,7 @@ void SceneManager::CreateEntities() {
                     ev.rowIndex,
                     ev.colIndex,
                     ev.hasAnimation,
-                    true
+                    false
             };
         }
 
