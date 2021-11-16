@@ -142,7 +142,7 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     return ent;
 }
 
-EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation, int state)
+EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
@@ -158,10 +158,6 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
         1.0f,
         0.0f,
         false
-    };
-    ec.GetComponent<StateComponent>(ent) = {
-      state,
-      true
     };
     return ent;
 }

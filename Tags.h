@@ -12,6 +12,7 @@ enum Tag
     SCENERY,
     STAR,
     FIRE,
+    SPAWNPOINT,
     ENEMYSPAWNER,
     PLAYERSPAWNER
 

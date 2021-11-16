@@ -16,6 +16,8 @@
 #include "InputComponent.h"
 #include "TextComponent.h"
 #include "inputSystem.h"
+#include "TimerSystem.h"
+#include "SpawnSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
@@ -95,6 +97,8 @@ int test(){
     inputSys->Attach(playerControl);
     
     //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
+
+    coordinator->addSystem<TimerSystem>().get()->Attach(coordinator->addSystem<SpawnSystem>().get());
 
     // For testing different archetypes
     //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });

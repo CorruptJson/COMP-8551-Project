@@ -1415,10 +1415,10 @@
     },
     {
         "usePrefab": "SpawnPoint",
-        "_comment": "test spawn location",
+        "_comment": "test star spawn location",
         "transform": {
-            "xPos": -1,
-            "yPos": 1
+            "xPos": -4,
+            "yPos": 1.5
         }
     },
     {

@@ -3,6 +3,10 @@
 #include "Event.h"
 #include "EntityQuery.h"
 #include "EntityCoordinator.h"
+#include "GameManager.h"
+#include "GameEntityCreator.h"
+#include "PhysicsWorld.h"
+
 class SpawnSystem: public IObserver
 {
 public:
