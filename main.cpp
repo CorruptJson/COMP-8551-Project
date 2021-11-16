@@ -52,7 +52,7 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-const int VIEW_WIDTH = 15;
+const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
 // gets called once when engine starts
