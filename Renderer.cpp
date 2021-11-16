@@ -61,12 +61,12 @@ int Renderer::init(int viewWidth, int viewHeight) {
     camera.setViewSize(viewWidth, viewHeight);
 
     //creates shader programs and puts them into the map
-    createShaderProgram("Default", DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
-    createShaderProgram("Text", TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
-    createShaderProgram("Doodle", DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
+    createShaderProgram(DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
+    createShaderProgram(TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
+    createShaderProgram(DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
 
     //sets the text shader to be used currently
-    glUseProgram(shaders["Text"].Program);
+    glUseProgram(shaders[TEXT].Program);
 
     loadImages();
 
@@ -254,7 +254,7 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     return window;
 }
 
-void Renderer::createShaderProgram(std::string shaderName, std::string vertPath, std::string fragPath) {
+void Renderer::createShaderProgram(ShaderName shaderName, std::string vertPath, std::string fragPath) {
         
     // shaders are OpenGL objects => we need to init them
     // and store a reference to them so we can use them later
@@ -525,26 +525,6 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     vertices[14] = bottomY; // bottom left y
 }
 
-void Renderer::setTexCoordToDefault() {
-    // coordinates of the texture coords in the vertices array
-    float rightX = 1.0f;
-    float leftX = 0.0f;
-    float topY = 1.0f;
-    float bottomY = 0.0f;
-
-    // x values
-    vertices[3] = rightX; // top right x
-    vertices[8] = rightX; // bottom right x
-    vertices[13] = leftX; // bottom left x
-    vertices[18] = leftX; // top left x
-
-    // y values of the tex coords
-    vertices[4] = topY; // top right y
-    vertices[19] = topY; // top left y
-    vertices[9] = bottomY; // bottom right y
-    vertices[14] = bottomY; // bottom left y
-}
-
 //function for rendering the text, later will be changed to render text components instead
 void Renderer::renderText(std::string text, float x, float y, float scale, glm::vec3 color)
 {
@@ -553,14 +533,14 @@ void Renderer::renderText(std::string text, float x, float y, float scale, glm::
     //no need to disable depth test, already disabled
 
    ////sets the current shader program to the text shader program
-    glUseProgram(shaders["Text"].Program);
+    glUseProgram(shaders[TEXT].Program);
     //sets the current shader program to use the projection matrix.
-    glUniformMatrix4fv(glGetUniformLocation(shaders["Text"].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
 
     //
-    glUniform3f(glGetUniformLocation(shaders["Text"].Program, "textColor"), color.x, color.y, color.z);
+    glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), color.x, color.y, color.z);
     //uniform location for the shader text
-    glUniform1i(glGetUniformLocation(shaders["Text"].Program, "text"), 0);
+    glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
@@ -620,14 +600,14 @@ void Renderer::renderTextComponent(TextComponent* text)
     //no need to disable depth test, already disabled
 
    ////sets the current shader program to the text shader program
-    glUseProgram(shaders["Text"].Program);
+    glUseProgram(shaders[TEXT].Program);
     //sets the current shader program to use the projection matrix.
-    glUniformMatrix4fv(glGetUniformLocation(shaders["Text"].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
 
     //
-    glUniform3f(glGetUniformLocation(shaders["Text"].Program, "textColor"), text->R, text->G, text->B);
+    glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), text->R, text->G, text->B);
     //uniform location for the shader text
-    glUniform1i(glGetUniformLocation(shaders["Text"].Program, "text"), 0);
+    glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
@@ -752,8 +732,8 @@ int Renderer::update(EntityCoordinator* coordinator) {
         /*glUseProgram(defaultShaderProgram);
         loadUniforms(modelMatrix);*/
 
-        glUseProgram(shaders["Default"].Program);
-        loadShaderUniforms(shaders["Default"],modelMatrix);
+        glUseProgram(shaders[component.shaderName].Program);
+        loadShaderUniforms(shaders[DEFAULT],modelMatrix);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -762,8 +742,6 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    //setTexCoordToDefault();
 
     //text rendering begins here
     std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({

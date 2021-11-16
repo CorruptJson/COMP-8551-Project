@@ -112,8 +112,7 @@ void SceneManager::CreateEntities() {
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    "doodleVertShader.vs",
-                    "doodleFragShader.fs",
+                    DEFAULT,
                     ev.spriteName,
                     0,
                     0,

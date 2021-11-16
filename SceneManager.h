@@ -31,6 +31,7 @@ struct EntityValues {
     float rotation = 0.0f;
 
     // RenderComponent
+    ShaderName shaderName = DEFAULT;
     bool hasAnimation = false;
     float rowIndex = 0;
     float colIndex = 0;
