@@ -201,7 +201,7 @@
     {
         "setPrefab": "PlayerSpawner",
         "prefabValues": {
-            "tag": "scenery",
+            "tag": "playerSpawner",
             "transform": {
                 "xPos": 0,
                 "yPos": 0

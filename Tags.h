@@ -12,7 +12,9 @@ enum Tag
     SCENERY,
     STAR,
     FIRE,
-    ENEMYSPAWNER
+    ENEMYSPAWNER,
+    PLAYERSPAWNER
+
 };
 
 //Tagset CombineTags(std::vector<Tag> tags);

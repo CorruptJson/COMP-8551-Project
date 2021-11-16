@@ -46,8 +46,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
             cout << "Fire" << endl;
             Transform* transformComponent = &EntityCoordinator::getInstance().GetComponent<Transform>(entFirst);
             PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
-            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), 0);
-            //transformComponent->setPosition(0, 0);
+              // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
+            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
+            transformComponent->setPosition(0, 20);
+
 
         }
         else if (tagSecond == ENEMYSPAWNER) {

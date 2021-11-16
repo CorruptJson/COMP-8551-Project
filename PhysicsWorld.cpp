@@ -9,7 +9,7 @@ enum collisionCategory {
     C_FIRE = 0x0016,
     C_STAR = 0x0032,
     C_ENEMYSPAWNER = 0x0064,
-    C_SCENERY = 0x0128
+    C_PLAYERSPAWNER = 0x0128
 
 };
 
@@ -105,8 +105,8 @@ void PhysicsWorld::AddObject(EntityID id) {
             fixtureDef.filter.categoryBits = C_ENEMYSPAWNER;
             fixtureDef.filter.maskBits = C_PLAYER;
         }
-        else if (coordinator.entityHasTag(SCENERY, id)) {
-            fixtureDef.filter.categoryBits = C_SCENERY;
+        else if (coordinator.entityHasTag(PLAYERSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_PLAYERSPAWNER;
             fixtureDef.filter.maskBits = C_NONE;
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);

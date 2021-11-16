@@ -124,6 +124,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+    checkRespawn();
 }
 
 void PlayerControlSystem::jump()
@@ -187,6 +188,45 @@ bool PlayerControlSystem::isGrounded()
     return false;
 }
 
+void PlayerControlSystem::checkRespawn()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+    PhysicsComponent& physComponent = coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
+    Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
+    float resPosX = spawnerTransformComponent.getPosition().x;
+    float resPosY = spawnerTransformComponent.getPosition().y;
+
+    if (isDead()) {
+        stateComponent.state = STATE_DIE;
+        transformComponent.setPosition(resPosX, resPosY);
+        physComponent.x = resPosX;
+        physComponent.y = resPosY;
+
+    }
+}
+
+bool PlayerControlSystem::isDead()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
+
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            return true;
+        }
+
+        contactList = contactList->next;
+    }
+
+    return false;
+}
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     switch (e) {
