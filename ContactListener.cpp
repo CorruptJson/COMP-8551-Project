@@ -108,6 +108,38 @@ void ContactListener::EndContact(b2Contact* contact) {
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {
 
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB)
+    {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else
+    {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER)
+    {
+        if (tagSecond == ENEMY)
+        {
+            contact->SetEnabled(false);
+        }
+    }
 }
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
