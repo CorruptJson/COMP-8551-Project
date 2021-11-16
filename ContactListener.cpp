@@ -38,6 +38,22 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
         }
+        else if (tagSecond == STAR) {
+            cout << "Star" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+        }
+        else if (tagSecond == FIRE) {
+            cout << "Fire" << endl;
+            Transform* transformComponent = &EntityCoordinator::getInstance().GetComponent<Transform>(entFirst);
+            PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
+              // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
+            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
+
+
+        }
+        else if (tagSecond == ENEMYSPAWNER) {
+            cout << "EnemySpawner" << endl;
+        }
         else
         {
             cout << endl;
@@ -55,11 +71,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
             if (contact->GetManifold()->localPoint.x == -0.5) {
-                renderComponent->flipX = true;
+                renderComponent->flipX = false;
                 moveComponent->setVelocity(2.0f, yVel);
             }
             else if (contact->GetManifold()->localPoint.x == 0.5) {
-                renderComponent->flipX = false;
+                renderComponent->flipX = true;
                 moveComponent->setVelocity(-2.0f, yVel);
             }
         }

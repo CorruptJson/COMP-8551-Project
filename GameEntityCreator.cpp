@@ -50,7 +50,7 @@ RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteNam
     0,
     0,
     hasAnimation,
-    true
+    false
     };
     return rc;
 }
