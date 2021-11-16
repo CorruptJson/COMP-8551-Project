@@ -43,6 +43,7 @@ Archetype standardArch;
 EntityID mike;
 EntityID timer;
 EntityID text;
+EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -108,6 +109,10 @@ int test(){
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
             gameManager.SetPlayerID(mike);
+        }
+        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+            mikeRespawner = e;
+            gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
     return 0;

@@ -1,1 +1,1431 @@
-[{"tag":"player","transform":{"xScale":1,"yScale":1,"yPos":1},"render":{"sprite":"Edgar.png","hasAnim":true},"physics":{"b2bodytype":"b2_dynamicBody","density":1,"friction":0},"animation":{"animName":"idle","isPlaying":true},"state":{}},{"usePrefab":"Roach","transform":{"xScale":1,"yScale":1,"xPos":4,"yPos":1}},{"usePrefab":"Star","transform":{"xPos":-4,"yPos":1.5}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":4.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":3.75}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":3.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":2.75}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":2.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":1.75}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":1.25}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":0.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-6.75,"yPos":2.5,"xScale":0.5,"yScale":4}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":0.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-0.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-0.75}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-1.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-1.75}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-2.25}},{"usePrefab":"WallRight","transform":{"xPos":-6.75,"yPos":-2.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-6.75,"yPos":-1.25,"xScale":0.5,"yScale":3.5}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":4.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":3.75}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":3.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":2.75}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":2.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":1.75}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":1.25}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":0.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":6.75,"yPos":2.5,"xScale":0.5,"yScale":4}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":0.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-0.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-0.75}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-1.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-1.75}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-2.25}},{"usePrefab":"WallLeft","transform":{"xPos":6.75,"yPos":-2.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":6.75,"yPos":-1.25,"xScale":0.5,"yScale":3.5}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-6.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-5.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-5.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-4.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-4.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-3.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-3.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-2.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-2.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-1.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":-1.25,"yPos":4.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-4,"yPos":4.75,"xScale":6,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":6.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":5.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":5.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":4.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":4.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":3.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":3.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":2.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":2.25,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":1.75,"yPos":4.75}},{"usePrefab":"Ceiling","transform":{"xPos":1.25,"yPos":4.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":4,"yPos":4.75,"xScale":6,"yScale":0.5}},{"usePrefab":"Collider","_comment":"block the top left ceiling","tag":"platform","transform":{"xPos":-1.25,"yPos":5.25,"xScale":0.5,"yScale":0.5}},{"usePrefab":"Collider","_comment":"block the top left ceiling","tag":"platform","transform":{"xPos":-1.25,"yPos":5.75,"xScale":0.5,"yScale":0.5}},{"usePrefab":"Collider","_comment":"block the top left ceiling","tag":"platform","transform":{"xPos":1.25,"yPos":5.25,"xScale":0.5,"yScale":0.5}},{"usePrefab":"Collider","_comment":"block the top left ceiling","tag":"platform","transform":{"xPos":1.25,"yPos":5.75,"xScale":0.5,"yScale":0.5}},{"usePrefab":"PlatformLeftCorner","transform":{"xPos":-1.75,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-1.25,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-0.75,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-0.25,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":0.25,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":0.75,"yPos":2.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":1.25,"yPos":2.75}},{"usePrefab":"PlatformRightCorner","transform":{"xPos":1.75,"yPos":2.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":0,"yPos":2.75,"xScale":4,"yScale":0.5}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-6.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-5.75,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-5.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-4.75,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-4.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-3.75,"yPos":0.75}},{"usePrefab":"PlatformRightCorner","transform":{"xPos":-3.25,"yPos":0.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-4.75,"yPos":0.75,"xScale":3.5,"yScale":0.5}},{"usePrefab":"PlatformMiddle","transform":{"xPos":6.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":5.75,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":5.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":4.75,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":4.25,"yPos":0.75}},{"usePrefab":"PlatformMiddle","transform":{"xPos":3.75,"yPos":0.75}},{"usePrefab":"PlatformLeftCorner","transform":{"xPos":3.25,"yPos":0.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":4.75,"yPos":0.75,"xScale":3.5,"yScale":0.5}},{"usePrefab":"PlatformLeftCorner","transform":{"xPos":-2.75,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-2.25,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-1.75,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-1.25,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-0.75,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-0.25,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":0.25,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":0.75,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":1.25,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":1.75,"yPos":-1.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":2.25,"yPos":-1.25}},{"usePrefab":"PlatformRightCorner","transform":{"xPos":2.75,"yPos":-1.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":0,"yPos":-1.25,"xScale":6,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-6.25,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-5.75,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-5.25,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-4.75,"yPos":-3.25}},{"usePrefab":"PlatformRightCorner","transform":{"xPos":-4.25,"yPos":-3.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-5.5,"yPos":-3.25,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":6.25,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":5.75,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":5.25,"yPos":-3.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":4.75,"yPos":-3.25}},{"usePrefab":"PlatformLeftCorner","transform":{"xPos":4.25,"yPos":-3.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":5.5,"yPos":-3.25,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":-6.25,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":-5.75,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":-5.25,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":-4.75,"yPos":-3.75}},{"usePrefab":"WallRight","transform":{"xPos":-4.25,"yPos":-3.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-5.5,"yPos":-3.75,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":6.25,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":5.75,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":5.25,"yPos":-3.75}},{"usePrefab":"Platform","transform":{"xPos":4.75,"yPos":-3.75}},{"usePrefab":"WallLeft","transform":{"xPos":4.25,"yPos":-3.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":5.5,"yPos":-3.75,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":-6.25,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":-5.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":-5.25,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":-4.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":-4.25,"yPos":-4.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-5.5,"yPos":-4.25,"xScale":3,"yScale":0.5}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-3.75,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-3.25,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-2.75,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-2.25,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":-1.75,"yPos":-4.25}},{"usePrefab":"PlatformRightCorner","transform":{"xPos":-1.25,"yPos":-4.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-2.5,"yPos":-4.25,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":6.25,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":5.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":5.25,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":4.75,"yPos":-4.25}},{"usePrefab":"Platform","transform":{"xPos":4.25,"yPos":-4.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":5.5,"yPos":-4.25,"xScale":3,"yScale":0.5}},{"usePrefab":"PlatformMiddle","transform":{"xPos":3.75,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":3.25,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":2.75,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":2.25,"yPos":-4.25}},{"usePrefab":"PlatformMiddle","transform":{"xPos":1.75,"yPos":-4.25}},{"usePrefab":"PlatformLeftCorner","transform":{"xPos":1.25,"yPos":-4.25}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":2.5,"yPos":-4.25,"xScale":3,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":-6.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-6.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-5.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-5.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-4.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-4.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-3.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-3.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-2.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-2.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":-1.75,"yPos":-4.75}},{"usePrefab":"WallRight","transform":{"xPos":-1.25,"yPos":-4.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":-4,"yPos":-4.75,"xScale":6,"yScale":0.5}},{"usePrefab":"Platform","transform":{"xPos":6.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":6.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":5.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":5.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":4.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":4.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":3.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":3.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":2.75,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":2.25,"yPos":-4.75}},{"usePrefab":"Platform","transform":{"xPos":1.75,"yPos":-4.75}},{"usePrefab":"WallLeft","transform":{"xPos":1.25,"yPos":-4.75}},{"usePrefab":"Collider","tag":"platform","transform":{"xPos":4,"yPos":-4.75,"xScale":6,"yScale":0.5}},{"usePrefab":"Fire","transform":{"xPos":-0.5}},{"usePrefab":"Fire","transform":{"xPos":0.5}}]
+[
+    {
+        "tag": "player",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "yPos": 1
+        },
+        "render": {
+            "sprite": "Edgar.png",
+            "hasAnim": true
+        },
+        "physics": {
+            "b2bodytype": "b2_dynamicBody",
+            "density": 1,
+            "friction": 0
+        },
+        "animation": {
+            "animName": "idle",
+            "isPlaying": true
+        },
+        "state": {}
+    },
+    {
+        "usePrefab": "Roach",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "xPos": 4,
+            "yPos": 1
+        }
+    },
+    {
+        "usePrefab": "Star",
+        "transform": {
+            "xPos": -4,
+            "yPos": 1.5
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 4.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 3.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 3.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 2.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 1.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 1.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 2.5,
+            "xScale": 0.5,
+            "yScale": 4
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 0.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -0.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -0.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -1.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -2.25
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -2.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -1.25,
+            "xScale": 0.5,
+            "yScale": 3.5
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 4.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 3.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 3.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 2.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 1.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 1.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 2.5,
+            "xScale": 0.5,
+            "yScale": 4
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 0.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -0.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -0.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -1.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -2.25
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -2.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -1.25,
+            "xScale": 0.5,
+            "yScale": 3.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -3.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -3.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -2.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -2.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -1.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -4,
+            "yPos": 4.75,
+            "xScale": 6,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 3.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 3.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 2.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 2.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 1.75,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Ceiling",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": 4.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 4,
+            "yPos": 4.75,
+            "xScale": 6,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "_comment": "block the top left ceiling",
+        "tag": "platform",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": 5.25,
+            "xScale": 0.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "_comment": "block the top left ceiling",
+        "tag": "platform",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": 5.75,
+            "xScale": 0.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "_comment": "block the top left ceiling",
+        "tag": "platform",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": 5.25,
+            "xScale": 0.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "_comment": "block the top left ceiling",
+        "tag": "platform",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": 5.75,
+            "xScale": 0.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformLeftCorner",
+        "transform": {
+            "xPos": -1.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -0.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -0.25,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 0.25,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 0.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "PlatformRightCorner",
+        "transform": {
+            "xPos": 1.75,
+            "yPos": 2.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 0,
+            "yPos": 2.75,
+            "xScale": 4,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -3.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformRightCorner",
+        "transform": {
+            "xPos": -3.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": 0.75,
+            "xScale": 3.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 3.75,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "PlatformLeftCorner",
+        "transform": {
+            "xPos": 3.25,
+            "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": 0.75,
+            "xScale": 3.5,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformLeftCorner",
+        "transform": {
+            "xPos": -2.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -2.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -1.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -0.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -0.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 0.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 0.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 1.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 2.25,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "PlatformRightCorner",
+        "transform": {
+            "xPos": 2.75,
+            "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 0,
+            "yPos": -1.25,
+            "xScale": 6,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformRightCorner",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -5.5,
+            "yPos": -3.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "PlatformLeftCorner",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": -3.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 5.5,
+            "yPos": -3.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -5.5,
+            "yPos": -3.75,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 5.5,
+            "yPos": -3.75,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -5.5,
+            "yPos": -4.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -3.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -3.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -2.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -2.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": -1.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformRightCorner",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -2.5,
+            "yPos": -4.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 5.5,
+            "yPos": -4.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 3.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 3.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 2.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 2.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformMiddle",
+        "transform": {
+            "xPos": 1.75,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "PlatformLeftCorner",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 2.5,
+            "yPos": -4.25,
+            "xScale": 3,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -6.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -4.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -3.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -3.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -2.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -2.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": -1.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "WallRight",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": -4,
+            "yPos": -4.75,
+            "xScale": 6,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 6.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 4.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 3.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 3.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 2.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 2.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Platform",
+        "transform": {
+            "xPos": 1.75,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "WallLeft",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": -4.75
+        }
+    },
+    {
+        "usePrefab": "Collider",
+        "tag": "platform",
+        "transform": {
+            "xPos": 4,
+            "yPos": -4.75,
+            "xScale": 6,
+            "yScale": 0.5
+        }
+    },
+    {
+        "usePrefab": "Fire",
+        "transform": {
+            "xPos": -0.5
+        }
+    },
+    {
+        "usePrefab": "Fire",
+        "transform": {
+            "xPos": 0.5
+        }
+    },
+    {
+        "usePrefab": "EnemySpawner",
+        "_comment": "enemy spawner top platform",
+        "transform": {
+            "yPos": 5.5
+        }
+    },
+    {
+        "usePrefab": "PlayerSpawner",
+        "_comment": "player spawner center stage",
+        "transform": {
+            "xPos": 0,
+            "yPos": 0
+        }
+    }
+]
