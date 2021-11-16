@@ -24,6 +24,7 @@
 #include "GameManager.h"
 
 
+
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
 
@@ -55,6 +56,11 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
+//config files
+const std::string prefabs = "prefab.json";
+const std::string scene = "scene.json";
+
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -64,6 +70,8 @@ int initialize()
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
+    sceneManager->LoadPrefabs(prefabs);
+    sceneManager->LoadScene(scene);
 
     //physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());

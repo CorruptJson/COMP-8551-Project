@@ -57,8 +57,6 @@ unordered_map <std::string, const char*> spriteMap = {
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-    this->LoadScene("scene.json");
-    this->LoadPrefabs("prefab.json");
 }
 
 
@@ -261,3 +259,11 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
     }
 
 };
+
+
+void SceneManager::DeleteEntities() {
+    for (auto &entity : entities) {
+        coordinator->scheduleEntityToDelete(entity);
+    }
+    entities = {};
+}
