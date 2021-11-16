@@ -48,7 +48,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
               // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
             //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
-            transformComponent->setPosition(0, 20);
 
 
         }

@@ -4,7 +4,7 @@
 #include "InputComponent.h"
 #include "Animation.h"
 #include "Renderer.h"
-
+#include <thread>
 PlayerControlSystem::~PlayerControlSystem()
 {
 }
@@ -199,12 +199,22 @@ void PlayerControlSystem::checkRespawn()
     float resPosX = spawnerTransformComponent.getPosition().x;
     float resPosY = spawnerTransformComponent.getPosition().y;
 
-    if (isDead()) {
-        stateComponent.state = STATE_DIE;
-        transformComponent.setPosition(resPosX, resPosY);
-        physComponent.x = resPosX;
-        physComponent.y = resPosY;
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
 
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            //stateComponent.state = STATE_DIE;
+            // wait 0.2 second and reset position to center stage
+            this_thread::sleep_for(chrono::milliseconds(200));
+            physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
+            cout << "Life -1, position reset " << endl;
+            //stateComponent.state = STATE_NORMAL;
+        }
+
+        contactList = contactList->next;
     }
 }
 

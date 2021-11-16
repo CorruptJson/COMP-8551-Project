@@ -166,8 +166,8 @@
             "tag": "fire",
             "transform": {
               "yPos": -5.1,
-              "xScale": 2,
-              "yScale": 2
+              "xScale": 1,
+              "yScale": 1
             },
             "render": {
               "sprite": "fire.png",
