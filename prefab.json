@@ -183,5 +183,15 @@
                 "isPlaying": true
             }
         }
+    },
+    {
+        "setPrefab": "SpawnPoint",
+        "prefabValues": {
+            "tag": "spawnPoint",
+            "transform": {
+                "yPos": 0.0,
+                "xPos": 0.0
+            }
+        }
     }
 ]

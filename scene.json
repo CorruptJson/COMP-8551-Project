@@ -160,6 +160,14 @@
         "transform": {
             "xPos": 0.5
         }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "test spawn location",
+        "transform": {
+            "xPos": -1,
+            "yPos": 1
+        }
     }
 
 ]

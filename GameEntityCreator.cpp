@@ -31,6 +31,10 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<TextComponent>()
         });
 
+    starArchetype = ec.GetArchetype({
+        ec.GetComponentType<Transform>()
+        });
+
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
@@ -135,5 +139,29 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     //ec.GetComponent<TextComponent>(ent).size = 1.0f;
     ec.GetComponent<TextComponent>(ent).size = size;
     ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    return ent;
+}
+
+EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation, int state)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
+
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, hasAnimation);
+    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+    ec.GetComponent<PhysicsComponent>(ent) = {
+        b2_dynamicBody,
+        0.5f * scaleY,
+        0.5f * scaleX,
+        xPos,
+        yPos,
+        1.0f,
+        0.0f,
+        false
+    };
+    ec.GetComponent<StateComponent>(ent) = {
+      state,
+      true
+    };
     return ent;
 }
