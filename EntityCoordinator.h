@@ -42,7 +42,7 @@ public:
     // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
     Archetype GetArchetype(std::vector<ComponentType> compTypes);
 
-    // not yet fully implemented
+    // schedules entity to be deleted at the end of the current fixed update
     void scheduleEntityToDelete(EntityID entity);
 
     // Register component with the component manager

@@ -41,7 +41,7 @@ Archetype EntityCoordinator::GetArchetype(std::vector<ComponentType> compTypes)
     return mArchetypeManager->getArchetype(compTypes);
 }
 
-// not yet fully implemented
+// schedules entity to be deleted at the end of the current fixed update
 void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 {
     mChunkManager->scheduleToDelete(entity);
@@ -89,4 +89,3 @@ std::shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::str
 {
     return mChunkManager->entitiesWithSpriteSheet(spritesheet);
 }
-
