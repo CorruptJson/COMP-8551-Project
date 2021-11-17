@@ -189,11 +189,12 @@ void PlayerControlSystem::shoot()
 
 void PlayerControlSystem::damaged()
 {
-    if (!isInvincible || invincibleTimer->GetMilliseconds() > invincibleLength)
+    if (!isInvincible)
     {
         cout << "Player damaged" << endl;
         invincibleTimer->Reset();
         isInvincible = true;
+        // TODO: add logic for decreasing health and sound effect here
     }
     else
     {
