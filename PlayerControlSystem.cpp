@@ -5,11 +5,13 @@
 #include "Animation.h"
 #include "Renderer.h"
 #include <thread>
+
 PlayerControlSystem::PlayerControlSystem()
 {
     invincibleTimer = new b2Timer();
     invincibleTimer->Reset();
-    isDamaged = false;
+    isInvincible = false;
+    isInContactWithEnemy = false;
 }
 
 PlayerControlSystem::~PlayerControlSystem()
@@ -133,11 +135,12 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
 
-    // Update animation when player is damaged
-    if (isDamaged) 
+    // Update isInvincible boolean and play animation
+    if (isInvincible) 
     {
         animationComponent->currAnim = animHurting;
-        isDamaged = invincibleTimer->GetMilliseconds() < invincibleLength;
+        isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+        if (!isInvincible && isInContactWithEnemy) damaged();
     }
 
     checkRespawn();
@@ -186,13 +189,11 @@ void PlayerControlSystem::shoot()
 
 void PlayerControlSystem::damaged()
 {
-    bool isInvincible = invincibleTimer->GetMilliseconds() > invincibleLength;
-
-    if (isInvincible)
+    if (!isInvincible || invincibleTimer->GetMilliseconds() > invincibleLength)
     {
         cout << "Player damaged" << endl;
         invincibleTimer->Reset();
-        isDamaged = true;
+        isInvincible = true;
     }
     else
     {
@@ -278,8 +279,17 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::INPUT_SHOOT):
         shoot();
         break;
-    case(Event::C_PLAYER_ENEMY):
+    case(Event::C_START_PLAYER_ENEMY):
+        updateContactWithEnemy(true);
         damaged();
         break;
+    case(Event::C_END_PLAYER_ENEMY):
+        updateContactWithEnemy(false);
+        break;
     }
+}
+
+void PlayerControlSystem::updateContactWithEnemy(bool isContacted)
+{
+    isInContactWithEnemy = isContacted;
 }

@@ -33,6 +33,9 @@ public:
 
 private:
     b2Timer* invincibleTimer;
-    bool isDamaged;
+    bool isInvincible;
+    bool isInContactWithEnemy;
     const float invincibleLength = 2000; // millisecond
+
+    void updateContactWithEnemy(bool isContacted);
 };

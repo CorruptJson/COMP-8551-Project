@@ -6,5 +6,6 @@ enum class Event {
     //Enemy events (unused)
     ENEMY_WALL_BUMP,
     //Collision events
-    C_PLAYER_ENEMY
+    C_START_PLAYER_ENEMY,
+    C_END_PLAYER_ENEMY,
 };
