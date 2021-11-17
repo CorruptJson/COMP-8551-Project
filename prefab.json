@@ -45,7 +45,8 @@
         }
     },
     {
-        "setPrefab": "InvisiblePlatform",
+        "setPrefab": "Collider",
+        "_comment":  "Provides collider behaviour to objects. Usually use for platforms.",
         "prefabValues": {
             "tag": "platform",
             "physics": {
@@ -56,88 +57,78 @@
         }
     },
     {
-        "setPrefab": "SmoothPlatform",
+        "setPrefab": "Platform",
+        "_comment":  "Black platform is the default. Doesn't have any colliders attached by default.",
         "prefabValues": {
-            "tag": "platform",
             "transform": {
-                "yScale": 0.5
-            },
-            "render": {
-                "sprite": "platform.png"
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
-            }
-        }
-    },
-    {
-        "setPrefab": "RoughPlatform",
-        "prefabValues": {
-            "tag": "platform",
-            "transform": {
+                "xScale": 0.5,
                 "yScale": 0.5
             },
             "render": {
                 "sprite": "platform.png",
-                "rowIndex":  1
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
+                "rowIndex":  1,
+                "colIndex":  1
+            }
+        }
+    },
+
+    {
+        "setPrefab": "PlatformLeftCorner",
+        "prefabValues": {
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  0
             }
         }
     },
     {
-        "setPrefab": "CeilingPlatform",
+        "setPrefab": "PlatformMiddle",
         "prefabValues": {
-            "usePrefab":  "SmoothPlatform",
-            "transform": {
-                "yPos": 4.75,
-                "xScale": 6.5
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  1
             }
         }
     },
     {
-        "setPrefab": "FloorPlatform",
+        "setPrefab": "PlatformRightCorner",
         "prefabValues": {
-            "usePrefab":  "CeilingPlatform",
-            "transform": {
-                "yPos": -4.5,
-                "yScale":  1
+            "usePrefab": "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  2
             }
         }
     },
     {
-        "setPrefab": "Wall",
+        "setPrefab": "WallLeft",
         "prefabValues": {
-            "usePrefab":  "SmoothPlatform",
-            "transform": {
-                "yPos": 0.25,
-                "yScale": 8.5
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  1,
+                "colIndex":  0
             }
         }
     },
     {
-        "setPrefab": "LeanPlatform",
+        "setPrefab": "WallRight",
         "prefabValues": {
-            "usePrefab":  "RoughPlatform",
-            "transform": {
-                "yPos": 0.75,
-                "xScale": 4
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  1,
+                "colIndex":  2
             }
         }
     },
     {
-        "setPrefab": "ThickPlatform",
+        "setPrefab": "Ceiling",
         "prefabValues": {
-            "usePrefab":  "RoughPlatform",
-            "transform": {
-                "yPos": -3.5,
-                "xScale": 2.5,
-                "yScale": 1
+            "usePrefab":  "Platform",
+            "render": {
+                "rowIndex":  0,
+                "colIndex":  1
             }
         }
     },
@@ -165,22 +156,51 @@
         "prefabValues": {
             "tag": "fire",
             "transform": {
-                "yPos": -4.5,
-                "xScale": 2,
-                "yScale": 2
+              "yPos": -5.1,
+              "xScale": 1,
+              "yScale": 1
             },
             "render": {
-                "sprite": "fire.png",
-                "hasAnim": true
+              "sprite": "fire.png",
+              "hasAnim": true
+            },
+            "physics": {
+              "b2bodytype": "b2_staticBody",
+              "density": 1,
+              "friction": 0
+            },
+            "animation": {
+              "animName": "burn",
+              "isPlaying": true
+            }
+        }
+    },
+    {
+        "setPrefab": "EnemySpawner",
+        "prefabValues": {
+            "tag": "enemySpawner",
+            "transform": {
+                "yPos": 5.5
             },
             "physics": {
                 "b2bodytype": "b2_staticBody",
                 "density": 1,
                 "friction": 0
+            }
+        }
+    },
+    {
+        "setPrefab": "PlayerSpawner",
+        "prefabValues": {
+            "tag": "playerSpawner",
+            "transform": {
+                "xPos": 0,
+                "yPos": 0
             },
-            "animation": {
-                "animName": "burn",
-                "isPlaying": true
+            "physics": {
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
             }
         }
     }

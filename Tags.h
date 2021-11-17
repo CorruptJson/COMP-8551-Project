@@ -10,5 +10,8 @@ enum Tag
     PLATFORM,
     SCENERY,
     STAR,
-    FIRE
+    FIRE,
+    ENEMYSPAWNER,
+    PLAYERSPAWNER
+
 };

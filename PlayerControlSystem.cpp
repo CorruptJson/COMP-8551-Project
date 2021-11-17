@@ -4,7 +4,7 @@
 #include "InputComponent.h"
 #include "Animation.h"
 #include "Renderer.h"
-
+#include <thread>
 PlayerControlSystem::~PlayerControlSystem()
 {
 }
@@ -58,21 +58,21 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     // Animation, flip, and velocity
     if (input.isKeyDown(InputTracker::A)) {
-        renderComponent->flipX = false;
+        renderComponent->flipX = true;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(-speed, yVelocity);
         stateComponent->faceRight = false;
     }
     if (input.isKeyDown(InputTracker::D)) {
-        renderComponent->flipX = true;
+        renderComponent->flipX = false;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(speed, yVelocity);
         stateComponent->faceRight = true;
     }
-    if (input.isKeyDown(InputTracker::S)) {
-        animationComponent->currAnim = animHurting;
-        moveComponent->setVelocity(0, 0);
-    }
+    //if (input.isKeyDown(InputTracker::S)) {
+    //    animationComponent->currAnim = animHurting;
+    //    moveComponent->setVelocity(0, 0);
+    //}
     //if (isCollided) {
     //    isReset = true;
     //    jumpCount = 0;
@@ -90,9 +90,9 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //    //}
     //}
 
-    if (input.isKeyJustReleased(InputTracker::S)) {
-        moveComponent->setVelocity(xVelocity, 0);
-    }
+    //if (input.isKeyJustReleased(InputTracker::S)) {
+    //    moveComponent->setVelocity(xVelocity, 0);
+    //}
     //if (input.isKeyJustReleased(InputTracker::W)) {
     //    if (yVelocity > 0) {
     //        moveComponent->setVelocity(xVelocity, 0);
@@ -124,6 +124,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+    checkRespawn();
 }
 
 void PlayerControlSystem::jump()
@@ -157,7 +158,7 @@ void PlayerControlSystem::shoot()
     EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
 
     RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-    bulletrenderComp->flipX = (stateComponent.faceRight) ? true : false;
+    bulletrenderComp->flipX = !stateComponent.faceRight;
 
     physWorld.AddObject(bullet);
 
@@ -187,6 +188,55 @@ bool PlayerControlSystem::isGrounded()
     return false;
 }
 
+void PlayerControlSystem::checkRespawn()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+    PhysicsComponent& physComponent = coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
+    Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
+    float resPosX = spawnerTransformComponent.getPosition().x;
+    float resPosY = spawnerTransformComponent.getPosition().y;
+
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
+
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            //stateComponent.state = STATE_DIE;
+            // wait 0.2 second and reset position to center stage
+            this_thread::sleep_for(chrono::milliseconds(200));
+            physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
+            cout << "Life -1, position reset " << endl;
+            //stateComponent.state = STATE_NORMAL;
+        }
+
+        contactList = contactList->next;
+    }
+}
+
+bool PlayerControlSystem::isDead()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
+
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            return true;
+        }
+
+        contactList = contactList->next;
+    }
+
+    return false;
+}
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     switch (e) {

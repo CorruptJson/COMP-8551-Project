@@ -12,8 +12,7 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION,
-    STATE
+    ANIMATION
 };
 
 // convert strings to enums here
@@ -23,7 +22,7 @@ unordered_map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
-    {"state", STATE}
+
 };
 
 
@@ -32,7 +31,9 @@ unordered_map<std::string, Tag> tagMap = {
     {"platform", PLATFORM},
     {"player", PLAYER},
     {"star", STAR},
-    {"fire", FIRE}
+    {"fire", FIRE},
+    {"enemySpawner", ENEMYSPAWNER},
+    {"playerSpawner", PLAYERSPAWNER}
 };
 
 
@@ -118,10 +119,10 @@ void SceneManager::CreateEntities() {
                     "defaultVertShader.vs",
                     "defaultFragShader.fs",
                     ev.spriteName,
-                    0,
-                    0,
+                    ev.rowIndex,
+                    ev.colIndex,
                     ev.hasAnimation,
-                    true
+                    false
             };
         }
 
@@ -170,6 +171,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     //loop through components in the entity
     for (auto& component : jsonObject.items()) {
+        auto& details = component.value();
         // Set component booleans and set their values in this switch statement
         if (keyMap.find(component.key()) != keyMap.end()) {
             switch (keyMap[component.key()]) {
@@ -182,20 +184,20 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.transformComponent = true; // add transform to component
 
                 // Values
-                ev.xPos = (component.value().contains("xPos")) // If component Json contains xPos key
-                    ? component.value()["xPos"].get<float>() : ev.xPos; // set the xPos to it's value, else keep it the same
+                ev.xPos = (details.contains("xPos")) // If component Json contains xPos key
+                    ? details["xPos"].get<float>() : ev.xPos; // set the xPos to it's value, else keep it the same
 
-                ev.yPos = (component.value().contains("yPos"))
-                    ? component.value()["yPos"].get<float>() : ev.yPos;
+                ev.yPos = (details.contains("yPos"))
+                    ? details["yPos"].get<float>() : ev.yPos;
 
-                ev.xScale = (component.value().contains("xScale"))
-                    ? component.value()["xScale"].get<float>() : ev.xScale;
+                ev.xScale = (details.contains("xScale"))
+                    ? details["xScale"].get<float>() : ev.xScale;
 
-                ev.yScale = (component.value().contains("yScale"))
-                    ? component.value()["yScale"].get<float>() : ev.yScale;
+                ev.yScale = (details.contains("yScale"))
+                    ? details["yScale"].get<float>() : ev.yScale;
 
-                ev.rotation = (component.value().contains("rotation"))
-                    ? component.value()["rotation"].get<float>() : ev.rotation;
+                ev.rotation = (details.contains("rotation"))
+                    ? details["rotation"].get<float>() : ev.rotation;
 
                 break;
 
@@ -207,17 +209,17 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 // Values
 
                 // Todo: Stop using a map to convert from string to string
-                ev.spriteName = (component.value().contains("sprite"))
-                    ? spriteMap[component.value()["sprite"].get<std::string>()] : ev.spriteName;
+                ev.spriteName = (details.contains("sprite"))
+                    ? spriteMap[details["sprite"].get<std::string>()] : ev.spriteName;
 
-                ev.hasAnimation = component.value().contains("hasAnim")
-                    ? component.value()["hasAnim"].get<bool>() : ev.hasAnimation;
+                ev.hasAnimation = details.contains("hasAnim")
+                    ? details["hasAnim"].get<bool>() : ev.hasAnimation;
 
-                ev.rowIndex = component.value().contains("rowIndex")
-                    ? component.value()["rowIndex"].get<int>() : ev.rowIndex;
+                ev.rowIndex = details.contains("rowIndex")
+                    ? details["rowIndex"].get<int>() : ev.rowIndex;
 
-                ev.colIndex = component.value().contains("colIndex")
-                    ? component.value()["colIndex"].get<int>() : ev.colIndex;
+                ev.colIndex = details.contains("colIndex")
+                    ? details["colIndex"].get<int>() : ev.colIndex;
 
                 break;
 
@@ -226,17 +228,17 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.physicsComponent = true;
                 ev.transformComponent = true;
                 ev.movementComponent = true;
-                
+                ev.stateComponent = true;
 
                 // TODO: do more than just check for one string
-                ev.bodyType = component.value().contains("b2bodytype") && component.value()["b2bodytype"].get<string>() == "b2_dynamicBody"
+                ev.bodyType = details.contains("b2bodytype") && details["b2bodytype"].get<string>() == "b2_dynamicBody"
                     ? b2_dynamicBody : ev.bodyType;
 
-                ev.friction = component.value().contains("friction")
-                    ? component.value()["friction"].get<float>() : ev.friction;
+                ev.friction = details.contains("friction")
+                    ? details["friction"].get<float>() : ev.friction;
 
-                ev.density = component.value().contains("density")
-                    ? component.value()["density"].get<float>() : ev.density;
+                ev.density = details.contains("density")
+                    ? details["density"].get<float>() : ev.density;
 
                 break;
 
@@ -244,20 +246,18 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.animationComponent = true;
                 ev.renderComponent = true;
 
-                ev.animIsPlaying = component.value().contains("isPlaying")
-                    ? component.value()["isPlaying"].get<bool>() : ev.animIsPlaying;
+                ev.animIsPlaying = details.contains("isPlaying")
+                    ? details["isPlaying"].get<bool>() : ev.animIsPlaying;
 
-                ev.animName = component.value().contains("animName")
-                    ? component.value()["animName"].get<std::string>() : ev.animName;
-
-                break;
-
-            case STATE:
-                ev.stateComponent = true;
+                ev.animName = details.contains("animName")
+                    ? details["animName"].get<std::string>() : ev.animName;
 
                 break;
             }
         }
+        
+
+
     }
 
 };
