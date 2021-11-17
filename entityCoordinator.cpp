@@ -49,10 +49,17 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components
+// searches without checking for tags
 std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
 {
-
     return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
+}
+
+// returns an entity query, an object which contains the search results upon creation
+// the entity query searches for all entities that contain these components and tags
+std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
+{
+    return std::make_unique<EntityQuery>(compTypes, tags, mChunkManager->allChunks);
 }
 
 uint32_t EntityCoordinator::GetEntityCount()

@@ -69,7 +69,12 @@ public:
     
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components
+    // searches without checking for tags
     std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes);
+
+    // returns an entity query, an object which contains the search results upon creation
+    // the entity query searches for all entities that contain these components and tags
+    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags);
 
     uint32_t GetEntityCount();
 

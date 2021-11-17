@@ -25,8 +25,11 @@ private:
     // the components the query is searching for 
     std::vector<ComponentType> compTypes;
 
-    // 
+    // currently used for debugging
     std::vector<EntityID> entityIDs;
+
+    // tags to search for
+    std::vector<Tag> tags;
 
     void searchChunks(std::vector<Chunk*>& allChunks);
     
@@ -42,7 +45,10 @@ public:
     EntityQuery(std::vector<Chunk*>& chosenChunks);
 
     // entity queries perform their search when they are created
-    EntityQuery(std::vector<ComponentType>& _compTypes, std::vector<Chunk*>& allChunks);
+    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks);
+
+    // entity queries perform their search when they are created
+    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags,std::vector<Chunk*>& allChunks);
 
     // get a vector of pointers for the components of the specified type
     // the components belonging to the entities found in the query
