@@ -22,6 +22,7 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "FPSCounter.h"
 
 
 //ChunkManager* chunkManager;
@@ -36,6 +37,7 @@ PlayerControlSystem* playerControl;
 Animator animator;
 
 GameManager& gameManager = GameManager::getInstance();
+FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
@@ -155,7 +157,8 @@ int runEngine()
         
     // Graphics code runs independently from the fixed-frame game update
     graphicsUpdate();
-    
+    fpsCounter.NextFrame();
+
     return 0;
 }
 
