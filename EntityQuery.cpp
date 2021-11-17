@@ -77,7 +77,7 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
             }
         }
 
-        if (c_search != chunkComps.size() && (t_search != chunkTags.size() || tags.size() == 0))
+        if ((c_search != chunkComps.size() || compTypes.size() == 0)  && (t_search != chunkTags.size() || tags.size() == 0))
         {
             chunks.push_back(allChunks[i]);
             entityCount += allChunks[i]->getCurrEntCount();
