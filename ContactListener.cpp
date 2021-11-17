@@ -37,6 +37,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
+            Notify(Event::C_PLAYER_ENEMY, nullptr);
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
@@ -144,6 +145,13 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
 
+}
+
+void ContactListener::Notify(Event e, void* args)
+{
+    for (IObserver* o : observerList) {
+        o->Receive(e, args);
+    }
 }
 
 bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {

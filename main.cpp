@@ -93,6 +93,9 @@ int test(){
     
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
+
+    //Subscribe playercontrol to recieve collision events
+    physicsWorld->GetContactListener()->Attach(playerControl);
     
     //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 

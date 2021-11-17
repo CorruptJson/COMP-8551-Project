@@ -4,5 +4,7 @@ enum class Event {
     INPUT_JUMP,
     INPUT_SHOOT,
     //Enemy events (unused)
-    ENEMY_WALL_BUMP
+    ENEMY_WALL_BUMP,
+    //Collision events
+    C_PLAYER_ENEMY
 };
