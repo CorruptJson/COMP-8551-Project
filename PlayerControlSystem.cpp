@@ -5,8 +5,16 @@
 #include "Animation.h"
 #include "Renderer.h"
 #include <thread>
+PlayerControlSystem::PlayerControlSystem()
+{
+    invincibleTimer = new b2Timer();
+    invincibleTimer->Reset();
+    isDamaged = false;
+}
+
 PlayerControlSystem::~PlayerControlSystem()
 {
+    delete invincibleTimer;
 }
 
 void PlayerControlSystem::processEntity(EntityID id) {
@@ -124,6 +132,14 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+
+    // Update animation when player is damaged
+    if (isDamaged) 
+    {
+        animationComponent->currAnim = animHurting;
+        isDamaged = invincibleTimer->GetMilliseconds() < invincibleLength;
+    }
+
     checkRespawn();
 }
 
@@ -166,6 +182,22 @@ void PlayerControlSystem::shoot()
     PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
     b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
     bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+}
+
+void PlayerControlSystem::damaged()
+{
+    bool isInvincible = invincibleTimer->GetMilliseconds() > invincibleLength;
+
+    if (isInvincible)
+    {
+        cout << "Player damaged" << endl;
+        invincibleTimer->Reset();
+        isDamaged = true;
+    }
+    else
+    {
+        cout << "Player is invincible" << endl;
+    }
 }
 
 bool PlayerControlSystem::isGrounded()
@@ -245,6 +277,9 @@ void PlayerControlSystem::Receive(Event e, void* args)
         break;
     case(Event::INPUT_SHOOT):
         shoot();
+        break;
+    case(Event::C_PLAYER_ENEMY):
+        damaged();
         break;
     }
 }
