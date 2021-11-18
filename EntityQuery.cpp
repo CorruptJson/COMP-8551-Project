@@ -141,6 +141,14 @@ std::size_t EntityQuery::QueryHash()
     return hash;
 }
 
+void EntityQuery::countFoundEntities()
+{
+    for (int i = 0; i < chunks.size(); i++)
+    {
+        entityCount += chunks[i]->getCurrEntCount();
+    }
+}
+
 int EntityQuery::totalEntitiesFound()
 {
     return entityCount;

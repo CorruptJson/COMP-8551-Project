@@ -60,7 +60,9 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
     int chunkManagerVersion = mChunkManager->getChunkManagerVersion();
-    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
 
     size_t hash = query->QueryHash();
     auto find = queryCache.find(hash);
@@ -68,6 +70,7 @@ std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<Compo
     {
         if (find->second->getChunkListVersion() == chunkManagerVersion)
         {
+            find->second->countFoundEntities();
             return find->second;
         }
         else
@@ -80,7 +83,7 @@ std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<Compo
     else
     {
         query->searchChunks(mChunkManager->allChunks);
-        queryCache.emplace(query);
+        queryCache.emplace(hash,query);
         return query;
     }
 }
