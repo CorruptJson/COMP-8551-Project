@@ -74,10 +74,9 @@ void PlayerControlSystem::processEntity(EntityID id) {
         moveComponent->setVelocity(0, 0);
     }
     // added to test rotation
-    if (input.isKeyDown(InputTracker::R)) {
-        /*int rot = transformComponent->getRotation();
-        transformComponent->setRotation(rot + 45.0f);*/
-        transformComponent->setRotation(90.0f);
+    if (input.isKeyJustDown(InputTracker::R)) {
+        int rot = transformComponent->getRotation();
+        transformComponent->setRotation(rot+90.0f);
     }
     //if (isCollided) {
     //    isReset = true;

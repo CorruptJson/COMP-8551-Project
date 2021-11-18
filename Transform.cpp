@@ -97,7 +97,7 @@ void Transform::generateModelMatrix() {
     // proper math orders is scale first, then rotate, then translate.
     // However, matrix multiplication order is apply right to left, so we are
     // (codewise) translating, then rotating, then scaling.
-    //model = glm::translate(model, glm::vec3(position.x, position.y, 0));
+    model = glm::translate(model, glm::vec3(position.x, position.y, 0));
 
     // has to specify a rotation axis => need a review
     // do I need a quaternion? do I need to shift to accomodate
@@ -109,7 +109,10 @@ void Transform::generateModelMatrix() {
     //model = glm::rotate(model, rotation, rotAxis);
 
     // Translate to origin
-    model = glm::translate(model, glm::vec3(0,0,0));
+    model = glm::translate(model, glm::vec3(-position.x,-position.y,0));
+
+    // Make sure to offset according to scale
+    //model = glm::translate(model, glm::vec3(scale.x, 0));
 
     // rotate about z-axis at the origin to avoid orbiting then translate back
     // specify the axis to be z since we're in 2-d
