@@ -158,6 +158,7 @@
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameEntityCreator.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
@@ -172,7 +173,6 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="system_manager.cpp" />
-    <ClCompile Include="Tags.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +205,7 @@
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameEntityCreator.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputComponent.h" />

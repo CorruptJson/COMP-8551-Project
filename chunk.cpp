@@ -156,7 +156,7 @@ bool Chunk::isDataIndexActive(int i) {
     return entToDat[i] != -1;
 }
 
-std::vector<Tag> Chunk::getAllTags()
+std::vector<Tag>& Chunk::getAllTags()
 {
     return tags;
 }
