@@ -106,7 +106,7 @@ public:
 
     bool hasTag(Tag tag);
 
-    std::vector<Tag> getAllTags();
+    std::vector<Tag>& getAllTags();
 
     EntityID entityAtComponentIndex(int i);
 
