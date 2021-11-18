@@ -22,6 +22,7 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "FPSCounter.h"
 
 
 
@@ -37,6 +38,7 @@ PlayerControlSystem* playerControl;
 Animator animator;
 
 GameManager& gameManager = GameManager::getInstance();
+FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
@@ -94,25 +96,20 @@ int test(){
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();
 
-    //coordinator->addSystem<InputSystem>(coordinator);    
-    //coordinator->addSystem(std::make_shared<InputSystem>());
-
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
     
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
-    
-    //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
-    // For testing different archetypes
-    //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
-    //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
+    //Subscribe playercontrol to recieve collision events
+    physicsWorld->GetContactListener()->Attach(playerControl);
+
+
     sceneManager->CreateEntities();
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
     text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
-
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
@@ -123,6 +120,9 @@ int test(){
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
+
+    shared_ptr<EntityQuery> query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+
     return 0;
 }
 
@@ -196,7 +196,8 @@ int runEngine()
         
     // Graphics code runs independently from the fixed-frame game update
     graphicsUpdate();
-    
+    fpsCounter.NextFrame();
+
     return 0;
 }
 
@@ -223,8 +224,6 @@ int main() {
     initialize();
     test();
 
-    //entity test
-    GameEntityCreator& creator = GameEntityCreator::getInstance();
     animator = Animator();
 
     for (auto const& e : sceneManager->entities) {

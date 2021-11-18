@@ -245,6 +245,11 @@ void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
     }
 }
 
+ContactListener* PhysicsWorld::GetContactListener()
+{
+    return contactListener;
+}
+
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
     moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
     moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
