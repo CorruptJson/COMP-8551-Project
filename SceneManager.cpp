@@ -268,7 +268,7 @@ void SceneManager::DeleteEntities() {
             coordinator->GetComponent<PhysicsComponent>(entity).isFlaggedForDelete = true;
         }
         else {
-            //coordinator->scheduleEntityToDelete(entity);
+            coordinator->scheduleEntityToDelete(entity);
         }
         
     }
