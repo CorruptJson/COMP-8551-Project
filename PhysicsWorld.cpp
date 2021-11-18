@@ -117,10 +117,10 @@ void PhysicsWorld::AddObject(EntityID id) {
 // Adds all objects in the world using the entity coordinator
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
             coordinator->GetComponentType<Transform>()
-        });
+        }, {});
 
     int entitiesFound = entityQuery->totalEntitiesFound();
     cout << "Entities found: " << entitiesFound << endl;
@@ -166,12 +166,12 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
-        std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+        std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<PhysicsComponent>(),
         coordinator->GetComponentType<Transform>(),
         coordinator->GetComponentType<MovementComponent>()
 
-            });
+            }, {});
 
         int entitiesFound = entityQuery->totalEntitiesFound();
         std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();

@@ -1,22 +1,50 @@
 #include "EntityQuery.h"
 
-EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks)
-{
-    compTypes = _compTypes;
-    std::sort(compTypes.begin(), compTypes.end());
-    tags = {};
-    chunkListVersion = allChunks.size();    
-    searchChunks(allChunks);
-}
+//EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks, EntityQueryCache& cache)
+//{
+//    compTypes = _compTypes;
+//    std::sort(compTypes.begin(), compTypes.end());
+//    tags = {};
+//    chunkListVersion = allChunks.size();    
+//
+//    size_t hash = QueryHash();
+//    auto find = cache.find(hash);
+//    if (find != cache.end() && find->second->getChunkListVersion() == chunkListVersion)
+//    {
+//        chunks = find->second->foundChunks();
+//        entityCount = find->second->totalEntitiesFound();
+//    }
+//    else
+//    {
+//        searchChunks(allChunks);
+//        //cache.emplace(hash,)
+//    }    
+//}
 
-EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags, std::vector<Chunk*>& allChunks)
+EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags,int _chunkListVersion)
 {
     compTypes = _compTypes;
     std::sort(compTypes.begin(), compTypes.end());
     tags = _tags;
     std::sort(tags.begin(), tags.end());
-    chunkListVersion = allChunks.size();    
-    searchChunks(allChunks);
+    chunkListVersion = _chunkListVersion;
+
+    //size_t hash = QueryHash();
+    //auto find = cache.find(hash);
+    //if (find != cache.end() && find->second->getChunkListVersion() == chunkListVersion)
+    //{
+    //    chunks = find->second->foundChunks();
+    //    entityCount = find->second->totalEntitiesFound();
+    //}
+    //else
+    //{
+    //    searchChunks(allChunks);
+    //}
+}
+
+EntityQuery::EntityQuery()
+{
+
 }
 
 std::vector<Chunk*> EntityQuery::foundChunks()
@@ -24,7 +52,7 @@ std::vector<Chunk*> EntityQuery::foundChunks()
     return chunks;
 }
 
-EntityQuery::EntityQuery(std::vector<Chunk*>& chosenChunks)
+EntityQuery::EntityQuery(std::vector<Chunk*> chosenChunks)
 {
     chunks = chosenChunks;
     for (int i = 0; i < chunks.size(); i++)
@@ -33,14 +61,12 @@ EntityQuery::EntityQuery(std::vector<Chunk*>& chosenChunks)
     }
 }
 
-
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
 {
     for (int i = 0; i < allChunks.size(); i++)
     {
         Chunk* chunk = allChunks[i];
-        Archetype arch = chunk->getArchetype();
-        std::vector<ComponentType> chunkComps = arch.getComponentTypeArray();
+        const std::vector<ComponentType>& chunkComps = chunk->getArchetype().getComponentTypeArray();
         std::vector<Tag>& chunkTags = chunk->getAllTags();
         if (allChunks[i]->getCurrEntCount() == 0 || chunkComps.size() < compTypes.size() || chunkTags.size() < tags.size())
         {
@@ -86,9 +112,33 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
     }
 }
 
-EntityQuery::EntityQuery()
+std::size_t EntityQuery::ComponentTypesHash()
 {
-    int entityCount = 0;
+    std::size_t seed = compTypes.size();
+    for (int i = 0; i < compTypes.size(); i++)
+    {
+        seed ^= compTypes[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+}
+
+std::size_t EntityQuery::TagsHash()
+{
+    std::size_t seed = tags.size();
+    for (int i = 0; i < tags.size(); i++)
+    {
+        seed ^= tags[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+}
+
+std::size_t EntityQuery::QueryHash()
+{
+    std::size_t seed = compTypes.size() << 8;
+    seed += tags.size();
+    std::size_t hash = ComponentTypesHash();
+    hash ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    return hash;
 }
 
 int EntityQuery::totalEntitiesFound()

@@ -50,16 +50,39 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components
 // searches without checking for tags
-std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
-{
-    return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
-}
+//std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
+//{
+//    return std::make_shared<EntityQuery>(compTypes, mChunkManager->allChunks, queryCache);
+//}
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components and tags
-std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
+std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
-    return std::make_unique<EntityQuery>(compTypes, tags, mChunkManager->allChunks);
+    int chunkManagerVersion = mChunkManager->getChunkManagerVersion();
+    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+
+    size_t hash = query->QueryHash();
+    auto find = queryCache.find(hash);
+    if (find != queryCache.end() && find->second->getChunkListVersion() == chunkManagerVersion)
+    {
+        if (find->second->getChunkListVersion() == chunkManagerVersion)
+        {
+            return find->second;
+        }
+        else
+        {
+            query->searchChunks(mChunkManager->allChunks);
+            find->second = query;
+            return query;
+        }        
+    }
+    else
+    {
+        query->searchChunks(mChunkManager->allChunks);
+        queryCache.emplace(query);
+        return query;
+    }
 }
 
 uint32_t EntityCoordinator::GetEntityCount()

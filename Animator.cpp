@@ -34,10 +34,10 @@ void Animator::setSpeed()
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<RenderComponent>(),
         coordinator->GetComponentType<AnimationComponent>()
-        });
+        }, {});
 
     int entitiesFound = entityQuery->totalEntitiesFound();
     std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();

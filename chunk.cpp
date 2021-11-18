@@ -117,7 +117,7 @@ void Chunk::releaseEntity(EntityID id)
     currEnts--;
 }
 
-Archetype Chunk::getArchetype()
+Archetype& Chunk::getArchetype()
 {
     return arch;
 }

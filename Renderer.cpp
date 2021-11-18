@@ -865,9 +865,9 @@ int Renderer::update(EntityCoordinator* coordinator) {
     //setTexCoordToDefault();
 
     //text rendering begins here
-    std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
-        });
+        }, {});
 
     int textFound = TextQuery->totalEntitiesFound();
     std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
