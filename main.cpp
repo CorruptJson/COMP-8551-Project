@@ -93,6 +93,10 @@ int test(){
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
 
+    //Subscribe playercontrol to recieve collision events
+    physicsWorld->GetContactListener()->Attach(playerControl);
+
+
     sceneManager->CreateEntities();
 
     //creating text
