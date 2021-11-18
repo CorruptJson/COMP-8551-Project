@@ -5,8 +5,18 @@
 #include "Animation.h"
 #include "Renderer.h"
 #include <thread>
+
+PlayerControlSystem::PlayerControlSystem()
+{
+    invincibleTimer = new b2Timer();
+    invincibleTimer->Reset();
+    isInvincible = false;
+    isInContactWithEnemy = false;
+}
+
 PlayerControlSystem::~PlayerControlSystem()
 {
+    delete invincibleTimer;
 }
 
 void PlayerControlSystem::processEntity(EntityID id) {
@@ -124,6 +134,15 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+
+    // Update isInvincible boolean and play animation
+    if (isInvincible) 
+    {
+        animationComponent->currAnim = animHurting;
+        isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+        if (!isInvincible && isInContactWithEnemy) damaged();
+    }
+
     checkRespawn();
 }
 
@@ -166,6 +185,21 @@ void PlayerControlSystem::shoot()
     PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
     b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
     bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+}
+
+void PlayerControlSystem::damaged()
+{
+    if (!isInvincible)
+    {
+        cout << "Player damaged" << endl;
+        invincibleTimer->Reset();
+        isInvincible = true;
+        // TODO: add logic for decreasing health and sound effect here
+    }
+    else
+    {
+        cout << "Player is invincible" << endl;
+    }
 }
 
 bool PlayerControlSystem::isGrounded()
@@ -246,5 +280,17 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::INPUT_SHOOT):
         shoot();
         break;
+    case(Event::C_START_PLAYER_ENEMY):
+        updateContactWithEnemy(true);
+        damaged();
+        break;
+    case(Event::C_END_PLAYER_ENEMY):
+        updateContactWithEnemy(false);
+        break;
     }
+}
+
+void PlayerControlSystem::updateContactWithEnemy(bool isContacted)
+{
+    isInContactWithEnemy = isContacted;
 }
