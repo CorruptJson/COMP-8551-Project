@@ -18,10 +18,12 @@ enum playerState {
 class PlayerControlSystem : public IObserver {
 
 public:
+    PlayerControlSystem();
     ~PlayerControlSystem();
     void processEntity(EntityID id);
     void jump();
     void shoot();
+    void damaged();
     bool isGrounded();
     void checkRespawn();
     bool isDead();
@@ -30,4 +32,10 @@ public:
     //void Update(EntityCoordinator* coordinator);
 
 private:
+    b2Timer* invincibleTimer;
+    bool isInvincible;
+    bool isInContactWithEnemy;
+    const float invincibleLength = 2000; // millisecond
+
+    void updateContactWithEnemy(bool isContacted);
 };

@@ -5,6 +5,8 @@ ContactListener::~ContactListener()
 
 }
 
+// IMPORTANT: You cannot create/destroy Box2D entities inside these callbacks.
+
 void ContactListener::BeginContact(b2Contact* contact) {
 
     PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
@@ -37,6 +39,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
+            Notify(Event::C_START_PLAYER_ENEMY, nullptr);
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
@@ -48,8 +51,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
               // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
             //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
-
-
         }
         else if (tagSecond == ENEMYSPAWNER) {
             cout << "EnemySpawner" << endl;
@@ -103,15 +104,84 @@ void ContactListener::BeginContact(b2Contact* contact) {
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
-    
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB) {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER) {
+        if (tagSecond == PLATFORM) {
+
+        }
+        else if (tagSecond == ENEMY) {
+            Notify(Event::C_END_PLAYER_ENEMY, nullptr);
+        }
+    }
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {
 
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB)
+    {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else
+    {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER)
+    {
+        if (tagSecond == ENEMY)
+        {
+            contact->SetEnabled(false);
+        }
+    }
 }
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
 
+}
+
+void ContactListener::Notify(Event e, void* args)
+{
+    for (IObserver* o : observerList) {
+        o->Receive(e, args);
+    }
 }
 
 bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {

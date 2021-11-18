@@ -6,5 +6,8 @@ enum class Event {
     //Spawner Events
     SPAWN_STAR,
     //Enemy events (unused)
-    ENEMY_WALL_BUMP
+    ENEMY_WALL_BUMP,
+    //Collision events
+    C_START_PLAYER_ENEMY,
+    C_END_PLAYER_ENEMY,
 };
