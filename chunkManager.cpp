@@ -128,6 +128,15 @@ std::shared_ptr<EntityQuery> ChunkManager::entitiesWithSpriteSheet(std::string s
     auto find = chunksBySpritesheet.find(spritesheet);
     if (find != chunksBySpritesheet.end())
     {
+        std::vector<Chunk*>& chunks = find->second;
+        std::vector<Chunk*> validChunks;
+        for (int i = 0; i < chunks.size(); i++)
+        {
+            if (chunks[i]->getCurrEntCount() != 0)
+            {
+
+            }
+        }
         return std::make_shared<EntityQuery>(find->second);
     }
     else
