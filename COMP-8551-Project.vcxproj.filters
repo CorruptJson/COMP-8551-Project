@@ -332,16 +332,16 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Header Files\Components</Filter>
-    </ClInclude>
-      <ClInclude Include="GameManager.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="AIControlSystem.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="FPSCounter.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
