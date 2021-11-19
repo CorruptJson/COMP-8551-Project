@@ -641,6 +641,23 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
+    drawGameObjects(coordinator);
+
+    //unbinds the current vao and vbo
+    //glBindVertexArray(0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+    drawUI(coordinator);
+
+    // foreground is currently cleared (default to white)
+    // we want to display the gray, which is the background color
+    // => swap them
+    glfwSwapBuffers(window);
+
+    return 0;
+}
+
+void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
     // draw entities by the spritesheet they use, so only need to load each sprite sheet once
     auto mapIterator = sprites.begin();
     for (; mapIterator != sprites.end(); mapIterator++)
@@ -699,12 +716,18 @@ int Renderer::update(EntityCoordinator* coordinator) {
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
     }
+}
 
-    //unbinds the current vao and vbo
+void Renderer::drawUI(EntityCoordinator* coordinator) {
+    std::unique_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<UIComponent>(),
+        });
 
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    int uiFound = UIQuery->totalEntitiesFound();
+    std::vector<UIComponent*> uiComps = UIQuery->getComponentArray<UIComponent>();
 
+    for (int i = 0; i < uiFound; i++) {
+    }
     //text rendering begins here
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
@@ -717,13 +740,6 @@ int Renderer::update(EntityCoordinator* coordinator) {
     for (int i = 0; i < textFound; i++) {
         renderTextComponent(textComps.nextComponent());
     }
-
-    // foreground is currently cleared (default to white)
-    // we want to display the gray, which is the background color
-    // => swap them
-    glfwSwapBuffers(window);
-
-    return 0;
 }
 
 int Renderer::teardown() {

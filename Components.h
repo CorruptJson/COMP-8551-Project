@@ -8,3 +8,4 @@
 #include "MovementComponent.h"
 #include "StateComponent.h"
 #include "TextComponent.h"
+#include "UIComponent.h"
