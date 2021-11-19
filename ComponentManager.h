@@ -6,6 +6,7 @@
 #include <any>
 #include <memory>
 #include <unordered_map>
+#include <iostream>
 
 
 
@@ -43,7 +44,11 @@ public:
         ComponentType ct = GetComponentType<T>();
 
         assert(mComponentSizes.find(ct) == mComponentSizes.end() && "Registering component type more than once.");
-        mComponentSizes.emplace(ct, sizeof(T));
+        auto size = sizeof(T);
+        std::uint8_t size8 = size;
+        mComponentSizes.emplace(ct, size8);
+
+        std::cout << typeid(T).name() << " size: " << size << ", compID: " << (int)(ct) << std::endl;
     }  
 
     ComponentSize getComponentSize(ComponentType t);

@@ -145,17 +145,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AIControlSystem.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Archetype.cpp" />
     <ClCompile Include="ArchetypeManager.cpp" />
     <ClCompile Include="chunk.cpp" />
     <ClCompile Include="chunkManager.cpp" />
+    <ClCompile Include="ComponentIterator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameEntityCreator.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
@@ -184,6 +187,7 @@
     <None Include="TextVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AIControlSystem.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
@@ -195,12 +199,15 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
+    <ClInclude Include="ECS.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
+    <ClInclude Include="ComponentIterator.h" />
     <ClInclude Include="EntityQuery.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
+    <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GameEntityCreator.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="InputComponent.h" />
@@ -223,6 +230,7 @@
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
     <ClInclude Include="system_manager.h" />
+    <ClInclude Include="TagFunctions.h" />
     <ClInclude Include="TagList.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="TextComponent.h" />
@@ -234,9 +242,11 @@
     <Image Include="background.png" />
     <Image Include="bullet.png" />
     <Image Include="Edgar_The_Exterminator.png" />
+    <Image Include="fire.png" />
     <Image Include="Giant_Roach.png" />
+    <Image Include="logo.png" />
     <Image Include="platform.png" />
-    <Image Include="wall.jpg" />
+    <Image Include="star.png" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="arial.ttf" />

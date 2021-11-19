@@ -35,7 +35,7 @@ public:
     static std::string TEXT_FRAG_SHADER_NAME;
 
     static GLFWwindow* setupGLFW(int *width, int *height);
-    int init(int viewWidth, int viewHeight);
+    int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor);
     int update(EntityCoordinator* coordinator);
     int teardown();
     static Renderer* getInstance();
@@ -73,6 +73,9 @@ private:
     std::map<unsigned char, Character> characters;
 
     void createShaderProgram(ShaderName shaderName,std::string vertPath, std::string fragPath);
+    // the background color of the scene
+    glm::vec4 backgroundColor;
+
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);

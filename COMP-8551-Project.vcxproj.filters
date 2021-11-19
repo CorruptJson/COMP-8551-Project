@@ -156,6 +156,15 @@
     <ClCompile Include="PlayerControlSystem.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="AIControlSystem.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentIterator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -269,9 +278,6 @@
     <ClInclude Include="GameEntityCreator.h">
       <Filter>Header Files\GameManagerStuff</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files\GameManagerStuff</Filter>
-    </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
@@ -293,6 +299,9 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="TagFunctions.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="IObserver.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -311,6 +320,12 @@
     <ClInclude Include="PlayerState.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentIterator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="Character.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
@@ -318,6 +333,15 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+      <ClInclude Include="GameManager.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="AIControlSystem.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
@@ -337,7 +361,13 @@
     <Image Include="platform.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
-    <Image Include="wall.jpg">
+    <Image Include="logo.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="star.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="fire.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
   </ItemGroup>

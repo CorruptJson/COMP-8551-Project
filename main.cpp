@@ -22,6 +22,7 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "FPSCounter.h"
 
 
 //ChunkManager* chunkManager;
@@ -36,6 +37,7 @@ PlayerControlSystem* playerControl;
 Animator animator;
 
 GameManager& gameManager = GameManager::getInstance();
+FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
@@ -43,6 +45,7 @@ Archetype standardArch;
 EntityID mike;
 EntityID timer;
 EntityID text;
+EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -51,7 +54,7 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-const int VIEW_WIDTH = 15;
+const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
 // gets called once when engine starts
@@ -59,14 +62,14 @@ const int VIEW_HEIGHT = 10;
 int initialize()
 {  
     // when the engine starts
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT);
+    glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
     //physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
-
 
     prevTime = Clock::now();
 
@@ -85,34 +88,33 @@ int test(){
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();
 
-    //coordinator->addSystem<InputSystem>(coordinator);    
-    //coordinator->addSystem(std::make_shared<InputSystem>());
-
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
     
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
-    
-    //coordinator->addSystem<TestSystem>().get()->Attach(coordinator->addSystem<PrinterSystem>().get());
 
-    // For testing different archetypes
-    //EntityID e = coordinator->CreateEntity(coordinator->GetArchetype({ coordinator->GetComponentType<Transform>() }), "Edgar.png", { ENEMY });
-    //coordinator->GetComponent<Transform>(e) = Transform(1, 1, 0, 1, 1);
+    //Subscribe playercontrol to recieve collision events
+    physicsWorld->GetContactListener()->Attach(playerControl);
+
+
     sceneManager->CreateEntities();
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
     text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
-    
-
-
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-
+        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+            mikeRespawner = e;
+            gameManager.SetPlayerRespawnerID(mikeRespawner);
+        }
     }
+
+    shared_ptr<EntityQuery> query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+
     return 0;
 }
 
@@ -127,6 +129,8 @@ void fixedFrameUpdate()
     coordinator->runSystemUpdates();
 
     playerControl->processEntity(mike);
+
+    coordinator->endOfUpdate();
 }
 
 void graphicsUpdate()
@@ -157,7 +161,8 @@ int runEngine()
         
     // Graphics code runs independently from the fixed-frame game update
     graphicsUpdate();
-    
+    fpsCounter.NextFrame();
+
     return 0;
 }
 
@@ -165,10 +170,17 @@ int runEngine()
 // put teardown code here
 int teardown()
 {
+    std::cout << "ending programing" << std::endl;
+
     // when the engine closes
     renderer->teardown();
 
-    
+    delete coordinator;
+    delete sceneManager;
+
+    delete physicsWorld;
+    delete playerControl;
+
 
     return 0;
 }
@@ -179,23 +191,12 @@ int main() {
 
     animator = Animator();
 
-    std::cout << "Number of Entities: " << coordinator->GetEntityCount() << std::endl;
-
-    bool isdudeplayer = coordinator->entityHasTag(Tag::PLAYER,mike);
-    std::cout << "Is dude the player? " << isdudeplayer << std::endl;
-
-
-
-
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
             
             physicsWorld->AddObject(e);
         }
-
-    }
-
-    
+    }    
 
     while (!glfwWindowShouldClose(window))
     {

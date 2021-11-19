@@ -2,89 +2,186 @@
 
 ContactListener::~ContactListener()
 {
-    //delete userDataA;
-    //delete userDataB;
+
 }
 
+// IMPORTANT: You cannot create/destroy Box2D entities inside these callbacks.
+
 void ContactListener::BeginContact(b2Contact* contact) {
-    //std::cout << "Contact made!" << std::endl;
 
-    // use the ID for entity queries
-    EntityUserData* entUserDataA = reinterpret_cast<EntityUserData*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
-    EntityUserData* entUserDataB = reinterpret_cast<EntityUserData*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    //userDataA = entUserDataA;
-    //userDataB = entUserDataB;
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
 
-    if (GetFirstContact(PLAYER, entUserDataA->id)) {
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
 
+    if (tagA < tagB) {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER) {
         cout << "Player contact with: ";
-        if (GetSecondContact(PLATFORM, entUserDataB->id)) {
-            cout << "platform" << endl;
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
         }
-        else if (GetSecondContact(ENEMY, entUserDataB->id)) {
-            // testing enemy move on collision
-            //PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id);
-            //physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
-            cout << "enemy" << endl;
+        else if (tagSecond == ENEMY) {
+            cout << "Enemy" << endl;
+            Notify(Event::C_START_PLAYER_ENEMY, nullptr);
         }
-    }
-    else if (GetFirstContact(PLAYER, entUserDataB->id)) {
-        cout << "Player contact with: ";
-        if (GetSecondContact(PLATFORM, entUserDataA->id)) {
-            cout << "platform" << endl;
+        else if (tagSecond == STAR) {
+            cout << "Star" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
         }
-        else if (GetSecondContact(ENEMY, entUserDataA->id)) {
-            // testing enemy move on collision
-            //PhysicsComponent physComp = EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id);
-            //physComp.box2dBody->SetLinearVelocity(b2Vec2(2.0, 0));
-            cout << "enemy" << endl;
+        else if (tagSecond == FIRE) {
+            cout << "Fire" << endl;
+            Transform* transformComponent = &EntityCoordinator::getInstance().GetComponent<Transform>(entFirst);
+            PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
+              // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
+            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
         }
-    }
-
-    if (GetFirstContact(ENEMY, entUserDataA->id)) {
-        cout << "Enemy contact with: ";
-        if (GetSecondContact(PLATFORM, entUserDataB->id)) {
-            cout << "platform" << endl;
+        else if (tagSecond == ENEMYSPAWNER) {
+            cout << "EnemySpawner" << endl;
         }
-        else if (GetSecondContact(PLAYER, entUserDataB->id)) {
-            cout << "player" << endl;
-        }
-        else if (GetSecondContact(BULLET, entUserDataB->id)) {
-            cout << "bullet" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id).isFlaggedForDelete = true;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id).isFlaggedForDelete = true;
-        }
-    }
-
-    if (GetFirstContact(BULLET, entUserDataA->id)) {
-        cout << "bullet contact with: ";
-        if (GetSecondContact(PLATFORM, entUserDataB->id)) {
-            cout << "platform" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataA->id).isFlaggedForDelete = true;
-        }
-    }
-    else if (GetFirstContact(BULLET, entUserDataB->id))
-    {
-        cout << "bullet contact with: ";
-        if (GetSecondContact(PLATFORM, entUserDataA->id))
+        else
         {
-            cout << "platform" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entUserDataB->id).isFlaggedForDelete = true;
+            cout << endl;
+        }
+    }
+    else if (tagFirst == ENEMY) {
+        cout << "Enemy contact with: ";
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
+            cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
+
+            RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
+            MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
+
+            float xVel = moveComponent->getVelocity().x;
+            float yVel = moveComponent->getVelocity().y;
+            if (contact->GetManifold()->localPoint.x == -0.5) {
+                renderComponent->flipX = false;
+                moveComponent->setVelocity(2.0f, yVel);
+            }
+            else if (contact->GetManifold()->localPoint.x == 0.5) {
+                renderComponent->flipX = true;
+                moveComponent->setVelocity(-2.0f, yVel);
+            }
+        }
+        else if (tagSecond == BULLET) {
+            cout << "Bullet" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+        }
+        else if (tagSecond == FIRE) {
+            cout << "Fire" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+        }
+    }
+    else if (tagFirst == BULLET) {
+        cout << "Bullet contact with: ";
+        if (tagSecond == PLATFORM) {
+            cout << "Platform" << endl;
+            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+        }
+        else
+        {
+            cout << endl;
         }
     }
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
-    
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB) {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER) {
+        if (tagSecond == PLATFORM) {
+
+        }
+        else if (tagSecond == ENEMY) {
+            Notify(Event::C_END_PLAYER_ENEMY, nullptr);
+        }
+    }
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {
 
+    PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
+    PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
+
+    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+
+    Tag tagFirst, tagSecond;
+    EntityID entFirst, entSecond;
+
+    if (tagA < tagB)
+    {
+        tagFirst = tagA;
+        tagSecond = tagB;
+        entFirst = physicsComponentA->entityID;
+        entSecond = physicsComponentB->entityID;
+    }
+    else
+    {
+        tagFirst = tagB;
+        tagSecond = tagA;
+        entFirst = physicsComponentB->entityID;
+        entSecond = physicsComponentA->entityID;
+    }
+
+
+    if (tagFirst == PLAYER)
+    {
+        if (tagSecond == ENEMY)
+        {
+            contact->SetEnabled(false);
+        }
+    }
 }
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
 
+}
+
+void ContactListener::Notify(Event e, void* args)
+{
+    for (IObserver* o : observerList) {
+        o->Receive(e, args);
+    }
 }
 
 bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {

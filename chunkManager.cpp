@@ -1,14 +1,37 @@
 #include "chunkManager.h"
 
-Chunk* ChunkManager::createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
+Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, tags, sizemap);
     allChunks.push_back(newChunk);
-    chunksBySpritesheet.emplace(spriteSheet, newChunk);
+
+    ArchetypeType at = arch.getType();
+    auto findArch = chunksByArch.find(at);
+    if (findArch != chunksByArch.end())
+    {
+        findArch->second.push_back(newChunk);        
+    }
+    else
+    {
+        chunksByArch.emplace(at ,std::vector<Chunk*>());
+        chunksByArch[at].push_back(newChunk);
+    }
+
+    auto findSprite = chunksBySpritesheet.find(spriteSheet);
+    if (findSprite != chunksBySpritesheet.end())
+    {
+        findSprite->second.push_back(newChunk);
+    }
+    else
+    {
+        chunksBySpritesheet.emplace(spriteSheet, std::vector<Chunk*>());
+        chunksBySpritesheet[spriteSheet].push_back(newChunk);
+    }
+
     return newChunk;
 }
 
-EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
+EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     std::sort(tags.begin(),tags.end());
 
@@ -18,13 +41,11 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, std::
     {
         // yes
         // now are there any such chunks with room for a new entity?
-        size_t bucketIndex = chunksByArch.bucket(arch.getType());
-        auto begin = chunksByArch.begin(bucketIndex);
-        auto end = chunksByArch.end(bucketIndex);
+        std::vector<Chunk*> chunks = find->second;
 
-        for (auto iterator = begin; iterator != end; iterator++)
+        for (int i = 0; i < chunks.size(); i++)
         {
-            Chunk* chunk = iterator->second;
+            Chunk* chunk = chunks[i];
             if (chunk->GetSpritesheet() == sprite && chunk->getAllTags() == tags && chunk->getCurrEntCount() < ENTITIES_PER_CHUNK)
             {
                 // yes, we found a valid chunk
@@ -43,9 +64,9 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, Spritesheet sprite, std::
     return ca;
 }
 
-void ChunkManager::releaseEntity(EntityID id)
+void ChunkManager::scheduleToDelete(EntityID id)
 {
-    allChunks[id.chunkID]->releaseEntity(id);
+    entitiesToDelete.push_back(id);    
 };
 
 int ChunkManager::GetEntityCount()
@@ -86,5 +107,41 @@ ChunkManager::~ChunkManager()
 int ChunkManager::getChunkCount()
 {
     return currChunks;
+}
+
+void ChunkManager::deleteScheduledEntities() {
+    for (int i = 0; i < entitiesToDelete.size(); i++)
+    {
+        EntityID id = entitiesToDelete[i];
+        allChunks[id.chunkID]->releaseEntity(id);
+    }
+    entitiesToDelete.clear();
+}
+
+bool ChunkManager::doesEntityExist(EntityID id)
+{
+    return allChunks[id.chunkID]->doesEntityExist(id);
+}
+
+std::shared_ptr<EntityQuery> ChunkManager::entitiesWithSpriteSheet(std::string spritesheet)
+{
+    auto find = chunksBySpritesheet.find(spritesheet);
+    if (find != chunksBySpritesheet.end())
+    {
+        std::vector<Chunk*>& chunks = find->second;
+        std::vector<Chunk*> validChunks;
+        for (int i = 0; i < chunks.size(); i++)
+        {
+            if (chunks[i]->getCurrEntCount() != 0)
+            {
+
+            }
+        }
+        return std::make_shared<EntityQuery>(find->second);
+    }
+    else
+    {
+        return std::make_shared<EntityQuery>();
+    }    
 }
 

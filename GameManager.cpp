@@ -21,6 +21,16 @@ void GameManager::SetPlayerID(EntityID id)
     player = id;
 }
 
+EntityID GameManager::PlayerRespawnerID()
+{
+    return playerRespawner;
+}
+
+void GameManager::SetPlayerRespawnerID(EntityID id)
+{
+    playerRespawner = id;
+}
+
 void GameManager::countFrame()
 {
     frameCount++;

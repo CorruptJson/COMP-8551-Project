@@ -1,10 +1,16 @@
 #include "PhysicsWorld.h"
 
 enum collisionCategory {
+    C_NONE = 0x0000,
     C_PLAYER = 0x0001,
     C_ENEMY = 0x0002,
     C_PLATFORM = 0x0004,
-    C_BULLET = 0x0008
+    C_BULLET = 0x0008,
+    C_FIRE = 0x0016,
+    C_STAR = 0x0032,
+    C_ENEMYSPAWNER = 0x0064,
+    C_PLAYERSPAWNER = 0x0128
+
 };
 
 PhysicsWorld::PhysicsWorld() {
@@ -26,6 +32,9 @@ PhysicsWorld& PhysicsWorld::getInstance()
 
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
+
+    //std::cout << "adding to phys: " << id << std::endl;
+
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
@@ -34,18 +43,25 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     moveComponent->physComponent = physComponent;
 
-    EntityUserData* entityUserData = new EntityUserData;
-    entityUserData->id = id;
+    //EntityUserData* entityUserData = new EntityUserData;
+    //entityUserData->id = id;
 
-    b2BodyDef bodyDef;
+    //b2BodyDef bodyDef = b2BodyDef();
+    b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
-    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
-
-    physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
+    b2World* world = PhysicsWorld::getInstance().world;
+    if (world == nullptr)
+    {
+        std::cout << "b2 world is nullptr" << std::endl;
+    }
+    physComponent->box2dBody = world->CreateBody(&bodyDef);
+    B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
+    physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
@@ -64,6 +80,8 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(ENEMY, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
+            moveComponent->setVelocity(2.0, 0); // THIS IS TEMPORARY, 
+
             fixtureDef.filter.categoryBits = C_ENEMY;
             fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
         }
@@ -75,7 +93,22 @@ void PhysicsWorld::AddObject(EntityID id) {
             fixtureDef.filter.categoryBits = C_BULLET;
             fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
         }
-
+        else if (coordinator.entityHasTag(FIRE, id)) {
+            fixtureDef.filter.categoryBits = C_FIRE;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
+        }
+        else if (coordinator.entityHasTag(STAR, id)) {
+            fixtureDef.filter.categoryBits = C_STAR;
+            fixtureDef.filter.maskBits = C_PLAYER;
+        }
+        else if (coordinator.entityHasTag(ENEMYSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_ENEMYSPAWNER;
+            fixtureDef.filter.maskBits = C_PLAYER;
+        }
+        else if (coordinator.entityHasTag(PLAYERSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_PLAYERSPAWNER;
+            fixtureDef.filter.maskBits = C_NONE;
+        }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
 }
@@ -147,13 +180,13 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
         for (int i = 0; i < entitiesFound; i++) {
             if (physComponents[i]->isFlaggedForDelete) {
-                PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
-                EntityCoordinator::getInstance().DestroyEntity(physComponents[i]->entityID);
+
+                B2DBodyDeleteGuardFunction(physComponents[i]->box2dBody, physComponents[i]->entityID);
+                EntityCoordinator::getInstance().scheduleEntityToDelete(physComponents[i]->entityID);
                 continue;
             }
             UpdateTransform(transformComponents[i], physComponents[i]);
             UpdateMovementComponent(moveComponents[i], physComponents[i]);
-
         }
     }
 }
@@ -165,6 +198,56 @@ void PhysicsWorld::DestoryObject(EntityID id)
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     physComponent->isFlaggedForDelete = true;
+}
+
+void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind == activeBodies.end())
+    {
+        std::cout << "trying to delete body that is not active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.erase(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        std::cout << "trying to delete an inactive body? Ent: " << id << std::endl;
+    }
+    else
+    {
+        deactivatedBodies.emplace(body);
+    }
+
+    PhysicsWorld::getInstance().world->DestroyBody(body);
+}
+
+void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind != activeBodies.end())
+    {
+        std::cout << "trying to add body that is already active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.emplace(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        //std::cout << "resuin? Ent: " << id << std::endl;
+        deactivatedBodies.erase(body);
+    }
+}
+
+ContactListener* PhysicsWorld::GetContactListener()
+{
+    return contactListener;
 }
 
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {

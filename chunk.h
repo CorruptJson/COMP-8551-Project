@@ -18,14 +18,14 @@ private:
     int chunkID = -1;
     Archetype arch;
     std::vector<Tag> tags;
-    Spritesheet spritesheet;
+    std::string spritesheet;
     int currEnts = 0;
     std::unordered_map<ComponentType, Byte*> componentArrays{};
     int versions[ENTITIES_PER_CHUNK]{};
     int entToDat[ENTITIES_PER_CHUNK]{};
     int datToEnt[ENTITIES_PER_CHUNK]{};
 
-    Chunk(Archetype archetype, int chunkID, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
+    Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void addComponentArrays(Archetype t, ComponentSizeMap& sizemap);
 
@@ -48,11 +48,11 @@ private:
 public:
 
     //template<typename T, typename ... args>
-    //static friend Chunk* createChunk(int chunkID, Archetype arch, Spritesheet spriteSheet, ComponentSizeMap& sizemap);
+    //static friend Chunk* createChunk(int chunkID, Archetype arch, std::string spriteSheet, ComponentSizeMap& sizemap);
 
     Chunk() = delete;
 
-    const char* GetSpritesheet();
+    std::string GetSpritesheet();
 
     int getCurrEntCount();
 
@@ -92,7 +92,7 @@ public:
         if ( find  == componentArrays.end())
         {
             // type is not in chunk component type array map
-            throw "type is not in chunk component type array map";
+            throw "getComponentArray: component type is not in chunk component type array map";
         }
         Byte* arr = find->second;
         //T* compArr = std::static_cast<T*>(arr);
@@ -106,7 +106,12 @@ public:
 
     bool hasTag(Tag tag);
 
-    std::vector<Tag> getAllTags();
+    std::vector<Tag>& getAllTags();
+
+    EntityID entityAtComponentIndex(int i);
+
+    bool doesEntityExist(EntityID id);
+    bool isDataIndexActive(int i);
 
     ~Chunk();
 };
