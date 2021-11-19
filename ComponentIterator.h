@@ -20,6 +20,15 @@ public:
         chunks = _chunks;
         if (chunks.size > 0)
         {
+            // skip past empty chunks
+            for (int i = 0; i < chunks.size(); i++)
+            {
+                if (chunks[i]->getCurrEntCount() != 0)
+                {
+                    break;
+                }
+            }
+
             componentArray = chunks[0]->getComponentArray<T>();
         }        
     }
@@ -54,6 +63,18 @@ public:
         if (currEnt >= chunks[currChunk]->getCurrEntCount())
         {
             currChunk++;
+            // skip past empty chunks
+            while(currChunk < chunks.size())
+            {
+                if (chunks[currChunk]->getCurrEntCount() != 0)
+                {
+                    break;
+                }
+                else
+                {
+                    currChunk++;
+                }
+            }            
             currEnt = 0;
             currIndex = 0;
             componentArray = chunks[currChunk]->getComponentArray<T>();
@@ -63,7 +84,7 @@ public:
         {
             currIndex++;
             whileCounter++;
-            if (whileCounter > 16)
+            if (whileCounter > ENTITIES_PER_CHUNK)
             {
                 throw "loop limit reached";
             }

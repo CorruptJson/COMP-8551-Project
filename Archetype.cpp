@@ -16,7 +16,7 @@ ArchetypeType Archetype::getType() const
     return type;
 }
 
-const std::vector<ComponentType> Archetype::getComponentTypeArray() const
+const std::vector<ComponentType>& Archetype::getComponentTypeArray() const
 {
     return components;
 }

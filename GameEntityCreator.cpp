@@ -44,8 +44,7 @@ GameEntityCreator::GameEntityCreator()
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
 {
     RenderComponent rc = {
-    "defaultVertShader.vs",
-    "defaultFragShader.fs",
+    DEFAULT,
     spriteName,
     0,
     0,

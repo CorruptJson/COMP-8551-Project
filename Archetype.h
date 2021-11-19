@@ -22,6 +22,6 @@ public:
     Archetype();
     Archetype(ArchetypeType type, std::vector<ComponentType> components);
     ArchetypeType getType() const;
-    const std::vector<ComponentType> getComponentTypeArray() const;
+    const std::vector<ComponentType>& getComponentTypeArray() const;
     bool hasComponentType(ComponentType type);
 };

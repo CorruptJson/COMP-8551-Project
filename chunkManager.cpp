@@ -4,7 +4,9 @@ Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::v
 {
     Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, tags, sizemap);
     allChunks.push_back(newChunk);
+    chunkManagerVersion++;
 
+    // see if this archetype is already present in the 'chunksByArch' map
     ArchetypeType at = arch.getType();
     auto findArch = chunksByArch.find(at);
     if (findArch != chunksByArch.end())
@@ -17,6 +19,7 @@ Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::v
         chunksByArch[at].push_back(newChunk);
     }
 
+    // see if this sprite is already present in the 'chunksBySprite' map
     auto findSprite = chunksBySpritesheet.find(spriteSheet);
     if (findSprite != chunksBySpritesheet.end())
     {
@@ -123,16 +126,33 @@ bool ChunkManager::doesEntityExist(EntityID id)
     return allChunks[id.chunkID]->doesEntityExist(id);
 }
 
+int ChunkManager::getChunkManagerVersion()
+{
+    return chunkManagerVersion;
+}
+
 std::shared_ptr<EntityQuery> ChunkManager::entitiesWithSpriteSheet(std::string spritesheet)
 {
     auto find = chunksBySpritesheet.find(spritesheet);
     if (find != chunksBySpritesheet.end())
     {
-        return std::make_shared<EntityQuery>(find->second);
+        std::vector<Chunk*>& chunks = find->second;
+        std::vector<Chunk*> validChunks;
+
+        // remove empty chunks
+        for (int i = 0; i < chunks.size(); i++)
+        {
+            if (chunks[i]->getCurrEntCount() != 0)
+            {
+                validChunks.push_back(chunks[i]);
+            }
+        }
+        return std::make_shared<EntityQuery>(validChunks);
     }
     else
     {
         return std::make_shared<EntityQuery>();
-    }    
+    }   
+    return std::make_shared<EntityQuery>();
 }
 

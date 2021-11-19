@@ -1,8 +1,9 @@
 #pragma once
+#include "Shader.h"
+
 struct RenderComponent {
-    // store the name of the vertex and fragment shaders
-    const char *vShader;
-    const char *fShader;
+    // shader program that we want to use
+    ShaderName shaderName;
 
     // store the name of the spritesheet
     const char *spriteName;

@@ -181,6 +181,8 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
+    <None Include="DoodleFragShader.fs" />
+    <None Include="DoodleVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
     <None Include="TextFragShader.fs" />
@@ -226,6 +228,7 @@
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpawnSystem.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
