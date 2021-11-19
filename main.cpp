@@ -87,6 +87,7 @@ int test(){
     coordinator->RegisterComponent<StateComponent>();
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();
+    coordinator->RegisterComponent<UIComponent>();
 
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
     

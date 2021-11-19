@@ -10,6 +10,7 @@
 #include "EntityCoordinator.h"
 #include "RenderComponent.h"
 #include "TextComponent.h"
+#include "UIComponent.h"
 #include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
@@ -82,5 +83,8 @@ private:
     void setTexCoordToDefault();
     void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
     void renderTextComponent(TextComponent* text);
+
+    void drawGameObjects(EntityCoordinator* coordinator);
+    void drawUI(EntityCoordinator* coordinator);
 };
 

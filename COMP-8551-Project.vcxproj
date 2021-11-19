@@ -234,6 +234,7 @@
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
+    <ClInclude Include="UIComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />
