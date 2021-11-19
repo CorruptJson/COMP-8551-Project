@@ -80,11 +80,9 @@ private:
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
-
-    void loadTexture(std::string spriteName);
     void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadImages();
-    void updateTexCoord(RenderComponent comp, std::string spriteName);
+    void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void setTexCoordToDefault();
     void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
     void renderTextComponent(TextComponent* text);

@@ -491,20 +491,7 @@ void Renderer::loadIndicesData() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
-}
-
-void Renderer::loadTexture(std::string spriteName) {
-    // if not found
-    try {
-        SpriteInfo info = sprites[spriteName];
-        glBindTexture(GL_TEXTURE_2D, info.id);
-    }
-    catch (int e) {
-        std::cout << "Couldn't find image matching name: " << spriteName << std::endl;
-        return;
-    }
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
 }
 
 void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
@@ -517,9 +504,7 @@ void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
 
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
-void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
-    SpriteInfo info = sprites[spriteName];
-
+void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     // set the texcoords by specifying its x and y
     float leftX = info.cellWidth * comp.colIndex;
     float rightX = leftX + info.cellWidth; 
@@ -626,8 +611,6 @@ Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 
 // called in main()
 int Renderer::update(EntityCoordinator* coordinator) {
-    // calculate the modelViewMatrix
-    //camera.moveCamera(0.01, 0.0);
     ++counter;
     if (counter >= 60) {
         counter = 0;
@@ -655,7 +638,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
             continue;
         }
 
-        loadTexture(spriteSheet);
+        SpriteInfo& spriteInfo = sprites[spriteSheet];
         ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
         ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);        
 
@@ -671,7 +654,8 @@ int Renderer::update(EntityCoordinator* coordinator) {
             glBindVertexArray(vertexAttribs);
 
             //calculate the tex coord from the component.index
-            updateTexCoord(*r, spriteSheet);
+            updateTexCoord(*r, spriteInfo);
+            glBindTexture(GL_TEXTURE_2D, spriteInfo.id);
 
             // load the data
             loadVertexData();
@@ -693,6 +677,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
             glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
             glEnableVertexAttribArray(1);
 
+            // shaders
             glUseProgram(shaders[r->shaderName].Program);
             loadShaderUniforms(shaders[DEFAULT], modelMatrix);
 
