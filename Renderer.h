@@ -80,15 +80,12 @@ private:
     // the background color of the scene
     glm::vec4 backgroundColor;
 
-    void loadVertexData();
-    void loadIndicesData();
+    void prepareGLBuffers();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
     void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
-    void setTexCoordToDefault();
-    void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
     void renderTextComponent(TextComponent* text);
 };
 

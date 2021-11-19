@@ -64,8 +64,6 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     // init it
     gladLoadGL();
 
-    //defaultShaderProgram = createDefaultShaderProgram();
-    //defaultShaderProgram = createDoodleShaderProgram();
     // init other OpenGL stuff
     camera.setViewSize(viewWidth, viewHeight);
 
@@ -79,22 +77,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
 
     loadImages();
 
-	glGenVertexArrays(1, &vertexAttribs);
-    // tell OpenGL to use this VAO (set it as active)
-    // need to do this before put data into the VAO
-    glBindVertexArray(vertexAttribs);
-
-    // create all the OpenGL buffers at the start so we can
-    // reuse them
-	// first param is how many 3D object we have (we have 1)
-	// second param is a reference to the VBO id/ref
-	// This is similar to GLuint VBO = glGenBuffers(1);
-	// except we use refs
-	glGenBuffers(1, &positionBuffer); // gen == generate
-	glGenBuffers(1, &texCoordBuffer); // gen == generate
-    loadVertexData();
-    glGenBuffers(1, &indicesBuffer);
-    loadIndicesData();
+    prepareGLBuffers();
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -431,7 +414,6 @@ void Renderer::loadTextLibrary() {
 
         // now store character for later use
         Character character = {
-            //textureId,
             texture,
             glm::ivec2(face->glyph->bitmap.width,face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
@@ -463,8 +445,21 @@ void Renderer::loadTextLibrary() {
     glBindVertexArray(0);
 }
 
-// load the vertex data for the object
-void Renderer::loadVertexData() {
+// prepare the VertexArrays, positions, tex coords,
+// and indices data.
+void Renderer::prepareGLBuffers() {
+    // tell OpenGL to use this VAO (set it as active)
+    // need to do this before put data into the VAO
+	glGenVertexArrays(1, &vertexAttribs);
+    glBindVertexArray(vertexAttribs);
+
+    // create all the OpenGL buffers at the start so we can
+    // reuse them
+	// first param is how many 3D object we have (we have 1)
+	// second param is a reference to the VBO id/ref
+	// This is similar to GLuint VBO = glGenBuffers(1);
+	// except we use refs
+	glGenBuffers(1, &positionBuffer); // gen == generate
 	// now we need to bind the VBO so OpenGL knows to draw it
 	// How "binding" works is it sets an object to the current object.
 	// OpenGL can only draw one thing at a time (state machine), so
@@ -510,23 +505,24 @@ void Renderer::loadVertexData() {
     glEnableVertexAttribArray(POSITION_ATTRIBUTE);
 
     // do the same thing for the texture
+	glGenBuffers(1, &texCoordBuffer); 
     glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    // use DYNAMIC DRAW cause we'll be changing it often
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
     glVertexAttribPointer(TEX_COORD_ATTRIBUTE, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(TEX_COORD_ATTRIBUTE);
 
-    // Reset VAO
-    glBindVertexArray(0);
-}
-
-void Renderer::loadIndicesData() {
     //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
     //this tells OpenGL to make use of the EBO when making a draw call
     //if the EBO is missing and the drawelements is called nothing will be drawn
+    glGenBuffers(1, &indicesBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // Reset VAO
+    glBindVertexArray(0);
 }
 
 void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
@@ -577,14 +573,12 @@ void Renderer::renderTextComponent(TextComponent* text)
 
     //no need to disable depth test, already disabled
 
-   ////sets the current shader program to the text shader program
+   //sets the current shader program to the text shader program
     glUseProgram(shaders[TEXT].Program);
+
     //sets the current shader program to use the projection matrix.
     glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
-
-    //
     glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), text->R, text->G, text->B);
-    //uniform location for the shader text
     glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
@@ -655,6 +649,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
         time++;
     }
 
+    // reset the background
     glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
     // recall that OpenGL works using buffers
