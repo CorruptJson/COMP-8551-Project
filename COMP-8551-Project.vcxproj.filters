@@ -186,6 +186,12 @@
     <None Include="TextVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="DoodleFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DoodleVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">
@@ -326,7 +332,10 @@
     <ClInclude Include="TextComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="GameManager.h">
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+      <ClInclude Include="GameManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="AIControlSystem.h">

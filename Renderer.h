@@ -18,6 +18,7 @@
 #include <stb/stb_image.h>
 #include "Animator.h"
 #include "Character.h"
+#include "Shader.h"
 
 extern GLFWwindow* window;
 
@@ -26,8 +27,13 @@ class Renderer
 public:
     static std::string DEFAULT_VERT_SHADER_NAME;
     static std::string DEFAULT_FRAG_SHADER_NAME;
+    
+    static std::string DOODLE_VERT_SHADER_NAME;
+    static std::string DOODLE_FRAG_SHADER_NAME;
+
     static std::string TEXT_VERT_SHADER_NAME;
     static std::string TEXT_FRAG_SHADER_NAME;
+
     static GLFWwindow* setupGLFW(int *width, int *height);
     int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor);
     int update(EntityCoordinator* coordinator);
@@ -56,27 +62,27 @@ private:
     GLuint textShaderProgram;
 
     Camera camera;
-
+    float time;
+    int counter;
     // store the sprites that have been read
     // from the image files
     std::map<std::string, SpriteInfo> sprites;
+    std::map<ShaderName, Shader> shaders;
 
     // store the text characters
     std::map<unsigned char, Character> characters;
 
+    void createShaderProgram(ShaderName shaderName,std::string vertPath, std::string fragPath);
     // the background color of the scene
     glm::vec4 backgroundColor;
 
-    GLuint createDefaultShaderProgram();
-    GLuint createTextShaderProgram();
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
 
     void loadTexture(std::string spriteName);
-    void loadUniforms(glm::mat4 modelMatrix);
-    void loadTextUniforms(glm::mat4 modelMatrix);
+    void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadImages();
     void updateTexCoord(RenderComponent comp, std::string spriteName);
     void setTexCoordToDefault();
