@@ -33,6 +33,7 @@ private:
 
     void searchChunks(std::vector<Chunk*>& allChunks);
     
+    
 public:
 
     EntityQuery();
@@ -40,15 +41,20 @@ public:
     int chunkCount();
     int getChunkListVersion();
     Chunk* chunk(int i);
+    std::size_t ComponentTypesHash();
+    std::size_t TagsHash();
+    std::size_t QueryHash();
+
+    void countFoundEntities();
 
     // skip search if you already know the chunks you want
-    EntityQuery(std::vector<Chunk*>& chosenChunks);
+    EntityQuery(std::vector<Chunk*> chosenChunks);
 
     // entity queries perform their search when they are created
-    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks);
+    //EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks, EntityQueryCache& cache);
 
     // entity queries perform their search when they are created
-    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags,std::vector<Chunk*>& allChunks);
+    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags, int _chunkListVersion);
 
     // get a vector of pointers for the components of the specified type
     // the components belonging to the entities found in the query

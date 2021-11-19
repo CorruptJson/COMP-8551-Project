@@ -11,6 +11,8 @@
 #include "system_manager.h"
 #include "ComponentIterator.h"
 
+using EntityQueryCache = std::unordered_map<size_t, std::shared_ptr<EntityQuery> >;
+
 class EntityCoordinator
 {
 private:
@@ -18,7 +20,7 @@ private:
     std::unique_ptr<ChunkManager> mChunkManager;
     std::unique_ptr<ArchetypeManager> mArchetypeManager;
     std::unique_ptr<SystemManager> mSystemManager;
-
+    EntityQueryCache queryCache;
     const std::string noSprite = "NO_SPRITE";
     //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
     //int queryCacheVersion = 0;
@@ -70,11 +72,11 @@ public:
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components
     // searches without checking for tags
-    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes);
+    //std::shared_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes);
 
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components and tags
-    std::unique_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags);
+    std::shared_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags);
 
     uint32_t GetEntityCount();
 

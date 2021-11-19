@@ -7,7 +7,6 @@
 #include "renderComponent.h"
 #include <nlohmann/json.hpp>
 
-
 // ECS
 //using Entity = std::uint32_t;
 //const Entity MAX_ENTITIES = 5000;

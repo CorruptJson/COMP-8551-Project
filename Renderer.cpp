@@ -706,15 +706,16 @@ int Renderer::update(EntityCoordinator* coordinator) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     //text rendering begins here
-    std::unique_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
-        });
+        }, {});
 
     int textFound = TextQuery->totalEntitiesFound();
-    std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
+    ComponentIterator<TextComponent> textComps = ComponentIterator<TextComponent>(TextQuery);
+    //std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
 
     for (int i = 0; i < textFound; i++) {
-        renderTextComponent(textComps[i]);
+        renderTextComponent(textComps.nextComponent());
     }
 
     // foreground is currently cleared (default to white)

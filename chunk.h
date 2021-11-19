@@ -100,7 +100,7 @@ public:
         return compArr;
     }
 
-    Archetype getArchetype();
+    Archetype& getArchetype();
 
     bool hasComponentType(ComponentType type);
 
