@@ -44,6 +44,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+            Notify(Event::STAR_PICKED_UP, nullptr);
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;

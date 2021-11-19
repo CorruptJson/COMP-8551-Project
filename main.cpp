@@ -95,11 +95,12 @@ int test(){
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
 
-    coordinator->addSystem<TimerSystem>()->Attach(coordinator->addSystem<SpawnSystem>().get());
+    shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
+    coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
 
     //Subscribe playercontrol to recieve collision events
     physicsWorld->GetContactListener()->Attach(playerControl);
-
+    physicsWorld->GetContactListener()->Attach(spawnSys.get());
 
     sceneManager->CreateEntities();
 

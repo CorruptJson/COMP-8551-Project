@@ -6,17 +6,18 @@
 #include "GameManager.h"
 #include "GameEntityCreator.h"
 #include "PhysicsWorld.h"
+#include "vector"
 
 class SpawnSystem: public System, public IObserver
 {
 public:
     SpawnSystem();
     EntityCoordinator* ec;
+    bool hasActiveStar = false;
+
 
     void Receive(Event e, void* args) override;
-
     void SpawnStar();
-
     void SpawnEnemy();
 };
 

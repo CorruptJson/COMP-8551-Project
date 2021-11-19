@@ -8,47 +8,42 @@ void SpawnSystem::Receive(Event e, void* args)
 {
     switch (e) {
     case Event::SPAWN_STAR:
-        SpawnStar();
+        if(!hasActiveStar)
+            SpawnStar();
+        break;
+    case Event::STAR_PICKED_UP:
+        hasActiveStar = false;
         break;
     }
 }
 
 void SpawnSystem::SpawnStar()
 {
-    GameManager gm = GameManager::getInstance();
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    GameEntityCreator& creator = GameEntityCreator::getInstance();
-    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
-
-    // create a new entity for bullet
-    float xPos = -3.5;
-    float yPos = 1.5;
-    EntityID star = creator.CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR }, false);
-
-    /*
-    std::unique_ptr<EntityQuery> eq = ec->GetEntityQuery({
+    std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
         ec->GetComponentType<Transform>()
+        }, {
+            Tag::SPAWNPOINT
         });
 
-    int entityCount = eq->totalEntitiesFound();
+    ComponentIterator<Transform> tI = ComponentIterator<Transform>(eq);
+    int position = rand() % eq->totalEntitiesFound();
+    int current = 0;
 
-    std::vector<Transform*> spawnLocations;
+    std::cout << "Total spawnpoints found: " << eq->totalEntitiesFound() << std::endl;
+
+    std::cout << "Rand: " << position << std::endl;
+    Transform* t = tI.nextComponent();
+    while (current < position) {
+        t = tI.nextComponent();
+        current++;
+    }
     
-    ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(eq);
+    float xPos = t->getPosition().x;
+    float yPos = t->getPosition().y;
+    EntityID star = GameEntityCreator::getInstance().CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR }, true);
 
-    for (int i = 0; i < entityCount; i++)
-    {
-        Transform* r = transformComponents.nextComponent();
-    }
-    for (Chunk* c : eq->foundChunks()) {
-        if (c->hasTag(Tag::SPAWNPOINT)) {
-            Transform* t = c->getComponentArray<Transform>();
-            
-        }
-    }
-    */
-
-    physWorld.AddObject(star);
+    PhysicsWorld::getInstance().AddObject(star);
+    hasActiveStar = true;
 }
 
 void SpawnSystem::SpawnEnemy()

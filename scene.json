@@ -1422,6 +1422,22 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "test star spawn location2",
+        "transform": {
+            "xPos": -3,
+            "yPos": 1.5
+        }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "test star spawn location3",
+        "transform": {
+            "xPos": -2,
+            "yPos": 1.5
+        }
+    },
+    {
         "usePrefab": "EnemySpawner",
         "_comment": "enemy spawner top platform",
         "transform": {

@@ -341,7 +341,7 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-      <ClInclude Include="GameManager.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="AIControlSystem.h">
@@ -352,7 +352,7 @@
     </ClInclude>
     <ClInclude Include="TimerSystem.h">
       <Filter>Header Files\Systems</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="FPSCounter.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
