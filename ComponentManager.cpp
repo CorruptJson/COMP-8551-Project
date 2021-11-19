@@ -23,7 +23,7 @@ ComponentSize ComponentManager::getComponentSize(ComponentType t)
     }
     else
     {
-        find->second;
+        return find->second;
     }    
 }
 

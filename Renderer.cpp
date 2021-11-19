@@ -113,15 +113,9 @@ void Renderer::loadImages() {
 
     ImgConfig configs[]{
         {
-            "background.png",
-            1,
-            1,
-            {}
-        },
-        {
             "platform.png",
-            2,
-            1,
+            6,
+            3,
             {}
         },
         {
@@ -606,18 +600,19 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
     float topY = 1 - info.cellHeight * comp.rowIndex;
     float bottomY = topY - info.cellHeight; 
 
+    // coordinates of the texture coords in the vertices array
     if (comp.flipX) {
-        // coordinates of the texture coords in the vertices array
-        vertices[3] = rightX; // top right x
-        vertices[8] = rightX; // bottom right x
-        vertices[13] = leftX; // bottom left x
-        vertices[18] = leftX; // top left x
-    }
-    else {
         vertices[3] = leftX; // top right x
         vertices[8] = leftX; // bottom right x
         vertices[13] = rightX; // bottom left x
         vertices[18] = rightX; // top left x
+    }
+    else {
+        // normal coords
+        vertices[3] = rightX; // top right x
+        vertices[8] = rightX; // bottom right x
+        vertices[13] = leftX; // bottom left x
+        vertices[18] = leftX; // top left x
     }
 
     // y values of the tex coords
@@ -803,52 +798,63 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<RenderComponent>(),
-        coordinator->GetComponentType<Transform>()
-        });
+    // draw entities by the spritesheet they use, so only need to load each sprite sheet once
+    auto mapIterator = sprites.begin();
+    for (; mapIterator != sprites.end(); mapIterator++)
+    {
+        std::string spriteSheet = mapIterator->first;
+        std::shared_ptr<EntityQuery> entsWithSprite = coordinator->entitiesWithSpriteSheet(spriteSheet);
+        int entitiesFound = entsWithSprite->totalEntitiesFound();
 
-    int entitiesFound = entityQuery->totalEntitiesFound();
-    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    std::vector<Transform*> transformComps = entityQuery->getComponentArray<Transform>();
+        // no entities using this sprite sheet, go to next loop
+        if (entitiesFound == 0)
+        {
+            continue;
+        }
 
-    for (int i = 0; i < entitiesFound; i++) {
-        RenderComponent component = *(renderComps[i]);
-        Transform t = *(transformComps[i]);
-        glm::mat4 modelMatrix = t.getModelMatrix();
+        loadTexture(spriteSheet);
+        ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
+        ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);        
 
-        // tell OpenGL to use this VAO (set it as active)
-        // need to do this before put data into the VAO
-        glBindVertexArray(vertexAttribs);
+        for (int i = 0; i < entitiesFound; i++)
+        {
+            RenderComponent* r = renderComponents.nextComponent();
+            Transform* t = transformComponents.nextComponent();
 
-        //calculate the tex coord from the component.index
-        updateTexCoord(component, component.spriteName);
+            glm::mat4 modelMatrix = t->getModelMatrix();
+            
+            // tell OpenGL to use this VAO (set it as active)
+            // need to do this before put data into the VAO
+            glBindVertexArray(vertexAttribs);
 
-        // load the data
-        loadVertexData();
-        loadIndicesData();
-        loadTexture(component.spriteName);
+            //calculate the tex coord from the component.index
+            updateTexCoord(*r, spriteSheet);
 
-        // create vertex attrib pointers
-        // has to do this after loading data into buffers
-        // tell OpenGL how to intepret the vertex data that 
-        // we pass in. In memory, it just know we give it a chunk
-        // of bytes => tell it how many bytes make a vertex
-        // it helps to see the image at "Applying Texture"
-        // here: https://learnopengl.com/Getting-started/Textures
-        // first param is the input index of the vertex shader (see the first few lines).
-        // `aPos` is located at location 0 so we want to set the pointer for this
-        glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
+            // load the data
+            loadVertexData();
+            loadIndicesData();
 
-        // do the same thing for the texture
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-        glEnableVertexAttribArray(1);
+            // create vertex attrib pointers
+            // has to do this after loading data into buffers
+            // tell OpenGL how to intepret the vertex data that 
+            // we pass in. In memory, it just know we give it a chunk
+            // of bytes => tell it how many bytes make a vertex
+            // it helps to see the image at "Applying Texture"
+            // here: https://learnopengl.com/Getting-started/Textures
+            // first param is the input index of the vertex shader (see the first few lines).
+            // `aPos` is located at location 0 so we want to set the pointer for this
+            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+            glEnableVertexAttribArray(0);
 
-        glUseProgram(defaultShaderProgram);
-        loadUniforms(modelMatrix);
+            // do the same thing for the texture
+            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+            glEnableVertexAttribArray(1);
 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            glUseProgram(defaultShaderProgram);
+            loadUniforms(modelMatrix);
+
+            glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        }
     }
 
     //unbinds the current vao and vbo
@@ -888,6 +894,7 @@ int Renderer::teardown() {
     glfwTerminate();
     return 0;
 }
+
 Renderer* Renderer::getInstance()
 {
     if (renderer == nullptr)

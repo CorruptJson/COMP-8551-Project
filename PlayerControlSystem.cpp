@@ -4,9 +4,19 @@
 #include "InputComponent.h"
 #include "Animation.h"
 #include "Renderer.h"
+#include <thread>
+
+PlayerControlSystem::PlayerControlSystem()
+{
+    invincibleTimer = new b2Timer();
+    invincibleTimer->Reset();
+    isInvincible = false;
+    isInContactWithEnemy = false;
+}
 
 PlayerControlSystem::~PlayerControlSystem()
 {
+    delete invincibleTimer;
 }
 
 void PlayerControlSystem::processEntity(EntityID id) {
@@ -58,22 +68,22 @@ void PlayerControlSystem::processEntity(EntityID id) {
 
     // Animation, flip, and velocity
     if (input.isKeyDown(InputTracker::A)) {
-        renderComponent->flipX = false;
+        renderComponent->flipX = true;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(-speed, yVelocity);
         stateComponent->faceRight = false;
     }
     if (input.isKeyDown(InputTracker::D)) {
-        renderComponent->flipX = true;
+        renderComponent->flipX = false;
         animationComponent->currAnim = animRunning;
         moveComponent->setVelocity(speed, yVelocity);
         stateComponent->faceRight = true;
     }
-    if (input.isKeyDown(InputTracker::S)) {
-        animationComponent->currAnim = animHurting;
-        moveComponent->setVelocity(0, 0);
-    }
-    // added to test rotation
+    //if (input.isKeyDown(InputTracker::S)) {
+    //    animationComponent->currAnim = animHurting;
+    //    moveComponent->setVelocity(0, 0);
+    //}
+    // added to test rotation is working
     if (input.isKeyJustDown(InputTracker::R)) {
         int rot = transformComponent->getRotation();
         transformComponent->setRotation(rot+90.0f);
@@ -95,9 +105,9 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //    //}
     //}
 
-    if (input.isKeyJustReleased(InputTracker::S)) {
-        moveComponent->setVelocity(xVelocity, 0);
-    }
+    //if (input.isKeyJustReleased(InputTracker::S)) {
+    //    moveComponent->setVelocity(xVelocity, 0);
+    //}
     //if (input.isKeyJustReleased(InputTracker::W)) {
     //    if (yVelocity > 0) {
     //        moveComponent->setVelocity(xVelocity, 0);
@@ -129,6 +139,16 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
+
+    // Update isInvincible boolean and play animation
+    if (isInvincible) 
+    {
+        animationComponent->currAnim = animHurting;
+        isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+        if (!isInvincible && isInContactWithEnemy) damaged();
+    }
+
+    checkRespawn();
 }
 
 void PlayerControlSystem::jump()
@@ -162,7 +182,7 @@ void PlayerControlSystem::shoot()
     EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
 
     RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-    bulletrenderComp->flipX = (stateComponent.faceRight) ? true : false;
+    bulletrenderComp->flipX = !stateComponent.faceRight;
 
     physWorld.AddObject(bullet);
 
@@ -170,6 +190,21 @@ void PlayerControlSystem::shoot()
     PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
     b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
     bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+}
+
+void PlayerControlSystem::damaged()
+{
+    if (!isInvincible)
+    {
+        cout << "Player damaged" << endl;
+        invincibleTimer->Reset();
+        isInvincible = true;
+        // TODO: add logic for decreasing health and sound effect here
+    }
+    else
+    {
+        cout << "Player is invincible" << endl;
+    }
 }
 
 bool PlayerControlSystem::isGrounded()
@@ -192,6 +227,55 @@ bool PlayerControlSystem::isGrounded()
     return false;
 }
 
+void PlayerControlSystem::checkRespawn()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+    PhysicsComponent& physComponent = coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
+    Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
+    float resPosX = spawnerTransformComponent.getPosition().x;
+    float resPosY = spawnerTransformComponent.getPosition().y;
+
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
+
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            //stateComponent.state = STATE_DIE;
+            // wait 0.2 second and reset position to center stage
+            this_thread::sleep_for(chrono::milliseconds(200));
+            physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
+            cout << "Life -1, position reset " << endl;
+            //stateComponent.state = STATE_NORMAL;
+        }
+
+        contactList = contactList->next;
+    }
+}
+
+bool PlayerControlSystem::isDead()
+{
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
+
+    while (contactList != nullptr) {
+        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
+
+        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
+            return true;
+        }
+
+        contactList = contactList->next;
+    }
+
+    return false;
+}
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     switch (e) {
@@ -201,5 +285,17 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::INPUT_SHOOT):
         shoot();
         break;
+    case(Event::C_START_PLAYER_ENEMY):
+        updateContactWithEnemy(true);
+        damaged();
+        break;
+    case(Event::C_END_PLAYER_ENEMY):
+        updateContactWithEnemy(false);
+        break;
     }
+}
+
+void PlayerControlSystem::updateContactWithEnemy(bool isContacted)
+{
+    isInContactWithEnemy = isContacted;
 }
