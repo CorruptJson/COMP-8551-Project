@@ -687,8 +687,8 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     //unbinds the current vao and vbo
 
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    //glBindVertexArray(0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     //text rendering begins here
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
