@@ -1,6 +1,7 @@
 #pragma once
 #include "EntityCoordinator.h"
 #include "Components.h"
+#include "Renderer.h"
 
 class GameEntityCreator
 {

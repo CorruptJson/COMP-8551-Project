@@ -148,6 +148,13 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
 
     ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, hasAnimation);
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+    ec.GetComponent<AnimationComponent>(ent) = {
+        Renderer::getInstance()->getAnimation("flicker", spriteName),
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        0,
+        hasAnimation
+    };
     ec.GetComponent<PhysicsComponent>(ent) = {
         b2_staticBody,
         0.5f * scaleY,

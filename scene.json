@@ -31,13 +31,6 @@
         }
     },
     {
-        "usePrefab": "Star",
-        "transform": {
-            "xPos": -4,
-            "yPos": 1.5
-        }
-    },
-    {
         "usePrefab": "WallRight",
         "transform": {
             "xPos": -6.75,
