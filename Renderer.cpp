@@ -870,10 +870,11 @@ int Renderer::update(EntityCoordinator* coordinator) {
         }, {});
 
     int textFound = TextQuery->totalEntitiesFound();
-    std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
+    ComponentIterator<TextComponent> textComps = ComponentIterator<TextComponent>(TextQuery);
+    //std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
 
     for (int i = 0; i < textFound; i++) {
-        renderTextComponent(textComps[i]);
+        renderTextComponent(textComps.nextComponent());
     }
 
     //renderText("hello", 25.0f, 25.0f, 1.0f, glm::vec3(0.5f,0.8f,0.2f));

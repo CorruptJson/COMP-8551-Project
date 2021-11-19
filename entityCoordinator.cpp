@@ -61,8 +61,8 @@ std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<Compo
 {
     int chunkManagerVersion = mChunkManager->getChunkManagerVersion();
     //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
-    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
-    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
+    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
 
     size_t hash = query->QueryHash();
     auto find = queryCache.find(hash);
