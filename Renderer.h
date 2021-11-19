@@ -50,8 +50,12 @@ private:
     GLuint vertexAttribs; 
 
      // the vertex buffer object (VBO) containing the 
-    // vertex data
-    GLuint vertexBuffer;
+    // vertex position data
+    GLuint positionBuffer;
+
+     // the vertex buffer object (VBO) containing the 
+    // vertex tex coordinates data
+    GLuint texCoordBuffer;
 
     // the element buffer object (EBO) contains the vertex indices
     GLuint indicesBuffer;
