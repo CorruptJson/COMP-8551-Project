@@ -50,8 +50,12 @@ private:
     GLuint vertexAttribs; 
 
      // the vertex buffer object (VBO) containing the 
-    // vertex data
-    GLuint vertexBuffer;
+    // vertex position data
+    GLuint positionBuffer;
+
+     // the vertex buffer object (VBO) containing the 
+    // vertex tex coordinates data
+    GLuint texCoordBuffer;
 
     // the element buffer object (EBO) contains the vertex indices
     GLuint indicesBuffer;
@@ -76,17 +80,12 @@ private:
     // the background color of the scene
     glm::vec4 backgroundColor;
 
-    void loadVertexData();
-    void loadIndicesData();
+    void prepareGLBuffers();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
-
-    void loadTexture(std::string spriteName);
     void loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix);
     void loadImages();
-    void updateTexCoord(RenderComponent comp, std::string spriteName);
-    void setTexCoordToDefault();
-    void renderText(std::string text, float x, float y, float scale, glm::vec3 color);
+    void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void renderTextComponent(TextComponent* text);
 };
 
