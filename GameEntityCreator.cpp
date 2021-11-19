@@ -40,7 +40,7 @@ GameEntityCreator::GameEntityCreator()
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
 {
     RenderComponent rc = {
-    DEFAULT,
+    ShaderName::DEFAULT,
     spriteName,
     0,
     0,
@@ -123,12 +123,12 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
 //    return ent;
 //}
 
-EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
-    ec.GetComponent<TextComponent>(ent).value = text;
+    ec.GetComponent<TextComponent>(ent).value = "Test";
     ec.GetComponent<TextComponent>(ent).x = x;
     ec.GetComponent<TextComponent>(ent).y = y;
     //ec.GetComponent<TextComponent>(ent).size = 1.0f;

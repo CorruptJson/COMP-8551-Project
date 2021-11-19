@@ -62,12 +62,12 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     camera.setViewSize(viewWidth, viewHeight);
 
     //creates shader programs and puts them into the map
-    createShaderProgram(DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
-    createShaderProgram(TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
-    createShaderProgram(DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
 
     //sets the text shader to be used currently
-    glUseProgram(shaders[TEXT].Program);
+    glUseProgram(shaders[ShaderName::TEXT].Program);
 
     loadImages();
 
@@ -555,24 +555,22 @@ void Renderer::renderTextComponent(TextComponent* text)
     //no need to disable depth test, already disabled
 
    ////sets the current shader program to the text shader program
-    glUseProgram(shaders[TEXT].Program);
+    glUseProgram(shaders[ShaderName::TEXT].Program);
     //sets the current shader program to use the projection matrix.
-    glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
 
     //
-    glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), text->R, text->G, text->B);
+    glUniform3f(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "textColor"), text->R, text->G, text->B);
     //uniform location for the shader text
-    glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
+    glUniform1i(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
-
-    std::string Text(text->value);
 
     float x = text->x;
     float y = text->y;
 
     std::string::const_iterator c;
-    for (c = Text.begin(); c != Text.end(); c++) {
+    for (c = text->value.begin(); c != text->value.end(); c++) {
         Character ch = characters[*c];
 
         float xpos = x + ch.bearing.x * text->size;
@@ -711,7 +709,7 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
             glEnableVertexAttribArray(1);
 
             glUseProgram(shaders[r->shaderName].Program);
-            loadShaderUniforms(shaders[DEFAULT], modelMatrix);
+            loadShaderUniforms(shaders[ShaderName::DEFAULT], modelMatrix);
 
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
         }
@@ -719,9 +717,9 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
 }
 
 void Renderer::drawUI(EntityCoordinator* coordinator) {
-    std::unique_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<UIComponent>(),
-        });
+        }, {});
 
     int uiFound = UIQuery->totalEntitiesFound();
     std::vector<UIComponent*> uiComps = UIQuery->getComponentArray<UIComponent>();

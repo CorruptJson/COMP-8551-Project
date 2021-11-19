@@ -14,7 +14,7 @@ enum UNIFORMS {
     NUM_OF_UNIFORMS
 };
 
-enum ShaderName {
+enum class ShaderName {
     DEFAULT,
     TEXT,
     DOODLE

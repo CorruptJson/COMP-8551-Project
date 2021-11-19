@@ -165,6 +165,9 @@
     <ClCompile Include="FPSCounter.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -335,7 +338,7 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-      <ClInclude Include="GameManager.h">
+    <ClInclude Include="GameManager.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="AIControlSystem.h">

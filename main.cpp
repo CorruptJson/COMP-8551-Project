@@ -44,7 +44,7 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID text;
+//EntityID text;
 EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -102,7 +102,7 @@ int test(){
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+    //text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;

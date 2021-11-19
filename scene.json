@@ -1,5 +1,10 @@
 [
     {
+        "text": {
+            "value": "Test"
+        }
+    },
+    {
         "tag": "player",
         "transform": {
             "xScale": 1,

@@ -12,7 +12,8 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION
+    ANIMATION,
+    TEXT
 };
 
 // convert strings to enums here
@@ -22,6 +23,7 @@ unordered_map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
+    {"text", TEXT}
 
 };
 
@@ -97,6 +99,7 @@ void SceneManager::CreateEntities() {
         if (ev.animationComponent) ev.components.push_back(coordinator->GetComponentType<AnimationComponent>());
         if (ev.movementComponent) ev.components.push_back(coordinator->GetComponentType<MovementComponent>());
         if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
+        if (ev.textComponent) ev.components.push_back(coordinator->GetComponentType<TextComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
         EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
@@ -116,7 +119,7 @@ void SceneManager::CreateEntities() {
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    DEFAULT,
+                    ShaderName::DEFAULT,
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,
@@ -150,6 +153,7 @@ void SceneManager::CreateEntities() {
             0
             };
         }
+
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
             0,
@@ -157,6 +161,17 @@ void SceneManager::CreateEntities() {
             };
         }
 
+        if (ev.textComponent) {
+            coordinator->GetComponent<TextComponent>(ent) = {
+                "Text",
+                ev.r,
+                ev.g,
+                ev.b,
+                ev.x,
+                ev.y,
+                ev.size
+            };
+        }
     }
 }
 
@@ -252,7 +267,15 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                     ? details["animName"].get<std::string>() : ev.animName;
 
                 break;
+
+            case TEXT:
+                ev.textComponent = true;
+                ev.value = details.contains("value")
+                    ? details["value"].get<std::string>() : ev.value;
+
+                break;
             }
+
         }
         
 
