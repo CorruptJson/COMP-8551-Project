@@ -30,6 +30,12 @@ GameEntityCreator::GameEntityCreator()
     textArchetype = ec.GetArchetype({
         ec.GetComponentType<TextComponent>()
         });
+    
+    panelArchetype = ec.GetArchetype({
+        ec.GetComponentType<UIComponent>(),
+        ec.GetComponentType<Transform>()
+        
+        });
 
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
@@ -135,5 +141,18 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     //ec.GetComponent<TextComponent>(ent).size = 1.0f;
     ec.GetComponent<TextComponent>(ent).size = size;
     ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePanel(float x, float y, float r, float g, float b, float scaleX, float scaleY, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(panelArchetype, "Panel", tags); 
+
+    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, scaleX, scaleY);
+    ec.GetComponent<UIComponent>(ent) = {
+        glm::vec4( r, g, b, 1.0)
+    };
+    
     return ent;
 }

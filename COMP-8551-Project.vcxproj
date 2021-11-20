@@ -179,6 +179,8 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
+    <None Include="PanelFragShader.fs" />
+    <None Include="PanelVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
     <None Include="TextFragShader.fs" />

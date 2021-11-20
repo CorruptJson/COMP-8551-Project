@@ -55,6 +55,7 @@ private:
     // stored here since we most likely will use it often
     GLuint defaultShaderProgram;
     GLuint textShaderProgram;
+    GLuint panelShaderProgram;
 
     Camera camera;
 
@@ -70,6 +71,7 @@ private:
 
     GLuint createDefaultShaderProgram();
     GLuint createTextShaderProgram();
+    GLuint createShaderProgram(std::string vertName, std::string fragName);
     void loadVertexData();
     void loadIndicesData();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);

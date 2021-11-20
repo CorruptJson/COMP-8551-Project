@@ -186,6 +186,12 @@
     <None Include="TextVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
+    <None Include="PanelFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="PanelVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">

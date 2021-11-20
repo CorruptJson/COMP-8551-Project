@@ -68,7 +68,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     camera.setViewSize(viewWidth, viewHeight);
     defaultShaderProgram = createDefaultShaderProgram();
     textShaderProgram = createTextShaderProgram();
-
+    panelShaderProgram = createShaderProgram("PanelVertShader.vs", "PanelFragShader.fs");
     //sets the text shader to be used currently
     glUseProgram(textShaderProgram);
 
@@ -420,6 +420,77 @@ GLuint Renderer::createTextShaderProgram() {
     textUniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
 
 	return shaderProgram;
+}
+
+GLuint Renderer::createShaderProgram(std::string vertName, std::string fragName)
+{
+    // shaders are OpenGL objects => we need to init them
+    // and store a reference to them so we can use them later
+
+    // init an empty shader and store the ref OpenGL returns
+    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+    std::string vertShaderSource = FileManager::readShaderFile(vertName);
+    const char* vertCStr = vertShaderSource.c_str();
+
+    // first param is the pointer/ID that we will use the as ref
+    // to the shader (the one we create above), 1 is the number of strings
+    // we are storing the shader in, &vertexShaderSource is a pointer
+    // to the shader code string, and NULL is the length that we will
+    // read from the vertCStr => NULL means we keep reading until we see
+    // a NUL EOF char.
+    glShaderSource(vertexShader, 1, &vertCStr, NULL);
+    glCompileShader(vertexShader);
+
+    // check for success
+    int success;
+    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
+
+    // do the same thing for the fragment shader
+    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    std::string fragShaderSource = FileManager::readShaderFile(fragName);
+    const char* fragCStr = fragShaderSource.c_str();
+
+    // first param is the pointer/ID that we will use the as ref
+    // to the shader, 1 is the number of strings
+    // we are storing the shader in, &fragmentShaderSource is a pointer
+    // to the shader code string, and NULL is unimportant
+    glShaderSource(fragmentShader, 1, &fragCStr, NULL);
+    glCompileShader(fragmentShader);
+
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+    if (!success) {
+        char infoLog[512];
+        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+    }
+
+    // now that we have the shaders, we have to create and 
+    // a "shader program" and attach them so it can work
+    GLuint shaderProgram = glCreateProgram();
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    // link the program to the rendering pipeline
+    glLinkProgram(shaderProgram);
+
+    // clean up and delete the shader refs
+    // we already compile and link them to the program
+    // so we don't need them anymore
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // load the uniforms
+    // see the uniforms defined in the vertex shader 
+    // we get their locations here
+    //uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
+    //uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
+    //uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
+
+    return shaderProgram;
 }
 
 /// <summary>
@@ -878,12 +949,27 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
 void Renderer::drawUI(EntityCoordinator* coordinator) {
     std::unique_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<UIComponent>(),
+        coordinator->GetComponentType<Transform>()
         });
 
     int uiFound = UIQuery->totalEntitiesFound();
     std::vector<UIComponent*> uiComps = UIQuery->getComponentArray<UIComponent>();
+    std::vector<Transform*> transforms = UIQuery->getComponentArray<Transform>();
 
+    //load the UI data here
+
+    glUseProgram(panelShaderProgram);
+
+    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+
+    glUniformMatrix4fv(glGetUniformLocation(panelShaderProgram, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
+    glBindTexture(GL_TEXTURE_2D, 0);
     for (int i = 0; i < uiFound; i++) {
+        glUniformMatrix4fv(glGetUniformLocation(panelShaderProgram, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(transforms[i]->getModelMatrix()));
+
+
+        glUniform3f(glGetUniformLocation(panelShaderProgram, "panelColor"), uiComps[i]->color.r, uiComps[i]->color.g, uiComps[i]->color.b);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
 
     //text rendering begins here

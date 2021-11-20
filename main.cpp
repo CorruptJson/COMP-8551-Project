@@ -46,6 +46,7 @@ EntityID mike;
 EntityID timer;
 EntityID text;
 EntityID mikeRespawner;
+EntityID panel;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -103,6 +104,9 @@ int test(){
     //creating text
     //                                                                   X      Y      R     G     B     Tags
     text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+
+    panel = GameEntityCreator::getInstance().CreatePanel(700.0f, 200.0f, 1.0f, 0.0f, 0.0f, 500.0f, 300.0f, {});
+
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
