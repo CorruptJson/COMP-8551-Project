@@ -48,7 +48,7 @@ struct EntityValues {
     b2BodyType bodyType = b2_staticBody;
 
     // TextComponent
-    std::string value = "";
+    std::string text = "";
     float r = 0;
     float g = 0;
     float b = 0;

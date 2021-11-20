@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+Renderer* Renderer::renderer = nullptr;
+
 std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
@@ -416,9 +418,8 @@ void Renderer::loadTextLibrary() {
 
         // now store character for later use
         Character character = {
-            //textureId,
             texture,
-            glm::ivec2(face->glyph->bitmap.width,face->glyph->bitmap.rows),
+            glm::ivec2(width, height),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             (unsigned int)face->glyph->advance.x,
         };
@@ -551,6 +552,7 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
 void Renderer::renderTextComponent(TextComponent* text)
 {
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+    //glm::mat4 projection = camera.getProjectionMatrix();
 
     //no need to disable depth test, already disabled
 
@@ -568,9 +570,10 @@ void Renderer::renderTextComponent(TextComponent* text)
 
     float x = text->x;
     float y = text->y;
+    std::string textValue = text->getText();
 
     std::string::const_iterator c;
-    for (c = text->value.begin(); c != text->value.end(); c++) {
+    for (c = textValue.begin(); c != textValue.end(); c++) {
         Character ch = characters[*c];
 
         float xpos = x + ch.bearing.x * text->size;
@@ -754,5 +757,3 @@ Renderer* Renderer::getInstance()
         renderer = new Renderer();
     return renderer;
 }
-
-Renderer* Renderer::renderer = nullptr;

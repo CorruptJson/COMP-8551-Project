@@ -128,11 +128,11 @@ EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
-    ec.GetComponent<TextComponent>(ent).value = "Test";
-    ec.GetComponent<TextComponent>(ent).x = x;
-    ec.GetComponent<TextComponent>(ent).y = y;
-    //ec.GetComponent<TextComponent>(ent).size = 1.0f;
-    ec.GetComponent<TextComponent>(ent).size = size;
-    ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    //ec.GetComponent<TextComponent>(ent).value = "Test";
+    //ec.GetComponent<TextComponent>(ent).x = x;
+    //ec.GetComponent<TextComponent>(ent).y = y;
+    ////ec.GetComponent<TextComponent>(ent).size = 1.0f;
+    //ec.GetComponent<TextComponent>(ent).size = size;
+    //ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
     return ent;
 }

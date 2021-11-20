@@ -162,15 +162,13 @@ void SceneManager::CreateEntities() {
         }
 
         if (ev.textComponent) {
-            coordinator->GetComponent<TextComponent>(ent) = {
-                "Text",
+            coordinator->GetComponent<TextComponent>(ent) = TextComponent(
+                ev.text,
+                ev.size,
                 ev.r,
                 ev.g,
-                ev.b,
-                ev.x,
-                ev.y,
-                ev.size
-            };
+                ev.b
+            );
         }
     }
 }
@@ -270,8 +268,20 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
             case TEXT:
                 ev.textComponent = true;
-                ev.value = details.contains("value")
-                    ? details["value"].get<std::string>() : ev.value;
+                ev.text = details.contains("text")
+                    ? details["text"].get<std::string>() : ev.text;
+
+                ev.r = details.contains("r")
+                    ? details["r"].get<float>() : ev.r;
+
+                ev.g = details.contains("g")
+                    ? details["g"].get<float>() : ev.g;
+
+                ev.b = details.contains("b")
+                    ? details["b"].get<float>() : ev.b;
+
+                ev.size = details.contains("size")
+                    ? details["size"].get<float>() : ev.size;
 
                 break;
             }
