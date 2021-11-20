@@ -11,13 +11,21 @@ std::string Renderer::DOODLE_FRAG_SHADER_NAME = "DoodleFragShader.fs";
 
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
-GLfloat vertices[] = {
-    // positions          // texture coords
-     0.5f,  0.5f, 0.0f,   1.0f, 1.0f,   // top right
-     0.5f, -0.5f, 0.0f,   1.0f, 0.0f,   // bottom right
-    -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,   // bottom left
-    -0.5f,  0.5f, 0.0f,   0.0f, 1.0f    // top left 
+GLfloat positionsData[] = {
+     0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f, 
+    -0.5f,  0.5f, 0.0f,
 };
+const int POSITION_ATTRIBUTE = 0;
+
+GLfloat texCoordsData[] = {
+     1.0f, 1.0f,   // top right
+     1.0f, 0.0f,   // bottom right
+     0.0f, 0.0f,   // bottom left
+     0.0f, 1.0f    // top left 
+};
+const int TEX_COORD_ATTRIBUTE = 1;
 
 // for the element buffer object (EBO)
 GLuint indices[] = {
@@ -56,8 +64,6 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     // init it
     gladLoadGL();
 
-    //defaultShaderProgram = createDefaultShaderProgram();
-    //defaultShaderProgram = createDoodleShaderProgram();
     // init other OpenGL stuff
     camera.setViewSize(viewWidth, viewHeight);
 
@@ -71,15 +77,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
 
     loadImages();
 
-    // create all the OpenGL buffers at the start so we can
-    // reuse them
-	// first param is how many 3D object we have (we have 1)
-	// second param is a reference to the VBO id/ref
-	// This is similar to GLuint VBO = glGenBuffers(1);
-	// except we use refs
-	glGenBuffers(1, &vertexBuffer); // gen == generate
-    glGenBuffers(1, &indicesBuffer);
-	glGenVertexArrays(1, &vertexAttribs);
+    prepareGLBuffers();
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -416,7 +414,6 @@ void Renderer::loadTextLibrary() {
 
         // now store character for later use
         Character character = {
-            //textureId,
             texture,
             glm::ivec2(face->glyph->bitmap.width,face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
@@ -448,8 +445,21 @@ void Renderer::loadTextLibrary() {
     glBindVertexArray(0);
 }
 
-// load the vertex data for the object
-void Renderer::loadVertexData() {
+// prepare the VertexArrays, positions, tex coords,
+// and indices data.
+void Renderer::prepareGLBuffers() {
+    // tell OpenGL to use this VAO (set it as active)
+    // need to do this before put data into the VAO
+	glGenVertexArrays(1, &vertexAttribs);
+    glBindVertexArray(vertexAttribs);
+
+    // create all the OpenGL buffers at the start so we can
+    // reuse them
+	// first param is how many 3D object we have (we have 1)
+	// second param is a reference to the VBO id/ref
+	// This is similar to GLuint VBO = glGenBuffers(1);
+	// except we use refs
+	glGenBuffers(1, &positionBuffer); // gen == generate
 	// now we need to bind the VBO so OpenGL knows to draw it
 	// How "binding" works is it sets an object to the current object.
 	// OpenGL can only draw one thing at a time (state machine), so
@@ -459,7 +469,7 @@ void Renderer::loadVertexData() {
 	// GL_ARRAY_BUFFER is the type of buffer that we want to bind
 	// VBO is the ID/ref of the buffer we are binding (the actual
 	// value is use here rather than a ref to it)
-	glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
 
 	// now that we tell OpenGL what the current buffer is,
 	// we have to put data into it. Think of it as giving
@@ -480,31 +490,39 @@ void Renderer::loadVertexData() {
 	// DRAW belongs to 3 types: READ, DRAW, and COPY
 	// DRAW means the vertices will be modified and used to be draw an image on the screen
 	// the other ones are not stated but can be inferred by the name.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_STATIC_DRAW);
 
-}
+    // create vertex attrib pointers
+    // has to do this after loading data into buffers
+    // tell OpenGL how to intepret the vertex data that 
+    // we pass in. In memory, it just know we give it a chunk
+    // of bytes => tell it how many bytes make a vertex
+    // it helps to see the image at "Applying Texture"
+    // here: https://learnopengl.com/Getting-started/Textures
+    // first param is the input index of the vertex shader (see the first few lines).
+    // `aPos` is located at location 0 so we want to set the pointer for this
+    glVertexAttribPointer(POSITION_ATTRIBUTE, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(POSITION_ATTRIBUTE);
 
-void Renderer::loadIndicesData() {
+    // do the same thing for the texture
+	glGenBuffers(1, &texCoordBuffer); 
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    // use DYNAMIC DRAW cause we'll be changing it often
+	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(TEX_COORD_ATTRIBUTE, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(TEX_COORD_ATTRIBUTE);
+
     //binds the EBO similar to the VBO, EBO is of the type GL_ELEMENT_ARRAY_BUFFER
     //this tells OpenGL to make use of the EBO when making a draw call
     //if the EBO is missing and the drawelements is called nothing will be drawn
+    glGenBuffers(1, &indicesBuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-}
-
-void Renderer::loadTexture(std::string spriteName) {
-    // if not found
-    try {
-        SpriteInfo info = sprites[spriteName];
-        glBindTexture(GL_TEXTURE_2D, info.id);
-    }
-    catch (int e) {
-        std::cout << "Couldn't find image matching name: " << spriteName << std::endl;
-        return;
-    }
+    // Reset VAO
+    glBindVertexArray(0);
 }
 
 void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
@@ -517,9 +535,7 @@ void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
 
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
-void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
-    SpriteInfo info = sprites[spriteName];
-
+void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     // set the texcoords by specifying its x and y
     float leftX = info.cellWidth * comp.colIndex;
     float rightX = leftX + info.cellWidth; 
@@ -528,24 +544,27 @@ void Renderer::updateTexCoord(RenderComponent comp, std::string spriteName) {
 
     // coordinates of the texture coords in the vertices array
     if (comp.flipX) {
-        vertices[3] = leftX; // top right x
-        vertices[8] = leftX; // bottom right x
-        vertices[13] = rightX; // bottom left x
-        vertices[18] = rightX; // top left x
+        texCoordsData[0] = leftX; // top right x
+        texCoordsData[2] = leftX; // bottom right x
+        texCoordsData[4] = rightX; // bottom left x
+        texCoordsData[6] = rightX; // top left x
     }
     else {
         // normal coords
-        vertices[3] = rightX; // top right x
-        vertices[8] = rightX; // bottom right x
-        vertices[13] = leftX; // bottom left x
-        vertices[18] = leftX; // top left x
+        texCoordsData[0] = rightX; // top right x
+        texCoordsData[2] = rightX; // bottom right x
+        texCoordsData[4] = leftX; // bottom left x
+        texCoordsData[6] = leftX; // top left x
     }
 
     // y values of the tex coords
-    vertices[4] = topY; // top right y
-    vertices[19] = topY; // top left y
-    vertices[9] = bottomY; // bottom right y
-    vertices[14] = bottomY; // bottom left y
+    texCoordsData[1] = topY; // top right y
+    texCoordsData[3] = bottomY; // bottom right y
+    texCoordsData[5] = bottomY; // bottom left y
+    texCoordsData[7] = topY;  // top left y
+
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
 void Renderer::renderTextComponent(TextComponent* text)
@@ -554,14 +573,12 @@ void Renderer::renderTextComponent(TextComponent* text)
 
     //no need to disable depth test, already disabled
 
-   ////sets the current shader program to the text shader program
+   //sets the current shader program to the text shader program
     glUseProgram(shaders[TEXT].Program);
+
     //sets the current shader program to use the projection matrix.
     glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
-
-    //
     glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), text->R, text->G, text->B);
-    //uniform location for the shader text
     glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
@@ -626,14 +643,13 @@ Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 
 // called in main()
 int Renderer::update(EntityCoordinator* coordinator) {
-    // calculate the modelViewMatrix
-    //camera.moveCamera(0.01, 0.0);
     ++counter;
     if (counter >= 60) {
         counter = 0;
         time++;
     }
 
+    // reset the background
     glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 
     // recall that OpenGL works using buffers
@@ -643,6 +659,12 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     // draw entities by the spritesheet they use, so only need to load each sprite sheet once
     auto mapIterator = sprites.begin();
+    
+    // tell OpenGL to use this VAO (set it as active)
+    // always need to do both of these together
+    glBindVertexArray(vertexAttribs);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
+
     for (; mapIterator != sprites.end(); mapIterator++)
     {
         std::string spriteSheet = mapIterator->first;
@@ -650,58 +672,38 @@ int Renderer::update(EntityCoordinator* coordinator) {
         int entitiesFound = entsWithSprite->totalEntitiesFound();
 
         // no entities using this sprite sheet, go to next loop
-        if (entitiesFound == 0)
-        {
-            continue;
-        }
+        if (entitiesFound == 0) continue;
 
-        loadTexture(spriteSheet);
+        // prepare the spritesheet
+        SpriteInfo& spriteInfo = sprites[spriteSheet];
+        glBindTexture(GL_TEXTURE_2D, spriteInfo.id);
+
         ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entsWithSprite);
         ComponentIterator<Transform> transformComponents = ComponentIterator<Transform>(entsWithSprite);        
 
+        RenderComponent* prevRenderComp = NULL;
         for (int i = 0; i < entitiesFound; i++)
         {
-            RenderComponent* r = renderComponents.nextComponent();
+            RenderComponent* renderComp = renderComponents.nextComponent();
             Transform* t = transformComponents.nextComponent();
 
             glm::mat4 modelMatrix = t->getModelMatrix();
-            
-            // tell OpenGL to use this VAO (set it as active)
-            // need to do this before put data into the VAO
-            glBindVertexArray(vertexAttribs);
 
             //calculate the tex coord from the component.index
-            updateTexCoord(*r, spriteSheet);
+            if (i == 0 || (prevRenderComp->colIndex != renderComp->colIndex || prevRenderComp->rowIndex != renderComp->rowIndex)) {
+                updateTexCoord(*renderComp, spriteInfo);
+            }
 
-            // load the data
-            loadVertexData();
-            loadIndicesData();
-
-            // create vertex attrib pointers
-            // has to do this after loading data into buffers
-            // tell OpenGL how to intepret the vertex data that 
-            // we pass in. In memory, it just know we give it a chunk
-            // of bytes => tell it how many bytes make a vertex
-            // it helps to see the image at "Applying Texture"
-            // here: https://learnopengl.com/Getting-started/Textures
-            // first param is the input index of the vertex shader (see the first few lines).
-            // `aPos` is located at location 0 so we want to set the pointer for this
-            glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-            glEnableVertexAttribArray(0);
-
-            // do the same thing for the texture
-            glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-            glEnableVertexAttribArray(1);
-
-            glUseProgram(shaders[r->shaderName].Program);
+            // shaders
+            glUseProgram(shaders[renderComp->shaderName].Program);
             loadShaderUniforms(shaders[DEFAULT], modelMatrix);
 
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+            prevRenderComp = renderComp;
         }
     }
 
     //unbinds the current vao and vbo
-
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
