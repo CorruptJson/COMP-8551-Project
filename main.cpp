@@ -18,6 +18,7 @@
 #include "inputSystem.h"
 #include "TimerSystem.h"
 #include "SpawnSystem.h"
+#include "ScoreSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
@@ -104,9 +105,13 @@ int test(){
 
     sceneManager->CreateEntities();
 
+    shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
+    physicsWorld->GetContactListener()->Attach(scoreSys.get());
+
     //creating text
     //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
+    scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;

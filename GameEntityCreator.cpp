@@ -132,7 +132,7 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
-    ec.GetComponent<TextComponent>(ent).value = text;
+    ec.GetComponent<TextComponent>(ent).value = (char*)text;
     ec.GetComponent<TextComponent>(ent).x = x;
     ec.GetComponent<TextComponent>(ent).y = y;
     //ec.GetComponent<TextComponent>(ent).size = 1.0f;
