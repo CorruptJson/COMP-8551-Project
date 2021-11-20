@@ -9,12 +9,7 @@ in vec2 TexCoord;
 out vec4 FragColor;
 
 uniform sampler2D ourTexture;
-
+uniform vec4 panelColor;
 void main() {
-   vec4 texColor = texture(ourTexture,TexCoord);
-
-   if(texColor.a < 0.1)
-		discard;
-
-   FragColor = texColor;
+   FragColor = panelColor + texture(ourTexture, TexCoord);//texture(ourTexture, TexCoord);
 }

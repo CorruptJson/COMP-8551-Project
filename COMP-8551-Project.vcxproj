@@ -179,12 +179,14 @@
     <None Include=".editorconfig" />
     <None Include="DefaultFragShader.fs" />
     <None Include="DefaultVertShader.vs" />
-    <None Include="PanelFragShader.fs" />
-    <None Include="PanelVertShader.vs" />
+    <None Include="DoodleFragShader.fs" />
+    <None Include="DoodleVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
     <None Include="TextFragShader.fs" />
     <None Include="TextVertShader.vs" />
+    <None Include="UIFragShader.fs" />
+    <None Include="UIVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIControlSystem.h" />
@@ -225,6 +227,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />

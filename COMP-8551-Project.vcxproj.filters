@@ -186,10 +186,16 @@
     <None Include="TextVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="PanelFragShader.fs">
+    <None Include="DoodleFragShader.fs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="PanelVertShader.vs">
+    <None Include="DoodleVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="UIFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="UIVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
@@ -343,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="UIComponent.h">
       <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Rendering</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

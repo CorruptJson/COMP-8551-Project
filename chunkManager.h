@@ -19,6 +19,7 @@ private:
     std::vector<Chunk*> allChunks;
     std::vector<EntityID> entitiesToDelete;
     int currChunks = 0;
+    int chunkManagerVersion = 0;
 
     Chunk* createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
@@ -41,6 +42,7 @@ public:
     std::vector<Tag> getTagsForEntity(EntityID id);
     void deleteScheduledEntities();
     bool doesEntityExist(EntityID id);
+    int getChunkManagerVersion();
 
     std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
 

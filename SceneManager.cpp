@@ -116,8 +116,7 @@ void SceneManager::CreateEntities() {
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    "defaultVertShader.vs",
-                    "defaultFragShader.fs",
+                    DEFAULT,
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,

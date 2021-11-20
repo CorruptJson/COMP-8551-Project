@@ -103,9 +103,9 @@ int test(){
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {});
+    text = GameEntityCreator::getInstance().CreateText("Lives = 3 x", 15.0f, 15.0f, 0.5f, 0.2f, 0.8f, 0.5f, {});
 
-    panel = GameEntityCreator::getInstance().CreatePanel(700.0f, 200.0f, 1.0f, 0.0f, 0.0f, 500.0f, 300.0f, {});
+    panel = GameEntityCreator::getInstance().CreatePanel(150.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 35.0f, 35.0f, "Edgar.png", 0, 0, {});
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {

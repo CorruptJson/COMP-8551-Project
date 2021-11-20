@@ -46,8 +46,7 @@ GameEntityCreator::GameEntityCreator()
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
 {
     RenderComponent rc = {
-    "defaultVertShader.vs",
-    "defaultFragShader.fs",
+    DEFAULT,
     spriteName,
     0,
     0,
@@ -144,14 +143,31 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePanel(float x, float y, float r, float g, float b, float scaleX, float scaleY, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreatePanel(float x, float y, float r, float g, float b, float a, float scaleX, float scaleY, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(panelArchetype, "Panel", tags); 
+    EntityID ent = ec.CreateEntity(panelArchetype, "UI", tags);
 
     ec.GetComponent<Transform>(ent) = Transform(x, y, 0, scaleX, scaleY);
     ec.GetComponent<UIComponent>(ent) = {
-        glm::vec4( r, g, b, 1.0)
+        "",
+        0,0,
+        glm::vec4(r, g, b, a)
+    };
+
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePanel(float x, float y, float r, float g, float b, float a, float scaleX, float scaleY, const char* spriteName, int row, int col, std::vector<Tag> tags)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(panelArchetype, "UI", tags); 
+
+    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, scaleX, scaleY);
+    ec.GetComponent<UIComponent>(ent) = {
+        spriteName,
+        row,col,
+        glm::vec4( r, g, b, a)
     };
     
     return ent;
