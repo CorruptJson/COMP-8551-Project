@@ -10,15 +10,14 @@ void ScoreSystem::UpdateScore()
         }, {Tag::TXT_SCORE});
     
     ComponentIterator<TextComponent> tci(eq);
-    cout << "Old value: " << tci.nextComponent()->value << endl;
-    tci = ComponentIterator<TextComponent>(eq);
+
+    //Create score text
     string* s = new string("Score: ");
     s->append(to_string(score));
     char* output = (char*)s->c_str(); 
-    tci.nextComponent()->value = output;
 
-    tci = ComponentIterator<TextComponent>(eq);
-    std::cout << "Score is : " << tci.nextComponent()->value << std::endl;
+    //Set score text
+    tci.nextComponent()->value = output;
 }
 
 void ScoreSystem::Receive(Event e, void* args)

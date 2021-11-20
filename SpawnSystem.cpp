@@ -26,18 +26,18 @@ void SpawnSystem::SpawnStar()
         });
 
     ComponentIterator<Transform> tI = ComponentIterator<Transform>(eq);
+    //Choosing a random spawn location
     int position = rand() % eq->totalEntitiesFound();
     int current = 0;
 
-    std::cout << "Total spawnpoints found: " << eq->totalEntitiesFound() << std::endl;
-
-    std::cout << "Rand: " << position << std::endl;
+    //Find the correct position
     Transform* t = tI.nextComponent();
     while (current < position) {
         t = tI.nextComponent();
         current++;
     }
     
+    //Create star at location
     float xPos = t->getPosition().x;
     float yPos = t->getPosition().y;
     EntityID star = GameEntityCreator::getInstance().CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR }, true);
