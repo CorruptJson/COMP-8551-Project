@@ -776,6 +776,8 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
             // shaders
             glUseProgram(shaders[renderComp->shaderName].Program);
             loadShaderUniforms(shaders[ShaderName::DEFAULT], modelMatrix);
+            glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "color"), 1, 0, value_ptr(renderComp->color));
+            
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
         }

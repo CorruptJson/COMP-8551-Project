@@ -1,5 +1,6 @@
 #pragma once
 #include "Shader.h"
+#include <glm/glm.hpp>
 
 struct RenderComponent {
     // shader program that we want to use
@@ -20,4 +21,7 @@ struct RenderComponent {
 
     // whether the texture needs to be flipped
     bool flipX;
+
+    //color of the panel/background of the sprite
+    glm::vec4 color;
 };

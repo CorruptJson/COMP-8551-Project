@@ -37,6 +37,10 @@ struct EntityValues {
     bool hasAnimation = false;
     float rowIndex = 0;
     float colIndex = 0;
+    // the colors are shared with the textComponent
+    int colorR = 0;
+    int colorG = 0;
+    int colorB = 0;
 
     // AnimationComponent
     bool animIsPlaying = false;
@@ -49,6 +53,7 @@ struct EntityValues {
 
     // TextComponent
     std::string text = "";
+    // share the colors with the RenderComponent
     float r = 0;
     float g = 0;
     float b = 0;

@@ -8,7 +8,7 @@ enum Tag
     ACTOR,   
     BULLET,  
     PLATFORM,
-    SCENERY,
+    UI,
     STAR,
     FIRE,
     ENEMYSPAWNER,
