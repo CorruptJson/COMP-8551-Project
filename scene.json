@@ -1469,15 +1469,25 @@
     {
         "usePrefab": "Fire",
         "transform": {
-            "xPos": -0.5,
-            "yPos": -4.8
+            "xPos": -0.5
+        }
+    },
+  {
+    "usePrefab": "Fire",
+    "transform": {
+      "xPos": 0.5
+    }
+  },
+   {
+        "usePrefab": "FireSprites",
+        "transform": {
+            "xPos": -0.5
         }
     },
     {
-        "usePrefab": "Fire",
+        "usePrefab": "FireSprites",
         "transform": {
-            "xPos": 0.5,
-            "yPos": -4.8
+            "xPos": 0.5
         }
     },
     {
