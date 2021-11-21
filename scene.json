@@ -1469,13 +1469,15 @@
     {
         "usePrefab": "Fire",
         "transform": {
-            "xPos": -0.5
+            "xPos": -0.5,
+            "yPos": -4.8
         }
     },
     {
         "usePrefab": "Fire",
         "transform": {
-            "xPos": 0.5
+            "xPos": 0.5,
+            "yPos": -4.8
         }
     },
     {

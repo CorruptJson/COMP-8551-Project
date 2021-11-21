@@ -90,6 +90,11 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //    animationComponent->currAnim = animHurting;
     //    moveComponent->setVelocity(0, 0);
     //}
+    // added to test rotation is working
+    if (input.isKeyJustDown(InputTracker::R)) {
+        int rot = transformComponent->getRotation();
+        transformComponent->setRotation(rot+90.0f);
+    }
     //if (isCollided) {
     //    isReset = true;
     //    jumpCount = 0;
