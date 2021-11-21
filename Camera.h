@@ -13,7 +13,9 @@ public:
     glm::mat4 getViewMatrix();
     glm::mat4 getProjectionMatrix();
 private:
+    bool changed;
     glm::vec2 position;
     glm::mat4 projectionMatrix;
+    glm::mat4 viewMatrix;
 };
 

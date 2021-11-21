@@ -31,13 +31,6 @@
         }
     },
     {
-        "usePrefab": "Star",
-        "transform": {
-            "xPos": -4,
-            "yPos": 1.5
-        }
-    },
-    {
         "usePrefab": "WallRight",
         "transform": {
             "xPos": -6.75,
@@ -548,6 +541,14 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Top Middle",
+        "transform": {
+            "xPos": 0,
+            "yPos": 3.5
+        }
+    },
+    {
         "usePrefab": "PlatformMiddle",
         "transform": {
             "xPos": 0.25,
@@ -614,6 +615,14 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Top Left",
+        "transform": {
+            "xPos": -4.75,
+            "yPos": 1.5
+        }
+    },
+    {
         "usePrefab": "PlatformMiddle",
         "transform": {
             "xPos": -4.25,
@@ -670,6 +679,14 @@
         "transform": {
             "xPos": 4.75,
             "yPos": 0.75
+        }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Top Right",
+        "transform": {
+            "xPos": 4.75,
+            "yPos": 1.5
         }
     },
     {
@@ -732,6 +749,14 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Middle Left",
+        "transform": {
+            "xPos": -1.25,
+            "yPos": -0.5
+        }
+    },
+    {
         "usePrefab": "PlatformMiddle",
         "transform": {
             "xPos": -0.75,
@@ -764,6 +789,14 @@
         "transform": {
             "xPos": 1.25,
             "yPos": -1.25
+        }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Middle Right",
+        "transform": {
+            "xPos": 1.25,
+            "yPos": -0.5
         }
     },
     {
@@ -930,6 +963,14 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Bottom Left",
+        "transform": {
+            "xPos": -5.25,
+            "yPos": -2.5
+        }
+    },
+    {
         "usePrefab": "Platform",
         "transform": {
             "xPos": -4.75,
@@ -979,6 +1020,14 @@
         "transform": {
             "xPos": 5.25,
             "yPos": -3.75
+        }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Bottom Right",
+        "transform": {
+            "xPos": 5.25,
+            "yPos": -2.5
         }
     },
     {
@@ -1086,6 +1135,14 @@
         }
     },
     {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Bottom Middle Left",
+        "transform": {
+            "xPos": -2.5,
+            "yPos": -3.5
+        }
+    },
+    {
         "usePrefab": "PlatformMiddle",
         "transform": {
             "xPos": -1.75,
@@ -1187,6 +1244,14 @@
         "transform": {
             "xPos": 2.25,
             "yPos": -4.25
+        }
+    },
+    {
+        "usePrefab": "SpawnPoint",
+        "_comment": "Star Spawn Bottom Middle Right",
+        "transform": {
+            "xPos": 2.5,
+            "yPos": -3.5
         }
     },
     {

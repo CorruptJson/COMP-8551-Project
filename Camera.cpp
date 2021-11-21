@@ -3,6 +3,7 @@
 Camera::Camera(float posX, float posY) {
     position = glm::vec2(posX, posY);
     projectionMatrix = glm::mat4(1);
+    viewMatrix = glm::mat4(1);
 }
 
 Camera::Camera() : Camera(0, 0) { }
@@ -22,13 +23,18 @@ void Camera::setViewSize(int viewWidth, int viewHeight) {
 void Camera::moveCamera(float x, float y) {
     position.x += x;
     position.y += y;
+    changed = true;
 }
 
 // note that when the camera moves, we move the whole world
 // in the opposite direction.
 glm::mat4 Camera::getViewMatrix() {
-    glm::mat4 modelMatrix = glm::mat4(1.0f);
-    return glm::translate(modelMatrix, glm::vec3(-position.x, -position.y, 0));
+    if (changed) {
+        glm::mat4 viewMat = glm::mat4(1.0f);
+        viewMatrix = glm::translate(viewMat, glm::vec3(-position.x, -position.y, 0));
+        changed = false;
+    }
+    return viewMatrix;
 }
 
 glm::mat4 Camera::getProjectionMatrix() {

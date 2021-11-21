@@ -31,6 +31,10 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<TextComponent>()
         });
 
+    starArchetype = ec.GetArchetype({
+        ec.GetComponentType<Transform>()
+        });
+
     //sceneryArchetype = ec.GetArchetype({
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
@@ -40,8 +44,7 @@ GameEntityCreator::GameEntityCreator()
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
 {
     RenderComponent rc = {
-    "defaultVertShader.vs",
-    "defaultFragShader.fs",
+    DEFAULT,
     spriteName,
     0,
     0,
@@ -129,11 +132,38 @@ EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
-    ec.GetComponent<TextComponent>(ent).value = text;
+    ec.GetComponent<TextComponent>(ent).value = (char*)text;
     ec.GetComponent<TextComponent>(ent).x = x;
     ec.GetComponent<TextComponent>(ent).y = y;
     //ec.GetComponent<TextComponent>(ent).size = 1.0f;
     ec.GetComponent<TextComponent>(ent).size = size;
     ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    return ent;
+}
+
+EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
+
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, hasAnimation);
+    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+    ec.GetComponent<AnimationComponent>(ent) = {
+        Renderer::getInstance()->getAnimation("flicker", spriteName),
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        0,
+        hasAnimation
+    };
+    ec.GetComponent<PhysicsComponent>(ent) = {
+        b2_staticBody,
+        0.5f * scaleY,
+        0.5f * scaleX,
+        xPos,
+        yPos,
+        1.0f,
+        0.0f,
+        false
+    };
     return ent;
 }

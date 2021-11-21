@@ -3,6 +3,9 @@ enum class Event {
     //Input events
     INPUT_JUMP,
     INPUT_SHOOT,
+    //Spawner Events
+    SPAWN_STAR,
+    STAR_PICKED_UP,
     //Enemy events (unused)
     ENEMY_WALL_BUMP,
     //Collision events
