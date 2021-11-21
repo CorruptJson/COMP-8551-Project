@@ -2,11 +2,12 @@
 
 #include "ContactListener.h"
 #include "EntityUserData.h"
+#include "IObserver.h"
 
 // thompson testing
 #include <set>
 
-class PhysicsWorld {
+class PhysicsWorld : public IObserver {
 public:
     PhysicsWorld();
     ~PhysicsWorld();
@@ -37,4 +38,6 @@ private:
     void UpdatePhysicsComponent(PhysicsComponent* physComponent);
     void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);
     void UpdateTransform(Transform* transform, PhysicsComponent* physComponent);
+
+    void Receive(Event e, void* args) override;
 };

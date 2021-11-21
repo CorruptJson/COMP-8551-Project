@@ -1,5 +1,6 @@
 #include "chunkManager.h"
 
+
 Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     Chunk* newChunk = new Chunk(arch, currChunks++, spriteSheet, tags, sizemap);
@@ -99,6 +100,14 @@ std::vector<Tag> ChunkManager::getTagsForEntity(EntityID id)
     return chunk->getAllTags();
 }
 
+void ChunkManager::Notify(Event e, void* args)
+{
+    for (IObserver* o : observerList)
+    {
+        o->Receive(e, args);
+    }
+}
+
 ChunkManager::~ChunkManager()
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -154,5 +163,35 @@ std::shared_ptr<EntityQuery> ChunkManager::entitiesWithSpriteSheet(std::string s
         return std::make_shared<EntityQuery>();
     }   
     return std::make_shared<EntityQuery>();
+}
+
+void ChunkManager::deactivateAllEntitiesAndPhysicsBodies()
+{
+    for (int i = 0; i < allChunks.size(); i++)
+    {
+        Chunk* chunk = allChunks[i];
+
+        // if chunk contains entities with physics bodies, delete those bodies
+        bool hasPhysics = chunk->hasComponentType(ComponentManager::GetComponentType<PhysicsComponent>());
+        if (hasPhysics)
+        {
+            //PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+            PhysicsComponent* physCompArray = chunk->getComponentArray<PhysicsComponent>();
+            for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+            {
+                if (chunk->isDataIndexActive(i))
+                {                    
+                    PhysicsComponent* comp = physCompArray + i;
+                    EntityID id = chunk->entityAtComponentIndex(i);
+                    B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{id,comp->box2dBody };
+                    Notify(Event::B2BODY_TO_DELETE, (void*)args);
+                    chunk->releaseEntity(id);
+                    //physWorld.B2DBodyDeleteGuardFunction(comp->box2dBody, chunk->entityAtComponentIndex(i));
+                }
+            }
+        }
+
+        chunk->releaseAllEntities();
+    }
 }
 

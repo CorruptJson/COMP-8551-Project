@@ -160,3 +160,16 @@ std::vector<Tag>& Chunk::getAllTags()
 {
     return tags;
 }
+
+void Chunk::releaseAllEntities()
+{
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        if (entToDat[i] != -1)
+        {
+            entToDat[i] = -1;
+            versions[i] = versions[i] + 1;
+        }
+    }
+    currEnts = 0;
+}

@@ -16,10 +16,7 @@ using EntityQueryCache = std::unordered_map<size_t, std::shared_ptr<EntityQuery>
 class EntityCoordinator
 {
 private:
-    std::unique_ptr<ComponentManager> mComponentManager;
-    std::unique_ptr<ChunkManager> mChunkManager;
-    std::unique_ptr<ArchetypeManager> mArchetypeManager;
-    std::unique_ptr<SystemManager> mSystemManager;
+
     EntityQueryCache queryCache;
     const std::string noSprite = "NO_SPRITE";
     //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
@@ -28,6 +25,10 @@ private:
     EntityCoordinator();
 
 public:
+    std::shared_ptr<ComponentManager> componentManager;
+    std::shared_ptr<ChunkManager> chunkManager;
+    std::shared_ptr<ArchetypeManager> archetypeManager;
+    std::shared_ptr<SystemManager> systemManager;
 
     static EntityCoordinator& getInstance();
 
@@ -52,21 +53,21 @@ public:
     template<typename T>
     void RegisterComponent()
     {
-        mComponentManager->RegisterComponent<T>();
+        componentManager->RegisterComponent<T>();
     }
 
     // gets the int id associated with a component type
     template<typename T>
     ComponentType GetComponentType()
     {
-        return mComponentManager->GetComponentType<T>();
+        return componentManager->GetComponentType<T>();
     }
 
     // gets a reference to an entity's component
     template<typename T>
     T& GetComponent(EntityID entity)
     {
-        return mChunkManager->getComponentRef<T>(entity);
+        return chunkManager->getComponentRef<T>(entity);
     }
     
     // returns an entity query, an object which contains the search results upon creation
@@ -84,18 +85,18 @@ public:
 
     template<typename T>
     shared_ptr<T> addSystem(std::shared_ptr<T> system) {
-        return mSystemManager->addSystem(std::static_pointer_cast<System>(system));
+        return systemManager->addSystem(std::static_pointer_cast<System>(system));
     };
 
     template<typename T>
     shared_ptr<T> addSystem() {
-        return mSystemManager->addSystem<T>();
+        return systemManager->addSystem<T>();
     };
 
     template<typename T>
     bool entityHasComponent(EntityID id)
     {
-        return mChunkManager->entityHasComponent(GetComponentType<T>(),id);
+        return chunkManager->entityHasComponent(GetComponentType<T>(),id);
     }
 
     bool entityHasTag(Tag tag, EntityID id);
@@ -106,4 +107,6 @@ public:
     bool doesEntityExist(EntityID id);
 
     std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
+
+    void deactivateAllEntitiesAndPhysicsBodies();
 };

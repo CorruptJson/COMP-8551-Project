@@ -71,9 +71,9 @@ int initialize()
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
 
+    coordinator->chunkManager->Attach(physicsWorld);
+
     prevTime = Clock::now();
-
-
     return 0;
 }
 
@@ -95,7 +95,6 @@ int test(){
 
     //Subscribe playercontrol to recieve collision events
     physicsWorld->GetContactListener()->Attach(playerControl);
-
 
     sceneManager->CreateEntities();
 
@@ -122,6 +121,12 @@ int test(){
 void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
+
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
+    {
+        coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    }
+
 
     // run physics
     physicsWorld->Update(coordinator);
