@@ -2,8 +2,13 @@
 
 void TimerSystem::update() {
     counter++;
-    if (counter > 200) {
+    if (counter % 200 == 0) {
         Notify(Event::SPAWN_STAR, nullptr);
+    }
+    if (counter % 300 == 0) {
+        Notify(Event::SPAWN_ENEMY, nullptr);
+    }
+    if (counter > 3000) {
         counter = 0;
     }
 }

@@ -105,10 +105,10 @@
     {
         "setPrefab": "WallLeft",
         "prefabValues": {
-            "usePrefab":  "Platform",
+            "usePrefab": "Platform",
             "render": {
-                "rowIndex":  1,
-                "colIndex":  0
+                "rowIndex": 1,
+                "colIndex": 0
             }
         }
     },

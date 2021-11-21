@@ -27,7 +27,16 @@
             "xScale": 1,
             "yScale": 1,
             "xPos": 4,
-            "yPos": 1
+            "yPos": 2
+        }
+    },
+    {
+        "usePrefab": "Roach",
+        "transform": {
+            "xScale": 1,
+            "yScale": 1,
+            "xPos": 5,
+            "yPos": 2
         }
     },
     {
@@ -88,7 +97,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -6.75,
             "yPos": 2.5,
@@ -147,7 +156,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -6.75,
             "yPos": -1.25,
@@ -213,7 +222,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 6.75,
             "yPos": 2.5,
@@ -272,7 +281,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 6.75,
             "yPos": -1.25,
@@ -1482,7 +1491,8 @@
         "usePrefab": "EnemySpawner",
         "_comment": "enemy spawner top platform",
         "transform": {
-            "yPos": 5.5
+            "xPos": -1.0,
+            "yPos": 4
         }
     },
     {

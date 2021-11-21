@@ -8,6 +8,7 @@ enum Tag
     ACTOR,
     BULLET,
     PLATFORM,
+    WALL,
     SCENERY,
     STAR,
     FIRE,
