@@ -15,6 +15,9 @@
 #include "InputComponent.h"
 #include "TextComponent.h"
 #include "inputSystem.h"
+#include "TimerSystem.h"
+#include "SpawnSystem.h"
+#include "ScoreSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
@@ -66,9 +69,9 @@ int initialize()
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
 
+    coordinator->chunkManager->Attach(physicsWorld);
+
     prevTime = Clock::now();
-
-
     return 0;
 }
 
@@ -88,12 +91,22 @@ int test(){
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
 
+    shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
+    coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
+
     //Subscribe playercontrol to recieve collision events
     physicsWorld->GetContactListener()->Attach(playerControl);
-
+    physicsWorld->GetContactListener()->Attach(spawnSys.get());
 
     sceneManager->CreateEntities();
 
+    shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
+    physicsWorld->GetContactListener()->Attach(scoreSys.get());
+
+    //creating text
+    //                                                                   X      Y      R     G     B     Tags
+    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
+    scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
@@ -114,6 +127,12 @@ int test(){
 void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
+
+    // delete all entities when space is pressed
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
+    //{
+    //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    //}
 
     // run physics
     physicsWorld->Update(coordinator);

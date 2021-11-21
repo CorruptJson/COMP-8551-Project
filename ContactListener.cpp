@@ -37,6 +37,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         if (tagSecond == PLATFORM) {
             cout << "Platform" << endl;
         }
+        else if (tagSecond == WALL) {
+            cout << "Platform" << endl;
+        }
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
@@ -44,6 +47,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+            Notify(Event::STAR_PICKED_UP, nullptr);
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
@@ -63,22 +67,42 @@ void ContactListener::BeginContact(b2Contact* contact) {
     else if (tagFirst == ENEMY) {
         cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
-            cout << "Platform" << endl;
+            /*cout << "Platform" << endl;
             cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
+            cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
             RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
             MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
+            StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
 
             float xVel = moveComponent->getVelocity().x;
-            float yVel = moveComponent->getVelocity().y;
-            if (contact->GetManifold()->localPoint.x == -0.5) {
+            float yVel = moveComponent->getVelocity().y;*/
+
+
+            /*if (contact->GetManifold()->localPoint.x == -0.5) {
                 renderComponent->flipX = false;
                 moveComponent->setVelocity(2.0f, yVel);
             }
             else if (contact->GetManifold()->localPoint.x == 0.5) {
                 renderComponent->flipX = true;
                 moveComponent->setVelocity(-2.0f, yVel);
-            }
+            }*/
+        }
+        else if (tagSecond == WALL) {
+            cout << "Wall" << endl;
+            cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
+            cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
+
+            RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
+            MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
+            StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
+
+            float xVel = moveComponent->getVelocity().x;
+            float yVel = moveComponent->getVelocity().y;
+
+            xVel = renderComponent->flipX ? 2.0 : -2.0;
+            renderComponent->flipX = renderComponent->flipX ? false : true;
+            moveComponent->setVelocity(xVel, yVel);
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;
@@ -166,7 +190,7 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
 
     if (tagFirst == PLAYER)
     {
-        if (tagSecond == ENEMY)
+        if (tagSecond == ENEMY || tagSecond == STAR)
         {
             contact->SetEnabled(false);
         }

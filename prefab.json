@@ -104,10 +104,10 @@
     {
         "setPrefab": "WallLeft",
         "prefabValues": {
-            "usePrefab":  "Platform",
+            "usePrefab": "Platform",
             "render": {
-                "rowIndex":  1,
-                "colIndex":  0
+                "rowIndex": 1,
+                "colIndex": 0
             }
         }
     },
@@ -153,22 +153,36 @@
         "setPrefab": "Fire",
         "prefabValues": {
             "tag": "fire",
-            "transform": {
-              "yPos": -5.1,
-              "xScale": 1,
-              "yScale": 1
-            },
             "render": {
-              "sprite": "fire.png"
+            },
+            "transform": {
+                "yPos": -6.5,
+                "xScale": 0.5,
+                "yScale": 0.5
             },
             "physics": {
-              "b2bodytype": "b2_staticBody",
-              "density": 1,
-              "friction": 0
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            }
+        }
+    },
+    {
+        "setPrefab": "FireSprites",
+        "prefabValues": {
+            "tag": "scene",
+            "transform": {
+                "yPos": -4.6,
+                "xScale": 1,
+                "yScale": 1
+            },
+            "render": {
+                "sprite": "fire.png",
+                "hasAnim": true
             },
             "animation": {
-              "animName": "burn",
-              "isPlaying": true
+                "animName": "burn",
+                "isPlaying": true
             }
         }
     },
@@ -178,11 +192,6 @@
             "tag": "enemySpawner",
             "transform": {
                 "yPos": 5.5
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
             }
         }
     },
@@ -193,11 +202,16 @@
             "transform": {
                 "xPos": 0,
                 "yPos": 0
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
+            }
+        }
+    },
+    {
+        "setPrefab": "SpawnPoint",
+        "prefabValues": {
+            "tag": "spawnPoint",
+            "transform": {
+                "yPos": 0.0,
+                "xPos": 0.0
             }
         }
     }

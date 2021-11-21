@@ -176,6 +176,9 @@
     <ClCompile Include="ShaderFactory.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="TextComponent.cpp" />
+    <ClCompile Include="ScoreSystem.cpp" />
+    <ClCompile Include="SpawnSystem.cpp" />
+    <ClCompile Include="TimerSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -230,6 +233,9 @@
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ShaderFactory.h" />
+    <ClInclude Include="ScoreSystem.h" />
+    <ClInclude Include="SpawnSystem.h" />
+    <ClInclude Include="Shader.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
@@ -239,6 +245,7 @@
     <ClInclude Include="Tags.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TimerComponent.h" />
+    <ClInclude Include="TimerSystem.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
   </ItemGroup>

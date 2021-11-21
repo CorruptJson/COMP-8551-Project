@@ -9,7 +9,8 @@ enum collisionCategory {
     C_FIRE = 0x0016,
     C_STAR = 0x0032,
     C_ENEMYSPAWNER = 0x0064,
-    C_PLAYERSPAWNER = 0x0128
+    C_PLAYERSPAWNER = 0x0128,
+    C_WALL = 0x0256
 
 };
 
@@ -108,6 +109,10 @@ void PhysicsWorld::AddObject(EntityID id) {
         else if (coordinator.entityHasTag(PLAYERSPAWNER, id)) {
             fixtureDef.filter.categoryBits = C_PLAYERSPAWNER;
             fixtureDef.filter.maskBits = C_NONE;
+        }
+        else if (coordinator.entityHasTag(WALL, id)) {
+            fixtureDef.filter.categoryBits = C_WALL;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
@@ -275,6 +280,15 @@ void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physC
     transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
 
+void PhysicsWorld::Receive(Event e, void* args)
+{
+    if (e == Event::B2BODY_TO_DELETE)
+    {
+        B2BodyDeleteEventArgs* eventArgs = (B2BodyDeleteEventArgs*)args;
+        B2DBodyDeleteGuardFunction(eventArgs->body, eventArgs->id);
+        delete eventArgs;
+    }
+}
 
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;

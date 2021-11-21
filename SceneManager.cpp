@@ -31,12 +31,16 @@ unordered_map<std::string, eKeys> keyMap = {
 unordered_map<std::string, Tag> tagMap = {
     {"enemy", ENEMY},
     {"platform", PLATFORM},
+    {"wall", WALL},
     {"player", PLAYER},
     {"star", STAR},
     {"fire", FIRE},
+    {"spawnPoint", SPAWNPOINT},
     {"enemySpawner", ENEMYSPAWNER},
     {"playerSpawner", PLAYERSPAWNER},
     {"ui", UI}
+    {"scoreText", TXT_SCORE},
+    {"scene", SCENERY}
 };
 
 

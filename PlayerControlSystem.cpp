@@ -20,11 +20,18 @@ PlayerControlSystem::~PlayerControlSystem()
 }
 
 void PlayerControlSystem::processEntity(EntityID id) {
-    
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+
+
+    // don't do anything if the player is deleted
+    if (!coordinator.doesEntityExist(id))
+    {
+        return;
+    }
+
     // Getting Components needed for the player
     Renderer* renderer = Renderer::getInstance();
     InputTracker& input = InputTracker::getInstance();
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
     RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
@@ -83,6 +90,11 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //    animationComponent->currAnim = animHurting;
     //    moveComponent->setVelocity(0, 0);
     //}
+    // added to test rotation is working
+    if (input.isKeyJustDown(InputTracker::R)) {
+        int rot = transformComponent->getRotation();
+        transformComponent->setRotation(rot+90.0f);
+    }
     //if (isCollided) {
     //    isReset = true;
     //    jumpCount = 0;
