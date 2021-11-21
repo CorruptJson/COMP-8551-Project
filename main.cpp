@@ -133,11 +133,11 @@ void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
-    {
-        coordinator->deactivateAllEntitiesAndPhysicsBodies();
-    }
-
+    // delete all entities when space is pressed
+    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
+    //{
+    //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    //}
 
     // run physics
     physicsWorld->Update(coordinator);
