@@ -5,10 +5,10 @@ Renderer* Renderer::renderer = nullptr;
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
 GLfloat positionsData[] = {
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f, 
-    -0.5f,  0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f, // top right
+     0.5f, -0.5f, 0.0f, // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f, // top left
 };
 const int POSITION_ATTRIBUTE = 0;
 
@@ -26,10 +26,6 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-
-//text stuff
-GLuint vao;
-GLuint vbo;
 
 // a pointer to the context
 GLFWwindow* window;
@@ -71,7 +67,49 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
 
+
     return 0;
+}
+
+// change all the positions and tex coordinates back to original
+void Renderer::resetVerticesData(bool flipUV) {
+    positionsData[0] = 0.5f;
+    positionsData[1] = 0.5f;
+    positionsData[2] = 0.0f;
+    positionsData[3] = 0.5f;
+    positionsData[4] = -0.5f;
+    positionsData[5] = 0.0f;
+    positionsData[6] = -0.5f;
+    positionsData[7] = -0.5f;
+    positionsData[8] = 0.0f;
+    positionsData[9] = -0.5f;
+    positionsData[10] = 0.5f;
+    positionsData[11] = 0.0f;
+    glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_DYNAMIC_DRAW);
+
+    // tex coords' x values
+    texCoordsData[0] = 1.0f;
+    texCoordsData[2] = 1.0f;
+    texCoordsData[4] = 0.0f;
+    texCoordsData[6] = 0.0f;
+
+    // tex coords' y values
+    if (flipUV) {
+        texCoordsData[1] = 0.0f;
+        texCoordsData[3] = 1.0f;
+        texCoordsData[5] = 1.0f;
+        texCoordsData[7] = 0.0f;
+
+    }
+    else {
+        texCoordsData[1] = 1.0f;
+        texCoordsData[3] = 0.0f;
+        texCoordsData[5] = 0.0f;
+        texCoordsData[7] = 1.0f;
+    }
+    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
 // Load all images that we need into the sprites map
@@ -300,7 +338,6 @@ void Renderer::loadTextLibrary() {
         }
 
         // generate texture
-        //do it without create texbuffer for testing purposes
         GLuint texture;
         glGenTextures(1, &texture);
         glBindTexture(GL_TEXTURE_2D, texture);
@@ -309,7 +346,6 @@ void Renderer::loadTextLibrary() {
         int width = face->glyph->bitmap.width;
         unsigned char* &data = face->glyph->bitmap.buffer;
         
-        //GLuint textureId = createTexBuffer(height, width, data);
         glTexImage2D(
             GL_TEXTURE_2D,
             0,
@@ -340,24 +376,6 @@ void Renderer::loadTextLibrary() {
     // we are done with the free type
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
-
-    //sets up the vao and vbo for the text
-    glGenVertexArrays(1, &vao);
-    glGenBuffers(1, &vbo);
-    glBindVertexArray(vao);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
-
-    // vertex location = inPos
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-
-    //vertex location = inTexCoord
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
 }
 
 // prepare the VertexArrays, positions, tex coords,
@@ -405,7 +423,7 @@ void Renderer::prepareGLBuffers() {
 	// DRAW belongs to 3 types: READ, DRAW, and COPY
 	// DRAW means the vertices will be modified and used to be draw an image on the screen
 	// the other ones are not stated but can be inferred by the name.
-	glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_DYNAMIC_DRAW);
 
     // create vertex attrib pointers
     // has to do this after loading data into buffers
@@ -436,8 +454,10 @@ void Renderer::prepareGLBuffers() {
     //passes the indices to the EBO, with the size of the indices array, passes the indices, and GL_STATIC_DRAW
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    // Reset VAO
-    glBindVertexArray(0);
+    // tell OpenGL to use this VAO (set it as active)
+    // always need to do both of these together
+    glBindVertexArray(vertexAttribs);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
 }
 
 // update the tex coord vertex data so it draws 
@@ -501,42 +521,33 @@ void Renderer::drawText(TextComponent* text)
         float w = ch.size.x * text->size;
         float h = ch.size.y * text->size;
 
-        GLfloat verts[6][4] =
-        {
-            { xpos,     ypos + h,   0.0f, 0.0f },
-            { xpos,     ypos,       0.0f, 1.0f },
-            { xpos + w, ypos,       1.0f, 1.0f },
+        // top right
+        positionsData[0] = xpos + w;
+        positionsData[1] = ypos + h;
 
-            { xpos,     ypos + h,   0.0f, 0.0f },
-            { xpos + w, ypos,       1.0f, 1.0f },
-            { xpos + w, ypos + h,   1.0f, 0.0f }
-        };
+        // bottom right
+        positionsData[3] = xpos + w;
+        positionsData[4] = ypos;
+
+        // bottom left
+        positionsData[6] = xpos;
+        positionsData[7] = ypos;
+
+        // top left
+        positionsData[9] = xpos;
+        positionsData[10] = ypos + h;
+
+        glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_DYNAMIC_DRAW);
         
-        glBindVertexArray(vao);
-
         //loads the characters texture
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
-        //sets the vbo and vao before drawing
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
-        glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(verts), verts);
-
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)0);
-
-        glEnableVertexAttribArray(1);
-        glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(2 * sizeof(float)));
-
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-
-        glBindBuffer(GL_ARRAY_BUFFER, 0);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
         //bitshift by 6 to get value in pixels (2^6 = 64)
         x += (ch.Advance >> 6) * text->size;
     }
-
-    glBindVertexArray(0);
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
@@ -562,7 +573,9 @@ int Renderer::update(EntityCoordinator* coordinator) {
 
     startDrawGameObjectsPhase(coordinator);
     startDrawUIPhase(coordinator);
+    resetVerticesData(true); // text is rendered upside down due to sprite loading
     startDrawTextPhase(coordinator);
+    resetVerticesData(false); // game objects are rendered right side up due to stbi_flip
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
@@ -576,11 +589,6 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
     // draw entities by the spritesheet they use, so only need to load each sprite sheet once
     auto mapIterator = sprites.begin();
     
-    // tell OpenGL to use this VAO (set it as active)
-    // always need to do both of these together
-    glBindVertexArray(vertexAttribs);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer);
-
     for (; mapIterator != sprites.end(); mapIterator++)
     {
         std::string spriteSheet = mapIterator->first;

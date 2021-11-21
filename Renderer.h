@@ -80,12 +80,12 @@ private:
     static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
 
     void prepareGLBuffers();
+    void resetVerticesData(bool flipUV);
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void drawText(TextComponent* text);
-    void drawUIRenderComp(RenderComponent* ui, Transform* transform);
     void startDrawGameObjectsPhase(EntityCoordinator* coordinator);
     void startDrawUIPhase(EntityCoordinator* coordinator);
     void startDrawTextPhase(EntityCoordinator* coordinator);
