@@ -12,7 +12,8 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION
+    ANIMATION,
+    TEXT
 };
 
 // convert strings to enums here
@@ -22,6 +23,7 @@ unordered_map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
+    {"text", TEXT}
 
 };
 
@@ -97,6 +99,7 @@ void SceneManager::CreateEntities() {
         if (ev.animationComponent) ev.components.push_back(coordinator->GetComponentType<AnimationComponent>());
         if (ev.movementComponent) ev.components.push_back(coordinator->GetComponentType<MovementComponent>());
         if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
+        if (ev.textComponent) ev.components.push_back(coordinator->GetComponentType<TextComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
         EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
@@ -116,7 +119,7 @@ void SceneManager::CreateEntities() {
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    DEFAULT,
+                    ShaderName::DEFAULT,
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,
@@ -150,6 +153,7 @@ void SceneManager::CreateEntities() {
             0
             };
         }
+
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
             0,
@@ -157,6 +161,15 @@ void SceneManager::CreateEntities() {
             };
         }
 
+        if (ev.textComponent) {
+            coordinator->GetComponent<TextComponent>(ent) = TextComponent(
+                ev.text,
+                ev.size,
+                ev.r,
+                ev.g,
+                ev.b
+            );
+        }
     }
 }
 
@@ -252,7 +265,27 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                     ? details["animName"].get<std::string>() : ev.animName;
 
                 break;
+
+            case TEXT:
+                ev.textComponent = true;
+                ev.text = details.contains("text")
+                    ? details["text"].get<std::string>() : ev.text;
+
+                ev.r = details.contains("r")
+                    ? details["r"].get<float>() : ev.r;
+
+                ev.g = details.contains("g")
+                    ? details["g"].get<float>() : ev.g;
+
+                ev.b = details.contains("b")
+                    ? details["b"].get<float>() : ev.b;
+
+                ev.size = details.contains("size")
+                    ? details["size"].get<float>() : ev.size;
+
+                break;
             }
+
         }
         
 

@@ -19,6 +19,8 @@ struct EntityValues {
     bool physicsComponent = false;
     bool animationComponent = false;
     bool movementComponent = false;
+    bool textComponent = false;
+    bool uiComponent = false;
     bool stateComponent = false;
 
     // - Component Values -----------------------------
@@ -31,7 +33,7 @@ struct EntityValues {
     float rotation = 0.0f;
 
     // RenderComponent
-    ShaderName shaderName = DEFAULT;
+    ShaderName shaderName = ShaderName::DEFAULT;
     bool hasAnimation = false;
     float rowIndex = 0;
     float colIndex = 0;
@@ -44,6 +46,15 @@ struct EntityValues {
     float density = 1.0f;
     float friction = 0.0f;
     b2BodyType bodyType = b2_staticBody;
+
+    // TextComponent
+    std::string text = "";
+    float r = 0;
+    float g = 0;
+    float b = 0;
+    float x = 0;
+    float y = 0;
+    float size = 1.0;
 };
 
 // Scene Manager class

@@ -1,5 +1,7 @@
 #include "Renderer.h"
 
+Renderer* Renderer::renderer = nullptr;
+
 std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
 std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
 
@@ -71,13 +73,13 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     camera.setViewSize(viewWidth, viewHeight);
 
     //creates shader programs and puts them into the map
-    createShaderProgram(DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
-    createShaderProgram(TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
-    createShaderProgram(DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
-    createShaderProgram(UI, UI_VERT_SHADER_NAME, UI_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
+    createShaderProgram(ShaderName::UI, UI_VERT_SHADER_NAME, UI_FRAG_SHADER_NAME);
 
     //sets the text shader to be used currently
-    glUseProgram(shaders[TEXT].Program);
+    glUseProgram(shaders[ShaderName::TEXT].Program);
 
     loadImages();
 
@@ -490,7 +492,7 @@ void Renderer::loadTextLibrary() {
         // now store character for later use
         Character character = {
             texture,
-            glm::ivec2(face->glyph->bitmap.width,face->glyph->bitmap.rows),
+            glm::ivec2(width, height),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             (unsigned int)face->glyph->advance.x,
         };
@@ -679,26 +681,26 @@ void Renderer::updateTexCoord(UIComponent comp, SpriteInfo& info) {
 void Renderer::renderTextComponent(TextComponent* text)
 {
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+    //glm::mat4 projection = camera.getProjectionMatrix();
 
     //no need to disable depth test, already disabled
 
    //sets the current shader program to the text shader program
-    glUseProgram(shaders[TEXT].Program);
+    glUseProgram(shaders[ShaderName::TEXT].Program);
 
     //sets the current shader program to use the projection matrix.
-    glUniformMatrix4fv(glGetUniformLocation(shaders[TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3f(glGetUniformLocation(shaders[TEXT].Program, "textColor"), text->R, text->G, text->B);
-    glUniform1i(glGetUniformLocation(shaders[TEXT].Program, "text"), 0);
+    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
+    glUniform3f(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "textColor"), text->R, text->G, text->B);
+    glUniform1i(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
-    std::string Text(text->value);
-
     float x = text->x;
     float y = text->y;
+    std::string textValue = text->getText();
 
     std::string::const_iterator c;
-    for (c = Text.begin(); c != Text.end(); c++) {
+    for (c = textValue.begin(); c != textValue.end(); c++) {
         Character ch = characters[*c];
 
         float xpos = x + ch.bearing.x * text->size;
@@ -841,8 +843,7 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
 
             // shaders
             glUseProgram(shaders[renderComp->shaderName].Program);
-            loadShaderUniforms(shaders[DEFAULT], modelMatrix);
-
+            loadShaderUniforms(shaders[ShaderName::DEFAULT], modelMatrix);
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
         }
@@ -879,6 +880,8 @@ void Renderer::drawUI(EntityCoordinator* coordinator) {
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    for (int i = 0; i < uiFound; i++) {
+    }
     //text rendering begins here
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
@@ -907,5 +910,3 @@ Renderer* Renderer::getInstance()
         renderer = new Renderer();
     return renderer;
 }
-
-Renderer* Renderer::renderer = nullptr;

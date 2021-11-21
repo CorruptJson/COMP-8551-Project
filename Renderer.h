@@ -96,7 +96,6 @@ private:
     void updateTexCoord(UIComponent comp, SpriteInfo& info);
     void renderTextComponent(TextComponent* text);
     void renderUIComponent(UIComponent* ui, Transform* transform);
-
     void drawGameObjects(EntityCoordinator* coordinator);
     void drawUI(EntityCoordinator* coordinator);
 };

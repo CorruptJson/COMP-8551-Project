@@ -44,7 +44,7 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID text;
+//EntityID text;
 EntityID mikeRespawner;
 EntityID panel;
 
@@ -103,10 +103,7 @@ int test(){
 
     //creating text
     //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Lives = 3 x", 15.0f, 15.0f, 0.5f, 0.2f, 0.8f, 0.5f, {});
-
     panel = GameEntityCreator::getInstance().CreatePanel(150.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 35.0f, 35.0f, "Edgar.png", 0, 0, {});
-
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
