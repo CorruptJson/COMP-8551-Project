@@ -126,14 +126,10 @@
         "setPrefab": "Ceiling",
         "prefabValues": {
             "usePrefab":  "Platform",
-            "transform": {
-                "rotation": 3.14159
-            },
             "render": {
                 "rowIndex":  0,
                 "colIndex":  1
             }
-
         }
     },
     {
@@ -159,23 +155,36 @@
         "setPrefab": "Fire",
         "prefabValues": {
             "tag": "fire",
-            "transform": {
-              "yPos": -5.1,
-              "xScale": 1,
-              "yScale": 1
-            },
             "render": {
-              "sprite": "fire.png",
-              "hasAnim": true
+            },
+            "transform": {
+                "yPos": -6.5,
+                "xScale": 0.5,
+                "yScale": 0.5
             },
             "physics": {
-              "b2bodytype": "b2_staticBody",
-              "density": 1,
-              "friction": 0
+                "b2bodytype": "b2_staticBody",
+                "density": 1,
+                "friction": 0
+            }
+        }
+    },
+    {
+        "setPrefab": "FireSprites",
+        "prefabValues": {
+            "tag": "scene",
+            "transform": {
+                "yPos": -4.6,
+                "xScale": 1,
+                "yScale": 1
+            },
+            "render": {
+                "sprite": "fire.png",
+                "hasAnim": true
             },
             "animation": {
-              "animName": "burn",
-              "isPlaying": true
+                "animName": "burn",
+                "isPlaying": true
             }
         }
     },
