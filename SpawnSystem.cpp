@@ -33,6 +33,8 @@ void SpawnSystem::SpawnStar()
         return;
 
     ComponentIterator<Transform> tI = ComponentIterator<Transform>(eq);
+
+    srand(time(NULL));
     //Choosing a random spawn location
     int position = rand() % eq->totalEntitiesFound();
     int current = 0;
@@ -74,9 +76,20 @@ void SpawnSystem::SpawnEnemy()
     
     PhysicsWorld::getInstance().AddObject(enemy);
 
+
+    srand(time(NULL));
+    //Choosing a random spawn location
+    bool direction = rand() % 2;
+    RenderComponent* rendComp = &ec->GetComponent<RenderComponent>(enemy);
+    rendComp->flipX = direction;
+
     MovementComponent* moveComp = &ec->GetComponent<MovementComponent>(enemy);
 
-    float xVel = 2.0f;
+    float xVel;
+    if (direction)
+        xVel = -2.0f;
+    else
+        xVel = 2.0f;
     float yVel = moveComp->yVelocity;
 
     moveComp->setVelocity(xVel, 0.0f);

@@ -37,6 +37,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         if (tagSecond == PLATFORM) {
             cout << "Platform" << endl;
         }
+        else if (tagSecond == WALL) {
+            cout << "Platform" << endl;
+        }
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
