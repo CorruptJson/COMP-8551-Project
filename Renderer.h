@@ -23,6 +23,12 @@
 
 extern GLFWwindow* window;
 
+enum class WindowSize {
+    WINDOWED,
+    FULL_WINDOWED,
+    FULLSCREEN
+};
+
 class Renderer
 {
 public:
@@ -38,8 +44,7 @@ public:
     static std::string UI_VERT_SHADER_NAME;
     static std::string UI_FRAG_SHADER_NAME;
 
-    static GLFWwindow* setupGLFW(int *width, int *height);
-    int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor);
+    int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize);
     int update(EntityCoordinator* coordinator);
     int teardown();
     static Renderer* getInstance();
@@ -81,11 +86,15 @@ private:
     // store the text characters
     std::map<unsigned char, Character> characters;
 
-    void createShaderProgram(ShaderName shaderName,std::string vertPath, std::string fragPath);
     // the background color of the scene
     glm::vec4 backgroundColor;
+    // size info of the window
+    int windowWidth;
+    int windowHeight;
 
-    GLuint createShaderProgram(std::string vertName, std::string fragName);
+
+    static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
+    void createShaderProgram(ShaderName shaderName,std::string vertPath, std::string fragPath);
 
     void prepareGLBuffers();
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);

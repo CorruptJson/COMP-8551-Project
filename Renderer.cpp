@@ -55,10 +55,9 @@ GLFWwindow* window;
 /// <param name="viewWidth">The width of the camera view in OpenGL coordinates</param>
 /// <param name="viewHeight">The height of the camera view in OpenGL coordinates</param>
 /// <returns></returns>
-int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) {
+int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize) {
     backgroundColor = newBackgroundColor;
-    int width, height;
-    window = Renderer::setupGLFW(&width, &height);
+    window = Renderer::setupGLFW(&windowWidth, &windowHeight, windowSize);
     if (window == NULL)
     {
         glfwTerminate();
@@ -69,7 +68,17 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     // init it
     gladLoadGL();
 
+    // tell opengl the size of the viewport (window)
+    // we are drawing on
+    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
+    glViewport(0, 0, windowWidth, windowHeight);
+
+    // enable transparency for the images
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_BLEND);
+
     // init other OpenGL stuff
+    loadTextLibrary();
     camera.setViewSize(viewWidth, viewHeight);
 
     //creates shader programs and puts them into the map
@@ -82,20 +91,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor) 
     glUseProgram(shaders[ShaderName::TEXT].Program);
 
     loadImages();
-
     prepareGLBuffers();
-
-    // tell opengl the size of the viewport (window)
-    // we are drawing on
-    // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
-    glViewport(0, 0, width, height);
-
-    // enable transparency for the images
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glEnable(GL_BLEND);
-
-    //loads the text library for printing characters
-    loadTextLibrary();
 
     return 0;
 }
@@ -226,7 +222,7 @@ GLuint Renderer::createTexBuffer(int height, int width, unsigned char* imgData) 
     return id;
 }
 
-GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
+GLFWwindow* Renderer::setupGLFW(int *width, int *height, WindowSize windowSize) {
     // glfw helps with creating windows, contexts
     // and receiving inputs and events
     // init this to call its function
@@ -244,26 +240,39 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height) {
     // Find the main monitor and its screen size
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     const GLFWvidmode* monitorInfo = glfwGetVideoMode(monitor);
+    GLFWmonitor* fullScreenMonitor;
 
     // use this to make the window match screen size but still in windowed mode
-    //*width = monitorInfo->width;
-    //*height = monitorInfo->height;
-
-    // make a small width and a height for ease of testing
-    *width = 1800;
-    *height = 1200;
+    if (windowSize == WindowSize::FULL_WINDOWED) {
+        *width = monitorInfo->width;
+        *height = monitorInfo->height;
+        fullScreenMonitor = NULL;
+    }
+    else if (windowSize == WindowSize::FULLSCREEN) {
+        *width = monitorInfo->width;
+        *height = monitorInfo->height;
+        fullScreenMonitor = monitor;
+    }
+    else {
+        // also for WINDOWED mode
+        *width = 1800;
+        *height = 1200;
+        fullScreenMonitor = NULL;
+    }
 
     // Make a window with size 800x800 with name of "Edgar the Exterminator"
-    // pass in monitor for the 3rd param if we want it to be full screen
-    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", NULL, NULL);
+    // pass in monitor for the 4rd param if we want it to be full screen
+    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", fullScreenMonitor, NULL);
     if (window == NULL) {
         std::cout << "Failed to create GLFW window" << std::endl;
         return NULL;
     }
 
-    // set window in the center of the monitor
-    // origin is top left corner
-    glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
+    if (windowSize == WindowSize::WINDOWED) {
+        // set window in the center of the monitor
+        // origin is top left corner
+        glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
+    }
 
     // set the window's icon
     GLFWimage icon;
@@ -358,77 +367,6 @@ void Renderer::createShaderProgram(ShaderName shaderName, std::string vertPath, 
     shaders[shaderName] = shader;
 }
 
-GLuint Renderer::createShaderProgram(std::string vertName, std::string fragName)
-{
-    // shaders are OpenGL objects => we need to init them
-    // and store a reference to them so we can use them later
-
-    // init an empty shader and store the ref OpenGL returns
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    std::string vertShaderSource = FileManager::readShaderFile(vertName);
-    const char* vertCStr = vertShaderSource.c_str();
-
-    // first param is the pointer/ID that we will use the as ref
-    // to the shader (the one we create above), 1 is the number of strings
-    // we are storing the shader in, &vertexShaderSource is a pointer
-    // to the shader code string, and NULL is the length that we will
-    // read from the vertCStr => NULL means we keep reading until we see
-    // a NUL EOF char.
-    glShaderSource(vertexShader, 1, &vertCStr, NULL);
-    glCompileShader(vertexShader);
-
-    // check for success
-    int success;
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        char infoLog[512];
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
-    }
-
-    // do the same thing for the fragment shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    std::string fragShaderSource = FileManager::readShaderFile(fragName);
-    const char* fragCStr = fragShaderSource.c_str();
-
-    // first param is the pointer/ID that we will use the as ref
-    // to the shader, 1 is the number of strings
-    // we are storing the shader in, &fragmentShaderSource is a pointer
-    // to the shader code string, and NULL is unimportant
-    glShaderSource(fragmentShader, 1, &fragCStr, NULL);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        char infoLog[512];
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
-    }
-
-    // now that we have the shaders, we have to create and 
-    // a "shader program" and attach them so it can work
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    // link the program to the rendering pipeline
-    glLinkProgram(shaderProgram);
-
-    // clean up and delete the shader refs
-    // we already compile and link them to the program
-    // so we don't need them anymore
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    // load the uniforms
-    // see the uniforms defined in the vertex shader 
-    // we get their locations here
-    //uniformsLocation[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
-    //uniformsLocation[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
-    //uniformsLocation[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
-
-    return shaderProgram;
-}
-
 /// <summary>
 /// Load the FreeType text library and the fonts we'll use for the game.
 /// </summary>
@@ -442,16 +380,15 @@ void Renderer::loadTextLibrary() {
 
     // load the font file so we get a texture
     FT_Face face;
-    if (FT_New_Face(ft, "arial.ttf", 0, &face))
+    if (FT_New_Face(ft, "Pixeboy.ttf", 0, &face))
     {
         std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
         return;
     }
-    FT_Set_Pixel_Sizes(face, 0, 48);
+    FT_Set_Pixel_Sizes(face, 0, windowWidth / 20);
 
     // load the characters into the characters
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
-    glPixelStoref(GL_UNPACK_ALIGNMENT, 1); // disable byte-alignment restriction
 
     // load the characters from the font file
     for (unsigned char c = 0; c < 128; c++) {
@@ -486,8 +423,8 @@ void Renderer::loadTextLibrary() {
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
         // now store character for later use
         Character character = {
@@ -680,8 +617,7 @@ void Renderer::updateTexCoord(UIComponent comp, SpriteInfo& info) {
 
 void Renderer::renderTextComponent(TextComponent* text)
 {
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
-    //glm::mat4 projection = camera.getProjectionMatrix();
+    glm::mat4 projection = glm::ortho(0.0f, (float)windowWidth, 0.0f, (float)windowHeight);
 
     //no need to disable depth test, already disabled
 
@@ -758,9 +694,9 @@ void Renderer::renderUIComponent(UIComponent* ui, Transform* transform) {
         updateTexCoord(*ui, spriteInfo);
     }
 
-    glUniformMatrix4fv(glGetUniformLocation(shaders[UI].Program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(transform->getModelMatrix()));
+    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(transform->getModelMatrix()));
 
-    glUniform4f(glGetUniformLocation(shaders[UI].Program, "panelColor"), ui->color.r, ui->color.g, ui->color.b, ui->color.a);
+    glUniform4f(glGetUniformLocation(shaders[ShaderName::UI].Program, "panelColor"), ui->color.r, ui->color.g, ui->color.b, ui->color.a);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindTexture(GL_TEXTURE_2D,0);
@@ -788,10 +724,6 @@ int Renderer::update(EntityCoordinator* coordinator) {
     glClear(GL_COLOR_BUFFER_BIT);
 
     drawGameObjects(coordinator);
-
-    //unbinds the current vao and vbo
-    //glBindVertexArray(0);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     drawUI(coordinator);
 
@@ -851,8 +783,6 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
 }
 
 void Renderer::drawUI(EntityCoordinator* coordinator) {
-    
-
     std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<UIComponent>(),
         coordinator->GetComponentType<Transform>()
@@ -863,12 +793,12 @@ void Renderer::drawUI(EntityCoordinator* coordinator) {
     ComponentIterator<Transform> transforms = ComponentIterator<Transform>(UIQuery);
 
     //load the UI data here
-    glUseProgram(shaders[UI].Program);
+    glUseProgram(shaders[ShaderName::UI].Program);
 
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 
     //sets the current matrix to a projection matrix which would overlay over the screen
-    glUniformMatrix4fv(glGetUniformLocation(shaders[UI].Program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
 
     glBindTexture(GL_TEXTURE_2D, 0);
 
@@ -889,7 +819,6 @@ void Renderer::drawUI(EntityCoordinator* coordinator) {
 
     int textFound = TextQuery->totalEntitiesFound();
     ComponentIterator<TextComponent> textComps = ComponentIterator<TextComponent>(TextQuery);
-    //std::vector<TextComponent*> textComps = TextQuery->getComponentArray<TextComponent>();
 
     for (int i = 0; i < textFound; i++) {
         renderTextComponent(textComps.nextComponent());

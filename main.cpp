@@ -1,5 +1,4 @@
 #include <iostream>
-//#include "RenderTutorial.h"
 #include <vector>
 #include <string>
 #include <ctime>
@@ -25,17 +24,13 @@
 #include "FPSCounter.h"
 
 
-//ChunkManager* chunkManager;
+// init various game systems
 EntityCoordinator* coordinator;
-
 SceneManager* sceneManager;
-
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
-
 Animator animator;
-
 GameManager& gameManager = GameManager::getInstance();
 FPSCounter fpsCounter = FPSCounter();
 
@@ -44,7 +39,6 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-//EntityID text;
 EntityID mikeRespawner;
 EntityID panel;
 
@@ -55,16 +49,17 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
-const int VIEW_WIDTH = 14;
-const int VIEW_HEIGHT = 10;
-
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {  
     // when the engine starts
+    // opengl's screen size
+    const int VIEW_WIDTH = 14;
+    const int VIEW_HEIGHT = 10;
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
+
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::FULLSCREEN);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
@@ -101,9 +96,8 @@ int test(){
 
     sceneManager->CreateEntities();
 
-    //creating text
-    //                                                                   X      Y      R     G     B     Tags
     panel = GameEntityCreator::getInstance().CreatePanel(150.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 35.0f, 35.0f, "Edgar.png", 0, 0, {});
+
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;

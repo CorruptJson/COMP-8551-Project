@@ -27,20 +27,11 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<TimerComponent>()
         });
     
-    textArchetype = ec.GetArchetype({
-        ec.GetComponentType<TextComponent>()
-        });
-    
     panelArchetype = ec.GetArchetype({
         ec.GetComponentType<UIComponent>(),
         ec.GetComponentType<Transform>()
         
         });
-
-    //sceneryArchetype = ec.GetArchetype({
-    //    ec.GetComponentType<Transform>(),
-    //    ec.GetComponentType<RenderComponent>()
-    //    });
 }
 
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
@@ -118,30 +109,19 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
     return ent;
 }
 
-//EntityID GameEntityCreator::CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
+//EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
 //{
 //    EntityCoordinator& ec = EntityCoordinator::getInstance();
-//    EntityID ent = ec.CreateEntity(sceneryArchetype, spriteName, tags);
+//    EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 //
-//    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
-//    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
-//
-//    return ent;
-//}
-
-EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
-{
-    EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
-
     //ec.GetComponent<TextComponent>(ent).value = "Test";
     //ec.GetComponent<TextComponent>(ent).x = x;
     //ec.GetComponent<TextComponent>(ent).y = y;
     ////ec.GetComponent<TextComponent>(ent).size = 1.0f;
     //ec.GetComponent<TextComponent>(ent).size = size;
     //ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
-    return ent;
-}
+//    return ent;
+//}
 
 EntityID GameEntityCreator::CreatePanel(float x, float y, float r, float g, float b, float a, float scaleX, float scaleY, std::vector<Tag> tags)
 {
