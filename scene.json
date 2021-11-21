@@ -22,15 +22,6 @@
         "state": {}
     },
     {
-        "usePrefab": "Roach",
-        "transform": {
-            "xScale": 1,
-            "yScale": 1,
-            "xPos": 4,
-            "yPos": 1
-        }
-    },
-    {
         "usePrefab": "WallRight",
         "transform": {
             "xPos": -6.75,
@@ -88,7 +79,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -6.75,
             "yPos": 2.5,
@@ -147,7 +138,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -6.75,
             "yPos": -1.25,
@@ -213,7 +204,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 6.75,
             "yPos": 2.5,
@@ -272,7 +263,7 @@
     },
     {
         "usePrefab": "Collider",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 6.75,
             "yPos": -1.25,
@@ -471,7 +462,7 @@
     {
         "usePrefab": "Collider",
         "_comment": "block the top left ceiling",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -1.25,
             "yPos": 5.25,
@@ -482,7 +473,7 @@
     {
         "usePrefab": "Collider",
         "_comment": "block the top left ceiling",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": -1.25,
             "yPos": 5.75,
@@ -493,7 +484,7 @@
     {
         "usePrefab": "Collider",
         "_comment": "block the top left ceiling",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 1.25,
             "yPos": 5.25,
@@ -504,7 +495,7 @@
     {
         "usePrefab": "Collider",
         "_comment": "block the top left ceiling",
-        "tag": "platform",
+        "tag": "wall",
         "transform": {
             "xPos": 1.25,
             "yPos": 5.75,
@@ -1494,7 +1485,7 @@
         "usePrefab": "EnemySpawner",
         "_comment": "enemy spawner top platform",
         "transform": {
-            "yPos": 5.5
+            "yPos": 4.25
         }
     },
     {

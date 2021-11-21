@@ -105,10 +105,10 @@
     {
         "setPrefab": "WallLeft",
         "prefabValues": {
-            "usePrefab":  "Platform",
+            "usePrefab": "Platform",
             "render": {
-                "rowIndex":  1,
-                "colIndex":  0
+                "rowIndex": 1,
+                "colIndex": 0
             }
         }
     },
@@ -194,11 +194,6 @@
             "tag": "enemySpawner",
             "transform": {
                 "yPos": 5.5
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
             }
         }
     },
@@ -209,11 +204,6 @@
             "transform": {
                 "xPos": 0,
                 "yPos": 0
-            },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
             }
         }
     },

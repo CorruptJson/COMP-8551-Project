@@ -65,12 +65,26 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
 
-    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName,hasAnimation);
+    ec.GetComponent<RenderComponent>(ent) = {
+        DEFAULT,
+        spriteName,
+        0,
+        0,
+        hasAnimation,
+        false
+    };
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+    ec.GetComponent<AnimationComponent>(ent) = {
+        Renderer::getInstance()->getAnimation("run", spriteName),
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        0,
+        hasAnimation
+    };
     ec.GetComponent<PhysicsComponent>(ent) = {
         b2_dynamicBody,
-        0.5f * scaleY,
         0.5f * scaleX,
+        0.5f * scaleY,
         xPos,
         yPos,
         1.0f,

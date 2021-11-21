@@ -14,6 +14,9 @@ void SpawnSystem::Receive(Event e, void* args)
     case Event::STAR_PICKED_UP:
         hasActiveStar = false;
         break;
+    case Event::SPAWN_ENEMY:
+        SpawnEnemy();
+        break;
     }
 }
 
@@ -25,7 +28,13 @@ void SpawnSystem::SpawnStar()
             Tag::SPAWNPOINT
         });
 
+    //Stop if no spawn points are found
+    if (eq->totalEntitiesFound() < 1)
+        return;
+
     ComponentIterator<Transform> tI = ComponentIterator<Transform>(eq);
+
+    srand(time(NULL));
     //Choosing a random spawn location
     int position = rand() % eq->totalEntitiesFound();
     int current = 0;
@@ -48,5 +57,40 @@ void SpawnSystem::SpawnStar()
 
 void SpawnSystem::SpawnEnemy()
 {
+    std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+        ec->GetComponentType<Transform>()
+        }, {
+            Tag::ENEMYSPAWNER
+        });
 
+    //Stop if no spawn points are found
+    if (eq->totalEntitiesFound() < 1)
+        return;
+
+    ComponentIterator<Transform> tI = ComponentIterator<Transform>(eq);
+    Transform* t = tI.nextComponent();
+
+    float xPos = t->getPosition().x;
+    float yPos = t->getPosition().y;
+    EntityID enemy = GameEntityCreator::getInstance().CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    
+    PhysicsWorld::getInstance().AddObject(enemy);
+
+
+    srand(time(NULL));
+    //Choosing a random spawn location
+    bool direction = rand() % 2;
+    RenderComponent* rendComp = &ec->GetComponent<RenderComponent>(enemy);
+    rendComp->flipX = direction;
+
+    MovementComponent* moveComp = &ec->GetComponent<MovementComponent>(enemy);
+
+    float xVel;
+    if (direction)
+        xVel = -2.0f;
+    else
+        xVel = 2.0f;
+    float yVel = moveComp->yVelocity;
+
+    moveComp->setVelocity(xVel, 0.0f);
 }
