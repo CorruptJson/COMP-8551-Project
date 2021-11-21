@@ -612,7 +612,8 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
             Transform* transform = transformComponents.nextComponent();
 
             //calculate the tex coord from the component.index
-            if (i == 0 || (prevRenderComp->colIndex != renderComp->colIndex || prevRenderComp->rowIndex != renderComp->rowIndex)) {
+            if (i == 0 || (prevRenderComp->colIndex != renderComp->colIndex 
+                || prevRenderComp->rowIndex != renderComp->rowIndex || prevRenderComp->flipX != renderComp->flipX)) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
 
