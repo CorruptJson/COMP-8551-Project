@@ -127,7 +127,7 @@
         "prefabValues": {
             "usePrefab":  "Platform",
             "transform": {
-                "rotation": 45
+                "rotation": 3.14159
             },
             "render": {
                 "rowIndex":  0,
