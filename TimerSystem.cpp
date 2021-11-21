@@ -5,8 +5,10 @@ void TimerSystem::update() {
     if (counter % 200 == 0) {
         Notify(Event::SPAWN_STAR, nullptr);
     }
-    if (counter % 300 == 0) {
+    if (counter % enemyTimer == 0) {
         Notify(Event::SPAWN_ENEMY, nullptr);
+        if (enemyTimer > 150)
+            enemyTimer -= 5;
     }
     if (counter > 3000) {
         counter = 0;
