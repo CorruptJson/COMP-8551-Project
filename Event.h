@@ -12,4 +12,12 @@ enum class Event {
     //Collision events
     C_START_PLAYER_ENEMY,
     C_END_PLAYER_ENEMY,
+    //Entity events
+    B2BODY_TO_DELETE
+};
+
+struct B2BodyDeleteEventArgs
+{
+    EntityID id;
+    b2Body* body;
 };

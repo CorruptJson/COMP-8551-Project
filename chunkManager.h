@@ -7,8 +7,11 @@
 #include "Types.h"
 #include "chunk.h"
 #include "EntityQuery.h"
+#include "ComponentManager.h"
+#include "ISubject.h"
+#include "PhysicsComponent.h"
 
-class ChunkManager
+class ChunkManager : public ISubject
 {
     friend class EntityCoordinator;
 
@@ -45,6 +48,10 @@ public:
     int getChunkManagerVersion();
 
     std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
+
+    void deactivateAllEntitiesAndPhysicsBodies();
+
+    void Notify(Event e, void* args) override;
 
     ~ChunkManager();
 };

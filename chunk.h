@@ -113,6 +113,8 @@ public:
     bool doesEntityExist(EntityID id);
     bool isDataIndexActive(int i);
 
+    void releaseAllEntities();
+
     ~Chunk();
 };
 

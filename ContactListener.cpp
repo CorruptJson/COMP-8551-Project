@@ -190,7 +190,7 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
 
     if (tagFirst == PLAYER)
     {
-        if (tagSecond == ENEMY)
+        if (tagSecond == ENEMY || tagSecond == STAR)
         {
             contact->SetEnabled(false);
         }

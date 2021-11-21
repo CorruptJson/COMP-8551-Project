@@ -280,6 +280,15 @@ void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physC
     transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
 
+void PhysicsWorld::Receive(Event e, void* args)
+{
+    if (e == Event::B2BODY_TO_DELETE)
+    {
+        B2BodyDeleteEventArgs* eventArgs = (B2BodyDeleteEventArgs*)args;
+        B2DBodyDeleteGuardFunction(eventArgs->body, eventArgs->id);
+        delete eventArgs;
+    }
+}
 
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;

@@ -1463,8 +1463,20 @@
             "xPos": -0.5
         }
     },
+  {
+    "usePrefab": "Fire",
+    "transform": {
+      "xPos": 0.5
+    }
+  },
+   {
+        "usePrefab": "FireSprites",
+        "transform": {
+            "xPos": -0.5
+        }
+    },
     {
-        "usePrefab": "Fire",
+        "usePrefab": "FireSprites",
         "transform": {
             "xPos": 0.5
         }
