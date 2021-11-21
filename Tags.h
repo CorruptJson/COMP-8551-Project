@@ -3,15 +3,17 @@
 
 enum Tag
 {
-    PLAYER,  
-    ENEMY,   
-    ACTOR,   
-    BULLET,  
+    PLAYER,
+    ENEMY,
+    ACTOR,
+    BULLET,
     PLATFORM,
     SCENERY,
     STAR,
     FIRE,
+    SPAWNPOINT,
     ENEMYSPAWNER,
-    PLAYERSPAWNER
+    PLAYERSPAWNER,
+    TXT_SCORE
 
 };

@@ -32,8 +32,10 @@ unordered_map<std::string, Tag> tagMap = {
     {"player", PLAYER},
     {"star", STAR},
     {"fire", FIRE},
+    {"spawnPoint", SPAWNPOINT},
     {"enemySpawner", ENEMYSPAWNER},
-    {"playerSpawner", PLAYERSPAWNER}
+    {"playerSpawner", PLAYERSPAWNER},
+    {"scoreText", TXT_SCORE}
 };
 
 
@@ -116,8 +118,7 @@ void SceneManager::CreateEntities() {
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    "defaultVertShader.vs",
-                    "defaultFragShader.fs",
+                    DEFAULT,
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,

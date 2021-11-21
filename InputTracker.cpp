@@ -16,6 +16,10 @@ bool InputTracker::isKeyDown(Key aKey)
     else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
         return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == DOWN || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_DOWN;
     }
+    else
+    {
+        throw "key not present in dictionary?";
+    }
 }
 bool InputTracker::isKeyJustDown(Key aKey) 
 {
@@ -33,6 +37,10 @@ bool InputTracker::isKeyJustDown(Key aKey)
     else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
         return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_DOWN; 
     }
+    else
+    {
+        throw "key not present in dictionary?";
+    }
 }
 
 bool InputTracker::isKeyReleased(Key aKey) 
@@ -49,6 +57,10 @@ bool InputTracker::isKeyReleased(Key aKey)
     else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
         return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == RELEASED || mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; 
     }
+    else
+    {
+        throw "key not present in dictionary?";
+    }
 }
 
 bool InputTracker::isKeyJustReleased(Key aKey) 
@@ -64,6 +76,10 @@ bool InputTracker::isKeyJustReleased(Key aKey)
     }
     else if (Key::ARROW_RIGHT <= aKey && aKey <= ARROW_UP) {
         return mKeyState[aKey - Key::ARROW_RIGHT + arrowStartIndex] == JUST_RELEASED; 
+    }
+    else
+    {
+        throw "key not present in dictionary?";
     }
 }
 

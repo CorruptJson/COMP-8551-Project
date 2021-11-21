@@ -34,19 +34,21 @@ void Animator::setSpeed()
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<RenderComponent>(),
         coordinator->GetComponentType<AnimationComponent>()
-        });
+        }, {});
 
     int entitiesFound = entityQuery->totalEntitiesFound();
-    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
+    ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entityQuery);
+    ComponentIterator<AnimationComponent> animComps = ComponentIterator<AnimationComponent>(entityQuery);
+    //std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
+    //std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
     
     for (int i = 0; i < entitiesFound; i++) {
 
-        AnimationComponent* animationComponent = (animComps[i]);
-        RenderComponent* renderCompnent = (renderComps[i]);
+        AnimationComponent* animationComponent = animComps.nextComponent();
+        RenderComponent* renderCompnent = renderComponents.nextComponent();
 
         //skips the iteration if rendercomponent doesn't have an animation component
         if (renderCompnent->hasAnimation) {
