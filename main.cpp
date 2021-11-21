@@ -40,7 +40,7 @@ Archetype standardArch;
 EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
-EntityID panel;
+//EntityID panel;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -59,7 +59,7 @@ int initialize()
     const int VIEW_HEIGHT = 10;
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
 
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::FULLSCREEN);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
@@ -96,7 +96,7 @@ int test(){
 
     sceneManager->CreateEntities();
 
-    panel = GameEntityCreator::getInstance().CreatePanel(150.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 35.0f, 35.0f, "Edgar.png", 0, 0, {});
+    //panel = GameEntityCreator::getInstance().CreatePanel(150.0f, 25.0f, 0.0f, 0.0f, 0.0f, 0.0f, 35.0f, 35.0f, "Edgar.png", 0, 0, {});
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {

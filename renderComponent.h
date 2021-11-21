@@ -1,5 +1,5 @@
 #pragma once
-#include "Shader.h"
+#include "ShaderFactory.h"
 #include <glm/glm.hpp>
 
 struct RenderComponent {
@@ -23,5 +23,5 @@ struct RenderComponent {
     bool flipX;
 
     //color of the panel/background of the sprite
-    glm::vec4 color;
+    glm::vec3 color;
 };

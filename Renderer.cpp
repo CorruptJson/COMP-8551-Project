@@ -2,18 +2,6 @@
 
 Renderer* Renderer::renderer = nullptr;
 
-std::string Renderer::DEFAULT_VERT_SHADER_NAME = "DefaultVertShader.vs";
-std::string Renderer::DEFAULT_FRAG_SHADER_NAME = "DefaultFragShader.fs";
-
-std::string Renderer::TEXT_VERT_SHADER_NAME = "TextVertShader.vs";
-std::string Renderer::TEXT_FRAG_SHADER_NAME = "TextFragShader.fs";
-
-std::string Renderer::DOODLE_VERT_SHADER_NAME = "DoodleVertShader.vs";
-std::string Renderer::DOODLE_FRAG_SHADER_NAME = "DoodleFragShader.fs";
-
-std::string Renderer::UI_VERT_SHADER_NAME = "UIVertShader.vs";
-std::string Renderer::UI_FRAG_SHADER_NAME = "UIFragShader.fs";
-
 //Fragment Shader source code
 // Vertices data: coordinates, colors and texture coords
 GLfloat positionsData[] = {
@@ -38,11 +26,8 @@ GLuint indices[] = {
     1, 2, 3 //indices to create the second triangle
 };
 
-// store the locations of the shaders uniforms
-GLuint uniformsLocation[NUM_OF_UNIFORMS];
 
 //text stuff
-GLuint textUniformsLocation[NUM_OF_UNIFORMS];
 GLuint vao;
 GLuint vbo;
 
@@ -78,20 +63,13 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     glEnable(GL_BLEND);
 
     // init other OpenGL stuff
-    loadTextLibrary();
-    camera.setViewSize(viewWidth, viewHeight);
-
-    //creates shader programs and puts them into the map
-    createShaderProgram(ShaderName::DEFAULT, DEFAULT_VERT_SHADER_NAME, DEFAULT_FRAG_SHADER_NAME);
-    createShaderProgram(ShaderName::TEXT, TEXT_VERT_SHADER_NAME, TEXT_FRAG_SHADER_NAME);
-    createShaderProgram(ShaderName::DOODLE, DOODLE_VERT_SHADER_NAME, DOODLE_FRAG_SHADER_NAME);
-    createShaderProgram(ShaderName::UI, UI_VERT_SHADER_NAME, UI_FRAG_SHADER_NAME);
-
-    //sets the text shader to be used currently
-    glUseProgram(shaders[ShaderName::TEXT].Program);
-
     loadImages();
     prepareGLBuffers();
+
+    // init helper classes
+    loadTextLibrary();
+    camera.setViewSize(viewWidth, viewHeight);
+    shaderFactory.createAllShaderPrograms();
 
     return 0;
 }
@@ -289,83 +267,6 @@ GLFWwindow* Renderer::setupGLFW(int *width, int *height, WindowSize windowSize) 
     return window;
 }
 
-void Renderer::createShaderProgram(ShaderName shaderName, std::string vertPath, std::string fragPath) {
-        
-    // shaders are OpenGL objects => we need to init them
-    // and store a reference to them so we can use them later
-
-    // init an empty shader and store the ref OpenGL returns
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    std::string vertShaderSource = FileManager::readShaderFile(vertPath);
-    const char* vertCStr = vertShaderSource.c_str();
-
-    // first param is the pointer/ID that we will use the as ref
-    // to the shader (the one we create above), 1 is the number of strings
-    // we are storing the shader in, &vertexShaderSource is a pointer
-    // to the shader code string, and NULL is the length that we will
-    // read from the vertCStr => NULL means we keep reading until we see
-    // a NUL EOF char.
-    glShaderSource(vertexShader, 1, &vertCStr, NULL);
-    glCompileShader(vertexShader);
-
-    // check for success
-    int success;
-    glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        char infoLog[512];
-        glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
-    }
-
-    // do the same thing for the fragment shader
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    std::string fragShaderSource = FileManager::readShaderFile(fragPath);
-    const char* fragCStr = fragShaderSource.c_str();
-
-    // first param is the pointer/ID that we will use the as ref
-    // to the shader, 1 is the number of strings
-    // we are storing the shader in, &fragmentShaderSource is a pointer
-    // to the shader code string, and NULL is unimportant
-    glShaderSource(fragmentShader, 1, &fragCStr, NULL);
-    glCompileShader(fragmentShader);
-
-    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
-    if (!success) {
-        char infoLog[512];
-        glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
-    }
-
-    // now that we have the shaders, we have to create and 
-    // a "shader program" and attach them so it can work
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    // link the program to the rendering pipeline
-    glLinkProgram(shaderProgram);
-
-    // clean up and delete the shader refs
-    // we already compile and link them to the program
-    // so we don't need them anymore
-    glDeleteShader(vertexShader);
-    glDeleteShader(fragmentShader);
-
-    Shader shader =
-    {
-        shaderProgram,
-    };
-
-    // load the uniforms
-    // see the uniforms defined in the vertex shader 
-    // we get their locations here
-    shader.Uniforms[MODEL_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "modelMatrix");
-    shader.Uniforms[VIEW_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "viewMatrix");
-    shader.Uniforms[PROJECTION_MATRIX_LOCATION] = glGetUniformLocation(shaderProgram, "projectionMatrix");
-    shader.Uniforms[TIME] = glGetUniformLocation(shaderProgram, "time");
-
-    //add the shader to the map
-    shaders[shaderName] = shader;
-}
 
 /// <summary>
 /// Load the FreeType text library and the fonts we'll use for the game.
@@ -539,14 +440,6 @@ void Renderer::prepareGLBuffers() {
     glBindVertexArray(0);
 }
 
-void Renderer::loadShaderUniforms(Shader &shader, glm::mat4 modelMatrix) {
-    // pass in the uniforms value
-    glUniformMatrix4fv(shader.Uniforms[MODEL_MATRIX_LOCATION], 1, 0, value_ptr(modelMatrix));
-    glUniformMatrix4fv(shader.Uniforms[VIEW_MATRIX_LOCATION], 1, 0, value_ptr(camera.getViewMatrix()));
-    glUniformMatrix4fv(shader.Uniforms[PROJECTION_MATRIX_LOCATION], 1, 0, value_ptr(camera.getProjectionMatrix()));
-    glUniform1f(shader.Uniforms[TIME], time);
-}
-
 // update the tex coord vertex data so it draws 
 // specific section of a spritesheet
 void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
@@ -622,12 +515,10 @@ void Renderer::renderTextComponent(TextComponent* text)
     //no need to disable depth test, already disabled
 
    //sets the current shader program to the text shader program
-    glUseProgram(shaders[ShaderName::TEXT].Program);
+    glm::mat4 model(1);
+    shaderFactory.useTextShader(model, projection, text->color);
 
     //sets the current shader program to use the projection matrix.
-    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "projectionMatrix"),1, GL_FALSE, glm::value_ptr(projection));
-    glUniform3f(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "textColor"), text->R, text->G, text->B);
-    glUniform1i(glGetUniformLocation(shaders[ShaderName::TEXT].Program, "text"), 0);
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
@@ -694,9 +585,8 @@ void Renderer::renderUIComponent(UIComponent* ui, Transform* transform) {
         updateTexCoord(*ui, spriteInfo);
     }
 
-    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "modelMatrix"), 1, GL_FALSE, glm::value_ptr(transform->getModelMatrix()));
 
-    glUniform4f(glGetUniformLocation(shaders[ShaderName::UI].Program, "panelColor"), ui->color.r, ui->color.g, ui->color.b, ui->color.a);
+    //glUniform4f(glGetUniformLocation(shaders[ShaderName::UI].Program, "panelColor"), ui->color.r, ui->color.g, ui->color.b, ui->color.a);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
     glBindTexture(GL_TEXTURE_2D,0);
@@ -766,17 +656,12 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
             RenderComponent* renderComp = renderComponents.nextComponent();
             Transform* t = transformComponents.nextComponent();
 
-            glm::mat4 modelMatrix = t->getModelMatrix();
-
             //calculate the tex coord from the component.index
             if (i == 0 || (prevRenderComp->colIndex != renderComp->colIndex || prevRenderComp->rowIndex != renderComp->rowIndex)) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
 
-            // shaders
-            glUseProgram(shaders[renderComp->shaderName].Program);
-            loadShaderUniforms(shaders[ShaderName::DEFAULT], modelMatrix);
-            glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "color"), 1, 0, value_ptr(renderComp->color));
+            shaderFactory.useDefaultShader(t->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
@@ -785,35 +670,35 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
 }
 
 void Renderer::drawUI(EntityCoordinator* coordinator) {
-    std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<UIComponent>(),
-        coordinator->GetComponentType<Transform>()
-        }, {});
+    //std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
+    //    coordinator->GetComponentType<UIComponent>(),
+    //    coordinator->GetComponentType<Transform>()
+    //    }, {});
 
-    int uiFound = UIQuery->totalEntitiesFound();
-    ComponentIterator<UIComponent> uiComps = ComponentIterator<UIComponent>(UIQuery);
-    ComponentIterator<Transform> transforms = ComponentIterator<Transform>(UIQuery);
+    //int uiFound = UIQuery->totalEntitiesFound();
+    //ComponentIterator<UIComponent> uiComps = ComponentIterator<UIComponent>(UIQuery);
+    //ComponentIterator<Transform> transforms = ComponentIterator<Transform>(UIQuery);
 
-    //load the UI data here
-    glUseProgram(shaders[ShaderName::UI].Program);
+    ////load the UI data here
+    ////glUseProgram(shaders[ShaderName::UI].Program);
 
-    glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+    //glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
 
-    //sets the current matrix to a projection matrix which would overlay over the screen
-    glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
+    ////sets the current matrix to a projection matrix which would overlay over the screen
+    ////glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    glBindTexture(GL_TEXTURE_2D, 0);
+    //glBindTexture(GL_TEXTURE_2D, 0);
 
-    for (int i = 0; i < uiFound; i++) {
-        renderUIComponent(uiComps.nextComponent(),transforms.nextComponent());
-    }
+    //for (int i = 0; i < uiFound; i++) {
+    //    renderUIComponent(uiComps.nextComponent(),transforms.nextComponent());
+    //}
 
-    //unbinds the current vao and vbo
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    ////unbinds the current vao and vbo
+    //glBindVertexArray(0);
+    //glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-    for (int i = 0; i < uiFound; i++) {
-    }
+    //for (int i = 0; i < uiFound; i++) {
+    //}
     //text rendering begins here
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),

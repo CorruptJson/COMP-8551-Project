@@ -125,7 +125,8 @@ void SceneManager::CreateEntities() {
                     ev.rowIndex,
                     ev.colIndex,
                     ev.hasAnimation,
-                    false
+                    false,
+                    glm::vec3(0.0f, 0.0f, 0.0f)
             };
         }
 
