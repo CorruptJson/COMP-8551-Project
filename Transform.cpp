@@ -16,6 +16,8 @@ Transform::Transform(float xPos=0, float yPos=0, float rot=0, float xScale=1, fl
         yScale
     };
 
+    interpolX = nullptr;
+    interpolY = nullptr;
     generateModelMatrix();
 }
 
@@ -70,8 +72,6 @@ void Transform::rotate(float rDelta) {
     rotation += rDelta;
     changed = true;
 }
-
-
 // create a new model matrix only when we are needed.
 // contains optimization so we only need to do matrix
 // math when necessary
@@ -92,10 +92,13 @@ glm::mat4 Transform::getModelMatrix() {
 void Transform::generateModelMatrix() {
     glm::mat4 model = glm::mat4(1);
 
+    float positionX = interpolX != nullptr ? interpolX->interpolate(position.x) : position.x;
+    float positionY = interpolY != nullptr ? interpolY->interpolate(position.y) : position.y;
+
     // proper math orders is scale first, then rotate, then translate.
     // However, matrix multiplication order is apply right to left, so we are
     // (codewise) translating, then rotating, then scaling.
-    model = glm::translate(model, glm::vec3(position.x, position.y, 0));
+    model = glm::translate(model, glm::vec3(positionX, positionY, 0));
 
     // has to specify a rotation axis => need a review
     // do I need a quaternion? do I need to shift to accomodate
@@ -105,5 +108,15 @@ void Transform::generateModelMatrix() {
     model = glm::scale(model, glm::vec3(scale.x, scale.y, 1));
 
     modelMatrix = model;
+}
+
+void Transform::setInterpolatorX(Interpolator* interpol) {
+    interpolX = interpol;
+    changed = true;
+}
+
+void Transform::setInterpolatorY(Interpolator* interpol) {
+    interpolY = interpol;
+    changed = true;
 }
 

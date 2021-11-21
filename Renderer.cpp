@@ -64,6 +64,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
 
     // init helper classes
     loadTextLibrary();
+    textProjectionMat = glm::ortho(-(float)windowWidth / 2, (float)windowWidth / 2, -(float)windowHeight / 2, (float)windowHeight / 2);
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
 
@@ -494,21 +495,18 @@ void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
-void Renderer::drawText(TextComponent* text)
+void Renderer::drawText(TextComponent* text, Transform* transform)
 {
-    glm::mat4 projection = glm::ortho(0.0f, (float)windowWidth, 0.0f, (float)windowHeight);
-
     //no need to disable depth test, already disabled
    //sets the current shader program to the text shader program
-    glm::mat4 model(1);
-    shaderFactory.useTextShader(model, projection, text->color);
+    shaderFactory.useTextShader(transform->getModelMatrix(), textProjectionMat, text->color);
 
     //sets the current shader program to use the projection matrix.
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
-    float x = text->x;
-    float y = text->y;
+    float x = 0;
+    float y = 0;
     std::string textValue = text->getText();
 
     std::string::const_iterator c;
@@ -661,13 +659,15 @@ void Renderer::startDrawUIPhase(EntityCoordinator* coordinator) {
 void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
+        coordinator->GetComponentType<Transform>(),
         }, {});
 
     int textFound = TextQuery->totalEntitiesFound();
     ComponentIterator<TextComponent> textComps = ComponentIterator<TextComponent>(TextQuery);
+    ComponentIterator<Transform> transforms = ComponentIterator<Transform>(TextQuery);
 
     for (int i = 0; i < textFound; i++) {
-        drawText(textComps.nextComponent());
+        drawText(textComps.nextComponent(), transforms.nextComponent());
     }
 }
 
@@ -684,4 +684,16 @@ Renderer* Renderer::getInstance()
     if (renderer == nullptr)
         renderer = new Renderer();
     return renderer;
+}
+
+int Renderer::getWindowWidth() {
+    return windowWidth;
+}
+
+int Renderer::getWindowHeight() {
+    return windowHeight;
+}
+
+Camera* Renderer::getCamera() {
+    return &camera;
 }

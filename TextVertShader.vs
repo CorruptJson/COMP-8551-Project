@@ -11,13 +11,11 @@ out vec2 TexCoord;
 
 // uniforms passed in
 uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 
 void main()
 {
    TexCoord = inTexCoord;
     // Set gl_Position with transformed vertex position
-   //gl_Position = projectionMatrix * viewMatrix * modelMatrix * vec4(inPos, 0.0, 1.0);
-   gl_Position = projectionMatrix * vec4(inPos,  1.0);
+   gl_Position = projectionMatrix * modelMatrix * vec4(inPos,  1.0);
 }

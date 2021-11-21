@@ -51,13 +51,8 @@ struct EntityValues {
     b2BodyType bodyType = b2_staticBody;
 
     // TextComponent
-    std::string text = "";
     // share the colors with the RenderComponent
-    float r = 0;
-    float g = 0;
-    float b = 0;
-    float x = 0;
-    float y = 0;
+    std::string text = "";
     float size = 1.0;
 };
 
@@ -70,6 +65,11 @@ private:
     json sceneJsonArray;
     json prefabJsonArray;
     unordered_map<std::string, json> prefabMap;
+
+    // for the texts
+    Interpolator textPosInterpolX;
+    Interpolator textPosInterpolY;
+
 
     void ParseEntityValues(EntityValues& ev, const json& jsonObject);
 

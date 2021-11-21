@@ -2,13 +2,19 @@
 
 Camera::Camera(float posX, float posY) {
     position = glm::vec2(posX, posY);
+    // default values
+    viewHeight = 1;
+    viewWidth = 1;
     projectionMatrix = glm::mat4(1);
     viewMatrix = glm::mat4(1);
+    changed = true;
 }
 
 Camera::Camera() : Camera(0, 0) { }
 
-void Camera::setViewSize(int viewWidth, int viewHeight) {
+void Camera::setViewSize(int viewWidth_, int viewHeight_) {
+    viewHeight = viewHeight_;
+    viewWidth = viewWidth_;
     float CENTER_X_COORD = 0;
     float CENTER_Y_COORD = 0;
     float LEFT_X_COORD = CENTER_X_COORD - viewWidth / 2;
@@ -18,6 +24,14 @@ void Camera::setViewSize(int viewWidth, int viewHeight) {
     float EYE_NEAR = 0.f;
     float EYE_FAR = -1.f;
     projectionMatrix = glm::ortho(LEFT_X_COORD, RIGHT_X_COORD, BOTTOM_Y_COORD, TOP_Y_COORD, EYE_NEAR, EYE_FAR);
+}
+
+int Camera::getViewWidth() {
+    return viewWidth;
+}
+
+int Camera::getViewHeight() {
+    return viewHeight;
 }
     
 void Camera::moveCamera(float x, float y) {

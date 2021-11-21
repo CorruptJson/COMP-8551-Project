@@ -52,16 +52,26 @@ unordered_map <std::string, const char*> spriteMap = {
 };
 
 
-
-
-
-
-
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
     this->LoadScene("scene.json");
     this->LoadPrefabs("prefab.json");
+
+    // init the view and window size so we can
+    // setup interpolation for text
+    // note that this requires the Renderer to run its init() first
+    Camera* camera = renderer->getCamera();
+    float startDomainX = -(camera->getViewWidth() / 2);
+    float endDomainX = -startDomainX;
+    float startTargetX = -(renderer->getWindowWidth() / 2);
+    float endTargetX = -startTargetX;
+    float startDomainY = -(camera->getViewHeight() / 2);
+    float endDomainY = -startDomainY;
+    float startTargetY = -(renderer->getWindowHeight() / 2);
+    float endTargetY = -startTargetY;
+    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
+    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 }
 
 
@@ -109,13 +119,22 @@ void SceneManager::CreateEntities() {
 
         // Set component values from before here
         if (ev.transformComponent) {
-            coordinator->GetComponent<Transform>(ent) = {
-                    ev.xPos,
-                    ev.yPos,
-                    ev.rotation,
-                    ev.xScale,
-                    ev.yScale
-            };
+
+            Transform transform (
+                ev.xPos,
+                ev.yPos,
+                ev.rotation,
+                ev.xScale,
+                ev.yScale
+                );
+
+            // change the transform so it uses the proper interpolation
+            // only if textComponent is included
+            if (ev.textComponent) {
+                transform.setInterpolatorX(&textPosInterpolX);
+                transform.setInterpolatorY(&textPosInterpolY);
+            }
+            coordinator->GetComponent<Transform>(ent) = transform;
         }
 
         if (ev.renderComponent) {
@@ -167,9 +186,9 @@ void SceneManager::CreateEntities() {
             coordinator->GetComponent<TextComponent>(ent) = TextComponent(
                 ev.text,
                 ev.size,
-                ev.r,
-                ev.g,
-                ev.b
+                ev.colorR,
+                ev.colorG,
+                ev.colorB
             );
         }
     }
@@ -282,14 +301,14 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.text = details.contains("text")
                     ? details["text"].get<std::string>() : ev.text;
 
-                ev.r = details.contains("r")
-                    ? details["r"].get<float>() : ev.r;
+                ev.colorR = details.contains("colorR")
+                    ? details["colorR"].get<float>() : ev.colorR;
 
-                ev.g = details.contains("g")
-                    ? details["g"].get<float>() : ev.g;
+                ev.colorG = details.contains("colorG")
+                    ? details["colorG"].get<float>() : ev.colorG;
 
-                ev.b = details.contains("b")
-                    ? details["b"].get<float>() : ev.b;
+                ev.colorB = details.contains("colorB")
+                    ? details["colorB"].get<float>() : ev.colorB;
 
                 ev.size = details.contains("size")
                     ? details["size"].get<float>() : ev.size;

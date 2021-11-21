@@ -14,7 +14,6 @@ public:
     // clear the texts stored in the static variable
     static void clearTexts();
 
-    float x, y; //x and y position on the screen. (0,0) is at bottom left and goes right and up
     float size; //scale of the text
     glm::vec3 color;
 

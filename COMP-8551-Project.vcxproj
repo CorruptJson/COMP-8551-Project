@@ -163,6 +163,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
+    <ClCompile Include="Interpolator.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerControlSystem.cpp" />
@@ -215,6 +216,7 @@
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />
+    <ClInclude Include="Interpolator.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="ISubject.h" />
     <ClInclude Include="MovementComponent.h" />

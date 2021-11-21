@@ -9,8 +9,6 @@ TextComponent::TextComponent(std::string text, float size, float r, float g, flo
     color.r = r;
     color.g = g;
     color.b = b;
-    x = 0;
-    y = 0;
 }
 
 void TextComponent::clearTexts() {
