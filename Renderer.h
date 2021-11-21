@@ -10,7 +10,6 @@
 #include "EntityCoordinator.h"
 #include "RenderComponent.h"
 #include "TextComponent.h"
-#include "UIComponent.h"
 #include "Transform.h"
 #include "file_manager.h"
 #include <glm/glm.hpp>
@@ -85,10 +84,10 @@ private:
     void loadTextLibrary();
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
-    void updateTexCoord(UIComponent comp, SpriteInfo& info);
-    void renderTextComponent(TextComponent* text);
-    void renderUIComponent(UIComponent* ui, Transform* transform);
-    void drawGameObjects(EntityCoordinator* coordinator);
-    void drawUI(EntityCoordinator* coordinator);
+    void drawText(TextComponent* text);
+    void drawUIRenderComp(RenderComponent* ui, Transform* transform);
+    void startDrawGameObjectsPhase(EntityCoordinator* coordinator);
+    void startDrawUIPhase(EntityCoordinator* coordinator);
+    void startDrawTextPhase(EntityCoordinator* coordinator);
 };
 

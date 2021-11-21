@@ -187,8 +187,6 @@
     <None Include="scene.json" />
     <None Include="TextFragShader.fs" />
     <None Include="TextVertShader.vs" />
-    <None Include="UIFragShader.fs" />
-    <None Include="UIVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AIControlSystem.h" />
@@ -241,7 +239,6 @@
     <ClInclude Include="TimerComponent.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Types.h" />
-    <ClInclude Include="UIComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="background.png" />

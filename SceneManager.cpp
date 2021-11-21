@@ -126,7 +126,7 @@ void SceneManager::CreateEntities() {
                     ev.colIndex,
                     ev.hasAnimation,
                     false,
-                    glm::vec3(0.0f, 0.0f, 0.0f)
+                    glm::vec3(ev.colorR, ev.colorG, ev.colorB)
             };
         }
 
@@ -234,6 +234,15 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
                 ev.colIndex = details.contains("colIndex")
                     ? details["colIndex"].get<int>() : ev.colIndex;
+
+                ev.colorR = details.contains("colorR")
+                    ? details["colorR"].get<float>() : ev.colorR;
+
+                ev.colorG = details.contains("colorG")
+                    ? details["colorG"].get<float>() : ev.colorG;
+
+                ev.colorB = details.contains("colorB")
+                    ? details["colorB"].get<float>() : ev.colorB;
 
                 break;
 

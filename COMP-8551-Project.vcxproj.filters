@@ -198,12 +198,6 @@
     <None Include="DoodleVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="UIFragShader.fs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
-    <None Include="UIVertShader.vs">
-      <Filter>Resource Files\Shaders</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">
@@ -352,9 +346,6 @@
     </ClInclude>
     <ClInclude Include="FPSCounter.h">
       <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="UIComponent.h">
-      <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="ShaderFactory.h">
       <Filter>Header Files\Rendering</Filter>

@@ -20,7 +20,6 @@ struct EntityValues {
     bool animationComponent = false;
     bool movementComponent = false;
     bool textComponent = false;
-    bool uiComponent = false;
     bool stateComponent = false;
 
     // - Component Values -----------------------------

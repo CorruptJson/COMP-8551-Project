@@ -474,46 +474,11 @@ void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
-void Renderer::updateTexCoord(UIComponent comp, SpriteInfo& info) {
-    // set the texcoords by specifying its x and y
-    float leftX = info.cellWidth * comp.col;
-    float rightX = leftX + info.cellWidth; 
-    float topY = 1 - info.cellHeight * comp.row;
-    float bottomY = topY - info.cellHeight; 
-
-    bool flipX = false;
-
-    // coordinates of the texture coords in the vertices array
-    if (flipX) {
-        texCoordsData[0] = leftX; // top right x
-        texCoordsData[2] = leftX; // bottom right x
-        texCoordsData[4] = rightX; // bottom left x
-        texCoordsData[6] = rightX; // top left x
-    }
-    else {
-        // normal coords
-        texCoordsData[0] = rightX; // top right x
-        texCoordsData[2] = rightX; // bottom right x
-        texCoordsData[4] = leftX; // bottom left x
-        texCoordsData[6] = leftX; // top left x
-    }
-
-    // y values of the tex coords
-    texCoordsData[1] = topY; // top right y
-    texCoordsData[3] = bottomY; // bottom right y
-    texCoordsData[5] = bottomY; // bottom left y
-    texCoordsData[7] = topY;  // top left y
-
-    glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
-}
-
-void Renderer::renderTextComponent(TextComponent* text)
+void Renderer::drawText(TextComponent* text)
 {
     glm::mat4 projection = glm::ortho(0.0f, (float)windowWidth, 0.0f, (float)windowHeight);
 
     //no need to disable depth test, already disabled
-
    //sets the current shader program to the text shader program
     glm::mat4 model(1);
     shaderFactory.useTextShader(model, projection, text->color);
@@ -574,24 +539,6 @@ void Renderer::renderTextComponent(TextComponent* text)
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Renderer::renderUIComponent(UIComponent* ui, Transform* transform) {
-
-    std::string spritesheet = ui->spriteName;
-
-    if (spritesheet != "") {
-        SpriteInfo& spriteInfo = sprites[spritesheet];
-        glBindTexture(GL_TEXTURE_2D, spriteInfo.id);
-
-        updateTexCoord(*ui, spriteInfo);
-    }
-
-
-    //glUniform4f(glGetUniformLocation(shaders[ShaderName::UI].Program, "panelColor"), ui->color.r, ui->color.g, ui->color.b, ui->color.a);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-    glBindTexture(GL_TEXTURE_2D,0);
-}
-
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 {
     return &(sprites[spriteName].animations[animName]);
@@ -613,9 +560,9 @@ int Renderer::update(EntityCoordinator* coordinator) {
     // Recall MS Paint having a foreground and background color => same thing
     glClear(GL_COLOR_BUFFER_BIT);
 
-    drawGameObjects(coordinator);
-
-    drawUI(coordinator);
+    startDrawGameObjectsPhase(coordinator);
+    startDrawUIPhase(coordinator);
+    startDrawTextPhase(coordinator);
 
     // foreground is currently cleared (default to white)
     // we want to display the gray, which is the background color
@@ -625,7 +572,7 @@ int Renderer::update(EntityCoordinator* coordinator) {
     return 0;
 }
 
-void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
+void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
     // draw entities by the spritesheet they use, so only need to load each sprite sheet once
     auto mapIterator = sprites.begin();
     
@@ -654,14 +601,14 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
         for (int i = 0; i < entitiesFound; i++)
         {
             RenderComponent* renderComp = renderComponents.nextComponent();
-            Transform* t = transformComponents.nextComponent();
+            Transform* transform = transformComponents.nextComponent();
 
             //calculate the tex coord from the component.index
             if (i == 0 || (prevRenderComp->colIndex != renderComp->colIndex || prevRenderComp->rowIndex != renderComp->rowIndex)) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
 
-            shaderFactory.useDefaultShader(t->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
@@ -669,37 +616,40 @@ void Renderer::drawGameObjects(EntityCoordinator* coordinator) {
     }
 }
 
-void Renderer::drawUI(EntityCoordinator* coordinator) {
-    //std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
-    //    coordinator->GetComponentType<UIComponent>(),
-    //    coordinator->GetComponentType<Transform>()
-    //    }, {});
+// draw the UI which are just RenderComponent with an UI tag.
+// still using the same VAO and indices as drawGameObject
+void Renderer::startDrawUIPhase(EntityCoordinator* coordinator) {
+    std::shared_ptr<EntityQuery> UIQuery = coordinator->GetEntityQuery({
+        coordinator->GetComponentType<RenderComponent>(),
+        coordinator->GetComponentType<Transform>()
+        }, { UI });
 
-    //int uiFound = UIQuery->totalEntitiesFound();
-    //ComponentIterator<UIComponent> uiComps = ComponentIterator<UIComponent>(UIQuery);
-    //ComponentIterator<Transform> transforms = ComponentIterator<Transform>(UIQuery);
+    int uiFound = UIQuery->totalEntitiesFound();
+    ComponentIterator<RenderComponent> uiComps = ComponentIterator<RenderComponent>(UIQuery);
+    ComponentIterator<Transform> transforms = ComponentIterator<Transform>(UIQuery);
 
-    ////load the UI data here
-    ////glUseProgram(shaders[ShaderName::UI].Program);
+    for (int i = 0; i < uiFound; i++) {
+        RenderComponent* renderComp = uiComps.nextComponent();
+        Transform* transform = transforms.nextComponent();
 
-    //glm::mat4 projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f);
+        std::string spritesheet = renderComp->spriteName;
 
-    ////sets the current matrix to a projection matrix which would overlay over the screen
-    ////glUniformMatrix4fv(glGetUniformLocation(shaders[ShaderName::UI].Program, "projectionMatrix"), 1, GL_FALSE, glm::value_ptr(projection));
+        if (spritesheet != "") {
+            SpriteInfo& spriteInfo = sprites[spritesheet];
+            glBindTexture(GL_TEXTURE_2D, spriteInfo.id);
+            updateTexCoord(*renderComp, spriteInfo);
+        }
+        else glBindTexture(GL_TEXTURE_2D, 0); // clear previous texture
 
-    //glBindTexture(GL_TEXTURE_2D, 0);
+        //calculate the tex coord from the component.index
+        shaderFactory.useDefaultShader(transform->getModelMatrix(), 
+            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+        
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    }
+}
 
-    //for (int i = 0; i < uiFound; i++) {
-    //    renderUIComponent(uiComps.nextComponent(),transforms.nextComponent());
-    //}
-
-    ////unbinds the current vao and vbo
-    //glBindVertexArray(0);
-    //glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-    //for (int i = 0; i < uiFound; i++) {
-    //}
-    //text rendering begins here
+void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
     std::shared_ptr<EntityQuery> TextQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<TextComponent>(),
         }, {});
@@ -708,7 +658,7 @@ void Renderer::drawUI(EntityCoordinator* coordinator) {
     ComponentIterator<TextComponent> textComps = ComponentIterator<TextComponent>(TextQuery);
 
     for (int i = 0; i < textFound; i++) {
-        renderTextComponent(textComps.nextComponent());
+        drawText(textComps.nextComponent());
     }
 }
 
