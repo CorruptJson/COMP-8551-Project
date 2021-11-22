@@ -309,7 +309,7 @@ void PlayerControlSystem::respawn()
     float resPosY = spawnerTransformComponent.getPosition().y;
     PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
 
-    if (invincibleTimer->GetMilliseconds() > 1000)
+    if (invincibleTimer->GetMilliseconds() > respawningTime)
     {
         cout << "Respawning..." << endl;
         physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
