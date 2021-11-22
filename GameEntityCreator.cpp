@@ -142,13 +142,13 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
 //    return ent;
 //}
 
-EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
     ec.GetComponent<TextComponent>(ent) = TextComponent(
-        text,
+        scoreTxt,
         size,
         r,
         g,

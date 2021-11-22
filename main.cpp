@@ -1,5 +1,4 @@
 #include <iostream>
-//#include "RenderTutorial.h"
 #include <vector>
 #include <string>
 #include <ctime>
@@ -47,7 +46,7 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID text;
+EntityID scoreTxt;
 EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -108,16 +107,19 @@ int test(){
     shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
+    //scoreTxt = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
     scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
+        }
+        else if (coordinator->entityHasTag(Tag::TXT_SCORE, e)) {
+            scoreTxt = e;
         }
     }
 

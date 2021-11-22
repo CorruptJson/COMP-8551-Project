@@ -12,7 +12,7 @@ void ScoreSystem::UpdateScore()
     ComponentIterator<TextComponent> tci(eq);
 
     //Create score text
-    string* s = new string("Score: ");
+    string* s = new string("000");
     s->append(to_string(score));
 
     //Set score text
