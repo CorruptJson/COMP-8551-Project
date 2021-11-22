@@ -17,5 +17,5 @@ void main() {
    if(texColor.a < 0.1)
 		discard;
 
-   FragColor = texColor + color;
+   FragColor = texColor + vec4(color, 0.0);
 }
