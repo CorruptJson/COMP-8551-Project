@@ -44,18 +44,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
-            EntityCoordinator* ec = &EntityCoordinator::getInstance();
-            std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
-                ec->GetComponentType<TextComponent>()
-                }, {Tag::HEALTH_NUM});
-            
-            ComponentIterator<TextComponent> tci(eq);
-
-            //Set score text
-            health--;
-            if (health == 0) health = 3;
-            std::string healthTxt = "X ";
-            tci.nextComponent()->setText(healthTxt + std::to_string(health));
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
@@ -64,10 +52,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
-            Transform* transformComponent = &EntityCoordinator::getInstance().GetComponent<Transform>(entFirst);
-            PhysicsComponent* physComponent = &EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst);
-              // Error: calling inside a Box2D callback, as it happen inside the step, during which the World is locked.
-            //physComponent->box2dBody->SetTransform(b2Vec2(0, 0), physComponent->box2dBody->GetAngle()); 
+            Notify(Event::C_PLAYER_FIRE, nullptr);
         }
         else if (tagSecond == ENEMYSPAWNER) {
             cout << "EnemySpawner" << endl;

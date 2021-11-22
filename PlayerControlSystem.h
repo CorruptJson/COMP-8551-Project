@@ -35,7 +35,11 @@ private:
     b2Timer* invincibleTimer;
     bool isInvincible;
     bool isInContactWithEnemy;
+    bool isRespawning;
+    int health;
+    const int maxHealth = 3;
     const float invincibleLength = 2000; // millisecond
 
     void updateContactWithEnemy(bool isContacted);
+    void respawn();
 };

@@ -12,6 +12,7 @@ enum class Event {
     //Collision events
     C_START_PLAYER_ENEMY,
     C_END_PLAYER_ENEMY,
+    C_PLAYER_FIRE,
     //Entity events
     B2BODY_TO_DELETE
 };
