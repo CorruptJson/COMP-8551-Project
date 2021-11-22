@@ -163,6 +163,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="inputSystem.cpp" />
     <ClCompile Include="InputTracker.cpp" />
+    <ClCompile Include="Interpolator.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerControlSystem.cpp" />
@@ -172,9 +173,11 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShaderFactory.cpp" />
+    <ClCompile Include="system_manager.cpp" />
+    <ClCompile Include="TextComponent.cpp" />
     <ClCompile Include="ScoreSystem.cpp" />
     <ClCompile Include="SpawnSystem.cpp" />
-    <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="TimerSystem.cpp" />
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
@@ -216,6 +219,7 @@
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="inputSystem.h" />
     <ClInclude Include="InputTracker.h" />
+    <ClInclude Include="Interpolator.h" />
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="ISubject.h" />
     <ClInclude Include="MovementComponent.h" />
@@ -228,6 +232,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShaderFactory.h" />
     <ClInclude Include="ScoreSystem.h" />
     <ClInclude Include="SpawnSystem.h" />
     <ClInclude Include="Shader.h" />

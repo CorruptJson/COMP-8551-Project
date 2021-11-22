@@ -10,8 +10,7 @@
                 "yScale": 0.4
             },
             "render": {
-                "sprite": "Giant_Roach.png",
-                "hasAnim": true
+                "sprite": "Giant_Roach.png"
             },
             "physics": {
                 "b2bodytype": "b2_dynamicBody",
@@ -137,8 +136,7 @@
         "prefabValues": {
             "tag": "star",
             "render": {
-                "sprite": "star.png",
-                "hasAnim": true
+                "sprite": "star.png"
             },
             "physics": {
                 "b2bodytype": "b2_staticBody",

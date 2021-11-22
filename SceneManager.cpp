@@ -12,7 +12,8 @@ enum eKeys
     TRANSFORM,
     RENDER,
     PHYSICS,
-    ANIMATION
+    ANIMATION,
+    TEXT
 };
 
 // convert strings to enums here
@@ -22,6 +23,7 @@ unordered_map<std::string, eKeys> keyMap = {
     {"render", RENDER},
     {"physics", PHYSICS},
     {"animation", ANIMATION},
+    {"text", TEXT}
 
 };
 
@@ -36,7 +38,9 @@ unordered_map<std::string, Tag> tagMap = {
     {"spawnPoint", SPAWNPOINT},
     {"enemySpawner", ENEMYSPAWNER},
     {"playerSpawner", PLAYERSPAWNER},
+    {"ui", UI},
     {"scoreText", TXT_SCORE},
+    {"healthNum", HEALTH_NUM},
     {"scene", SCENERY}
 };
 
@@ -53,16 +57,26 @@ unordered_map <std::string, const char*> spriteMap = {
 };
 
 
-
-
-
-
-
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
     this->LoadScene("scene.json");
     this->LoadPrefabs("prefab.json");
+
+    // init the view and window size so we can
+    // setup interpolation for text
+    // note that this requires the Renderer to run its init() first
+    Camera* camera = renderer->getCamera();
+    float startDomainX = -(camera->getViewWidth() / 2);
+    float endDomainX = -startDomainX;
+    float startTargetX = -(renderer->getWindowWidth() / 2);
+    float endTargetX = -startTargetX;
+    float startDomainY = -(camera->getViewHeight() / 2);
+    float endDomainY = -startDomainY;
+    float startTargetY = -(renderer->getWindowHeight() / 2);
+    float endTargetY = -startTargetY;
+    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
+    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 }
 
 
@@ -101,6 +115,7 @@ void SceneManager::CreateEntities() {
         if (ev.animationComponent) ev.components.push_back(coordinator->GetComponentType<AnimationComponent>());
         if (ev.movementComponent) ev.components.push_back(coordinator->GetComponentType<MovementComponent>());
         if (ev.stateComponent) ev.components.push_back(coordinator->GetComponentType<StateComponent>());
+        if (ev.textComponent) ev.components.push_back(coordinator->GetComponentType<TextComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
         EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
@@ -109,23 +124,33 @@ void SceneManager::CreateEntities() {
 
         // Set component values from before here
         if (ev.transformComponent) {
-            coordinator->GetComponent<Transform>(ent) = {
-                    ev.xPos,
-                    ev.yPos,
-                    ev.rotation,
-                    ev.xScale,
-                    ev.yScale
-            };
+
+            Transform transform (
+                ev.xPos,
+                ev.yPos,
+                ev.rotation,
+                ev.xScale,
+                ev.yScale
+                );
+
+            // change the transform so it uses the proper interpolation
+            // only if textComponent is included
+            if (ev.textComponent) {
+                transform.setInterpolatorX(&textPosInterpolX);
+                transform.setInterpolatorY(&textPosInterpolY);
+            }
+            coordinator->GetComponent<Transform>(ent) = transform;
         }
 
         if (ev.renderComponent) {
             coordinator->GetComponent<RenderComponent>(ent) = {
-                    DEFAULT,
+                    ShaderName::DEFAULT,
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,
                     ev.hasAnimation,
-                    false
+                    false,
+                    glm::vec3(ev.colorR, ev.colorG, ev.colorB)
             };
         }
 
@@ -154,6 +179,7 @@ void SceneManager::CreateEntities() {
             0
             };
         }
+
         if (ev.stateComponent) {
             coordinator->GetComponent<StateComponent>(ent) = {
             0,
@@ -161,6 +187,15 @@ void SceneManager::CreateEntities() {
             };
         }
 
+        if (ev.textComponent) {
+            coordinator->GetComponent<TextComponent>(ent) = TextComponent(
+                ev.text,
+                ev.size,
+                ev.colorR,
+                ev.colorG,
+                ev.colorB
+            );
+        }
     }
 }
 
@@ -224,6 +259,15 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.colIndex = details.contains("colIndex")
                     ? details["colIndex"].get<int>() : ev.colIndex;
 
+                ev.colorR = details.contains("colorR")
+                    ? details["colorR"].get<float>() : ev.colorR;
+
+                ev.colorG = details.contains("colorG")
+                    ? details["colorG"].get<float>() : ev.colorG;
+
+                ev.colorB = details.contains("colorB")
+                    ? details["colorB"].get<float>() : ev.colorB;
+
                 break;
 
             case PHYSICS:
@@ -256,7 +300,27 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                     ? details["animName"].get<std::string>() : ev.animName;
 
                 break;
+
+            case TEXT:
+                ev.textComponent = true;
+                ev.text = details.contains("text")
+                    ? details["text"].get<std::string>() : ev.text;
+
+                ev.colorR = details.contains("colorR")
+                    ? details["colorR"].get<float>() : ev.colorR;
+
+                ev.colorG = details.contains("colorG")
+                    ? details["colorG"].get<float>() : ev.colorG;
+
+                ev.colorB = details.contains("colorB")
+                    ? details["colorB"].get<float>() : ev.colorB;
+
+                ev.size = details.contains("size")
+                    ? details["size"].get<float>() : ev.size;
+
+                break;
             }
+
         }
         
 

@@ -19,6 +19,7 @@ struct EntityValues {
     bool physicsComponent = false;
     bool animationComponent = false;
     bool movementComponent = false;
+    bool textComponent = false;
     bool stateComponent = false;
 
     // - Component Values -----------------------------
@@ -31,10 +32,14 @@ struct EntityValues {
     float rotation = 0.0f;
 
     // RenderComponent
-    ShaderName shaderName = DEFAULT;
+    ShaderName shaderName = ShaderName::DEFAULT;
     bool hasAnimation = false;
     float rowIndex = 0;
     float colIndex = 0;
+    // the colors are shared with the textComponent
+    int colorR = 0;
+    int colorG = 0;
+    int colorB = 0;
 
     // AnimationComponent
     bool animIsPlaying = false;
@@ -44,6 +49,11 @@ struct EntityValues {
     float density = 1.0f;
     float friction = 0.0f;
     b2BodyType bodyType = b2_staticBody;
+
+    // TextComponent
+    // share the colors with the RenderComponent
+    std::string text = "";
+    float size = 1.0;
 };
 
 // Scene Manager class
@@ -55,6 +65,11 @@ private:
     json sceneJsonArray;
     json prefabJsonArray;
     unordered_map<std::string, json> prefabMap;
+
+    // for the texts
+    Interpolator textPosInterpolX;
+    Interpolator textPosInterpolY;
+
 
     void ParseEntityValues(EntityValues& ev, const json& jsonObject);
 

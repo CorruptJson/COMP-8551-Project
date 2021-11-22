@@ -1,5 +1,6 @@
 #include "ContactListener.h"
 
+int health = 3;
 ContactListener::~ContactListener()
 {
 
@@ -43,6 +44,18 @@ void ContactListener::BeginContact(b2Contact* contact) {
         else if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
+            EntityCoordinator* ec = &EntityCoordinator::getInstance();
+            std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+                ec->GetComponentType<TextComponent>()
+                }, {Tag::HEALTH_NUM});
+            
+            ComponentIterator<TextComponent> tci(eq);
+
+            //Set score text
+            health--;
+            if (health == 0) health = 3;
+            std::string healthTxt = "X ";
+            tci.nextComponent()->setText(healthTxt + std::to_string(health));
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
