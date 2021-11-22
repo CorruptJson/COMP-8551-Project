@@ -14,10 +14,9 @@ void ScoreSystem::UpdateScore()
     //Create score text
     string* s = new string("Score: ");
     s->append(to_string(score));
-    char* output = (char*)s->c_str(); 
 
     //Set score text
-    tci.nextComponent()->value = output;
+    tci.nextComponent()->setText(*s);
 }
 
 void ScoreSystem::Receive(Event e, void* args)

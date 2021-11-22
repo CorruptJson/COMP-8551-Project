@@ -179,6 +179,7 @@
     </ClCompile>
     <ClCompile Include="Interpolator.cpp">
       <Filter>Source Files\Util</Filter>
+    </ClCompile>
     <ClCompile Include="ScoreSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -368,6 +369,8 @@
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="ShaderFactory.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="ScoreSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>

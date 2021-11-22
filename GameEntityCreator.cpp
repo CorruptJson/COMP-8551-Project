@@ -28,7 +28,8 @@ GameEntityCreator::GameEntityCreator()
         });
     
     textArchetype = ec.GetArchetype({
-        ec.GetComponentType<TextComponent>()
+        ec.GetComponentType<TextComponent>(),
+        ec.GetComponentType<Transform>()
         });
 
     starArchetype = ec.GetArchetype({
@@ -66,7 +67,7 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
 
     ec.GetComponent<RenderComponent>(ent) = {
-        DEFAULT,
+        ShaderName::DEFAULT,
         spriteName,
         0,
         0,
@@ -141,17 +142,20 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
 //    return ent;
 //}
 
-EntityID GameEntityCreator::CreateText(const char* text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
 
-    ec.GetComponent<TextComponent>(ent).value = (char*)text;
-    ec.GetComponent<TextComponent>(ent).x = x;
-    ec.GetComponent<TextComponent>(ent).y = y;
-    //ec.GetComponent<TextComponent>(ent).size = 1.0f;
-    ec.GetComponent<TextComponent>(ent).size = size;
-    ec.GetComponent<TextComponent>(ent).setColor(r, g, b);
+    ec.GetComponent<TextComponent>(ent) = TextComponent(
+        text,
+        size,
+        r,
+        g,
+        b
+    );
+
+    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, 1, 1);
     return ent;
 }
 

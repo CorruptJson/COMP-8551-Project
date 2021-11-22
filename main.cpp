@@ -43,6 +43,7 @@ Archetype standardArch;
 EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
+EntityID text;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;

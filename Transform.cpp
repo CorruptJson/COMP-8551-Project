@@ -117,7 +117,7 @@ void Transform::generateModelMatrix() {
     //model = glm::translate(model, glm::vec3(scale.x, 0));
 
     // translate rotated matrix back to transform's position after rotation
-    model = glm::translate(model, glm::vec3(position.x, position.y, 0));
+    //model = glm::translate(model, glm::vec3(position.x, position.y, 0));
 
     // rotate about z-axis at the origin to avoid orbiting then translate back
     // specify the axis to be z since we're in 2-d

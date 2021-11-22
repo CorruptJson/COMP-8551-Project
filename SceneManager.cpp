@@ -38,7 +38,7 @@ unordered_map<std::string, Tag> tagMap = {
     {"spawnPoint", SPAWNPOINT},
     {"enemySpawner", ENEMYSPAWNER},
     {"playerSpawner", PLAYERSPAWNER},
-    {"ui", UI}
+    {"ui", UI},
     {"scoreText", TXT_SCORE},
     {"scene", SCENERY}
 };
