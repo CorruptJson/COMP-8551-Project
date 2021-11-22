@@ -46,7 +46,6 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID scoreTxt;
 EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -107,7 +106,6 @@ int test(){
     shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
-    //scoreTxt = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
     scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
@@ -117,9 +115,6 @@ int test(){
         else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
-        }
-        else if (coordinator->entityHasTag(Tag::TXT_SCORE, e)) {
-            scoreTxt = e;
         }
     }
 

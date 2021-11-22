@@ -16,6 +16,7 @@ enum Tag
     SPAWNPOINT,
     ENEMYSPAWNER,
     PLAYERSPAWNER,
-    TXT_SCORE
+    TXT_SCORE,
+    HEALTH_NUM
 
 };
