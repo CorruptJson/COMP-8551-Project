@@ -9,7 +9,7 @@ in vec2 TexCoord;
 out vec4 FragColor;
 
 uniform sampler2D ourTexture;
-uniform vec3 color;
+uniform vec4 color;
 
 void main() {
    vec4 texColor = texture(ourTexture,TexCoord);
@@ -17,5 +17,5 @@ void main() {
    if(texColor.a < 0.1)
 		discard;
 
-   FragColor = texColor + vec4(color, 0.0);
+   FragColor = texColor + color;
 }
