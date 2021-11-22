@@ -1,4 +1,5 @@
 #include <iostream>
+//#include "RenderTutorial.h"
 #include <vector>
 #include <string>
 #include <ctime>
@@ -27,13 +28,17 @@
 #include "FPSCounter.h"
 
 
-// init various game systems
+//ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
+
 SceneManager* sceneManager;
+
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
+
 Animator animator;
+
 GameManager& gameManager = GameManager::getInstance();
 FPSCounter fpsCounter = FPSCounter();
 
@@ -42,8 +47,8 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID mikeRespawner;
 EntityID text;
+EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -52,16 +57,15 @@ Clock::time_point prevTime;
 double catchupTime;
 const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
+const int VIEW_WIDTH = 14;
+const int VIEW_HEIGHT = 10;
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
 {  
     // when the engine starts
-    // opengl's screen size
-    const int VIEW_WIDTH = 14;
-    const int VIEW_HEIGHT = 10;
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
@@ -104,8 +108,6 @@ int test(){
     shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
-    //creating text
-    //                                                                   X      Y      R     G     B     Tags
     text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
     scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
