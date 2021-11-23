@@ -151,6 +151,10 @@ void PlayerControlSystem::processEntity(EntityID id) {
             stateComponent->faceRight = true;
         }
     }
+    else
+    {
+        moveComponent->setVelocity(0, 0);
+    }
 
     // Update isInvincible boolean and play animation
     if (isInvincible) {
@@ -178,7 +182,7 @@ void PlayerControlSystem::jump()
 
     float jumpForce = 1000.0f;
 
-    if (isGrounded()) {
+    if (isGrounded() && !isRespawning) {
         moveComponent.addForce(0, jumpForce);
         stateComponent.state = STATE_JUMPING;
     }
@@ -215,7 +219,6 @@ void PlayerControlSystem::damaged()
 {
     if (!isInvincible)
     {
-        cout << "Player damaged" << endl;
         invincibleTimer->Reset();
         isInvincible = true;
 
@@ -232,7 +235,7 @@ void PlayerControlSystem::damaged()
     }
     else
     {
-        cout << "Player is invincible" << endl;
+        // Player is invincible
     }
 }
 
@@ -312,10 +315,10 @@ void PlayerControlSystem::respawn()
 
     if (invincibleTimer->GetMilliseconds() > respawningTime)
     {
-        cout << "Respawning..." << endl;
         physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
         isRespawning = false;
-        isInvincible = false;
+        isInvincible = true;
+        invincibleTimer->Reset();
         isInContactWithEnemy = false;
         health = maxHealth;
 
