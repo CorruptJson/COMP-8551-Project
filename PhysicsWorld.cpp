@@ -17,7 +17,8 @@ enum collisionCategory {
 PhysicsWorld::PhysicsWorld() {
 
     // Initialization
-    gravity = new b2Vec2(0.0f, -9.8f);
+    // make it 30 so we fall faster than real life
+    gravity = new b2Vec2(0.0f, -40.0f);
     world = new b2World(*gravity);
     world->SetAllowSleeping(false);
 

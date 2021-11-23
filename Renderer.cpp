@@ -155,7 +155,7 @@ void Renderer::loadImages() {
             3,
             {
                 Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
-                Animator::createAnimation("run",1,2, 0, true, 500.0f),
+                Animator::createAnimation("run",1,2, 0, true, 300.0f),
             }
         },
         {

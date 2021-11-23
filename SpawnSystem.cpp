@@ -2,6 +2,7 @@
 
 SpawnSystem::SpawnSystem() {
     ec = &EntityCoordinator::getInstance();
+    gameEntCreator = &GameEntityCreator::getInstance();
 }
 
 void SpawnSystem::Receive(Event e, void* args)
@@ -72,25 +73,15 @@ void SpawnSystem::SpawnEnemy()
 
     float xPos = t->getPosition().x;
     float yPos = t->getPosition().y;
-    EntityID enemy = GameEntityCreator::getInstance().CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
-    
-    PhysicsWorld::getInstance().AddObject(enemy);
-
 
     srand(time(NULL));
     //Choosing a random spawn location
-    bool direction = rand() % 2;
-    RenderComponent* rendComp = &ec->GetComponent<RenderComponent>(enemy);
-    rendComp->flipX = direction;
-
-    MovementComponent* moveComp = &ec->GetComponent<MovementComponent>(enemy);
-
-    float xVel;
-    if (direction)
-        xVel = -2.0f;
-    else
-        xVel = 2.0f;
-    float yVel = moveComp->yVelocity;
-
-    moveComp->setVelocity(xVel, 0.0f);
+    bool facingRight = rand() % 2;
+    bool isRoach = rand() % 2;
+    if (isRoach == 0) {
+        gameEntCreator->CreateRoach(xPos, yPos, facingRight);
+    }
+    else {
+        gameEntCreator->CreateSmallRoach(xPos, yPos, facingRight);
+    }
 }

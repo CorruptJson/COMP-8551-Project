@@ -13,6 +13,7 @@ class SpawnSystem: public System, public IObserver
 public:
     SpawnSystem();
     EntityCoordinator* ec;
+    GameEntityCreator* gameEntCreator;
     bool hasActiveStar = false;
 
 

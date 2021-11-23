@@ -37,9 +37,9 @@ struct EntityValues {
     float rowIndex = 0;
     float colIndex = 0;
     // the colors are shared with the textComponent
-    int colorR = 0;
-    int colorG = 0;
-    int colorB = 0;
+    int colorR = 1;
+    int colorG = 1;
+    int colorB = 1;
 
     // AnimationComponent
     bool animIsPlaying = false;
