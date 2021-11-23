@@ -152,6 +152,10 @@ void PlayerControlSystem::processEntity(EntityID id) {
             stateComponent->faceRight = true;
         }
     }
+    else
+    {
+        moveComponent->setVelocity(0, 0);
+    }
 
     // Update isInvincible boolean and play animation
     if (isInvincible) {
@@ -179,7 +183,7 @@ void PlayerControlSystem::jump()
 
     float jumpForce = 500.0f;
 
-    if (isGrounded()) {
+    if (isGrounded() && !isRespawning) {
         moveComponent.addForce(0, jumpForce);
         stateComponent.state = STATE_JUMPING;
     }
