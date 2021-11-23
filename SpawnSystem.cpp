@@ -77,5 +77,11 @@ void SpawnSystem::SpawnEnemy()
     srand(time(NULL));
     //Choosing a random spawn location
     bool facingRight = rand() % 2;
-    gameEntCreator->CreateRoach(xPos, yPos, facingRight);
+    bool isRoach = rand() % 2;
+    if (isRoach == 0) {
+        gameEntCreator->CreateRoach(xPos, yPos, facingRight);
+    }
+    else {
+        gameEntCreator->CreateSmallRoach(xPos, yPos, facingRight);
+    }
 }

@@ -52,7 +52,7 @@ GameEntityCreator::GameEntityCreator()
     enemiesInitialStates[SMALL_ROACH] = StateComponent{
         0,
         true,
-        8,
+        5,
         1
     };
 }
@@ -129,12 +129,13 @@ EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight
 
 EntityID GameEntityCreator::CreateSmallRoach(float xPos, float yPos, bool facingRight) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    EntityID roach = CreateActor(xPos, yPos, 0.7, 0.7, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
     PhysicsWorld::getInstance().AddObject(roach);
     RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
     rendComp.flipX = !facingRight;
+    rendComp.color = glm::vec3(1.0f, 0, 0); // red tint
 
-    StateComponent& stateComp = enemiesInitialStates[ROACH];
+    StateComponent& stateComp = enemiesInitialStates[SMALL_ROACH];
     MovementComponent& moveComp = ec.GetComponent<MovementComponent>(roach);
     float xVel = facingRight ? stateComp.speed : -stateComp.speed;
     moveComp.setVelocity(xVel, 0.0f);
