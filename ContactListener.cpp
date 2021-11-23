@@ -17,8 +17,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
     PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
     PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
-    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+    Tag tagA = ec->getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = ec->getTagsForEntity(physicsComponentB->entityID)[0];
 
     Tag tagFirst, tagSecond;
     EntityID entFirst, entSecond;
@@ -51,7 +51,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+            ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             Notify(Event::STAR_PICKED_UP, nullptr);
         }
         else if (tagSecond == FIRE) {
@@ -95,9 +95,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
             //cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
             //cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
-            RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
-            MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
-            StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
+            RenderComponent* renderComponent = &ec->GetComponent<RenderComponent>(entFirst);
+            MovementComponent* moveComponent = &ec->GetComponent<MovementComponent>(entFirst);
+            StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
 
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
@@ -108,19 +108,19 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+            ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
     }
     else if (tagFirst == BULLET) {
         //cout << "Bullet contact with: ";
         if (tagSecond == PLATFORM) {
             //cout << "Platform" << endl;
-            EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
         else
         {
@@ -133,8 +133,8 @@ void ContactListener::EndContact(b2Contact* contact) {
     PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
     PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
-    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+    Tag tagA = ec->getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = ec->getTagsForEntity(physicsComponentB->entityID)[0];
 
     Tag tagFirst, tagSecond;
     EntityID entFirst, entSecond;
@@ -168,8 +168,8 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
     PhysicsComponent* physicsComponentA = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureA()->GetBody()->GetUserData().pointer);
     PhysicsComponent* physicsComponentB = reinterpret_cast<PhysicsComponent*>(contact->GetFixtureB()->GetBody()->GetUserData().pointer);
 
-    Tag tagA = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentA->entityID)[0];
-    Tag tagB = EntityCoordinator::getInstance().getTagsForEntity(physicsComponentB->entityID)[0];
+    Tag tagA = ec->getTagsForEntity(physicsComponentA->entityID)[0];
+    Tag tagB = ec->getTagsForEntity(physicsComponentB->entityID)[0];
 
     Tag tagFirst, tagSecond;
     EntityID entFirst, entSecond;
@@ -211,9 +211,9 @@ void ContactListener::Notify(Event e, void* args)
 }
 
 bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {
-    return EntityCoordinator::getInstance().entityHasTag(entityTag, id);
+    return ec->entityHasTag(entityTag, id);
 }
 
 bool ContactListener::GetSecondContact(Tag entityTag, EntityID id) {
-    return EntityCoordinator::getInstance().entityHasTag(entityTag, id);
+    return ec->entityHasTag(entityTag, id);
 }

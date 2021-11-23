@@ -64,8 +64,7 @@ RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteNam
     spriteName,
     0,
     0,
-    hasAnimation,
-    false
+    hasAnimation
     };
     return rc;
 }
@@ -86,8 +85,7 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         spriteName,
         0,
         0,
-        hasAnimation,
-        false
+        hasAnimation
     };
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
     ec.GetComponent<AnimationComponent>(ent) = {

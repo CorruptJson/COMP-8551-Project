@@ -194,9 +194,11 @@ void PlayerControlSystem::shoot()
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
     // create a new entity for bullet
-    float xPos = (stateComponent.faceRight) ? transformComponent.getPosition().x + transformComponent.getScale().x / 2 : transformComponent.getPosition().x - transformComponent.getScale().x / 2;
+    float bulletScaleX = transformComponent.getScale().x * 0.75;
+    float bulletScaleY = transformComponent.getScale().y * 0.75;
+    float xPos = (stateComponent.faceRight) ? transformComponent.getPosition().x + bulletScaleX : transformComponent.getPosition().x - bulletScaleX;
     float yPos = transformComponent.getPosition().y;
-    EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent.getScale().x / 2, transformComponent.getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
+    EntityID bullet = creator.CreateActor(xPos, yPos, bulletScaleX, bulletScaleY, "bullet.png", { Tag::BULLET }, false, 0);
 
     RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
     bulletrenderComp->flipX = !stateComponent.faceRight;
@@ -205,7 +207,7 @@ void PlayerControlSystem::shoot()
 
     // set velocity to the bullet entity
     PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
-    b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
+    b2Vec2 bulletVelocity = (stateComponent.faceRight) ? b2Vec2(8, 0) : b2Vec2(-8, 0);
     bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
 }
 
