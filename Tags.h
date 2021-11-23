@@ -8,12 +8,15 @@ enum Tag
     ACTOR,
     BULLET,
     PLATFORM,
+    UI,
+    WALL,
     SCENERY,
     STAR,
     FIRE,
     SPAWNPOINT,
     ENEMYSPAWNER,
     PLAYERSPAWNER,
-    TXT_SCORE
+    TXT_SCORE,
+    HEALTH_NUM
 
 };

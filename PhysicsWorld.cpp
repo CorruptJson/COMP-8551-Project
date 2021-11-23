@@ -9,14 +9,16 @@ enum collisionCategory {
     C_FIRE = 0x0016,
     C_STAR = 0x0032,
     C_ENEMYSPAWNER = 0x0064,
-    C_PLAYERSPAWNER = 0x0128
+    C_PLAYERSPAWNER = 0x0128,
+    C_WALL = 0x0256
 
 };
 
 PhysicsWorld::PhysicsWorld() {
 
     // Initialization
-    gravity = new b2Vec2(0.0f, -9.8f);
+    // make it 30 so we fall faster than real life
+    gravity = new b2Vec2(0.0f, -40.0f);
     world = new b2World(*gravity);
     world->SetAllowSleeping(false);
 
@@ -108,6 +110,10 @@ void PhysicsWorld::AddObject(EntityID id) {
         else if (coordinator.entityHasTag(PLAYERSPAWNER, id)) {
             fixtureDef.filter.categoryBits = C_PLAYERSPAWNER;
             fixtureDef.filter.maskBits = C_NONE;
+        }
+        else if (coordinator.entityHasTag(WALL, id)) {
+            fixtureDef.filter.categoryBits = C_WALL;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }

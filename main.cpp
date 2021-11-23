@@ -1,5 +1,4 @@
 #include <iostream>
-//#include "RenderTutorial.h"
 #include <vector>
 #include <string>
 #include <ctime>
@@ -47,7 +46,6 @@ Archetype standardArch;
 // test entities
 EntityID mike;
 EntityID timer;
-EntityID text;
 EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
@@ -66,7 +64,7 @@ int initialize()
 {  
     // when the engine starts
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
@@ -108,16 +106,13 @@ int test(){
     shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
-    //creating text
-    //                                                                   X      Y      R     G     B     Tags
-    text = GameEntityCreator::getInstance().CreateText("Text Component", 50.0f, 50.0f, 0.5f, 0.2f, 0.8f, 0.9f, {Tag::TXT_SCORE});
     scoreSys->UpdateScore();
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasTag(Tag::PLAYER, e)) {
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }

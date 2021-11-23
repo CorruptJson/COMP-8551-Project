@@ -4,6 +4,7 @@
 #include <ostream>
 #include <string>
 #include "Libraries/include/box2d/box2d.h"
+#include "Interpolator.h"
 
 struct Position
 {
@@ -40,6 +41,9 @@ public:
     void rotate(float rDelta);
 
     glm::mat4 getModelMatrix();
+    void setInterpolatorX(Interpolator* interpol);
+    void setInterpolatorY(Interpolator* interpol);
+
 private:
     Position position;
     Scale scale;
@@ -48,12 +52,14 @@ private:
 
     b2Body* body;
 
+    Interpolator* interpolX;
+    Interpolator* interpolY;
+
     // for optimizing matrix creation
     // reset after every getModelMatrix()
     bool changed;
-
-    // matrix related
     void generateModelMatrix();
+
 };
 
 // a function that enables transform to be directly printed as a string into cout
