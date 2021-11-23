@@ -1,6 +1,10 @@
 #include "ContactListener.h"
 
 int health = 3;
+ContactListener::ContactListener() {
+    ec = &EntityCoordinator::getInstance();
+}
+
 ContactListener::~ContactListener()
 {
 
@@ -34,16 +38,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
 
     if (tagFirst == PLAYER) {
-        cout << "Player contact with: ";
-        if (tagSecond == PLATFORM) {
-            cout << "Platform" << endl;
-        }
-        else if (tagSecond == WALL) {
-            cout << "Platform" << endl;
-        }
-        else if (tagSecond == ENEMY) {
+        //cout << "Player contact with: ";
+        if (tagSecond == ENEMY) {
             cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
+        }
+        if (tagSecond == PLATFORM) {
+            //cout << "Platform" << endl;
+        }
+        else if (tagSecond == WALL) {
+            //cout << "Platform" << endl;
         }
         else if (tagSecond == STAR) {
             cout << "Star" << endl;
@@ -54,16 +58,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
             cout << "Fire" << endl;
             Notify(Event::C_PLAYER_FIRE, nullptr);
         }
-        else if (tagSecond == ENEMYSPAWNER) {
-            cout << "EnemySpawner" << endl;
-        }
+        //else if (tagSecond == ENEMYSPAWNER) {
+        //    cout << "EnemySpawner" << endl;
+        //}
         else
         {
             cout << endl;
         }
     }
     else if (tagFirst == ENEMY) {
-        cout << "Enemy contact with: ";
+        //cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
             /*cout << "Platform" << endl;
             cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
@@ -87,9 +91,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
             }*/
         }
         else if (tagSecond == WALL) {
-            cout << "Wall" << endl;
-            cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
-            cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
+            //cout << "Wall" << endl;
+            //cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
+            //cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
             RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
             MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
@@ -98,7 +102,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
 
-            xVel = renderComponent->flipX ? 2.0 : -2.0;
+            xVel = renderComponent->flipX ? stateComponent->speed : -stateComponent->speed;
             renderComponent->flipX = renderComponent->flipX ? false : true;
             moveComponent->setVelocity(xVel, yVel);
         }
@@ -113,9 +117,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
     }
     else if (tagFirst == BULLET) {
-        cout << "Bullet contact with: ";
+        //cout << "Bullet contact with: ";
         if (tagSecond == PLATFORM) {
-            cout << "Platform" << endl;
+            //cout << "Platform" << endl;
             EntityCoordinator::getInstance().GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
         else

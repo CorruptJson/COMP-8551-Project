@@ -40,6 +40,21 @@ GameEntityCreator::GameEntityCreator()
     //    ec.GetComponentType<Transform>(),
     //    ec.GetComponentType<RenderComponent>()
     //    });
+
+    StateComponent enemyInitialStates[NUM_OF_ENEMIES];
+    enemiesInitialStates[ROACH] = StateComponent {
+        0,
+        true,
+        3,
+        2
+    };
+
+    enemiesInitialStates[SMALL_ROACH] = StateComponent{
+        0,
+        true,
+        8,
+        1
+    };
 }
 
 RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
@@ -92,11 +107,44 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         0.0f,
         false
     };
-    ec.GetComponent<StateComponent>(ent) = {
-      state,
-      true
-    };
+    ec.GetComponent<StateComponent>(ent).state = state;
     return ent;
+}
+
+
+EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight) {
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    PhysicsWorld::getInstance().AddObject(roach);
+    RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
+    rendComp.flipX = !facingRight;
+
+    StateComponent& stateComp = enemiesInitialStates[ROACH];
+    MovementComponent& moveComp = ec.GetComponent<MovementComponent>(roach);
+    float xVel = facingRight ? stateComp.speed : -stateComp.speed;
+    moveComp.setVelocity(xVel, 0.0f);
+
+    // copy the state comp to the entity so we can reuse it (mostly for health)
+    ec.GetComponent<StateComponent>(roach) = stateComp;
+    return roach;
+}
+
+EntityID GameEntityCreator::CreateSmallRoach(float xPos, float yPos, bool facingRight) {
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    PhysicsWorld::getInstance().AddObject(roach);
+    RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
+    rendComp.flipX = !facingRight;
+
+    StateComponent& stateComp = enemiesInitialStates[ROACH];
+    MovementComponent& moveComp = ec.GetComponent<MovementComponent>(roach);
+    float xVel = facingRight ? stateComp.speed : -stateComp.speed;
+    moveComp.setVelocity(xVel, 0.0f);
+
+    // copy the state comp to the entity so we can reuse it (mostly for health)
+    ec.GetComponent<StateComponent>(roach) = stateComp;
+    return roach;
+
 }
 
 EntityID GameEntityCreator::CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, int state)

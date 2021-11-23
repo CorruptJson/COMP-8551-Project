@@ -54,8 +54,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     // state
     int currState = stateComponent->state;
 
-    float speed = 4.0f;
-    float jumpForce = 500.0f;
+    float speed = 5.0f;
     int jumpCount = 0;
     int jumpLimit = 1;
     bool isReset = false;
@@ -177,7 +176,7 @@ void PlayerControlSystem::jump()
 
     MovementComponent& moveComponent = coordinator.GetComponent<MovementComponent>(gm.PlayerID());
 
-    float jumpForce = 500.0f;
+    float jumpForce = 1000.0f;
 
     if (isGrounded()) {
         moveComponent.addForce(0, jumpForce);
