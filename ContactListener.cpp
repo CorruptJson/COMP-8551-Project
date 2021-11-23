@@ -108,8 +108,13 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;
-            ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
+            StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
+
+            if (--stateComponent->health == 0) {
+                ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            }
+
         }
         else if (tagSecond == FIRE) {
             cout << "Fire" << endl;
@@ -196,6 +201,10 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
         {
             contact->SetEnabled(false);
         }
+    }
+    else if (tagFirst == ENEMY)
+    {
+        if (tagSecond == BULLET) contact->SetEnabled(false);
     }
 }
 
