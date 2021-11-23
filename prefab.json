@@ -125,6 +125,9 @@
         "setPrefab": "Ceiling",
         "prefabValues": {
             "usePrefab":  "Platform",
+            "transform": {
+                "rotation": 3.14
+            },
             "render": {
                 "rowIndex":  0,
                 "colIndex":  1
