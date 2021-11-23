@@ -12,6 +12,8 @@ PlayerControlSystem::PlayerControlSystem()
     invincibleTimer->Reset();
     isInvincible = false;
     isInContactWithEnemy = false;
+    isRespawning = false;
+    health = maxHealth;
 }
 
 PlayerControlSystem::~PlayerControlSystem()
@@ -72,20 +74,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
             stateComponent->state = STATE_MOVING;
         }
     }
-
-    // Animation, flip, and velocity
-    if (input.isKeyDown(InputTracker::A)) {
-        renderComponent->flipX = true;
-        animationComponent->currAnim = animRunning;
-        moveComponent->setVelocity(-speed, yVelocity);
-        stateComponent->faceRight = false;
-    }
-    if (input.isKeyDown(InputTracker::D)) {
-        renderComponent->flipX = false;
-        animationComponent->currAnim = animRunning;
-        moveComponent->setVelocity(speed, yVelocity);
-        stateComponent->faceRight = true;
-    }
+    
     //if (input.isKeyDown(InputTracker::S)) {
     //    animationComponent->currAnim = animHurting;
     //    moveComponent->setVelocity(0, 0);
@@ -147,15 +136,37 @@ void PlayerControlSystem::processEntity(EntityID id) {
     //std::cout << "xVelocity: " << xVelocity << std::endl;
     //std::cout << "yVelocity: " << yVelocity << std::endl;
 
-    // Update isInvincible boolean and play animation
-    if (isInvincible) 
-    {
-        animationComponent->currAnim = animHurting;
-        isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
-        if (!isInvincible && isInContactWithEnemy) damaged();
+    // Animation, flip, and velocity
+    // Play cannot move when respawning
+    if (!isRespawning) {
+        if (input.isKeyDown(InputTracker::A)) {
+            renderComponent->flipX = true;
+            animationComponent->currAnim = animRunning;
+            moveComponent->setVelocity(-speed, yVelocity);
+            stateComponent->faceRight = false;
+        }
+        if (input.isKeyDown(InputTracker::D)) {
+            renderComponent->flipX = false;
+            animationComponent->currAnim = animRunning;
+            moveComponent->setVelocity(speed, yVelocity);
+            stateComponent->faceRight = true;
+        }
     }
 
-    checkRespawn();
+    // Update isInvincible boolean and play animation
+    if (isInvincible) {
+        animationComponent->currAnim = animHurting;
+        isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+        if (!isInvincible) {
+            animationComponent->currAnim = animIdle;
+            if (isInContactWithEnemy) damaged();
+        }
+    }
+
+    // respawn player
+    if (health == 0) {
+        respawn();
+    }
 }
 
 void PlayerControlSystem::jump()
@@ -206,7 +217,17 @@ void PlayerControlSystem::damaged()
         cout << "Player damaged" << endl;
         invincibleTimer->Reset();
         isInvincible = true;
-        // TODO: add logic for decreasing health and sound effect here
+
+        //logic for decreasing health
+        EntityCoordinator* ec = &EntityCoordinator::getInstance();
+        std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+            ec->GetComponentType<TextComponent>()
+            }, { Tag::HEALTH_NUM });
+
+        ComponentIterator<TextComponent> tci(eq);
+        health--;
+        std::string healthTxt = "X ";
+        tci.nextComponent()->setText(healthTxt + std::to_string(health));
     }
     else
     {
@@ -232,36 +253,6 @@ bool PlayerControlSystem::isGrounded()
     }
 
     return false;
-}
-
-void PlayerControlSystem::checkRespawn()
-{
-    GameManager gm = GameManager::getInstance();
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
-    PhysicsComponent& physComponent = coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
-    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
-    Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
-    float resPosX = spawnerTransformComponent.getPosition().x;
-    float resPosY = spawnerTransformComponent.getPosition().y;
-
-    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
-    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
-
-    while (contactList != nullptr) {
-        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
-
-        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
-            //stateComponent.state = STATE_DIE;
-            // wait 0.2 second and reset position to center stage
-            this_thread::sleep_for(chrono::milliseconds(200));
-            physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
-            cout << "Life -1, position reset " << endl;
-            //stateComponent.state = STATE_NORMAL;
-        }
-
-        contactList = contactList->next;
-    }
 }
 
 bool PlayerControlSystem::isDead()
@@ -293,16 +284,47 @@ void PlayerControlSystem::Receive(Event e, void* args)
         shoot();
         break;
     case(Event::C_START_PLAYER_ENEMY):
-        updateContactWithEnemy(true);
+        isInContactWithEnemy = true;
         damaged();
         break;
     case(Event::C_END_PLAYER_ENEMY):
-        updateContactWithEnemy(false);
+        isInContactWithEnemy = false;
+        break;
+    case(Event::C_PLAYER_FIRE):
+        invincibleTimer->Reset();
+        health = 0;
         break;
     }
 }
 
-void PlayerControlSystem::updateContactWithEnemy(bool isContacted)
+void PlayerControlSystem::respawn()
 {
-    isInContactWithEnemy = isContacted;
+    isRespawning = true;
+    isInvincible = true;
+
+    GameManager gm = GameManager::getInstance();
+    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
+    Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
+    float resPosX = spawnerTransformComponent.getPosition().x;
+    float resPosY = spawnerTransformComponent.getPosition().y;
+    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+
+    if (invincibleTimer->GetMilliseconds() > respawningTime)
+    {
+        cout << "Respawning..." << endl;
+        physComponentA->box2dBody->SetTransform(b2Vec2(resPosX, resPosY), 0);
+        isRespawning = false;
+        isInvincible = false;
+        isInContactWithEnemy = false;
+        health = maxHealth;
+
+        EntityCoordinator* ec = &EntityCoordinator::getInstance();
+        std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+            ec->GetComponentType<TextComponent>()
+            }, { Tag::HEALTH_NUM });
+
+        ComponentIterator<TextComponent> tci(eq);
+        std::string healthTxt = "X ";
+        tci.nextComponent()->setText(healthTxt + std::to_string(health));
+    }
 }
