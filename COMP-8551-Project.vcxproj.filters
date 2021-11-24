@@ -382,9 +382,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
     <Image Include="bullet.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
@@ -414,5 +411,10 @@
     <Font Include="arial.ttf">
       <Filter>Resource Files\Font</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="menu.json">
+      <Filter>Resource Files</Filter>
+    </Xsd>
   </ItemGroup>
 </Project>

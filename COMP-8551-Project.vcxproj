@@ -250,7 +250,6 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png" />
     <Image Include="bullet.png" />
     <Image Include="Edgar_The_Exterminator.png" />
     <Image Include="fire.png" />
@@ -262,6 +261,14 @@
   <ItemGroup>
     <Font Include="arial.ttf" />
     <Font Include="Pixeboy.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="menu.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Xsd>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
