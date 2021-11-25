@@ -33,7 +33,7 @@ struct EntityValues {
 
     // RenderComponent
     ShaderName shaderName = ShaderName::DEFAULT;
-    bool hasAnimation = false;
+    bool flipX = false;
     float rowIndex = 0;
     float colIndex = 0;
     // the colors are shared with the textComponent
