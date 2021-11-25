@@ -126,9 +126,6 @@
     <ClCompile Include="system_manager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="coordinator.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
     <ClCompile Include="inputSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -279,9 +276,6 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="system_manager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="coordinator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="system.h">

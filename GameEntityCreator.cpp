@@ -231,20 +231,20 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePhysParticle(SimpleTransform transform, int frameLife,const char* spriteName)
+EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,const char* spriteName)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, {});
     GameManager& gm = GameManager::getInstance();
     ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
-    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
+    ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
     ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
     ec.GetComponent<PhysicsComponent>(ent) = {
     b2_dynamicBody,
-    0.5f * scaleY,
-    0.5f * scaleX,
-    xPos,
-    yPos,
+    0.5f * t.xScale,
+    0.5f * t.xScale,
+    t.xPos,
+    t.yPos,
     1.0f,
     0.0f,
     false

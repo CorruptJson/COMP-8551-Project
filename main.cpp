@@ -67,7 +67,6 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
-    physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
 
@@ -185,12 +184,9 @@ int teardown()
     // when the engine closes
     renderer->teardown(false);
 
-    delete coordinator;
     delete sceneManager;
 
-    delete physicsWorld;
     delete playerControl;
-
 
     return 0;
 }

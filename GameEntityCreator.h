@@ -11,7 +11,7 @@ enum Enemies {
     NUM_OF_ENEMIES
 };
 
-struct SimpleTransform
+struct TransformArg
 {
     float xPos;
     float yPos;
@@ -42,6 +42,6 @@ public:
     EntityID CreateTimer(const char* spriteName, std::vector<Tag> tags);
     EntityID CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags);
     EntityID CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
-    EntityID CreatePhysParticle(float xPos, float yPos, float scaleX, float scaleY, int frameLife, const char* spriteName);
+    EntityID CreatePhysParticle(TransformArg t, int frameLife, const char* spriteName);
     //EntityID CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
 };
