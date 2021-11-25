@@ -18,6 +18,7 @@
 #include "TimerSystem.h"
 #include "SpawnSystem.h"
 #include "ScoreSystem.h"
+#include "DeleteTimerSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
@@ -89,6 +90,7 @@ int test(){
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();
 
+    coordinator->addSystem<DeleteTimerSystem>();
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
     
     //Subscribe playercontrol to recieve inputSystem events
@@ -167,7 +169,7 @@ int runEngine()
         fixedFrameUpdate();
 
         catchupTime -= MS_PER_FRAME;
-        gameManager.countFrame();
+        gameManager.countGameFrame();
     }
         
     // Graphics code runs independently from the fixed-frame game update
