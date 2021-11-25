@@ -27,9 +27,7 @@
 #include "FPSCounter.h"
 
 
-//ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
-
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -43,7 +41,7 @@ FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
-// test entities
+// special entities
 EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
@@ -68,7 +66,7 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
-    //physicsWorld = new PhysicsWorld();
+    physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
 
@@ -89,37 +87,35 @@ int test(){
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();
 
-    //shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
-    //
-    ////Subscribe playercontrol to recieve inputSystem events
-    //inputSys->Attach(playerControl);
+    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+    
+    //Subscribe playercontrol to recieve inputSystem events
+    inputSys->Attach(playerControl);
 
-    //shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
-    //coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
+    shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
+    coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
     coordinator->addSystem<TimerSystem>();
 
-    ////Subscribe playercontrol to recieve collision events
-    //physicsWorld->GetContactListener()->Attach(playerControl);
-    //physicsWorld->GetContactListener()->Attach(spawnSys.get());
+    //Subscribe playercontrol to recieve collision events
+    physicsWorld->GetContactListener()->Attach(playerControl);
+    physicsWorld->GetContactListener()->Attach(spawnSys.get());
 
     sceneManager->CreateEntities();
 
-    //shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
-    //physicsWorld->GetContactListener()->Attach(scoreSys.get());
+    shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
+    physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
-    //scoreSys->UpdateScore();
-    //for (auto const& e : sceneManager->entities) {
-    //    if (coordinator->entityHasTag(Tag::PLAYER, e)) {
-    //        mike = e;
-    //        gameManager.SetPlayerID(mike);
-    //    }
-    //    else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
-    //        mikeRespawner = e;
-    //        gameManager.SetPlayerRespawnerID(mikeRespawner);
-    //    }
-    //}
-
-    shared_ptr<EntityQuery> query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+    scoreSys->UpdateScore();
+    for (auto const& e : sceneManager->entities) {
+        if (coordinator->entityHasTag(Tag::PLAYER, e)) {
+            mike = e;
+            gameManager.SetPlayerID(mike);
+        }
+        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+            mikeRespawner = e;
+            gameManager.SetPlayerRespawnerID(mikeRespawner);
+        }
+    }
 
     return 0;
 }
@@ -140,7 +136,7 @@ void fixedFrameUpdate()
     // run ECS systems
     coordinator->runSystemUpdates();
 
-    //playerControl->processEntity(mike);
+    playerControl->processEntity(mike);
 
     coordinator->endOfUpdate();
 }
