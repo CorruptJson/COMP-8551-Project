@@ -232,7 +232,7 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePhysParticle(float xPos, float yPos, float scaleX, float scaleY, int frameLife,const char* spriteName)
+EntityID GameEntityCreator::CreatePhysParticle(SimpleTransform transform, int frameLife,const char* spriteName)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, {});

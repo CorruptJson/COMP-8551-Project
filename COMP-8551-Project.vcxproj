@@ -154,6 +154,7 @@
     <ClCompile Include="ComponentIterator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="DeleteTimerSystem.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
     <ClCompile Include="coordinator.cpp" />
@@ -205,6 +206,8 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="coordinator.h" />
+    <ClInclude Include="DeleteTimer.h" />
+    <ClInclude Include="DeleteTimerSystem.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
