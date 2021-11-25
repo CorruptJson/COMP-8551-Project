@@ -181,7 +181,7 @@ int teardown()
     std::cout << "ending programing" << std::endl;
 
     // when the engine closes
-    renderer->teardown();
+    renderer->teardown(false);
 
     delete coordinator;
     delete sceneManager;

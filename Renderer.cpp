@@ -684,11 +684,18 @@ void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
     }
 }
 
-int Renderer::teardown() {
-    // cleanup
+/// <summary>
+/// Close the window and clear GLFW stuff if needed.
+/// If the user closes using the 'X' butto
+/// </summary>
+/// <param name="closeWindow"></param>
+/// <returns></returns>
+int Renderer::teardown(bool closeWindow=true) {
     glfwDestroyWindow(window);
-    // call this to destroy glfw
-    glfwTerminate();
+    if (closeWindow) {
+        // call this to destroy glfw
+        glfwTerminate();
+    }
     return 0;
 }
 
