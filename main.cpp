@@ -96,6 +96,7 @@ int test(){
 
     //shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     //coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
+    coordinator->addSystem<TimerSystem>();
 
     ////Subscribe playercontrol to recieve collision events
     //physicsWorld->GetContactListener()->Attach(playerControl);

@@ -4,7 +4,6 @@
             "text": "EDGAR"
         },
         "transform": {
-            "xPos": -2,
             "yPos": 3,
             "xScale":  2,
             "yScale":  2
@@ -15,8 +14,7 @@
             "text": "THE"
         },
         "transform": {
-            "xPos": 0,
-            "yPos": 3
+            "yPos": 2.25
         }
     },
     {
@@ -24,15 +22,24 @@
             "text": "X-TERMINATOR"
         },
         "transform": {
-            "xPos": 0,
-            "yPos": 2
+            "yPos": 1,
+            "xScale":  2,
+            "yScale":  2
         }
     },
     {
-        "tag": "ui",
+        "text": {
+            "text": "Press J to play, Q to exit"
+        },
         "transform": {
-            "xPos": -6,
-            "yPos": 0
+            "xPos": -0.5,
+            "yPos":  -1
+        }
+    },
+    {
+        "transform": {
+            "xPos": -4.5,
+            "yPos": -3
         },
         "render": {
             "sprite": "Edgar.png",
@@ -40,36 +47,20 @@
             "colIndex": 0
         },
         "animation": {
-            "animName": "idle",
+            "animName": "running",
             "isPlaying": true
         }
     },
     {
-        "tag": "ui",
         "transform": {
-            "xPos": 6,
-            "yPos": 0
-        },
-        "render": {
-            "sprite": "star.png",
-            "rowIndex": 0,
-            "colIndex": 0
-        },
-        "animation": {
-            "animName": "flicker",
-            "isPlaying": true
-        }
-    },
-    {
-        "tag": "ui",
-        "transform": {
-            "xPos": -6,
-            "yPos": 3
+            "xPos": 0,
+            "yPos": -3
         },
         "render": {
             "sprite": "Giant_Roach.png",
             "rowIndex": 0,
-            "colIndex": 0
+            "colIndex": 0,
+            "flipX": true
         },
         "animation": {
             "animName": "run",
@@ -77,8 +68,15 @@
         }
     },
     {
+        "usePrefab": "Star",
+        "transform": {
+            "xPos": 4.5,
+            "yPos": -3
+        }
+    },
+    {
         "text": {
-            "text": "WAD to move"
+            "text": "WAD: move & jump"
         },
         "transform": {
             "xPos": -5,
@@ -87,18 +85,18 @@
     },
     {
         "text": {
-            "text": "J to shoot"
+            "text": "J: shoot"
         },
         "transform": {
-            "xPos": -3,
             "yPos": -4
         }
     },
     {
         "text": {
-            "text": "Touch stars for points"
+            "text": "Get for points"
         },
         "transform": {
+            "xPos":  4.25,
             "yPos": -4
         }
     }
