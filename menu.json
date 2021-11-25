@@ -1,0 +1,103 @@
+﻿[
+    {
+        "text": {
+            "text": "EDGAR"
+        },
+        "transform": {
+            "yPos": 3,
+            "xScale":  2,
+            "yScale":  2
+        }
+    },
+    {
+        "text": {
+            "text": "THE"
+        },
+        "transform": {
+            "yPos": 2.25
+        }
+    },
+    {
+        "text": {
+            "text": "X-TERMINATOR"
+        },
+        "transform": {
+            "yPos": 1,
+            "xScale":  2,
+            "yScale":  2
+        }
+    },
+    {
+        "text": {
+            "text": "Press J to play, Q to exit"
+        },
+        "transform": {
+            "xPos": -0.5,
+            "yPos":  -1
+        }
+    },
+    {
+        "transform": {
+            "xPos": -4.5,
+            "yPos": -3
+        },
+        "render": {
+            "sprite": "Edgar.png",
+            "rowIndex": 0,
+            "colIndex": 0
+        },
+        "animation": {
+            "animName": "running",
+            "isPlaying": true
+        }
+    },
+    {
+        "transform": {
+            "xPos": 0,
+            "yPos": -3
+        },
+        "render": {
+            "sprite": "Giant_Roach.png",
+            "rowIndex": 0,
+            "colIndex": 0,
+            "flipX": true
+        },
+        "animation": {
+            "animName": "run",
+            "isPlaying": true
+        }
+    },
+    {
+        "usePrefab": "Star",
+        "transform": {
+            "xPos": 4.5,
+            "yPos": -3
+        }
+    },
+    {
+        "text": {
+            "text": "WAD: move & jump"
+        },
+        "transform": {
+            "xPos": -5,
+            "yPos": -4
+        }
+    },
+    {
+        "text": {
+            "text": "J: shoot"
+        },
+        "transform": {
+            "yPos": -4
+        }
+    },
+    {
+        "text": {
+            "text": "Get for points"
+        },
+        "transform": {
+            "xPos":  4.25,
+            "yPos": -4
+        }
+    }
+]

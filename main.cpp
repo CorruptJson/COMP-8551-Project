@@ -27,9 +27,7 @@
 #include "FPSCounter.h"
 
 
-//ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
-
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -43,7 +41,7 @@ FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
-// test entities
+// special entities
 EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
@@ -68,7 +66,7 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
     sceneManager = new SceneManager();
 
-    //physicsWorld = new PhysicsWorld();
+    physicsWorld = new PhysicsWorld();
     physicsWorld = &(PhysicsWorld::getInstance());
     playerControl = new PlayerControlSystem();
 
@@ -96,6 +94,7 @@ int test(){
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
+    coordinator->addSystem<TimerSystem>();
 
     //Subscribe playercontrol to recieve collision events
     physicsWorld->GetContactListener()->Attach(playerControl);
@@ -117,8 +116,6 @@ int test(){
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
-
-    shared_ptr<EntityQuery> query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
 
     return 0;
 }
@@ -184,7 +181,7 @@ int teardown()
     std::cout << "ending programing" << std::endl;
 
     // when the engine closes
-    renderer->teardown();
+    renderer->teardown(false);
 
     delete coordinator;
     delete sceneManager;

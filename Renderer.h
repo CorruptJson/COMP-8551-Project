@@ -34,7 +34,7 @@ public:
 
     int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize);
     int update(EntityCoordinator* coordinator);
-    int teardown();
+    int teardown(bool closeWindow);
     static Renderer* getInstance();
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
