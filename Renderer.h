@@ -28,7 +28,7 @@ enum class WindowSize {
     FULLSCREEN
 };
 
-class Renderer
+class Renderer : public IObserver
 {
 public:
 
@@ -40,6 +40,8 @@ public:
     int getWindowWidth();
     int getWindowHeight();
     Camera* getCamera();
+    void Receive(Event e, void* args) override;
+
 private:
     static Renderer* renderer;
     // the vertex array object (VAO)

@@ -614,8 +614,15 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
                 || prevRenderComp->rowIndex != renderComp->rowIndex || prevRenderComp->flipX != renderComp->flipX)) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
-
-            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            
+            switch (renderComp->shaderName) {
+                case ShaderName::DEFAULT:
+                    shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+                    break;
+                case ShaderName::DOODLE:
+                    shaderFactory.useDoodleShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), time);
+                    break;
+            }
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
@@ -696,4 +703,14 @@ int Renderer::getWindowHeight() {
 
 Camera* Renderer::getCamera() {
     return &camera;
+}
+
+void Renderer::Receive(Event e, void* args)
+{
+    switch (e) { 
+        case(Event::UPDATE_RENDER_TIMER):
+            time++;
+            break;
+    }
+    
 }
