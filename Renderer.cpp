@@ -492,7 +492,7 @@ void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     texCoordsData[7] = topY;  // top left y
 
     glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0,sizeof(texCoordsData), texCoordsData);
 }
 
 void Renderer::drawText(TextComponent* text, Transform* transform)

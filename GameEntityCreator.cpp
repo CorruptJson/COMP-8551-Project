@@ -10,7 +10,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<AnimationComponent>(),
         ec.GetComponentType<MovementComponent>(),
         ec.GetComponentType<StateComponent>()
-
         });
 
     platformArchetype = ec.GetArchetype({
@@ -20,7 +19,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<AnimationComponent>(),
         ec.GetComponentType<MovementComponent>(),
         ec.GetComponentType<StateComponent>()
-
         });
 
     testArchetype = ec.GetArchetype({
@@ -36,10 +34,12 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>()
         });
 
-    //sceneryArchetype = ec.GetArchetype({
-    //    ec.GetComponentType<Transform>(),
-    //    ec.GetComponentType<RenderComponent>()
-    //    });
+    physParticleArchetype = ec.GetArchetype({
+        ec.GetComponentType<Transform>(),
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<PhysicsComponent>(),
+        ec.GetComponentType<DeleteTimer>(),
+        });
 
     StateComponent enemyInitialStates[NUM_OF_ENEMIES];
     enemiesInitialStates[ROACH] = StateComponent {
@@ -227,6 +227,27 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
         1.0f,
         0.0f,
         false
+    };
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,const char* spriteName)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, {});
+    GameManager& gm = GameManager::getInstance();
+    ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
+    ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
+    ec.GetComponent<PhysicsComponent>(ent) = {
+    b2_dynamicBody,
+    0.5f * t.xScale,
+    0.5f * t.xScale,
+    t.xPos,
+    t.yPos,
+    1.0f,
+    0.0f,
+    false
     };
     return ent;
 }

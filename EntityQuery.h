@@ -45,7 +45,7 @@ public:
     std::size_t TagsHash();
     std::size_t QueryHash();
 
-    void countFoundEntities();
+    void recountFoundEntities();
 
     // skip search if you already know the chunks you want
     EntityQuery(std::vector<Chunk*> chosenChunks);

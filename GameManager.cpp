@@ -31,12 +31,12 @@ void GameManager::SetPlayerRespawnerID(EntityID id)
     playerRespawner = id;
 }
 
-void GameManager::countFrame()
+void GameManager::countGameFrame()
 {
-    frameCount++;
+    gameFrameCount++;
 }
 
-int GameManager::getCurrFrame()
+int GameManager::getCurrGameFrame()
 {
-    return frameCount;
+    return gameFrameCount;
 }
