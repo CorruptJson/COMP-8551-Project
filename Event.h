@@ -15,9 +15,6 @@ enum class Event {
     C_PLAYER_FIRE,
     //Entity events
     B2BODY_TO_DELETE,
-    UPDATE_RENDER_TIMER,
-    //ending enemy flash event
-    ENEMY_FLASH
 };
 
 struct B2BodyDeleteEventArgs

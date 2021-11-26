@@ -12,10 +12,6 @@ void TimerSystem::update() {
         if (enemyTimer > 80)
             enemyTimer -= 4;
     }
-    if (counter % renderTimer == 0) //timer for blinking the doodle shader
-    {
-        Notify(Event::UPDATE_RENDER_TIMER, nullptr);
-    }
     if (counter > 3000) {
         counter = 0;
     }

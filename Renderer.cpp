@@ -556,7 +556,7 @@ Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 // called in main()
 int Renderer::update(EntityCoordinator* coordinator) {
     ++counter;
-    if (counter >= 60) {
+    if (counter >= 20) {
         counter = 0;
         time++;
     }
@@ -703,14 +703,4 @@ int Renderer::getWindowHeight() {
 
 Camera* Renderer::getCamera() {
     return &camera;
-}
-
-void Renderer::Receive(Event e, void* args)
-{
-    switch (e) { 
-        case(Event::UPDATE_RENDER_TIMER):
-            time++;
-            break;
-    }
-    
 }

@@ -28,7 +28,7 @@ enum class WindowSize {
     FULLSCREEN
 };
 
-class Renderer : public IObserver
+class Renderer
 {
 public:
 
@@ -40,7 +40,6 @@ public:
     int getWindowWidth();
     int getWindowHeight();
     Camera* getCamera();
-    void Receive(Event e, void* args) override;
 
 private:
     static Renderer* renderer;
