@@ -133,6 +133,14 @@ int initialize()
 
     prevTime = Clock::now();
 
+    for (auto const& e : sceneManager->entities)
+    {
+        if (coordinator->entityHasComponent<PhysicsComponent>(e))
+        {
+            physicsWorld->AddObject(e);
+        }
+    }
+
     return 0;
 }
 
@@ -208,13 +216,6 @@ int teardown()
 
 int main() {
     initialize();       
-
-    for (auto const& e : sceneManager->entities) {
-        if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
-            
-            physicsWorld->AddObject(e);
-        }
-    }    
 
     while (!glfwWindowShouldClose(window))
     {
