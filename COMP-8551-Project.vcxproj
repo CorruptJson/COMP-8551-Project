@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\trnam\OneDrive\Desktop\4th year\Advanced\Project\COMP-8551-Project\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;C:\Users\trnam\OneDrive\Desktop\4th year\Advanced\Project\COMP-8551-Project\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\trnam\OneDrive\Desktop\4th year\Advanced\Project\COMP-8551-Project\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x64;C:\Users\trnam\OneDrive\Desktop\4th year\Advanced\Project\COMP-8551-Project\SDL2-devel-2.0.16-VC\SDL2-2.0.16\lib\x64;$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -121,11 +121,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLFW_INCLUDE_NONE;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;box2d.lib;Winmm.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -170,6 +171,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="test_system.cpp" />
     <ClCompile Include="Transform.cpp" />
@@ -216,6 +218,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
@@ -234,6 +237,14 @@
     <Image Include="Giant_Roach.png" />
     <Image Include="platform.png" />
     <Image Include="wall.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="brionac.mp3" />
+    <Media Include="brionac.wav" />
+    <Media Include="bullet.mp3" />
+    <Media Include="bullet.wav" />
+    <Media Include="bullet_short.mp3" />
+    <Media Include="bullet_short.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

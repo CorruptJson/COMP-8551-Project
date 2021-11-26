@@ -21,11 +21,12 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "Sound.h"
 
 
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
-
+Sound se;
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -68,6 +69,9 @@ int initialize()
 
     prevTime = Clock::now();
 
+    
+    se.addSound("brionac.wav");
+    se.addSound("bullet.wav");
 
     return 0;
 }
@@ -193,6 +197,8 @@ int main() {
 
     }
 
+    
+    se.playSound();
     
 
     while (!glfwWindowShouldClose(window))
