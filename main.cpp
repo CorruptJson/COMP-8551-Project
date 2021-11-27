@@ -57,6 +57,11 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
+//config files
+const std::string prefabs = "prefab.json";
+const std::string gameScene = "scene.json";
+
+
 void initComponents()
 {
     coordinator->RegisterComponent<Transform>();
@@ -125,6 +130,8 @@ int initialize()
     initComponents();
 
     sceneManager = new SceneManager();
+    sceneManager->LoadPrefabs(prefabs);
+    sceneManager->LoadScene(gameScene);
     sceneManager->CreateEntities();
 
     initSystems();

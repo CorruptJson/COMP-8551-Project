@@ -60,8 +60,6 @@ unordered_map <std::string, const char*> spriteMap = {
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-    this->LoadScene("scene.json");
-    this->LoadPrefabs("prefab.json");
 
     // init the view and window size so we can
     // setup interpolation for text
