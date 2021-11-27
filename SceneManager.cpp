@@ -325,3 +325,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
     }
 
 };
+
+void SceneManager::EmptyEntitiesList() {
+    entities = {};
+};

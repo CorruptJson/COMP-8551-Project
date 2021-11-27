@@ -155,7 +155,8 @@ void fixedFrameUpdate()
     //}
 
     if (InputTracker::getInstance().isKeyJustDown(InputTracker::ONE)) {
-        //coordinator->deactivateAllEntitiesAndPhysicsBodies();
+        coordinator->deactivateAllEntitiesAndPhysicsBodies();
+        sceneManager->EmptyEntitiesList();
         sceneManager->LoadScene(gameScene);
         sceneManager->CreateEntities();
         identifyPlayerAndPlayerSpawner();
