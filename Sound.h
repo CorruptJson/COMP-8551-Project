@@ -1,25 +1,29 @@
 #pragma once
 #include <vector>
+#include <string>
 #include <SDL_mixer.h>
 class Sound 
 {
 public:
-    Sound();
     ~Sound();
-
-    //void addSound(const char* path);
-
+    void loadSfx(std::vector<std::string> sfxPaths);
+    void loadMusic(std::vector<std::string> musicPaths);
+    
     //void playSound();
 
+    void playSound(int index);
     void playSound(const char* path);
 
+    void playMusic(int index);
     void playMusic(const char* path);
 
     void Play_Pause();
-
+    static Sound& getInstance();
 private:
-    std::vector<Mix_Chunk*> mSoundBank;
+    Sound();
+    std::vector<Mix_Chunk*> mSFXBank;
+    std::vector<Mix_Music*> mMusicBank;
 
-    bool mPaused;
-    bool mPlaying;
+    bool mPaused = false;
+    //bool mPlaying;
 };

@@ -21,33 +21,50 @@ Sound::Sound()
 
 Sound::~Sound()
 {
+    for (auto p : mSFXBank)
+        delete p;
+
+    for (auto p : mMusicBank)
+        delete p;
+
+    mSFXBank.clear();
+    mMusicBank.clear();
+
     SDL_Quit();
 }
 
-//void Sound::addSound(const char* path)
-//{
-//    Mix_Chunk* tmpChunk = Mix_LoadWAV(path);
-//    if (tmpChunk != nullptr)
-//    {
-//        mSoundBank.push_back(tmpChunk);
-//    }
-//    else
-//    {
-//        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Step two: Couldn't init audio: %s", Mix_GetError());
-//    }
-//}
-//
-//void Sound::playSound()
-//{
-//    Mix_PlayChannel(-1, mSoundBank[1], 0);
-//}
-
-void Sound::playSound(const char* path)
+void Sound::loadSfx(std::vector<std::string> sfxPaths)
 {
-    Mix_Chunk* tmpChunk = Mix_LoadWAV(path);
-    if (tmpChunk != nullptr)
+    for (std::string n : sfxPaths) {
+        Mix_Chunk* sfxMix = Mix_LoadWAV(n.c_str());
+        
+        if (sfxMix != nullptr)
+            mSFXBank.push_back(sfxMix);
+        else
+            std::cout << "Failed to load " << n << std::endl;
+    }
+}
+
+void Sound::loadMusic(std::vector<std::string> musicPaths)
+{
+    for (std::string n : musicPaths) {
+        Mix_Music* musicChunk = Mix_LoadMUS(n.c_str());
+
+        if (musicChunk != nullptr)
+            mMusicBank.push_back(musicChunk);
+        else
+            std::cout << "Failed to load " << n << std::endl;
+    }
+}
+
+void Sound::playSound(int index)
+{
+    if (mSFXBank.size() == 0)
+        return;
+
+    if (mSFXBank[index] != nullptr)
     {
-        Mix_PlayChannel(-1, tmpChunk, 0);
+        Mix_PlayChannel(-1, mSFXBank[index], 0);
     }
     else
     {
@@ -55,14 +72,14 @@ void Sound::playSound(const char* path)
     }
 }
 
-void Sound::playMusic(const char* path)
+void Sound::playMusic(int index)
 {
-    Mix_Music* tmp_music = Mix_LoadMUS(path);
+    if (mMusicBank.size() == 0)
+        return;
 
-    if (tmp_music != nullptr)
+    if (mMusicBank[index] != nullptr)
     {
-        Mix_PlayMusic(tmp_music, -1);
-        mPlaying = true;
+        Mix_PlayMusic(mMusicBank[index], -1);
     }
     else
     {
@@ -72,12 +89,12 @@ void Sound::playMusic(const char* path)
 
 void Sound::Play_Pause()
 {
-    if (mPlaying && !mPaused)
+    if (!mPaused)
     {
         Mix_PauseMusic();
         mPaused = true;
     }
-    else if (mPlaying && mPaused)
+    else if (mPaused)
     {
         Mix_ResumeMusic();
         mPaused = false;
@@ -86,4 +103,10 @@ void Sound::Play_Pause()
     {
         return;
     }
+}
+
+Sound& Sound::getInstance()
+{
+    static Sound instance;
+    return instance;
 }
