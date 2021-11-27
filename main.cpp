@@ -31,7 +31,7 @@
 
 
 EntityCoordinator* coordinator;
-Sound se;
+Sound& se = Sound::getInstance();
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -134,6 +134,16 @@ int initialize()
 
     identifyPlayerAndPlayerSpawner();      
 
+    //sound test
+    std::vector<std::string> music;
+    music.push_back("brionac.wav");
+    
+    std::vector<std::string> sfx;
+    sfx.push_back("bullet.wav");
+
+    se.loadSfx(sfx);
+    se.loadMusic(music);
+
     prevTime = Clock::now();
 
     return 0;
@@ -220,9 +230,11 @@ int main() {
 
     }
 
-
-    se.playMusic("brionac.wav"); // Play background music on loop
-    se.playSound("bullet.wav"); // Play sound effects once
+    
+    //se.playMusic("brionac.wav"); // Play background music on loop
+    se.playMusic(0);
+    se.playSound(0);
+    //se.playSound("bullet.wav"); // Play sound effects once
 
 
 
