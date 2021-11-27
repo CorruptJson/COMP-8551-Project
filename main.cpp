@@ -25,10 +25,13 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "Sound.h"
+
 #include "FPSCounter.h"
 
 
 EntityCoordinator* coordinator;
+Sound se;
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -214,7 +217,14 @@ int main() {
             
             physicsWorld->AddObject(e);
         }
-    }    
+
+    }
+
+
+    se.playMusic("brionac.wav"); // Play background music on loop
+    se.playSound("bullet.wav"); // Play sound effects once
+
+
 
     while (!glfwWindowShouldClose(window))
     {
