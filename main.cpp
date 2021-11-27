@@ -154,6 +154,21 @@ void fixedFrameUpdate()
     //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
     //}
 
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::ONE)) {
+        //coordinator->deactivateAllEntitiesAndPhysicsBodies();
+        sceneManager->LoadScene(gameScene);
+        sceneManager->CreateEntities();
+        identifyPlayerAndPlayerSpawner();
+        for (auto const& e : sceneManager->entities) {
+            if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
+                physicsWorld->AddObject(e);
+            }
+        }
+
+    }
+
+
+
     // run physics
     physicsWorld->Update(coordinator);
     // run ECS systems
