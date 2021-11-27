@@ -1,4 +1,5 @@
 #pragma once
+#include"Types.h"
 
 enum Tag
 {
@@ -7,5 +8,14 @@ enum Tag
     ACTOR,
     BULLET,
     PLATFORM,
-    SCENERY
+    UI,
+    WALL,
+    SCENERY,
+    STAR,
+    FIRE,
+    SPAWNPOINT,
+    ENEMYSPAWNER,
+    PLAYERSPAWNER,
+    TXT_SCORE,
+    HEALTH_NUM
 };

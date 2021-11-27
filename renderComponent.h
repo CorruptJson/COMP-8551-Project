@@ -1,8 +1,10 @@
 #pragma once
+#include "ShaderFactory.h"
+#include <glm/glm.hpp>
+
 struct RenderComponent {
-    // store the name of the vertex and fragment shaders
-    const char *vShader;
-    const char *fShader;
+    // shader program that we want to use
+    ShaderName shaderName;
 
     // store the name of the spritesheet
     const char *spriteName;
@@ -14,9 +16,9 @@ struct RenderComponent {
     float rowIndex;
     float colIndex;
 
-    // whether there's an animation component attached to the entity
-    bool hasAnimation;
-
     // whether the texture needs to be flipped
-    bool flipX;
+    bool flipX = false;
+
+    //color of the panel/background of the sprite
+    glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 };

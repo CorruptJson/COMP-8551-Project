@@ -61,6 +61,15 @@
     <Filter Include="Source Files\GameManagerStuff">
       <UniqueIdentifier>{566c7777-5adb-4b3e-8e70-0c07e17b6550}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Textures">
+      <UniqueIdentifier>{539d7d29-4610-426f-ac82-b34023263712}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Font">
+      <UniqueIdentifier>{be653d43-ab8e-4bc7-9530-871ae3c5f7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Shaders">
+      <UniqueIdentifier>{9ec80f7b-ad79-4ec2-9d6c-1865ce50c4d4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Events">
       <UniqueIdentifier>{99e770db-b719-4048-a929-1b4a2c0fede7}</UniqueIdentifier>
     </Filter>
@@ -120,13 +129,7 @@
     <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="test_system.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="system_manager.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="coordinator.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
     <ClCompile Include="inputSystem.cpp">
@@ -144,9 +147,6 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files\GameManagerStuff</Filter>
     </ClCompile>
-    <ClCompile Include="printerSystem.cpp">
-      <Filter>Source Files\Systems</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -162,20 +162,62 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="AIControlSystem.cpp">
+      <Filter>Source Files\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentIterator.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="SpawnSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="TextComponent.cpp">
+      <Filter>Source Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderFactory.cpp">
+      <Filter>Source Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Interpolator.cpp">
+      <Filter>Source Files\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteTimerSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
-    <None Include="DefaultVertShader.vs">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="DefaultFragShader.fs">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="scene.json">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="DefaultVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DefaultFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
     <None Include="prefab.json">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="TextFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="TextVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DoodleFragShader.fs">
+      <Filter>Resource Files\Shaders</Filter>
+    </None>
+    <None Include="DoodleVertShader.vs">
+      <Filter>Resource Files\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -242,13 +284,7 @@
     <ClInclude Include="TimerComponent.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="test_system.h">
-      <Filter>Header Files\Systems</Filter>
-    </ClInclude>
     <ClInclude Include="system_manager.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="coordinator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="system.h">
@@ -264,9 +300,6 @@
       <Filter>Header Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="GameEntityCreator.h">
-      <Filter>Header Files\GameManagerStuff</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
       <Filter>Header Files\GameManagerStuff</Filter>
     </ClInclude>
     <ClInclude Include="Components.h">
@@ -290,14 +323,14 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="TagFunctions.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
     <ClInclude Include="IObserver.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
     <ClInclude Include="ISubject.h">
       <Filter>Header Files\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="printerSystem.h">
-      <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="Event.h">
       <Filter>Header Files\Events</Filter>
@@ -314,26 +347,90 @@
     <ClInclude Include="Sound.h">
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
+    <ClInclude Include="ComponentIterator.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="ECS.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="TextComponent.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="AIControlSystem.h">
+      <Filter>Header Files\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="SpawnSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderFactory.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Interpolator.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteTimer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteTimerSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="wall.jpg">
-      <Filter>Resource Files</Filter>
+    <Image Include="bullet.png">
+      <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="Edgar_The_Exterminator.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="Giant_Roach.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="bullet.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="background.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
     <Image Include="platform.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="logo.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="star.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="fire.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Pixeboy.ttf">
+      <Filter>Resource Files\Font</Filter>
+    </Font>
+    <Font Include="arial.ttf">
+      <Filter>Resource Files\Font</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="menu.json">
+      <Filter>Resource Files</Filter>
+    </Xsd>
   </ItemGroup>
   <ItemGroup>
     <Media Include="brionac.mp3">

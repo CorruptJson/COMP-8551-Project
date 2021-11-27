@@ -3,12 +3,12 @@
 EntityCoordinator::EntityCoordinator()
 {
     // Create pointers to each manager
-    mComponentManager = std::make_unique<ComponentManager>();
+    componentManager = std::make_shared<ComponentManager>();
     //mEntityManager = std::make_unique<EntityManager>();
-    mChunkManager = std::make_unique<ChunkManager>();
-    mArchetypeManager = std::make_unique<ArchetypeManager>();
+    chunkManager = std::make_shared<ChunkManager>();
+    archetypeManager = std::make_shared<ArchetypeManager>();
     //mChunkManager = std::make_unique<ProtoChunkManager>();
-    mSystemManager = std::make_unique<SystemManager>();
+    systemManager = std::make_shared<SystemManager>();
 
     //initializeSystemManager();
 }
@@ -22,9 +22,15 @@ EntityCoordinator& EntityCoordinator::getInstance()
 // Chunk manager searches for space in a chunk to assign an entity ID to, and returns it
 // creates a new chunk if no matching chunk is found
 // all entities in the chunk must share the same spritshseet
-EntityID EntityCoordinator::CreateEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags)
+EntityID EntityCoordinator::CreateEntity(Archetype arch, std::string sprite, std::vector<Tag> tags)
 {
-    return mChunkManager->assignNewEntity(arch, sprite, tags, mComponentManager->mComponentSizes);
+    return chunkManager->assignNewEntity(arch, sprite, tags, componentManager->mComponentSizes);
+}
+
+// Creates entity with no sprite sheet
+EntityID EntityCoordinator::CreateEntity(Archetype arch, std::vector<Tag> tags)
+{
+    return chunkManager->assignNewEntity(arch, noSprite, tags, componentManager->mComponentSizes);
 }
 
 // get a validated archetype object from a list of component types
@@ -32,49 +38,92 @@ EntityID EntityCoordinator::CreateEntity(Archetype arch, Spritesheet sprite, std
 // an archetype is simply a definition of a type, the same archetype object can be used to create an number of entities
 Archetype EntityCoordinator::GetArchetype(std::vector<ComponentType> compTypes)
 {
-    return mArchetypeManager->getArchetype(compTypes);
+    return archetypeManager->getArchetype(compTypes);
 }
 
-// not yet fully implemented
-void EntityCoordinator::DestroyEntity(EntityID entity)
+// schedules entity to be deleted at the end of the current fixed update
+void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 {
-    mChunkManager->releaseEntity(entity);
+    chunkManager->scheduleToDelete(entity);
 }
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components
-std::unique_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
+// searches without checking for tags
+//std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
+//{
+//    return std::make_shared<EntityQuery>(compTypes, mChunkManager->allChunks, queryCache);
+//}
+
+// returns an entity query, an object which contains the search results upon creation
+// the entity query searches for all entities that contain these components and tags
+std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
-    //std::sort(compTypes.begin(), compTypes.end());
-    //auto find = queryCache.find(compTypes);
-    //if (find != queryCache.end())
-    //{
-    //    EntityQuery eq = queryCache[compTypes];
-    //    if (eq.getChunkListVersion() == mChunkManager->getChunkCount())
-    //    {
-    //        return eq;
-    //    }
-    //}
-    return std::make_unique<EntityQuery>(compTypes, mChunkManager->allChunks);
+    int chunkManagerVersion = chunkManager->getChunkManagerVersion();
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
+
+    size_t hash = query->QueryHash();
+    auto find = queryCache.find(hash);
+    if (find != queryCache.end() && find->second->getChunkListVersion() == chunkManagerVersion)
+    {
+        if (find->second->getChunkListVersion() == chunkManagerVersion)
+        {
+            find->second->recountFoundEntities();
+            return find->second;
+        }
+        else
+        {
+            query->searchChunks(chunkManager->allChunks);
+            find->second = query;
+            return query;
+        }        
+    }
+    else
+    {
+        query->searchChunks(chunkManager->allChunks);
+        queryCache.emplace(hash,query);
+        return query;
+    }
 }
 
 uint32_t EntityCoordinator::GetEntityCount()
 {
-    return mChunkManager->GetEntityCount();
+    return chunkManager->GetEntityCount();
 }
 
 void EntityCoordinator::runSystemUpdates()
 {
-    mSystemManager->runUpdates();
+    systemManager->runUpdates();
 }
 
 bool EntityCoordinator::entityHasTag(Tag tag, EntityID id)
 {
-    return mChunkManager->entityHasTag(tag, id);
+    return chunkManager->entityHasTag(tag, id);
 }
 
 std::vector<Tag> EntityCoordinator::getTagsForEntity(EntityID id)
 {
-    return mChunkManager->getTagsForEntity(id);
+    return chunkManager->getTagsForEntity(id);
 }
 
+void EntityCoordinator::endOfUpdate()
+{
+    chunkManager->deleteScheduledEntities();
+}
+
+bool EntityCoordinator::doesEntityExist(EntityID id)
+{
+    return chunkManager->doesEntityExist(id);
+}
+
+std::shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::string spritesheet)
+{
+    return chunkManager->entitiesWithSpriteSheet(spritesheet);
+}
+
+void EntityCoordinator::deactivateAllEntitiesAndPhysicsBodies()
+{
+    chunkManager->deactivateAllEntitiesAndPhysicsBodies();
+}

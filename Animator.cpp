@@ -34,44 +34,41 @@ void Animator::setSpeed()
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<RenderComponent>(),
         coordinator->GetComponentType<AnimationComponent>()
-        });
+        }, {});
 
     int entitiesFound = entityQuery->totalEntitiesFound();
-    std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
+    ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entityQuery);
+    ComponentIterator<AnimationComponent> animComps = ComponentIterator<AnimationComponent>(entityQuery);
     
     for (int i = 0; i < entitiesFound; i++) {
 
-        AnimationComponent* animationComponent = (animComps[i]);
-        RenderComponent* renderCompnent = (renderComps[i]);
+        AnimationComponent* animationComponent = animComps.nextComponent();
+        RenderComponent* renderCompnent = renderComponents.nextComponent();
 
         //skips the iteration if rendercomponent doesn't have an animation component
-        if (renderCompnent->hasAnimation) {
+        if (animationComponent->isPlaying) {
+            animationComponent->currTimeStamp = std::clock();
 
-            if (animationComponent->isPlaying) {
-                animationComponent->currTimeStamp = std::clock();
+            if (renderCompnent->rowIndex != animationComponent->currAnim->row)
+                renderCompnent->rowIndex = animationComponent->currAnim->row;
 
-                if (renderCompnent->rowIndex != animationComponent->currAnim->row)
-                    renderCompnent->rowIndex = animationComponent->currAnim->row;
+            //checks frame timing for switching frames
+            if ((animationComponent->currTimeStamp - animationComponent->lastTimeStamp) >= animationComponent->currAnim->speed) {
+                animationComponent->lastTimeStamp = std::clock();
 
-                //checks frame timing for switching frames
-                if ((animationComponent->currTimeStamp - animationComponent->lastTimeStamp) >= animationComponent->currAnim->speed) {
-                    animationComponent->lastTimeStamp = std::clock();
+                animationComponent->currFrame++;
 
-                    animationComponent->currFrame++;
+                //check if it reached the end
+                if (animationComponent->currFrame >= animationComponent->currAnim->endFrame + 1) {
+                    animationComponent->currFrame = animationComponent->currAnim->startFrame;
 
-                    //check if it reached the end
-                    if (animationComponent->currFrame >= animationComponent->currAnim->endFrame + 1) {
-                        animationComponent->currFrame = animationComponent->currAnim->startFrame;
-
-                        //add finite state machine behaviour here *TBD
-                    }
-
-                    renderCompnent->colIndex = animationComponent->currFrame;
+                    //add finite state machine behaviour here *TBD
                 }
+
+                renderCompnent->colIndex = animationComponent->currFrame;
             }
         }
     }

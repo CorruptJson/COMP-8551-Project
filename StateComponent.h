@@ -2,8 +2,10 @@
 #include "PlayerState.h"
 struct StateComponent {
     //PlayerState myState;
-    int state;
-    bool faceRight;
+    int state = 0;
+    bool faceRight = true;
+    int speed = 1;
+    int health = 1;
     //const int STATE_NORMAL = 0;
     //const int STATE_JUMPING = 1;
     //const int STATE_FALLING = 2;

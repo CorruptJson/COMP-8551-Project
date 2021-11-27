@@ -7,7 +7,6 @@
 #include "renderComponent.h"
 #include <nlohmann/json.hpp>
 
-
 // ECS
 //using Entity = std::uint32_t;
 //const Entity MAX_ENTITIES = 5000;
@@ -15,11 +14,13 @@ using ComponentType = std::uint8_t;
 using ComponentSize = std::uint8_t;
 const ComponentType MAX_COMPONENTS = 32;
 
+using Tagset = int;
+
 using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;
 
-using Spritesheet = const char*;
+//using std::string = const char*;
 
 using Byte = unsigned char;
 
@@ -29,8 +30,17 @@ struct EntityID
     int chunkID;
     int index;
     int version;
+
+    bool isEqual(const EntityID& other) const
+    {
+        return other.chunkID == this->chunkID && other.index == this->index && other.version == this->version;
+    }
 };
 
+inline bool operator==(const EntityID& lhs, const EntityID& rhs)
+{
+    return lhs.isEqual(rhs);
+}
 
 using json = nlohmann::json;
 

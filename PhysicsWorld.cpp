@@ -1,16 +1,24 @@
 #include "PhysicsWorld.h"
 
 enum collisionCategory {
+    C_NONE = 0x0000,
     C_PLAYER = 0x0001,
     C_ENEMY = 0x0002,
     C_PLATFORM = 0x0004,
-    C_BULLET = 0x0008
+    C_BULLET = 0x0008,
+    C_FIRE = 0x0016,
+    C_STAR = 0x0032,
+    C_ENEMYSPAWNER = 0x0064,
+    C_PLAYERSPAWNER = 0x0128,
+    C_WALL = 0x0256
+
 };
 
 PhysicsWorld::PhysicsWorld() {
 
     // Initialization
-    gravity = new b2Vec2(0.0f, -9.8f);
+    // make it 30 so we fall faster than real life
+    gravity = new b2Vec2(0.0f, -40.0f);
     world = new b2World(*gravity);
     world->SetAllowSleeping(false);
 
@@ -26,6 +34,9 @@ PhysicsWorld& PhysicsWorld::getInstance()
 
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
+
+    //std::cout << "adding to phys: " << id << std::endl;
+
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
@@ -34,18 +45,25 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     moveComponent->physComponent = physComponent;
 
-    EntityUserData* entityUserData = new EntityUserData;
-    entityUserData->id = id;
+    //EntityUserData* entityUserData = new EntityUserData;
+    //entityUserData->id = id;
 
-    b2BodyDef bodyDef;
+    //b2BodyDef bodyDef = b2BodyDef();
+    b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
-    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(entityUserData);
+    bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
-
-    physComponent->box2dBody = PhysicsWorld::getInstance().world->CreateBody(&bodyDef);
+    b2World* world = PhysicsWorld::getInstance().world;
+    if (world == nullptr)
+    {
+        std::cout << "b2 world is nullptr" << std::endl;
+    }
+    physComponent->box2dBody = world->CreateBody(&bodyDef);
+    B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
+    physComponent->box2dBody->SetFixedRotation(true);
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
@@ -64,6 +82,8 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(ENEMY, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
+            moveComponent->setVelocity(2.0, 0); // THIS IS TEMPORARY, 
+
             fixtureDef.filter.categoryBits = C_ENEMY;
             fixtureDef.filter.maskBits = C_PLAYER | C_PLATFORM | C_BULLET;
         }
@@ -75,7 +95,26 @@ void PhysicsWorld::AddObject(EntityID id) {
             fixtureDef.filter.categoryBits = C_BULLET;
             fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
         }
-
+        else if (coordinator.entityHasTag(FIRE, id)) {
+            fixtureDef.filter.categoryBits = C_FIRE;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
+        }
+        else if (coordinator.entityHasTag(STAR, id)) {
+            fixtureDef.filter.categoryBits = C_STAR;
+            fixtureDef.filter.maskBits = C_PLAYER;
+        }
+        else if (coordinator.entityHasTag(ENEMYSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_ENEMYSPAWNER;
+            fixtureDef.filter.maskBits = C_PLAYER;
+        }
+        else if (coordinator.entityHasTag(PLAYERSPAWNER, id)) {
+            fixtureDef.filter.categoryBits = C_PLAYERSPAWNER;
+            fixtureDef.filter.maskBits = C_NONE;
+        }
+        else if (coordinator.entityHasTag(WALL, id)) {
+            fixtureDef.filter.categoryBits = C_WALL;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
+        }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
 }
@@ -84,43 +123,51 @@ void PhysicsWorld::AddObject(EntityID id) {
 // Adds all objects in the world using the entity coordinator
 void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
 
-    std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
             coordinator->GetComponentType<PhysicsComponent>(),
             coordinator->GetComponentType<Transform>()
-        });
+        }, {});
 
     int entitiesFound = entityQuery->totalEntitiesFound();
     cout << "Entities found: " << entitiesFound << endl;
-    std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
-    std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
+
+    ComponentIterator<PhysicsComponent> physCompIterator = ComponentIterator<PhysicsComponent>(entityQuery);
+    ComponentIterator<Transform> transformCompIterator = ComponentIterator<Transform>(entityQuery);
+
+    //std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
+    //std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
 
     for (int i = 0; i < entitiesFound; i++) {
-        b2BodyType type = physComponents[i]->bodyType;
+
+        PhysicsComponent* physComponent = physCompIterator.nextComponent();
+        Transform* transform = transformCompIterator.nextComponent();
+
+        b2BodyType type = physComponent->bodyType;
 
         b2BodyDef bodyDef;
         bodyDef.type = type;
-        bodyDef.position.Set(physComponents[i]->x, physComponents[i]->y);
-        bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponents[i]);
+        bodyDef.position.Set(physComponent->x, physComponent->y);
+        bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
 
-        physComponents[i]->box2dBody = world->CreateBody(&bodyDef);
+        physComponent->box2dBody = world->CreateBody(&bodyDef);
 
-        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponents[i]->box2dBody->GetPosition().x, physComponents[i]->box2dBody->GetPosition().y);
+        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 
-        if (physComponents[i]->box2dBody) {
+        if (physComponent->box2dBody) {
 
             b2PolygonShape dynamicBox;
-            dynamicBox.SetAsBox(physComponents[i]->halfWidth, physComponents[i]->halfHeight);
+            dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
 
             b2FixtureDef fixtureDef;
             fixtureDef.shape = &dynamicBox;
-            fixtureDef.density = physComponents[i]->density;
-            fixtureDef.friction = physComponents[i]->friction;
+            fixtureDef.density = physComponent->density;
+            fixtureDef.friction = physComponent->friction;
             fixtureDef.restitution = 0;
             
 
-            physComponents[i]->box2dBody->CreateFixture(&fixtureDef);
+            physComponent->box2dBody->CreateFixture(&fixtureDef);
 
-            transformComponents[i]->setPhysicsBody(physComponents[i]->box2dBody);
+            transform->setPhysicsBody(physComponent->box2dBody);
 
         }
     }
@@ -133,27 +180,34 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
-        std::unique_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
+        std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
         coordinator->GetComponentType<PhysicsComponent>(),
         coordinator->GetComponentType<Transform>(),
         coordinator->GetComponentType<MovementComponent>()
 
-            });
+            }, {});
 
         int entitiesFound = entityQuery->totalEntitiesFound();
-        std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
-        std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
-        std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
+        ComponentIterator<PhysicsComponent> physCompIterator = ComponentIterator<PhysicsComponent>(entityQuery);
+        ComponentIterator<Transform> transformCompIterator = ComponentIterator<Transform>(entityQuery);
+        ComponentIterator<MovementComponent> moveCompIterator = ComponentIterator<MovementComponent>(entityQuery);
+        //std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
+        //std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
+        //std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
 
         for (int i = 0; i < entitiesFound; i++) {
-            if (physComponents[i]->isFlaggedForDelete) {
-                PhysicsWorld::getInstance().world->DestroyBody(physComponents[i]->box2dBody);
-                EntityCoordinator::getInstance().DestroyEntity(physComponents[i]->entityID);
+            PhysicsComponent* physComponent = physCompIterator.nextComponent();
+            Transform* transform = transformCompIterator.nextComponent();
+            MovementComponent* moveComponent = moveCompIterator.nextComponent();
+
+            if (physComponent->isFlaggedForDelete) {
+
+                B2DBodyDeleteGuardFunction(physComponent->box2dBody, physComponent->entityID);
+                EntityCoordinator::getInstance().scheduleEntityToDelete(physComponent->entityID);
                 continue;
             }
-            UpdateTransform(transformComponents[i], physComponents[i]);
-            UpdateMovementComponent(moveComponents[i], physComponents[i]);
-
+            UpdateTransform(transform, physComponent);
+            UpdateMovementComponent(moveComponent, physComponent);
         }
     }
 }
@@ -167,6 +221,56 @@ void PhysicsWorld::DestoryObject(EntityID id)
     physComponent->isFlaggedForDelete = true;
 }
 
+void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind == activeBodies.end())
+    {
+        std::cout << "trying to delete body that is not active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.erase(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        std::cout << "trying to delete an inactive body? Ent: " << id << std::endl;
+    }
+    else
+    {
+        deactivatedBodies.emplace(body);
+    }
+
+    PhysicsWorld::getInstance().world->DestroyBody(body);
+}
+
+void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
+{
+    auto activeFind = activeBodies.find(body);
+    if (activeFind != activeBodies.end())
+    {
+        std::cout << "trying to add body that is already active? Ent: " << id << std::endl;
+    }
+    else
+    {
+        activeBodies.emplace(body);
+    }
+
+    auto deactiveFind = deactivatedBodies.find(body);
+    if (deactiveFind != deactivatedBodies.end())
+    {
+        //std::cout << "resuin? Ent: " << id << std::endl;
+        deactivatedBodies.erase(body);
+    }
+}
+
+ContactListener* PhysicsWorld::GetContactListener()
+{
+    return contactListener;
+}
+
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
     moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
     moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
@@ -177,6 +281,15 @@ void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physC
     transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
 
+void PhysicsWorld::Receive(Event e, void* args)
+{
+    if (e == Event::B2BODY_TO_DELETE)
+    {
+        B2BodyDeleteEventArgs* eventArgs = (B2BodyDeleteEventArgs*)args;
+        B2DBodyDeleteGuardFunction(eventArgs->body, eventArgs->id);
+        delete eventArgs;
+    }
+}
 
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;

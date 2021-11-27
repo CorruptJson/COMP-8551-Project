@@ -6,11 +6,14 @@ class GameManager
 private:
     GameManager();
     EntityID player;
-    int frameCount = 0;
+    EntityID playerRespawner;
+    int gameFrameCount = 0;
 public:
     static GameManager& getInstance();
     EntityID PlayerID();
     void SetPlayerID(EntityID);
-    void countFrame();
-    int getCurrFrame();
+    EntityID PlayerRespawnerID();
+    void SetPlayerRespawnerID(EntityID);
+    void countGameFrame();
+    int getCurrGameFrame();
 };

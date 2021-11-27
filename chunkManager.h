@@ -6,27 +6,31 @@
 #include <vector>
 #include "Types.h"
 #include "chunk.h"
+#include "EntityQuery.h"
+#include "ComponentManager.h"
+#include "ISubject.h"
+#include "PhysicsComponent.h"
 
-class ChunkManager
+class ChunkManager : public ISubject
 {
     friend class EntityCoordinator;
 
 private:
     
-    std::unordered_map<ArchetypeType, Chunk*> chunksByArch;
-    std::unordered_map<Spritesheet, Chunk*> chunksBySpritesheet;
-
-    std::unordered_map<const char*, Chunk*> chunksPerSpritesheet;
+    std::unordered_map<ArchetypeType, std::vector<Chunk*>> chunksByArch;
+    std::unordered_map<std::string, std::vector<Chunk*>> chunksBySpritesheet;
     std::vector<Chunk*> allChunks;
+    std::vector<EntityID> entitiesToDelete;
     int currChunks = 0;
+    int chunkManagerVersion = 0;
 
-    Chunk* createChunk(Archetype arch, Spritesheet spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
+    Chunk* createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
 public:
 
-    EntityID assignNewEntity(Archetype arch, Spritesheet sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
+    EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
-    void releaseEntity(EntityID id);
+    void scheduleToDelete(EntityID id);
 
     template<typename T>
     T& getComponentRef(EntityID ca) {
@@ -39,6 +43,15 @@ public:
     bool entityHasComponent(ComponentType type, EntityID id);
     bool entityHasTag(Tag tag, EntityID id);
     std::vector<Tag> getTagsForEntity(EntityID id);
+    void deleteScheduledEntities();
+    bool doesEntityExist(EntityID id);
+    int getChunkManagerVersion();
+
+    std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
+
+    void deactivateAllEntitiesAndPhysicsBodies();
+
+    void Notify(Event e, void* args) override;
 
     ~ChunkManager();
 };
