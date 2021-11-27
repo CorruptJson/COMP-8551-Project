@@ -27,7 +27,6 @@
 
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
-Sound se;
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -39,6 +38,8 @@ Animator animator;
 GameManager& gameManager = GameManager::getInstance();
 
 Archetype standardArch;
+
+Sound se;
 
 // test entities
 EntityID mike;
@@ -72,8 +73,8 @@ int initialize()
     prevTime = Clock::now();
 
     
-    //se.addSound("brionac.wav");
-    //se.addSound("bullet.wav");
+    se.addMusic("brionac.wav");
+    se.addSound("bullet.wav");
 
     return 0;
 }
@@ -200,8 +201,8 @@ int main() {
     }
 
 
-    se.playMusic("brionac.wav"); // Play background music on loop
-    se.playSound("bullet.wav"); // Play sound effects once
+    se.playMusic(0); // Play background music on loop
+    se.playSound(0); // Play sound effects once
 
 
 

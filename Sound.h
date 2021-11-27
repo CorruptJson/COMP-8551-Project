@@ -7,18 +7,23 @@ public:
     Sound();
     ~Sound();
 
-    //void addSound(const char* path);
+    void addSound(const char* path);
 
-    //void playSound();
+    void addMusic(const char* path);
 
-    void playSound(const char* path);
+    void playSound(const int soundIndex);
 
-    void playMusic(const char* path);
+    //void playSound(const char* path);
+
+    //void playMusic(const char* path);
+
+    void playMusic(const int musicIndex);
 
     void Play_Pause();
 
 private:
     std::vector<Mix_Chunk*> mSoundBank;
+    std::vector<Mix_Music*> mMusicBank;
 
     bool mPaused;
     bool mPlaying;
