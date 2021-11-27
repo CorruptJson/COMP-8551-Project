@@ -1,21 +1,3 @@
-//#include <iostream>
-//#include <windows.h>
-//using namespace std;
-//
-//class Sound {
-//public:
-//
-//    Sound(string inpSound) {
-//        soundUsing = inpSound;
-//    }
-//
-//    void playSoundOnce();
-//    void loopSound();
-//
-//private:
-//    string soundUsing;
-//};
-
 #pragma once
 #include <vector>
 #include <SDL_mixer.h>
@@ -25,10 +7,19 @@ public:
     Sound();
     ~Sound();
 
-    void addSound(const char* path);
+    //void addSound(const char* path);
 
-    void playSound();
+    //void playSound();
+
+    void playSound(const char* path);
+
+    void playMusic(const char* path);
+
+    void Play_Pause();
 
 private:
     std::vector<Mix_Chunk*> mSoundBank;
+
+    bool mPaused;
+    bool mPlaying;
 };

@@ -4,6 +4,7 @@
 #include "InputComponent.h"
 #include "Animation.h"
 #include "Renderer.h"
+#include "Sound.h"
 
 void PlayerControlSystem::processEntity(EntityID id) {
     const int STATE_NORMAL = 0;
@@ -25,6 +26,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+    //Sound se;
 
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);
@@ -122,6 +124,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
         PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
         b2Vec2 bulletVelocity = (stateComponent->faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
         bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
+        //se.playSound("bullet.wav");
     }
     // Testing output
     //std::cout << "xVelocity: " << xVelocity << std::endl;

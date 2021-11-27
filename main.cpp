@@ -24,6 +24,7 @@
 #include "Sound.h"
 
 
+
 //ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
 Sound se;
@@ -53,6 +54,7 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 const int VIEW_WIDTH = 15;
 const int VIEW_HEIGHT = 10;
 
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -70,8 +72,8 @@ int initialize()
     prevTime = Clock::now();
 
     
-    se.addSound("brionac.wav");
-    se.addSound("bullet.wav");
+    //se.addSound("brionac.wav");
+    //se.addSound("bullet.wav");
 
     return 0;
 }
@@ -197,9 +199,11 @@ int main() {
 
     }
 
-    
-    se.playSound();
-    
+
+    se.playMusic("brionac.wav"); // Play background music on loop
+    se.playSound("bullet.wav"); // Play sound effects once
+
+
 
     while (!glfwWindowShouldClose(window))
     {

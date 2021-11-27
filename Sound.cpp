@@ -1,17 +1,7 @@
 #include "Sound.h"
 #include <SDL.h>
+#include <SDL_mixer.h>
 #include <iostream>
-//#include <iostream>
-//#include <windows.h>
-//#include <mmsystem.h>
-
-//void Sound::playSoundOnce() {
-//    //
-//}
-//
-//void Sound::loopSound() {
-//    bool played = PlaySound(TEXT("brionac.wav"), NULL, SND_FILENAME | SND_ASYNC);
-//}
 
 Sound::Sound() 
 {
@@ -34,13 +24,30 @@ Sound::~Sound()
     SDL_Quit();
 }
 
-void Sound::addSound(const char* path)
+//void Sound::addSound(const char* path)
+//{
+//    Mix_Chunk* tmpChunk = Mix_LoadWAV(path);
+//    if (tmpChunk != nullptr)
+//    {
+//        mSoundBank.push_back(tmpChunk);
+//    }
+//    else
+//    {
+//        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Step two: Couldn't init audio: %s", Mix_GetError());
+//    }
+//}
+//
+//void Sound::playSound()
+//{
+//    Mix_PlayChannel(-1, mSoundBank[1], 0);
+//}
+
+void Sound::playSound(const char* path)
 {
     Mix_Chunk* tmpChunk = Mix_LoadWAV(path);
     if (tmpChunk != nullptr)
     {
-        mSoundBank.push_back(tmpChunk);
-        std::cout << (mSoundBank.size() - 1) << "Sound is ready, path: " << path << '\n';
+        Mix_PlayChannel(-1, tmpChunk, 0);
     }
     else
     {
@@ -48,8 +55,35 @@ void Sound::addSound(const char* path)
     }
 }
 
-void Sound::playSound()
+void Sound::playMusic(const char* path)
 {
-    Mix_PlayChannel(-1, mSoundBank[0], 0);
-    std::cout << "Played Sound " << '\n';
+    Mix_Music* tmp_music = Mix_LoadMUS(path);
+
+    if (tmp_music != nullptr)
+    {
+        Mix_PlayMusic(tmp_music, -1);
+        mPlaying = true;
+    }
+    else
+    {
+        SDL_LogError(SDL_LOG_CATEGORY_APPLICATION, "Step two: Couldn't init audio: %s", Mix_GetError());
+    }
+}
+
+void Sound::Play_Pause()
+{
+    if (mPlaying && !mPaused)
+    {
+        Mix_PauseMusic();
+        mPaused = true;
+    }
+    else if (mPlaying && mPaused)
+    {
+        Mix_ResumeMusic();
+        mPaused = false;
+    }
+    else
+    {
+        return;
+    }
 }
