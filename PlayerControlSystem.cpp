@@ -284,13 +284,6 @@ bool PlayerControlSystem::isDead()
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     Sound& se = Sound::getInstance();
-    std::vector<std::string> sfxV;
-    sfxV.push_back("shoot.wav");
-    sfxV.push_back("jump.wav");
-    sfxV.push_back("enemyDeath2.wav");
-    sfxV.push_back("enemyDeath.wav"); // playerDeath
-    sfxV.push_back("flameDeath.wav");
-    se.loadSfx(sfxV);
 
     switch (e) {
     case(Event::INPUT_JUMP):
