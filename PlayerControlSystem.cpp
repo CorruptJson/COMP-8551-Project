@@ -251,7 +251,7 @@ bool PlayerControlSystem::isGrounded()
     while (contactList != nullptr) {
         PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
-        if (coordinator.entityHasTag(PLATFORM, physComponetB->entityID) && contactList->contact->GetManifold()->localPoint.y == -0.5) {
+        if (coordinator.entityHasTag(PLATFORM, physComponetB->entityID) && (contactList->contact->GetManifold()->localPoint.y == -0.5 || contactList->contact->GetManifold()->points[0].localPoint.y == -0.5)) {
             return true;
         }
 
