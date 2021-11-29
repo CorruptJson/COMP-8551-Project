@@ -18,18 +18,20 @@
 #include "TimerSystem.h"
 #include "SpawnSystem.h"
 #include "ScoreSystem.h"
+#include "DeleteTimerSystem.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "Sound.h"
+
 #include "FPSCounter.h"
 
 
-//ChunkManager* chunkManager;
 EntityCoordinator* coordinator;
-
+Sound& se = Sound::getInstance();
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -43,7 +45,7 @@ FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
-// test entities
+// special entities
 EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
@@ -58,28 +60,8 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
-// gets called once when engine starts
-// put initilization code here
-int initialize()
-{  
-    // when the engine starts
-    glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
-    coordinator = &(EntityCoordinator::getInstance());
-    sceneManager = new SceneManager();
-
-    //physicsWorld = new PhysicsWorld();
-    physicsWorld = &(PhysicsWorld::getInstance());
-    playerControl = new PlayerControlSystem();
-
-    coordinator->chunkManager->Attach(physicsWorld);
-
-    prevTime = Clock::now();
-    return 0;
-}
-
-int test(){
-
+void initComponents()
+{
     coordinator->RegisterComponent<Transform>();
     coordinator->RegisterComponent<RenderComponent>();
     coordinator->RegisterComponent<PhysicsComponent>();
@@ -87,10 +69,14 @@ int test(){
     coordinator->RegisterComponent<TimerComponent>();
     coordinator->RegisterComponent<StateComponent>();
     coordinator->RegisterComponent<MovementComponent>();
-    coordinator->RegisterComponent<TextComponent>();
+    coordinator->RegisterComponent<TextComponent>();    
+}
 
+void initSystems()
+{
+    coordinator->addSystem<DeleteTimerSystem>();
     shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
-    
+
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
 
@@ -101,24 +87,64 @@ int test(){
     physicsWorld->GetContactListener()->Attach(playerControl);
     physicsWorld->GetContactListener()->Attach(spawnSys.get());
 
-    sceneManager->CreateEntities();
-
     shared_ptr<ScoreSystem> scoreSys = coordinator->addSystem<ScoreSystem>();
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
     scoreSys->UpdateScore();
-    for (auto const& e : sceneManager->entities) {
-        if (coordinator->entityHasTag(Tag::PLAYER, e)) {
+}
+
+void identifyPlayerAndPlayerSpawner()
+{
+    for (auto const& e : sceneManager->entities)
+    {
+        if (coordinator->entityHasTag(Tag::PLAYER, e))
+        {
             mike = e;
             gameManager.SetPlayerID(mike);
         }
-        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e)) {
+        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
+        {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
+}
 
-    shared_ptr<EntityQuery> query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+// gets called once when engine starts
+// put initilization code here
+int initialize()
+{
+    // when the engine starts
+    glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
+    animator = Animator();
+
+    coordinator = &(EntityCoordinator::getInstance());
+    physicsWorld = &(PhysicsWorld::getInstance());
+    coordinator->chunkManager->Attach(physicsWorld);
+
+    playerControl = new PlayerControlSystem();
+
+    initComponents();
+
+    sceneManager = new SceneManager();
+    sceneManager->CreateEntities();
+
+    initSystems();
+
+    identifyPlayerAndPlayerSpawner();      
+
+    //sound test
+    std::vector<std::string> music;
+    music.push_back("brionac.wav");
+    
+    std::vector<std::string> sfx;
+    sfx.push_back("bullet.wav");
+
+    se.loadSfx(sfx);
+    se.loadMusic(music);
+
+    prevTime = Clock::now();
 
     return 0;
 }
@@ -167,7 +193,7 @@ int runEngine()
         fixedFrameUpdate();
 
         catchupTime -= MS_PER_FRAME;
-        gameManager.countFrame();
+        gameManager.countGameFrame();
     }
         
     // Graphics code runs independently from the fixed-frame game update
@@ -184,30 +210,33 @@ int teardown()
     std::cout << "ending programing" << std::endl;
 
     // when the engine closes
-    renderer->teardown();
+    renderer->teardown(false);
 
-    delete coordinator;
     delete sceneManager;
 
-    delete physicsWorld;
     delete playerControl;
-
 
     return 0;
 }
 
 int main() {
-    initialize();
-    test();
-
-    animator = Animator();
+    initialize();       
 
     for (auto const& e : sceneManager->entities) {
         if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
             
             physicsWorld->AddObject(e);
         }
-    }    
+
+    }
+
+    
+    //se.playMusic("brionac.wav"); // Play background music on loop
+    se.playMusic(0);
+    se.playSound(0);
+    //se.playSound("bullet.wav"); // Play sound effects once
+
+
 
     while (!glfwWindowShouldClose(window))
     {

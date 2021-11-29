@@ -4,6 +4,7 @@
 #include "InputComponent.h"
 #include "Animation.h"
 #include "Renderer.h"
+#include "Sound.h"
 #include <thread>
 
 PlayerControlSystem::PlayerControlSystem()
@@ -42,6 +43,7 @@ void PlayerControlSystem::processEntity(EntityID id) {
     AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+    //Sound se;
 
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);

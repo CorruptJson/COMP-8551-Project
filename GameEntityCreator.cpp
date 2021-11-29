@@ -10,7 +10,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<AnimationComponent>(),
         ec.GetComponentType<MovementComponent>(),
         ec.GetComponentType<StateComponent>()
-
         });
 
     platformArchetype = ec.GetArchetype({
@@ -20,7 +19,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<AnimationComponent>(),
         ec.GetComponentType<MovementComponent>(),
         ec.GetComponentType<StateComponent>()
-
         });
 
     testArchetype = ec.GetArchetype({
@@ -36,10 +34,12 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>()
         });
 
-    //sceneryArchetype = ec.GetArchetype({
-    //    ec.GetComponentType<Transform>(),
-    //    ec.GetComponentType<RenderComponent>()
-    //    });
+    physParticleArchetype = ec.GetArchetype({
+        ec.GetComponentType<Transform>(),
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<PhysicsComponent>(),
+        ec.GetComponentType<DeleteTimer>(),
+        });
 
     StateComponent enemyInitialStates[NUM_OF_ENEMIES];
     enemiesInitialStates[ROACH] = StateComponent {
@@ -57,14 +57,14 @@ GameEntityCreator::GameEntityCreator()
     };
 }
 
-RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool hasAnimation)
+RenderComponent GameEntityCreator::standardRenderComponent(const char* spriteName, bool flipX)
 {
     RenderComponent rc = {
     ShaderName::DEFAULT,
     spriteName,
     0,
     0,
-    hasAnimation
+    flipX
     };
     return rc;
 }
@@ -75,7 +75,7 @@ GameEntityCreator& GameEntityCreator::getInstance()
     return gec;
 }
 
-EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation, int state)
+EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool flipX, int state)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
@@ -85,15 +85,14 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
         spriteName,
         0,
         0,
-        hasAnimation
+        flipX
     };
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
     ec.GetComponent<AnimationComponent>(ent) = {
         Renderer::getInstance()->getAnimation("run", spriteName),
         0.0f, //starts off at zero for currTimeStamp
         0.0f, //starts off at zero for lastTimeStamp
-        0,
-        hasAnimation
+        0
     };
     ec.GetComponent<PhysicsComponent>(ent) = {
         b2_dynamicBody,
@@ -112,7 +111,7 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
 
 EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, false, 0);
     PhysicsWorld::getInstance().AddObject(roach);
     RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
     rendComp.flipX = !facingRight;
@@ -129,7 +128,7 @@ EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight
 
 EntityID GameEntityCreator::CreateSmallRoach(float xPos, float yPos, bool facingRight) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID roach = CreateActor(xPos, yPos, 0.7, 0.7, "Giant_Roach.png", { Tag::ENEMY }, true, 0);
+    EntityID roach = CreateActor(xPos, yPos, 0.7, 0.7, "Giant_Roach.png", { Tag::ENEMY }, false, 0);
     PhysicsWorld::getInstance().AddObject(roach);
     RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
     rendComp.flipX = !facingRight;
@@ -206,19 +205,18 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
     return ent;
 }
 
-EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, bool hasAnimation)
+EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(actorArchetype, spriteName, tags);
 
-    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, hasAnimation);
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
     ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
     ec.GetComponent<AnimationComponent>(ent) = {
         Renderer::getInstance()->getAnimation("flicker", spriteName),
         0.0f, //starts off at zero for currTimeStamp
         0.0f, //starts off at zero for lastTimeStamp
-        0,
-        hasAnimation
+        0
     };
     ec.GetComponent<PhysicsComponent>(ent) = {
         b2_staticBody,
@@ -229,6 +227,27 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
         1.0f,
         0.0f,
         false
+    };
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,const char* spriteName)
+{
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, {});
+    GameManager& gm = GameManager::getInstance();
+    ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
+    ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
+    ec.GetComponent<PhysicsComponent>(ent) = {
+    b2_dynamicBody,
+    0.5f * t.xScale,
+    0.5f * t.xScale,
+    t.xPos,
+    t.yPos,
+    1.0f,
+    0.0f,
+    false
     };
     return ent;
 }

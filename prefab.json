@@ -141,11 +141,6 @@
             "render": {
                 "sprite": "star.png"
             },
-            "physics": {
-                "b2bodytype": "b2_staticBody",
-                "density": 1,
-                "friction": 0
-            },
             "animation": {
                 "animName": "flicker",
                 "isPlaying": true
@@ -180,8 +175,7 @@
                 "yScale": 1
             },
             "render": {
-                "sprite": "fire.png",
-                "hasAnim": true
+                "sprite": "fire.png"
             },
             "animation": {
                 "animName": "burn",

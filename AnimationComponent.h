@@ -9,5 +9,5 @@ struct AnimationComponent {
 
     int currFrame; //the col that the animation is in
 
-    bool isPlaying; //determines if the current animation should be updated
+    bool isPlaying = true; //determines if the current animation should be updated
 };

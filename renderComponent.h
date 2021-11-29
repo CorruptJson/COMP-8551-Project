@@ -16,9 +16,6 @@ struct RenderComponent {
     float rowIndex;
     float colIndex;
 
-    // whether there's an animation component attached to the entity
-    bool hasAnimation;
-
     // whether the texture needs to be flipped
     bool flipX = false;
 

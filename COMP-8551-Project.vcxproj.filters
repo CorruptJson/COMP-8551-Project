@@ -76,6 +76,12 @@
     <Filter Include="Source Files\Events">
       <UniqueIdentifier>{7798eabf-2453-472d-92fb-8dab1ec8ca01}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Sound">
+      <UniqueIdentifier>{037cab01-6959-4201-8d25-791a3d5c6b92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{1a95daa6-94d1-4e85-aba3-6feded7f5539}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -126,9 +132,6 @@
     <ClCompile Include="system_manager.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
-    <ClCompile Include="coordinator.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
     <ClCompile Include="inputSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -156,6 +159,9 @@
     <ClCompile Include="PlayerControlSystem.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Source Files\Sound</Filter>
+    </ClCompile>
     <ClCompile Include="AIControlSystem.cpp">
       <Filter>Source Files\Physics</Filter>
     </ClCompile>
@@ -181,6 +187,9 @@
       <Filter>Source Files\Util</Filter>
     </ClCompile>
     <ClCompile Include="ScoreSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="DeleteTimerSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
@@ -278,9 +287,6 @@
     <ClInclude Include="system_manager.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
-    <ClInclude Include="coordinator.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="system.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -338,6 +344,9 @@
     <ClInclude Include="PlayerState.h">
       <Filter>Header Files\Physics</Filter>
     </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Header Files\Sound</Filter>
+    </ClInclude>
     <ClInclude Include="ComponentIterator.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
@@ -352,9 +361,6 @@
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
-      <Filter>Header Files\Util</Filter>
     </ClInclude>
     <ClInclude Include="AIControlSystem.h">
       <Filter>Header Files\Physics</Filter>
@@ -380,11 +386,17 @@
     <ClInclude Include="Interpolator.h">
       <Filter>Header Files\Util</Filter>
     </ClInclude>
+    <ClInclude Include="DeleteTimer.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\GameManagerStuff</Filter>
+    </ClInclude>
+    <ClInclude Include="DeleteTimerSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png">
-      <Filter>Resource Files\Textures</Filter>
-    </Image>
     <Image Include="bullet.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
@@ -414,5 +426,30 @@
     <Font Include="arial.ttf">
       <Filter>Resource Files\Font</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="menu.json">
+      <Filter>Resource Files</Filter>
+    </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="brionac.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="brionac.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="bullet.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="bullet.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="bullet_short.mp3">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="bullet_short.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -50,7 +50,7 @@ void SpawnSystem::SpawnStar()
     //Create star at location
     float xPos = t->getPosition().x;
     float yPos = t->getPosition().y;
-    EntityID star = GameEntityCreator::getInstance().CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR }, true);
+    EntityID star = GameEntityCreator::getInstance().CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR });
 
     PhysicsWorld::getInstance().AddObject(star);
     hasActiveStar = true;
