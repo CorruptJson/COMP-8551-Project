@@ -62,7 +62,9 @@ const int VIEW_HEIGHT = 10;
 
 //config files
 const std::string prefabs = "prefab.json";
+const std::string menuScene = "menu.json";
 const std::string gameScene = "scene.json";
+
 
 
 void initComponents()
@@ -171,6 +173,19 @@ void fixedFrameUpdate()
         coordinator->deactivateAllEntitiesAndPhysicsBodies();
         sceneManager->EmptyEntitiesList();
         sceneManager->LoadScene(gameScene);
+        sceneManager->CreateEntities();
+        identifyPlayerAndPlayerSpawner();
+        for (auto const& e : sceneManager->entities) {
+            if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
+                physicsWorld->AddObject(e);
+            }
+        }
+    }
+
+    if (InputTracker::getInstance().isKeyJustDown(InputTracker::TWO)) {
+        coordinator->deactivateAllEntitiesAndPhysicsBodies();
+        sceneManager->EmptyEntitiesList();
+        sceneManager->LoadScene(menuScene);
         sceneManager->CreateEntities();
         identifyPlayerAndPlayerSpawner();
         for (auto const& e : sceneManager->entities) {
