@@ -30,6 +30,11 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>()
         });
 
+    uiArchetype = ec.GetArchetype({
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<Transform>()
+        });
+
     starArchetype = ec.GetArchetype({
         ec.GetComponentType<Transform>()
         });
@@ -177,17 +182,6 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
     return ent;
 }
 
-//EntityID GameEntityCreator::CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
-//{
-//    EntityCoordinator& ec = EntityCoordinator::getInstance();
-//    EntityID ent = ec.CreateEntity(sceneryArchetype, spriteName, tags);
-//
-//    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
-//    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
-//
-//    return ent;
-//}
-
 EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
@@ -201,7 +195,25 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
         b
     );
 
+    // no rotation and we will use size to determine the font size, not scales.
     ec.GetComponent<Transform>(ent) = Transform(x, y, 0, 1, 1);
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePanel(float x, float y, float height, float width, float r, float g, float b) {
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(uiArchetype, "", { Tag::UI });
+
+    RenderComponent renderComp = standardRenderComponent("", false);
+
+    // customize the color values
+    renderComp.colorOnly = true;
+    renderComp.color.r = r;
+    renderComp.color.g = g;
+    renderComp.color.b = b;
+    ec.GetComponent<RenderComponent>(ent) = renderComp;
+
+    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, width, height);
     return ent;
 }
 

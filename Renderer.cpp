@@ -687,14 +687,15 @@ void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
 
 /// <summary>
 /// Close the window and clear GLFW stuff if needed.
-/// If the user closes using the 'X' butto
+/// If the user closes using the 'X' button, the function
+/// should be called with closeWindow = false.
 /// </summary>
-/// <param name="closeWindow"></param>
+/// <param name="closeWindow">Whether to close the current window.</param>
 /// <returns></returns>
 int Renderer::teardown(bool closeWindow=true) {
-    glfwDestroyWindow(window);
     if (closeWindow) {
         // call this to destroy glfw
+        glfwDestroyWindow(window);
         glfwTerminate();
     }
     return 0;
