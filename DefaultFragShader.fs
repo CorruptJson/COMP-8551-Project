@@ -10,12 +10,17 @@ out vec4 FragColor;
 
 uniform sampler2D ourTexture;
 uniform vec3 color;
+uniform bool colorOnly;
 
 void main() {
-   vec4 texColor = texture(ourTexture,TexCoord);
+    if (colorOnly) {
+        FragColor = vec4(color, 1.0);
+        return;
+    }
+    vec4 texColor = texture(ourTexture,TexCoord);
 
-   if(texColor.a < 0.1)
-		discard;
+    if(texColor.a < 0.1)
+        discard;
 
-   FragColor = texColor * vec4(color, 1.0);
+    FragColor = texColor * vec4(color, 1.0);
 }

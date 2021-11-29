@@ -628,7 +628,8 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
 
-            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(),
+                camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
@@ -663,7 +664,7 @@ void Renderer::startDrawUIPhase(EntityCoordinator* coordinator) {
 
         //calculate the tex coord from the component.index
         shaderFactory.useDefaultShader(transform->getModelMatrix(), 
-            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
         
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
