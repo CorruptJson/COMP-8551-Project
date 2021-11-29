@@ -29,7 +29,7 @@ public:
     /// <param name="viewMat"></param>
     /// <param name="projectMat"></param>
     /// <param name="color"></param>
-    void useDefaultShader(glm::mat4 modelMat, glm::mat4 viewMat, glm::mat4 projectMat, glm::vec3 color);
+    void useDefaultShader(glm::mat4 modelMat, glm::mat4 viewMat, glm::mat4 projectMat, glm::vec3 color, bool colorOnly);
 
     /// <summary>
     /// Use the text shader. This includes calling the glUseProgram and loading all the uniforms.
