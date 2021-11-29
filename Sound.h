@@ -2,6 +2,15 @@
 #include <vector>
 #include <string>
 #include <SDL_mixer.h>
+#include "Types.h"
+// enum for musics
+enum soundEffects {
+    SHOOT,
+    JUMP,
+    ENEMYDEATH,
+    PLAYERDEATH,
+    FLAMEDEATH
+};
 class Sound 
 {
 public:

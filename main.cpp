@@ -136,7 +136,7 @@ int initialize()
 
     //sound test
     std::vector<std::string> music;
-    music.push_back("brionac.wav");
+    music.push_back("fighting_BGM.wav");
     
     std::vector<std::string> sfx;
     //sfx.push_back("bullet.wav");
@@ -233,7 +233,7 @@ int main() {
     
     //se.playMusic("brionac.wav"); // Play background music on loop
     se.playMusic(0);
-    se.playSound(0);
+    //se.playSound(0);
     //se.playSound("bullet.wav"); // Play sound effects once
 
 

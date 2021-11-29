@@ -283,6 +283,7 @@
     <Media Include="bullet_short.wav" />
     <Media Include="enemyDeath.wav" />
     <Media Include="enemyDeath2.wav" />
+    <Media Include="fighting_BGM.wav" />
     <Media Include="flameDeath.wav" />
     <Media Include="jump.wav" />
     <Media Include="shoot.wav" />
