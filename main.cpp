@@ -139,7 +139,7 @@ int initialize()
     music.push_back("brionac.wav");
     
     std::vector<std::string> sfx;
-    sfx.push_back("bullet.wav");
+    //sfx.push_back("bullet.wav");
 
     se.loadSfx(sfx);
     se.loadMusic(music);
