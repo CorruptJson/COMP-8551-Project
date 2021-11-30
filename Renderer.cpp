@@ -628,7 +628,8 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
 
-            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(),
+                camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
             
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
@@ -663,7 +664,7 @@ void Renderer::startDrawUIPhase(EntityCoordinator* coordinator) {
 
         //calculate the tex coord from the component.index
         shaderFactory.useDefaultShader(transform->getModelMatrix(), 
-            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
         
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -686,14 +687,15 @@ void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
 
 /// <summary>
 /// Close the window and clear GLFW stuff if needed.
-/// If the user closes using the 'X' butto
+/// If the user closes using the 'X' button, the function
+/// should be called with closeWindow = false.
 /// </summary>
-/// <param name="closeWindow"></param>
+/// <param name="closeWindow">Whether to close the current window.</param>
 /// <returns></returns>
 int Renderer::teardown(bool closeWindow=true) {
-    glfwDestroyWindow(window);
     if (closeWindow) {
         // call this to destroy glfw
+        glfwDestroyWindow(window);
         glfwTerminate();
     }
     return 0;
