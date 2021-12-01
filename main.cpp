@@ -110,6 +110,58 @@ void identifyPlayerAndPlayerSpawner()
     }
 }
 
+/// <summary>
+/// Create the game over overlay on top of the current scene.
+/// Note that we are only displaying the top 5 highest scores.
+/// </summary>
+/// <param name="dates">The dates the scores were gotten.</param>
+/// <param name="scores">The scores that were gotten.</param>
+void createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores) {
+    auto& creator = GameEntityCreator::getInstance();
+    int yPos = 5; // use this so we can change the starting yPos easily
+
+    // create the panel
+    creator.CreatePanel(0, 0, 6, 6, 0, 0, 0, {Tag::GAME_OVER_UI});
+
+    // create the title and user score
+    creator.CreateText("GAME OVER", 0, 5, 1, 1, 1, 1.5, { Tag::GAME_OVER_UI });
+    yPos -= 1;
+    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+    yPos -= 1.5;
+
+    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+    yPos -= 1;
+    int highscoresCount = 5;
+    for (int i = 0; i < highscoresCount; i++) {
+        string date;
+        try {
+            date = dates.at(i);
+        }
+        catch (out_of_range) {
+            date = "-----";
+        }
+
+        string score;
+        try {
+            score = scores.at(i);
+        }
+        catch (out_of_range) {
+            score = "0";
+        }
+
+        creator.CreateText(date, -2, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+        creator.CreateText(score, 2, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+        yPos--;
+    }
+
+    // replay instruction
+    creator.CreateText("Press J to replay, Q to quit", 2, yPos, 1, 1, 1, 1, {Tag::GAME_OVER_UI});
+}
+
+void removeGameOverOverlay() {
+
+}
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -145,6 +197,23 @@ int initialize()
     se.loadMusic(music);
 
     prevTime = Clock::now();
+
+    vector<string> dates = {
+        "2020/11/30 11:30",
+        "2020/11/30 11:30",
+        "2020/11/30 11:30",
+        "2020/11/30 11:30",
+        "2020/11/30 11:30",
+    };
+
+    vector<string> scores = {
+        "15",
+        "15",
+        "15",
+        "15",
+        "15",
+    };
+    createGameOverOverlay(10, dates, scores);
 
     return 0;
 }

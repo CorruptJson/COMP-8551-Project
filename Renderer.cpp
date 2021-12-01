@@ -68,6 +68,19 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
 
+    // init the view and window size so we can
+    // setup interpolation for text
+    // note that this requires the Renderer to run its init() first
+    float startDomainX = -(viewWidth / 2);
+    float endDomainX = -startDomainX;
+    float startTargetX = -(windowWidth / 2);
+    float endTargetX = -startTargetX;
+    float startDomainY = -(viewHeight / 2);
+    float endDomainY = -startDomainY;
+    float startTargetY = -(windowHeight / 2);
+    float endTargetY = -startTargetY;
+    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
+    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 
     return 0;
 }
@@ -714,6 +727,14 @@ int Renderer::getWindowWidth() {
 
 int Renderer::getWindowHeight() {
     return windowHeight;
+}
+
+Interpolator* Renderer::getTextXInterpolator() {
+    return &textPosInterpolX;
+}
+
+Interpolator* Renderer::getTextYInterpolator() {
+    return &textPosInterpolY;
 }
 
 Camera* Renderer::getCamera() {

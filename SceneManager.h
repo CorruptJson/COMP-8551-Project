@@ -66,15 +66,7 @@ private:
     json prefabJsonArray;
     unordered_map<std::string, json> prefabMap;
 
-    // for the texts
-    Interpolator textPosInterpolX;
-    Interpolator textPosInterpolY;
-
-
     void ParseEntityValues(EntityValues& ev, const json& jsonObject);
-
-
-
 public:
     
     SceneManager();

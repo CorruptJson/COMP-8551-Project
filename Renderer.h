@@ -39,6 +39,8 @@ public:
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
     int getWindowHeight();
+    Interpolator* getTextXInterpolator();
+    Interpolator* getTextYInterpolator();
     Camera* getCamera();
 private:
     static Renderer* renderer;
@@ -79,7 +81,10 @@ private:
     // helper classes
     ShaderFactory shaderFactory;
     Camera camera;
-
+    // for the texts' transforms
+    // since it relies on screenspace, it fits in Renderer more
+    Interpolator textPosInterpolX;
+    Interpolator textPosInterpolY;
 
     static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
 
