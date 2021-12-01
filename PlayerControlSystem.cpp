@@ -163,8 +163,12 @@ void PlayerControlSystem::processEntity(EntityID id) {
     if (isInvincible) {
         animationComponent->currAnim = animHurting;
         isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+
+        renderComponent->shaderName = ShaderName::DOODLE;
+
         if (!isInvincible) {
             animationComponent->currAnim = animIdle;
+            renderComponent->shaderName = ShaderName::DEFAULT;
             if (isInContactWithEnemy) damaged();
         }
     }
@@ -235,10 +239,26 @@ void PlayerControlSystem::damaged()
         health--;
         std::string healthTxt = "X ";
         tci.nextComponent()->setText(healthTxt + std::to_string(health));
+
+        /*eq = ec->GetEntityQuery({
+            ec->GetComponentType<RenderComponent>()
+            }, { Tag::PLAYER});
+
+        ComponentIterator<RenderComponent> rci(eq);
+
+        rci.nextComponent()->shaderName = ShaderName::DEFAULT;*/
     }
     else
     {
-        // Player is invincible
+        //EntityCoordinator* ec = &EntityCoordinator::getInstance();
+        //// Player is invincible
+        //std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+        //    ec->GetComponentType<RenderComponent>()
+        //    }, { Tag::PLAYER });
+
+        //ComponentIterator<RenderComponent> rci(eq);
+
+        //rci.nextComponent()->shaderName = ShaderName::DOODLE;
     }
 }
 

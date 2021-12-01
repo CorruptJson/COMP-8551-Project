@@ -40,6 +40,7 @@ public:
     int getWindowWidth();
     int getWindowHeight();
     Camera* getCamera();
+
 private:
     static Renderer* renderer;
     // the vertex array object (VAO)

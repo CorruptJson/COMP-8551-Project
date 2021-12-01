@@ -569,7 +569,7 @@ Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
 // called in main()
 int Renderer::update(EntityCoordinator* coordinator) {
     ++counter;
-    if (counter >= 60) {
+    if (counter >= 20) {
         counter = 0;
         time++;
     }
@@ -627,10 +627,16 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
                 || prevRenderComp->rowIndex != renderComp->rowIndex || prevRenderComp->flipX != renderComp->flipX)) {
                 updateTexCoord(*renderComp, spriteInfo);
             }
-
-            shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(),
-                camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
             
+            switch (renderComp->shaderName) {
+                case ShaderName::DEFAULT:
+                    shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
+                    break;
+                case ShaderName::DOODLE:
+                    shaderFactory.useDoodleShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), time);
+                    break;
+            }
+
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
         }
