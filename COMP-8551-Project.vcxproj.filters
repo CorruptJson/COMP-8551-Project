@@ -451,5 +451,26 @@
     <Media Include="bullet_short.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="enemyDeath.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="enemyDeath2.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="flameDeath.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="shoot.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="starShining.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="jump.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="fighting_BGM.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>
