@@ -492,7 +492,7 @@ void Renderer::updateTexCoord(RenderComponent comp, SpriteInfo& info) {
     texCoordsData[7] = topY;  // top left y
 
     glBindBuffer(GL_ARRAY_BUFFER, texCoordBuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
+    glBufferSubData(GL_ARRAY_BUFFER, 0,sizeof(texCoordsData), texCoordsData);
 }
 
 void Renderer::drawText(TextComponent* text, Transform* transform)
@@ -505,35 +505,51 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
-    float x = 0;
-    float y = 0;
+    float textWidth = 0;
     std::string textValue = text->getText();
 
     std::string::const_iterator c;
+    // get the width of all characters so we can shift it 
+    // later. This will get us center aligned.
     for (c = textValue.begin(); c != textValue.end(); c++) {
-        Character ch = characters[*c];
+        Character& ch = characters[*c];
+        textWidth += ch.size.x * text->size;
+    }
+
+    // now draw the text.
+    // however, we will shift the x value to the left so that
+    // the middle of the text line is the origin
+    float x = 0;
+    float y = 0;
+    float offset = textWidth / 2;
+    for (c = textValue.begin(); c != textValue.end(); c++) {
+        Character& ch = characters[*c];
 
         float xpos = x + ch.bearing.x * text->size;
         float ypos = y - (ch.size.y - ch.bearing.y) * text->size;
 
         float w = ch.size.x * text->size;
         float h = ch.size.y * text->size;
+        textWidth += w;
 
         // top right
-        positionsData[0] = xpos + w;
+        positionsData[0] = xpos + w - offset;
         positionsData[1] = ypos + h;
 
         // bottom right
-        positionsData[3] = xpos + w;
+        positionsData[3] = xpos + w - offset;
         positionsData[4] = ypos;
 
         // bottom left
-        positionsData[6] = xpos;
+        positionsData[6] = xpos - offset;
         positionsData[7] = ypos;
 
         // top left
-        positionsData[9] = xpos;
+        positionsData[9] = xpos - offset;
         positionsData[10] = ypos + h;
+
+        //bitshift by 6 to get value in pixels (2^6 = 64)
+        x += (ch.Advance >> 6) * text->size;
 
         glBindBuffer(GL_ARRAY_BUFFER, positionBuffer);
         glBufferData(GL_ARRAY_BUFFER, sizeof(positionsData), positionsData, GL_DYNAMIC_DRAW);
@@ -542,9 +558,6 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
         glBindTexture(GL_TEXTURE_2D, ch.TextureID);
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-
-        //bitshift by 6 to get value in pixels (2^6 = 64)
-        x += (ch.Advance >> 6) * text->size;
     }
 }
 
@@ -617,13 +630,13 @@ void Renderer::startDrawGameObjectsPhase(EntityCoordinator* coordinator) {
             
             switch (renderComp->shaderName) {
                 case ShaderName::DEFAULT:
-                    shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+                    shaderFactory.useDefaultShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
                     break;
                 case ShaderName::DOODLE:
                     shaderFactory.useDoodleShader(transform->getModelMatrix(), camera.getViewMatrix(), camera.getProjectionMatrix(), time);
                     break;
             }
-            
+
             glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
             prevRenderComp = renderComp;
         }
@@ -657,7 +670,7 @@ void Renderer::startDrawUIPhase(EntityCoordinator* coordinator) {
 
         //calculate the tex coord from the component.index
         shaderFactory.useDefaultShader(transform->getModelMatrix(), 
-            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color);
+            camera.getViewMatrix(), camera.getProjectionMatrix(), renderComp->color, renderComp->colorOnly);
         
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
@@ -678,11 +691,19 @@ void Renderer::startDrawTextPhase(EntityCoordinator* coordinator) {
     }
 }
 
-int Renderer::teardown() {
-    // cleanup
-    glfwDestroyWindow(window);
-    // call this to destroy glfw
-    glfwTerminate();
+/// <summary>
+/// Close the window and clear GLFW stuff if needed.
+/// If the user closes using the 'X' button, the function
+/// should be called with closeWindow = false.
+/// </summary>
+/// <param name="closeWindow">Whether to close the current window.</param>
+/// <returns></returns>
+int Renderer::teardown(bool closeWindow=true) {
+    if (closeWindow) {
+        // call this to destroy glfw
+        glfwDestroyWindow(window);
+        glfwTerminate();
+    }
     return 0;
 }
 

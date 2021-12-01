@@ -80,8 +80,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x64;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\lib\x64;$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -121,11 +121,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLFW_INCLUDE_NONE;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetyped.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetyped.lib;box2d.lib;Winmm.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,9 +155,9 @@
     <ClCompile Include="ComponentIterator.cpp" />
     <ClCompile Include="ComponentManager.cpp" />
     <ClCompile Include="ContactListener.cpp" />
+    <ClCompile Include="DeleteTimerSystem.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
-    <ClCompile Include="coordinator.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameEntityCreator.cpp" />
@@ -173,6 +174,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="ShaderFactory.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="TextComponent.cpp" />
@@ -204,7 +206,8 @@
     <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
-    <ClInclude Include="coordinator.h" />
+    <ClInclude Include="DeleteTimer.h" />
+    <ClInclude Include="DeleteTimerSystem.h" />
     <ClInclude Include="ECS.h" />
     <ClInclude Include="EntityCoordinator.h" />
     <ClInclude Include="ComponentManager.h" />
@@ -232,6 +235,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="ShaderFactory.h" />
     <ClInclude Include="ScoreSystem.h" />
     <ClInclude Include="SpawnSystem.h" />
@@ -250,7 +254,6 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="background.png" />
     <Image Include="bullet.png" />
     <Image Include="Edgar_The_Exterminator.png" />
     <Image Include="fire.png" />
@@ -262,6 +265,22 @@
   <ItemGroup>
     <Font Include="arial.ttf" />
     <Font Include="Pixeboy.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Xsd Include="menu.json">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="brionac.mp3" />
+    <Media Include="brionac.wav" />
+    <Media Include="bullet.mp3" />
+    <Media Include="bullet.wav" />
+    <Media Include="bullet_short.mp3" />
+    <Media Include="bullet_short.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

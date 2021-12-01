@@ -1,20 +1,23 @@
 #include "ShaderFactory.h"
 
 // info on the shaders
-// note that the uniform string name and the enum matches each other
+// note that the uniform string name and 
+// the enums' ordering matches each other
 std::string defaultVertShaderPath = "DefaultVertShader.vs";
 std::string defaultFragShaderPath = "DefaultFragShader.fs";
 std::string defaulShaderUniforms[] = {
     "modelMatrix",
     "viewMatrix",
     "projectionMatrix",
-    "color"
+    "color",
+    "colorOnly"
 };
 enum DEFAULT_UNIFORM {
     DEFAULT_MODEL_MAT_UNIFORM,
     DEFAULT_VIEW_MAT_UNIFORM,
     DEFAULT_PROJECT_UNIFORM,
     DEFAULT_COLOR_UNIFORM,
+    DEFAULT_COLOR_ONLY_UNIFORM,
     DEFAULT_UNIFORM_AMOUNT
 };
 
@@ -56,7 +59,7 @@ void ShaderFactory::createAllShaderPrograms() {
     createShaderProgram(ShaderName::DOODLE, doodleVertShaderPath, doodleFragShaderPath, doodleShaderUniforms, DOODLE_UNIFORM_AMOUNT);
 }
 
-void ShaderFactory::useDefaultShader(glm::mat4 modelMat, glm::mat4 viewMat, glm::mat4 projectMat, glm::vec3 color) {
+void ShaderFactory::useDefaultShader(glm::mat4 modelMat, glm::mat4 viewMat, glm::mat4 projectMat, glm::vec3 color, bool colorOnly) {
     Shader& shader = shaders[ShaderName::DEFAULT];
     glUseProgram(shader.program);
 
@@ -64,6 +67,7 @@ void ShaderFactory::useDefaultShader(glm::mat4 modelMat, glm::mat4 viewMat, glm:
     glUniformMatrix4fv(shader.uniformLocations[DEFAULT_VIEW_MAT_UNIFORM], 1, 0, glm::value_ptr(viewMat));
     glUniformMatrix4fv(shader.uniformLocations[DEFAULT_PROJECT_UNIFORM], 1, 0, glm::value_ptr(projectMat));
     glUniform3f(shader.uniformLocations[DEFAULT_COLOR_UNIFORM], color.r, color.g, color.b);
+    glUniform1i(shader.uniformLocations[DEFAULT_COLOR_ONLY_UNIFORM], colorOnly);
 }
 
 void ShaderFactory::useTextShader(glm::mat4 modelMat, glm::mat4 projectMat, glm::vec3 color) {

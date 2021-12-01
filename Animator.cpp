@@ -42,8 +42,6 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
     int entitiesFound = entityQuery->totalEntitiesFound();
     ComponentIterator<RenderComponent> renderComponents = ComponentIterator<RenderComponent>(entityQuery);
     ComponentIterator<AnimationComponent> animComps = ComponentIterator<AnimationComponent>(entityQuery);
-    //std::vector<RenderComponent*> renderComps = entityQuery->getComponentArray<RenderComponent>();
-    //std::vector<AnimationComponent*> animComps = entityQuery->getComponentArray<AnimationComponent>();
     
     for (int i = 0; i < entitiesFound; i++) {
 
@@ -51,29 +49,26 @@ void Animator::updateAnim(EntityCoordinator* coordinator)
         RenderComponent* renderCompnent = renderComponents.nextComponent();
 
         //skips the iteration if rendercomponent doesn't have an animation component
-        if (renderCompnent->hasAnimation) {
+        if (animationComponent->isPlaying) {
+            animationComponent->currTimeStamp = std::clock();
 
-            if (animationComponent->isPlaying) {
-                animationComponent->currTimeStamp = std::clock();
+            if (renderCompnent->rowIndex != animationComponent->currAnim->row)
+                renderCompnent->rowIndex = animationComponent->currAnim->row;
 
-                if (renderCompnent->rowIndex != animationComponent->currAnim->row)
-                    renderCompnent->rowIndex = animationComponent->currAnim->row;
+            //checks frame timing for switching frames
+            if ((animationComponent->currTimeStamp - animationComponent->lastTimeStamp) >= animationComponent->currAnim->speed) {
+                animationComponent->lastTimeStamp = std::clock();
 
-                //checks frame timing for switching frames
-                if ((animationComponent->currTimeStamp - animationComponent->lastTimeStamp) >= animationComponent->currAnim->speed) {
-                    animationComponent->lastTimeStamp = std::clock();
+                animationComponent->currFrame++;
 
-                    animationComponent->currFrame++;
+                //check if it reached the end
+                if (animationComponent->currFrame >= animationComponent->currAnim->endFrame + 1) {
+                    animationComponent->currFrame = animationComponent->currAnim->startFrame;
 
-                    //check if it reached the end
-                    if (animationComponent->currFrame >= animationComponent->currAnim->endFrame + 1) {
-                        animationComponent->currFrame = animationComponent->currAnim->startFrame;
-
-                        //add finite state machine behaviour here *TBD
-                    }
-
-                    renderCompnent->colIndex = animationComponent->currFrame;
+                    //add finite state machine behaviour here *TBD
                 }
+
+                renderCompnent->colIndex = animationComponent->currFrame;
             }
         }
     }

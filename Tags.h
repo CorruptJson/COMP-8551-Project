@@ -18,5 +18,4 @@ enum Tag
     PLAYERSPAWNER,
     TXT_SCORE,
     HEALTH_NUM
-
 };

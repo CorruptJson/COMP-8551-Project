@@ -141,7 +141,7 @@ std::size_t EntityQuery::QueryHash()
     return hash;
 }
 
-void EntityQuery::countFoundEntities()
+void EntityQuery::recountFoundEntities()
 {
     for (int i = 0; i < chunks.size(); i++)
     {

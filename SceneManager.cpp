@@ -148,8 +148,7 @@ void SceneManager::CreateEntities() {
                     ev.spriteName,
                     ev.rowIndex,
                     ev.colIndex,
-                    ev.hasAnimation,
-                    false,
+                    ev.flipX,
                     glm::vec3(ev.colorR, ev.colorG, ev.colorB)
             };
         }
@@ -250,11 +249,11 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.spriteName = (details.contains("sprite"))
                     ? spriteMap[details["sprite"].get<std::string>()] : ev.spriteName;
 
-                ev.hasAnimation = details.contains("hasAnim")
-                    ? details["hasAnim"].get<bool>() : ev.hasAnimation;
-
                 ev.rowIndex = details.contains("rowIndex")
                     ? details["rowIndex"].get<int>() : ev.rowIndex;
+
+                ev.flipX = details.contains("flipX")
+                    ? details["flipX"].get<bool>() : ev.flipX;
 
                 ev.colIndex = details.contains("colIndex")
                     ? details["colIndex"].get<int>() : ev.colIndex;

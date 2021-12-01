@@ -16,12 +16,12 @@ struct RenderComponent {
     float rowIndex;
     float colIndex;
 
-    // whether there's an animation component attached to the entity
-    bool hasAnimation;
-
     // whether the texture needs to be flipped
     bool flipX = false;
 
     //color of the panel/background of the sprite
     glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
+
+    // whether to only display the color (ignore the sprite) onyl
+    bool colorOnly = false;
 };

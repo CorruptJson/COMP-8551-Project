@@ -70,7 +70,7 @@ std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<Compo
     {
         if (find->second->getChunkListVersion() == chunkManagerVersion)
         {
-            find->second->countFoundEntities();
+            find->second->recountFoundEntities();
             return find->second;
         }
         else
