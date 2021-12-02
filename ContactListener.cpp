@@ -109,9 +109,10 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
 
-            xVel = renderComponent->flipX ? stateComponent->speed : -stateComponent->speed;
+            xVel = renderComponent->flipX ? stateComponent->speed + 2 : -stateComponent->speed - 2;
             renderComponent->flipX = renderComponent->flipX ? false : true;
             moveComponent->setVelocity(xVel, yVel);
+            cout << "testing x velocity touching wall: "<<xVel << endl;
         }
         else if (tagSecond == BULLET) {
             cout << "Bullet" << endl;
