@@ -57,7 +57,7 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components and tags
-EntityQuery* EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
+shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
     int chunkManagerVersion = chunkManager->getChunkManagerVersion();
     //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
@@ -77,7 +77,7 @@ EntityQuery* EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTy
         else
         {
             // cached query outdated
-            EntityQuery* query = find->second;
+            shared_ptr<EntityQuery> query = find->second;
             query->searchChunks(chunkManager->allChunks,chunkManagerVersion);
             return query;
         }        
@@ -85,7 +85,7 @@ EntityQuery* EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTy
     else
     {
         // no cached query found
-        EntityQuery* query = new EntityQuery(compTypes,tags);
+        shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes,tags);
         query->searchChunks(chunkManager->allChunks,chunkManagerVersion);
         queryCache.emplace(hash,query);
         return query;
@@ -132,7 +132,7 @@ void EntityCoordinator::deactivateAllEntitiesAndPhysicsBodies()
     chunkManager->deactivateAllEntitiesAndPhysicsBodies();
 }
 
-std::shared_ptr<ChunkManager> EntityCoordinator::ChunkManager()
+std::shared_ptr<ChunkManager> EntityCoordinator::GetChunkManager()
 {
     return chunkManager;
 }
