@@ -24,7 +24,7 @@ extern GLFWwindow* window;
 
 enum class WindowSize {
     WINDOWED,
-    FULL_WINDOWED,
+    MAXIMIZED_WINDOWED,
     FULLSCREEN
 };
 
@@ -41,6 +41,8 @@ public:
     int getWindowHeight();
     Interpolator* getTextXInterpolator();
     Interpolator* getTextYInterpolator();
+    void setWindowWidth(int width);
+    void setWindowHeight(int height);
     Camera* getCamera();
 
     // event receiver
@@ -90,7 +92,9 @@ private:
     Interpolator textPosInterpolX;
     Interpolator textPosInterpolY;
 
-    static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
+    GLFWwindow* setupGLFW(WindowSize windowSize);
+    static void windowedResizedCallback(GLFWwindow* window, int width, int height);
+    void resizeWindow(int width, int height);
 
     void prepareGLBuffers();
     void resetVerticesData(bool flipUV);

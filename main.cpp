@@ -180,7 +180,7 @@ int initialize()
 {
     // when the engine starts
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::FULL_WINDOWED);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::MAXIMIZED_WINDOWED);
     animator = Animator();
 
     coordinator = &(EntityCoordinator::getInstance());

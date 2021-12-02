@@ -38,7 +38,7 @@ GLFWwindow* window;
 /// <returns></returns>
 int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize) {
     backgroundColor = newBackgroundColor;
-    window = Renderer::setupGLFW(&windowWidth, &windowHeight, windowSize);
+    window = setupGLFW(windowSize);
     if (window == NULL)
     {
         glfwTerminate();
@@ -53,6 +53,12 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     // we are drawing on
     // arguments are (bottom-left-x, bottom-left-y, top-right-x, top-right-y)
     glViewport(0, 0, windowWidth, windowHeight);
+
+    // can only resize after we init glad and glfw so that
+    // we can update the viewport properly
+    if (windowSize == WindowSize::MAXIMIZED_WINDOWED) {
+        glfwMaximizeWindow(window);
+    }
 
     // enable transparency for the images
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -83,6 +89,79 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 
     return 0;
+}
+
+GLFWwindow* Renderer::setupGLFW(WindowSize windowSize) {
+    // glfw helps with creating windows, contexts
+    // and receiving inputs and events
+    // init this to call its function
+    // see https://www.khronos.org/opengl/wiki/Getting_Started#Initialization
+    // for more info
+    glfwInit();
+
+    // tell glfw we are using version 3.3
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // tell glfw the opengl functions that we want to use 
+    // core profile is a preset list of functions that opengl can init
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
+    // Find the main monitor and its screen size
+    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+    const GLFWvidmode* monitorInfo = glfwGetVideoMode(monitor);
+    GLFWmonitor* fullScreenMonitor;
+
+    glfwWindowHint(GLFW_RED_BITS, monitorInfo->redBits);
+    glfwWindowHint(GLFW_GREEN_BITS, monitorInfo->greenBits);
+    glfwWindowHint(GLFW_BLUE_BITS, monitorInfo->blueBits);
+    glfwWindowHint(GLFW_REFRESH_RATE, monitorInfo->refreshRate);
+
+    // use this to make the window match screen size but still in windowed mode
+    if (windowSize == WindowSize::FULLSCREEN) {
+        windowWidth = monitorInfo->width;
+        windowHeight = monitorInfo->height;
+        fullScreenMonitor = monitor;
+    }
+    // for WINDOWED and MAXIMIZED_WINDOWED mode
+    // the reason why MAXIMIZED_WINDOWED starts small because
+    // the width and height of the monitor is only suitable for
+    // full screen
+    else  {
+        windowWidth = monitorInfo->width * 2 / 3;
+        windowHeight = monitorInfo->height * 2 / 3;
+        fullScreenMonitor = NULL;
+    }
+
+    // Make a window with size 800x800 with name of "Edgar the Exterminator"
+    // pass in monitor for the 4rd param if we want it to be full screen
+    GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Edgar the Exterminator", fullScreenMonitor, NULL);
+    if (window == NULL) {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        return NULL;
+    }
+
+    // tell glfw that the window we just create will
+    // be used to draw on
+    glfwMakeContextCurrent(window);
+
+    // set the window's icon
+    GLFWimage icon;
+    int colChannel;
+    icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
+    glfwSetWindowIcon(window, 1, &icon);
+    stbi_image_free(icon.pixels); // free memory
+
+    // attach resizing callback
+    glfwSetWindowSizeCallback(window, windowedResizedCallback);
+
+    if (windowSize == WindowSize::WINDOWED) {
+        // set window in the center of the monitor
+        // origin (0, 0) is top left corner
+        glfwSetWindowPos(window, (monitorInfo->width - windowWidth) / 2, (monitorInfo->height - windowHeight) / 2);
+    }
+
+    delete monitor, monitorInfo;
+    return window;
 }
 
 // change all the positions and tex coordinates back to original
@@ -252,73 +331,33 @@ GLuint Renderer::createTexBuffer(int height, int width, unsigned char* imgData) 
     return id;
 }
 
-GLFWwindow* Renderer::setupGLFW(int *width, int *height, WindowSize windowSize) {
-    // glfw helps with creating windows, contexts
-    // and receiving inputs and events
-    // init this to call its function
-    // see https://www.khronos.org/opengl/wiki/Getting_Started#Initialization
-    // for more info
-    glfwInit();
 
-    // tell glfw we are using version 3.3
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    // tell glfw the opengl functions that we want to use 
-    // core profile is a preset list of functions that opengl can init
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-    // Find the main monitor and its screen size
-    GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-    const GLFWvidmode* monitorInfo = glfwGetVideoMode(monitor);
-    GLFWmonitor* fullScreenMonitor;
-
-    // use this to make the window match screen size but still in windowed mode
-    if (windowSize == WindowSize::FULL_WINDOWED) {
-        *width = monitorInfo->width;
-        *height = monitorInfo->height;
-        fullScreenMonitor = NULL;
-    }
-    else if (windowSize == WindowSize::FULLSCREEN) {
-        *width = monitorInfo->width;
-        *height = monitorInfo->height;
-        fullScreenMonitor = monitor;
-    }
-    else {
-        // also for WINDOWED mode
-        *width = 1800;
-        *height = 1200;
-        fullScreenMonitor = NULL;
-    }
-
-    // Make a window with size 800x800 with name of "Edgar the Exterminator"
-    // pass in monitor for the 4rd param if we want it to be full screen
-    GLFWwindow* window = glfwCreateWindow(*width, *height, "Edgar the Exterminator", fullScreenMonitor, NULL);
-    if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
-        return NULL;
-    }
-
-    if (windowSize == WindowSize::WINDOWED) {
-        // set window in the center of the monitor
-        // origin is top left corner
-        glfwSetWindowPos(window, (monitorInfo->width - *width) / 2, (monitorInfo->height - *height) / 2);
-    }
-
-    // set the window's icon
-    GLFWimage icon;
-    int colChannel;
-    icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
-    glfwSetWindowIcon(window, 1, &icon);
-    stbi_image_free(icon.pixels); // free memory
-
-    // tell glfw that the window we just create will
-    // be used to draw on
-    glfwMakeContextCurrent(window);
-
-    delete monitor, monitorInfo;
-    return window;
+/// <summary>
+/// Reset the OpenGL context so it fits the new window.
+/// </summary>
+/// <param name="window">Pointer to a GLFW window.</param>
+/// <param name="width">New width.</param>
+/// <param name="height">New height.</param>
+void Renderer::windowedResizedCallback(GLFWwindow* window, int width, int height) {
+    // update renderer info
+    Renderer::getInstance()->resizeWindow(width, height);
 }
 
+
+/// <summary>
+/// Resize the window. This can only be called after GLFW is init
+/// and GLAD is loaded. This is because it uses glViewPort, which
+/// requires the above two things to be init.
+/// </summary>
+/// <param name="width"></param>
+/// <param name="height"></param>
+void Renderer::resizeWindow(int width, int height) {
+    setWindowWidth(width);
+    setWindowHeight(height);
+
+    // update the OpenGL viewport
+    glViewport(0, 0, width, height);
+}
 
 /// <summary>
 /// Load the FreeType text library and the fonts we'll use for the game.
@@ -760,6 +799,16 @@ Interpolator* Renderer::getTextXInterpolator() {
 
 Interpolator* Renderer::getTextYInterpolator() {
     return &textPosInterpolY;
+}
+
+void Renderer::setWindowWidth(int width) {
+    if (windowWidth < 0) return;
+    windowWidth = width;
+}
+
+void Renderer::setWindowHeight(int height) {
+    if (windowHeight < 0) return;
+    windowHeight = height;
 }
 
 Camera* Renderer::getCamera() {
