@@ -73,10 +73,16 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     textProjectionMat = glm::ortho(-(float)windowWidth / 2, (float)windowWidth / 2, -(float)windowHeight / 2, (float)windowHeight / 2);
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
+    updateInterpolation();
 
-    // init the view and window size so we can
-    // setup interpolation for text
-    // note that this requires the Renderer to run its init() first
+    return 0;
+}
+
+void Renderer::updateInterpolation() {
+    // update the interpolation values
+    float viewWidth = camera.getViewWidth();
+    float viewHeight = camera.getViewHeight();
+
     float startDomainX = -(viewWidth / 2);
     float endDomainX = -startDomainX;
     float startTargetX = -(windowWidth / 2);
@@ -87,9 +93,8 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     float endTargetY = -startTargetY;
     textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
     textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
-
-    return 0;
 }
+
 
 GLFWwindow* Renderer::setupGLFW(WindowSize windowSize) {
     // glfw helps with creating windows, contexts
@@ -339,7 +344,6 @@ GLuint Renderer::createTexBuffer(int height, int width, unsigned char* imgData) 
 /// <param name="width">New width.</param>
 /// <param name="height">New height.</param>
 void Renderer::windowedResizedCallback(GLFWwindow* window, int width, int height) {
-    // update renderer info
     Renderer::getInstance()->resizeWindow(width, height);
 }
 
@@ -357,8 +361,8 @@ void Renderer::resizeWindow(int width, int height) {
 
     // update the OpenGL viewport
     glViewport(0, 0, width, height);
+    updateInterpolation();
 }
-
 /// <summary>
 /// Load the FreeType text library and the fonts we'll use for the game.
 /// </summary>

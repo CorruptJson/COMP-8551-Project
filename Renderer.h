@@ -95,6 +95,7 @@ private:
     GLFWwindow* setupGLFW(WindowSize windowSize);
     static void windowedResizedCallback(GLFWwindow* window, int width, int height);
     void resizeWindow(int width, int height);
+    void updateInterpolation();
 
     void prepareGLBuffers();
     void resetVerticesData(bool flipUV);
