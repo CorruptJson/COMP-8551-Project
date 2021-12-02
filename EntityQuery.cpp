@@ -174,6 +174,7 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVers
 
 void EntityQuery::recountFoundEntities()
 {
+    entityCount = 0;
     for (int i = 0; i < chunks.size(); i++)
     {
         entityCount += chunks[i]->getCurrEntCount();
@@ -192,7 +193,7 @@ int EntityQuery::chunkCount()
 
 int EntityQuery::getChunkListVersion()
 {
-    return 0;
+    return chunkListVersion;
 }
 
 Chunk* EntityQuery::chunk(int i)

@@ -24,10 +24,13 @@ private:
     int versions[ENTITIES_PER_CHUNK]{};
     int entToDat[ENTITIES_PER_CHUNK]{};
     int datToEnt[ENTITIES_PER_CHUNK]{};
+    bool deleteEnt[ENTITIES_PER_CHUNK] = { false };
+    bool entitiesToDelete = false;
 
     Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void addComponentArrays(Archetype t, ComponentSizeMap& sizemap);
+    void releaseEntity(int datIndex);
 
     template<typename T>
     void addComponentArray()
@@ -47,10 +50,12 @@ private:
 
 public:
 
+
     //template<typename T, typename ... args>
     //static friend Chunk* createChunk(int chunkID, Archetype arch, std::string spriteSheet, ComponentSizeMap& sizemap);
 
     Chunk() = delete;
+
 
     std::string GetSpritesheet();
 
@@ -114,6 +119,8 @@ public:
     bool isDataIndexActive(int i);
 
     void releaseAllEntities();
+    void flagEntToDelete(EntityID id);
+    void releaseFlaggedEntities();
 
     ~Chunk();
 };

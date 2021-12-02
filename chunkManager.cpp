@@ -70,7 +70,8 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::
 
 void ChunkManager::scheduleToDelete(EntityID id)
 {
-    entitiesToDelete.push_back(id);    
+    //entitiesToDelete.push_back(id);    
+    allChunks[id.chunkID]->flagEntToDelete(id);
 };
 
 int ChunkManager::GetEntityCount()
@@ -122,12 +123,19 @@ int ChunkManager::getChunkCount()
 }
 
 void ChunkManager::deleteScheduledEntities() {
-    for (int i = 0; i < entitiesToDelete.size(); i++)
+    //for (int i = 0; i < entitiesToDelete.size(); i++)
+    //{
+    //    EntityID id = entitiesToDelete[i];
+    //    allChunks[id.chunkID]->releaseEntity(id);
+    //}
+    //entitiesToDelete.clear();
+    for (int i = 0; i < allChunks.size(); i++)
     {
-        EntityID id = entitiesToDelete[i];
-        allChunks[id.chunkID]->releaseEntity(id);
+        if (allChunks[i]->entitiesToDelete)
+        {
+            allChunks[i]->releaseFlaggedEntities();
+        }        
     }
-    entitiesToDelete.clear();
 }
 
 bool ChunkManager::doesEntityExist(EntityID id)

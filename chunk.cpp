@@ -83,37 +83,13 @@ void Chunk::releaseEntity(EntityID id)
         throw "trying to delete entity that no longer exists?";
     }
 
-    //int releasedEntDataIndex = entToDat[id.index];
-    //int lastIndex = currEnts - 1;
-    //if (releasedEntDataIndex != lastIndex)
-    //{
-    //    std::vector<ComponentType> componentTypes = arch.getComponentTypeArray();              
+    releaseEntity(id.index);
+}
 
-    //    // must swap data!
-    //    for (int i = 0; i < componentArrays.size(); i++)
-    //    {
-    //        ComponentType type = componentTypes[i];
-    //        ComponentSize c_size = ComponentManager::GetComponentSize(type);
-    //        // these are the starting data indexes for this specific component type
-    //        int releasedCDataIndex = releasedEntDataIndex * c_size;
-    //        int lastCDatIndex = lastIndex * c_size;
-    //        Byte* arr = componentArrays[type];
-    //        for (int j = 0; j < c_size; j++)
-    //        {
-    //            int indexR = releasedCDataIndex + j;
-    //            int indexL = lastCDatIndex + j;
-    //            arr[indexR] = arr[indexL];
-    //        }
-    //    }
-
-    //    // then swap indexes
-    //    int entWithLastData = datToEnt[lastIndex];
-    //    datToEnt[releasedEntDataIndex] = entWithLastData;
-    //    entToDat[entWithLastData] = releasedEntDataIndex;
-    //}
-
-    entToDat[id.index] = -1;
-    versions[id.index] = versions[id.index] + 1;
+void Chunk::releaseEntity(int datIndex)
+{
+    entToDat[datIndex] = -1;
+    versions[datIndex] = versions[datIndex] + 1;
     currEnts--;
 }
 
@@ -172,4 +148,23 @@ void Chunk::releaseAllEntities()
         }
     }
     currEnts = 0;
+}
+
+void Chunk::flagEntToDelete(EntityID id)
+{
+    deleteEnt[id.index] = true;
+    entitiesToDelete = true;
+}
+
+void Chunk::releaseFlaggedEntities()
+{
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        if (deleteEnt[i])
+        {
+            releaseEntity(i);
+            deleteEnt[i] = false;
+        }
+    }
+    entitiesToDelete = false;
 }
