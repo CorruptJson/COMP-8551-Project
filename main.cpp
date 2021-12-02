@@ -79,6 +79,7 @@ void initSystems()
 
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
+    inputSys->Attach(renderer);
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());

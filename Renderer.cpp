@@ -765,3 +765,10 @@ Interpolator* Renderer::getTextYInterpolator() {
 Camera* Renderer::getCamera() {
     return &camera;
 }
+
+void Renderer::Receive(Event e, void* args)
+{
+    if (e == Event::INPUT_QUIT) {
+        glfwSetWindowShouldClose(window, 1);
+    }
+}

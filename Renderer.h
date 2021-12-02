@@ -28,7 +28,7 @@ enum class WindowSize {
     FULLSCREEN
 };
 
-class Renderer
+class Renderer : public IObserver
 {
 public:
 
@@ -42,6 +42,9 @@ public:
     Interpolator* getTextXInterpolator();
     Interpolator* getTextYInterpolator();
     Camera* getCamera();
+
+    // event receiver
+    void Receive(Event e, void* args) override;
 
 private:
     static Renderer* renderer;
