@@ -21,9 +21,9 @@ private:
     std::string spritesheet;
     int currEnts = 0;
     std::unordered_map<ComponentType, Byte*> componentArrays{};
-    int versions[ENTITIES_PER_CHUNK]{};
-    int entToDat[ENTITIES_PER_CHUNK]{};
-    int datToEnt[ENTITIES_PER_CHUNK]{};
+    int versions[ENTITIES_PER_CHUNK] = {-1};
+    int entToDat[ENTITIES_PER_CHUNK] = {-1};
+    //int datToEnt[ENTITIES_PER_CHUNK]{};
     bool deleteEnt[ENTITIES_PER_CHUNK] = { false };
     bool entitiesToDelete = false;
 

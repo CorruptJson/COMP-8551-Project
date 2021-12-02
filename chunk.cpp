@@ -9,11 +9,10 @@ Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vec
     this->spritesheet = spriteSheet;
     this->tags = tags;
     addComponentArrays(archetype, sizemap);
-    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
-    {
-        entToDat[i] = -1;
-        datToEnt[i] = i;
-    }
+    //for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    //{
+    //    datToEnt[i] = i;
+    //}
 }
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
@@ -118,9 +117,9 @@ bool Chunk::hasTag(Tag tag)
 
 EntityID Chunk::entityAtComponentIndex(int i)
 {
-    int entIndex = datToEnt[i];
+    //int entIndex = datToEnt[i];
 
-    return { chunkID,entIndex,versions[entIndex] };
+    return { chunkID,i,versions[i] };
 }
 
 bool Chunk::doesEntityExist(EntityID id)
