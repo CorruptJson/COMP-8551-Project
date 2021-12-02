@@ -39,6 +39,8 @@ public:
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
     int getWindowHeight();
+    Interpolator* getTextXInterpolator();
+    Interpolator* getTextYInterpolator();
     Camera* getCamera();
 
 private:
@@ -80,7 +82,10 @@ private:
     // helper classes
     ShaderFactory shaderFactory;
     Camera camera;
-
+    // for the texts' transforms
+    // since it relies on screenspace, it fits in Renderer more
+    Interpolator textPosInterpolX;
+    Interpolator textPosInterpolY;
 
     static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
 
@@ -91,6 +96,7 @@ private:
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void drawText(TextComponent* text, Transform* transform);
+    int findTextWidth(TextComponent* text);
     void startDrawGameObjectsPhase(EntityCoordinator* coordinator);
     void startDrawUIPhase(EntityCoordinator* coordinator);
     void startDrawTextPhase(EntityCoordinator* coordinator);

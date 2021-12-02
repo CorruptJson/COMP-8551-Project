@@ -68,6 +68,19 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
 
+    // init the view and window size so we can
+    // setup interpolation for text
+    // note that this requires the Renderer to run its init() first
+    float startDomainX = -(viewWidth / 2);
+    float endDomainX = -startDomainX;
+    float startTargetX = -(windowWidth / 2);
+    float endTargetX = -startTargetX;
+    float startDomainY = -(viewHeight / 2);
+    float endDomainY = -startDomainY;
+    float startTargetY = -(windowHeight / 2);
+    float endTargetY = -startTargetY;
+    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
+    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 
     return 0;
 }
@@ -505,47 +518,51 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
-    float textWidth = 0;
-    std::string textValue = text->getText();
+    float textWidth = text->getTextWidth();
+    // if textWidth hasn't been init yet
+    // find it then store it => don't have
+    // to recalculate this multiple times.
+    if (textWidth == 0) {
+        text->setTextWidth(findTextWidth(text));
+    }
 
-    std::string::const_iterator c;
-    // get the width of all characters so we can shift it 
-    // later. This will get us center aligned.
-    for (c = textValue.begin(); c != textValue.end(); c++) {
-        Character& ch = characters[*c];
-        textWidth += ch.size.x * text->size;
+    // this offset is used to align the text the way that we wanted
+    float offset = 0;
+    if (text->align == TextAlign::CENTER) {
+        offset = textWidth / 2;
+    }
+    else if (text->align == TextAlign::RIGHT) {
+        offset = textWidth;
     }
 
     // now draw the text.
-    // however, we will shift the x value to the left so that
-    // the middle of the text line is the origin
     float x = 0;
     float y = 0;
-    float offset = textWidth / 2;
+    std::string textValue = text->getText();
+    std::string::const_iterator c;
     for (c = textValue.begin(); c != textValue.end(); c++) {
         Character& ch = characters[*c];
 
-        float xpos = x + ch.bearing.x * text->size;
+        float xpos = x + ch.bearing.x * text->size - offset;
         float ypos = y - (ch.size.y - ch.bearing.y) * text->size;
 
         float w = ch.size.x * text->size;
         float h = ch.size.y * text->size;
-        textWidth += w;
 
         // top right
-        positionsData[0] = xpos + w - offset;
+        positionsData[0] = xpos + w;
         positionsData[1] = ypos + h;
 
         // bottom right
-        positionsData[3] = xpos + w - offset;
+        positionsData[3] = xpos + w;
         positionsData[4] = ypos;
 
         // bottom left
-        positionsData[6] = xpos - offset;
+        positionsData[6] = xpos;
         positionsData[7] = ypos;
 
         // top left
-        positionsData[9] = xpos - offset;
+        positionsData[9] = xpos;
         positionsData[10] = ypos + h;
 
         //bitshift by 6 to get value in pixels (2^6 = 64)
@@ -559,6 +576,21 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
+}
+
+int Renderer::findTextWidth(TextComponent* text) {
+    std::string::const_iterator c;
+    string textValue = text->getText();
+    int textWidth = 0;
+
+    // get the width of all characters so we can shift it 
+    // later. This will get us center or right aligned.
+    for (c = textValue.begin(); c != textValue.end(); c++) {
+        Character& ch = characters[*c];
+        textWidth += (ch.Advance >> 6) * text->size;
+    }
+
+    return textWidth;
 }
 
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
@@ -720,6 +752,14 @@ int Renderer::getWindowWidth() {
 
 int Renderer::getWindowHeight() {
     return windowHeight;
+}
+
+Interpolator* Renderer::getTextXInterpolator() {
+    return &textPosInterpolX;
+}
+
+Interpolator* Renderer::getTextYInterpolator() {
+    return &textPosInterpolY;
 }
 
 Camera* Renderer::getCamera() {

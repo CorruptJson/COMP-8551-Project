@@ -1,6 +1,5 @@
 #pragma once
 #include <stdexcept>
-#include <cmath>
 
 class Interpolator {
 public:
