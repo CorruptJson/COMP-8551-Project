@@ -163,7 +163,14 @@ void createGameOverOverlay(int playerScore, vector<string> dates, vector<string>
 }
 
 void removeGameOverOverlay() {
+    std::shared_ptr<EntityQuery> query = coordinator->GetEntityQuery(
+        { }, { Tag::GAME_OVER_UI });
 
+
+    int uiFound = query->totalEntitiesFound();
+    for (int i = 0; i < uiFound; i++) {
+
+    }
 }
 
 // gets called once when engine starts
@@ -202,22 +209,23 @@ int initialize()
 
     prevTime = Clock::now();
 
-    vector<string> dates = {
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-    };
+    // code to make the game over overlay
+    //vector<string> dates = {
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //};
 
-    vector<string> scores = {
-        "15",
-        "5",
-        "15",
-        "15",
-        "5",
-    };
-    createGameOverOverlay(10, dates, scores);
+    //vector<string> scores = {
+    //    "15",
+    //    "5",
+    //    "15",
+    //    "15",
+    //    "5",
+    //};
+    //createGameOverOverlay(10, dates, scores);
 
     return 0;
 }

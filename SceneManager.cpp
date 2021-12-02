@@ -56,6 +56,12 @@ unordered_map <std::string, const char*> spriteMap = {
     {"fire.png", "fire.png"}
 };
 
+unordered_map <std::string, TextAlign> textAlignMap = {
+    {"left", TextAlign::LEFT},
+    {"center", TextAlign::CENTER},
+    {"right", TextAlign::RIGHT}
+};
+
 
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
@@ -178,7 +184,7 @@ void SceneManager::CreateEntities() {
                 ev.colorR,
                 ev.colorG,
                 ev.colorB,
-                TextAlign::CENTER
+                ev.align
             );
         }
     }
@@ -302,6 +308,9 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
                 ev.size = details.contains("size")
                     ? details["size"].get<float>() : ev.size;
+
+                ev.align = details.contains("align")
+                    ? textAlignMap[details["align"].get<std::string>()] : ev.align;
 
                 break;
             }

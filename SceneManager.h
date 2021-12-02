@@ -54,6 +54,8 @@ struct EntityValues {
     // share the colors with the RenderComponent
     std::string text = "";
     float size = 1.0;
+    // specify the alignment of the text
+    TextAlign align = TextAlign::CENTER;
 };
 
 // Scene Manager class
