@@ -208,7 +208,7 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePanel(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags) {
+EntityID GameEntityCreator::CreateUI(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
 
     // ensure we always have an UI tag

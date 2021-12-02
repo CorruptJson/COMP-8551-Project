@@ -124,15 +124,15 @@ void createGameOverOverlay(int playerScore, vector<string> dates, vector<string>
     float yPos = viewHeight / 2 - 2; // use this so we can change the starting yPos easily
 
     // create the panel
-    // fill 80% of the screen
-    creator.CreatePanel(0, 0, viewHeight * 0.8, viewWidth * 0.6, 0, 0, 0, {Tag::GAME_OVER_UI});
+    creator.CreateUI(0, 0, viewHeight * 0.8, viewWidth * 0.6, 0, 0, 0, {Tag::GAME_OVER_UI});
 
     // create the title and user score
     creator.CreateText("GAME OVER", 0, yPos, 1, 0, 0, 1.5, { Tag::GAME_OVER_UI });
-    yPos -= 0.5;
-    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 0, 0, 1, { Tag::GAME_OVER_UI });
+    yPos -= 0.75;
+    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
     yPos -= 1;
 
+    // create the highscore section
     creator.CreateText("HIGHSCORES", 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
     yPos -= 1;
     int highscoresCount = 5;
@@ -159,7 +159,7 @@ void createGameOverOverlay(int playerScore, vector<string> dates, vector<string>
     }
 
     // replay instruction
-    yPos -= 0.5;
+    yPos -= 0.25;
     creator.CreateText("J to replay. Q to quit", 0, yPos, 1, 0, 0, 1, {Tag::GAME_OVER_UI});
 }
 
