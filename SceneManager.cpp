@@ -56,25 +56,16 @@ unordered_map <std::string, const char*> spriteMap = {
     {"fire.png", "fire.png"}
 };
 
+unordered_map <std::string, TextAlign> textAlignMap = {
+    {"left", TextAlign::LEFT},
+    {"center", TextAlign::CENTER},
+    {"right", TextAlign::RIGHT}
+};
+
 
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-
-    // init the view and window size so we can
-    // setup interpolation for text
-    // note that this requires the Renderer to run its init() first
-    Camera* camera = renderer->getCamera();
-    float startDomainX = -(camera->getViewWidth() / 2);
-    float endDomainX = -startDomainX;
-    float startTargetX = -(renderer->getWindowWidth() / 2);
-    float endTargetX = -startTargetX;
-    float startDomainY = -(camera->getViewHeight() / 2);
-    float endDomainY = -startDomainY;
-    float startTargetY = -(renderer->getWindowHeight() / 2);
-    float endTargetY = -startTargetY;
-    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
-    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 }
 
 
@@ -134,8 +125,8 @@ void SceneManager::CreateEntities() {
             // change the transform so it uses the proper interpolation
             // only if textComponent is included
             if (ev.textComponent) {
-                transform.setInterpolatorX(&textPosInterpolX);
-                transform.setInterpolatorY(&textPosInterpolY);
+                transform.setInterpolatorX(renderer->getTextXInterpolator());
+                transform.setInterpolatorY(renderer->getTextYInterpolator());
             }
             coordinator->GetComponent<Transform>(ent) = transform;
         }
@@ -190,7 +181,8 @@ void SceneManager::CreateEntities() {
                 ev.size,
                 ev.colorR,
                 ev.colorG,
-                ev.colorB
+                ev.colorB,
+                ev.align
             );
         }
     }
@@ -314,6 +306,9 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
                 ev.size = details.contains("size")
                     ? details["size"].get<float>() : ev.size;
+
+                ev.align = details.contains("align")
+                    ? textAlignMap[details["align"].get<std::string>()] : ev.align;
 
                 break;
             }

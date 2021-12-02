@@ -111,6 +111,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
 
+            ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 0.0f, 0.0f);
+
             if (--stateComponent->health == 0) {
                 ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
             }
@@ -166,6 +168,11 @@ void ContactListener::EndContact(b2Contact* contact) {
             Notify(Event::C_END_PLAYER_ENEMY, nullptr);
         }
     }
+
+    //if (tagFirst == ENEMY) {
+    //    if (tagSecond == BULLET)
+    //        //ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 1.0f, 1.0f);
+    //}
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {

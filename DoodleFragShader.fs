@@ -12,7 +12,7 @@ uniform sampler2D ourTexture;
 uniform float time;
 
 void main() {
-    float f_range = (sin(time) + 1.0)/2.0;
+    float f_range = (sin(time * 100) + 1.0) / 2.0;
     vec4 color = texture(ourTexture, TexCoord);
     color.a *= f_range;
     FragColor = color;//texture(ourTexture, TexCoord);// * f_range;

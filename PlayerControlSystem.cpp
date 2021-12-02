@@ -7,6 +7,7 @@
 #include "Sound.h"
 #include <thread>
 
+
 PlayerControlSystem::PlayerControlSystem()
 {
     invincibleTimer = new b2Timer();
@@ -162,8 +163,12 @@ void PlayerControlSystem::processEntity(EntityID id) {
     if (isInvincible) {
         animationComponent->currAnim = animHurting;
         isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
+
+        renderComponent->shaderName = ShaderName::DOODLE;
+
         if (!isInvincible) {
             animationComponent->currAnim = animIdle;
+            renderComponent->shaderName = ShaderName::DEFAULT;
             if (isInContactWithEnemy) damaged();
         }
     }
@@ -234,10 +239,26 @@ void PlayerControlSystem::damaged()
         health--;
         std::string healthTxt = "X ";
         tci.nextComponent()->setText(healthTxt + std::to_string(health));
+
+        /*eq = ec->GetEntityQuery({
+            ec->GetComponentType<RenderComponent>()
+            }, { Tag::PLAYER});
+
+        ComponentIterator<RenderComponent> rci(eq);
+
+        rci.nextComponent()->shaderName = ShaderName::DEFAULT;*/
     }
     else
     {
-        // Player is invincible
+        //EntityCoordinator* ec = &EntityCoordinator::getInstance();
+        //// Player is invincible
+        //std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
+        //    ec->GetComponentType<RenderComponent>()
+        //    }, { Tag::PLAYER });
+
+        //ComponentIterator<RenderComponent> rci(eq);
+
+        //rci.nextComponent()->shaderName = ShaderName::DOODLE;
     }
 }
 
@@ -280,18 +301,24 @@ bool PlayerControlSystem::isDead()
 
     return false;
 }
+
 void PlayerControlSystem::Receive(Event e, void* args)
 {
+    Sound& se = Sound::getInstance();
+
     switch (e) {
     case(Event::INPUT_JUMP):
         jump();
+        se.playSound(JUMP);
         break;
     case(Event::INPUT_SHOOT):
         shoot();
+        se.playSound(SHOOT);
         break;
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
         damaged();
+        se.playSound(PLAYERDEATH);
         break;
     case(Event::C_END_PLAYER_ENEMY):
         isInContactWithEnemy = false;
@@ -299,6 +326,7 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::C_PLAYER_FIRE):
         invincibleTimer->Reset();
         health = 0;
+        se.playSound(FLAMEDEATH);
         break;
     }
 }
