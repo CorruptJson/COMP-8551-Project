@@ -21,13 +21,12 @@
 //    }    
 //}
 
-EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags,int _chunkListVersion)
+EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags)
 {
     compTypes = _compTypes;
     std::sort(compTypes.begin(), compTypes.end());
     tags = _tags;
     std::sort(tags.begin(), tags.end());
-    chunkListVersion = _chunkListVersion;
 
     //size_t hash = QueryHash();
     //auto find = cache.find(hash);
@@ -52,6 +51,36 @@ std::vector<Chunk*> EntityQuery::foundChunks()
     return chunks;
 }
 
+std::size_t EntityQuery::TagsHash(std::vector<Tag>& tags)
+{
+    std::size_t seed = tags.size();
+    for (int i = 0; i < tags.size(); i++)
+    {
+        seed ^= tags[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+}
+
+std::size_t EntityQuery::ComponentTypesHash(std::vector<ComponentType>& compTypes)
+{
+    std::size_t seed = compTypes.size();
+    for (int i = 0; i < compTypes.size(); i++)
+    {
+        seed ^= compTypes[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    }
+    return seed;
+}
+
+std::size_t EntityQuery::QueryParamterHash(std::vector<ComponentType>& compTypes, std::vector<Tag>& tags)
+{
+    std::size_t seed = compTypes.size() + tags.size();
+    std::size_t hash = ComponentTypesHash(compTypes);
+    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    hash = TagsHash(tags);
+    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+    return seed;
+}
+
 EntityQuery::EntityQuery(std::vector<Chunk*> chosenChunks)
 {
     chunks = chosenChunks;
@@ -61,7 +90,7 @@ EntityQuery::EntityQuery(std::vector<Chunk*> chosenChunks)
     }
 }
 
-void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
+void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVersion)
 {
     for (int i = 0; i < allChunks.size(); i++)
     {
@@ -110,36 +139,38 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks)
             //std::cout << "found chunk " << std::endl;
         }
     }
+    chunkListVersion = _chunkListVersion;
 }
 
-std::size_t EntityQuery::ComponentTypesHash()
-{
-    std::size_t seed = compTypes.size();
-    for (int i = 0; i < compTypes.size(); i++)
-    {
-        seed ^= compTypes[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    }
-    return seed;
-}
-
-std::size_t EntityQuery::TagsHash()
-{
-    std::size_t seed = tags.size();
-    for (int i = 0; i < tags.size(); i++)
-    {
-        seed ^= tags[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    }
-    return seed;
-}
-
-std::size_t EntityQuery::QueryHash()
-{
-    std::size_t seed = compTypes.size() << 8;
-    seed += tags.size();
-    std::size_t hash = ComponentTypesHash();
-    hash ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-    return hash;
-}
+//std::size_t EntityQuery::ComponentTypesHash()
+//{
+//    std::size_t seed = compTypes.size();
+//    for (int i = 0; i < compTypes.size(); i++)
+//    {
+//        seed ^= compTypes[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//    }
+//    return seed;
+//}
+//
+//std::size_t EntityQuery::TagsHash()
+//{
+//    std::size_t seed = tags.size();
+//    for (int i = 0; i < tags.size(); i++)
+//    {
+//        seed ^= tags[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//    }
+//    return seed;
+//}
+//
+//std::size_t EntityQuery::QueryHash()
+//{
+//    std::size_t seed = compTypes.size() + tags.size();
+//    std::size_t hash = ComponentTypesHash();
+//    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//    hash = TagsHash();
+//    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+//    return seed;
+//}
 
 void EntityQuery::recountFoundEntities()
 {

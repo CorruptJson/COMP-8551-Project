@@ -11,7 +11,7 @@
 #include "system_manager.h"
 #include "ComponentIterator.h"
 
-using EntityQueryCache = std::unordered_map<size_t, std::shared_ptr<EntityQuery> >;
+using EntityQueryCache = std::unordered_map<size_t, EntityQuery* >;
 
 class EntityCoordinator
 {
@@ -77,7 +77,7 @@ public:
 
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components and tags
-    std::shared_ptr<EntityQuery> GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags);
+    EntityQuery* GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags);
 
     uint32_t GetEntityCount();
 
@@ -106,7 +106,9 @@ public:
 
     bool doesEntityExist(EntityID id);
 
-    std::shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
+    shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
 
     void deactivateAllEntitiesAndPhysicsBodies();
+
+    std::shared_ptr<ChunkManager> ChunkManager();
 };

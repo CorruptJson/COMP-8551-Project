@@ -158,6 +158,8 @@
     <ClCompile Include="DeleteTimerSystem.cpp" />
     <ClCompile Include="entityCoordinator.cpp" />
     <ClCompile Include="EntityQuery.cpp" />
+    <ClCompile Include="EntityQueryParameters.cpp" />
+    <ClCompile Include="EntityQueryResults.cpp" />
     <ClCompile Include="file_manager.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="GameEntityCreator.cpp" />
@@ -213,6 +215,7 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentIterator.h" />
     <ClInclude Include="EntityQuery.h" />
+    <ClInclude Include="EntityQueryParameters.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
