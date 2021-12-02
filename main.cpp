@@ -79,6 +79,7 @@ void initSystems()
 
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
+    inputSys->Attach(renderer);
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
@@ -179,7 +180,7 @@ int initialize()
 {
     // when the engine starts
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::MAXIMIZED_WINDOWED);
     animator = Animator();
 
     coordinator = &(EntityCoordinator::getInstance());
