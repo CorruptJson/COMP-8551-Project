@@ -182,7 +182,11 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
     return ent;
 }
 
-EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags) {
+    return CreateText(scoreTxt, x, y, r, g, b, size, TextAlign::CENTER, tags);
+}
+
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, TextAlign align, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
@@ -192,7 +196,8 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
         size,
         r,
         g,
-        b
+        b,
+        align
     );
 
     // no rotation and we will use size to determine the font size, not scales.

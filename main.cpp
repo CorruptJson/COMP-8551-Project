@@ -152,12 +152,13 @@ void createGameOverOverlay(int playerScore, vector<string> dates, vector<string>
             score = "0";
         }
 
-        creator.CreateText(date, -1, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
-        creator.CreateText(score, 3, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+        creator.CreateText(date, -3, yPos, 1, 1, 1, 1, TextAlign::LEFT, { Tag::GAME_OVER_UI });
+        creator.CreateText(score, 3, yPos, 1, 1, 1, 1, TextAlign::RIGHT, { Tag::GAME_OVER_UI });
         yPos -= 0.75;
     }
 
     // replay instruction
+    yPos -= 0.5;
     creator.CreateText("J to replay. Q to quit", 0, yPos, 1, 0, 0, 1, {Tag::GAME_OVER_UI});
 }
 

@@ -41,6 +41,7 @@ public:
     EntityID CreateSmallRoach(float xPos, float yPos, bool facingRight);
     EntityID CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, int state);
     EntityID CreateTimer(const char* spriteName, std::vector<Tag> tags);
+    EntityID CreateText(std::string text, float x, float y, float r, float g, float b, float size, TextAlign align, std::vector<Tag> tags);
     EntityID CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags);
     EntityID CreatePanel(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags);
     EntityID CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);

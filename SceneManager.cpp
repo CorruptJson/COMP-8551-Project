@@ -177,7 +177,8 @@ void SceneManager::CreateEntities() {
                 ev.size,
                 ev.colorR,
                 ev.colorG,
-                ev.colorB
+                ev.colorB,
+                TextAlign::CENTER
             );
         }
     }

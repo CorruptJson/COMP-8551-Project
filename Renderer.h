@@ -95,6 +95,7 @@ private:
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void drawText(TextComponent* text, Transform* transform);
+    int findTextWidth(TextComponent* text);
     void startDrawGameObjectsPhase(EntityCoordinator* coordinator);
     void startDrawUIPhase(EntityCoordinator* coordinator);
     void startDrawTextPhase(EntityCoordinator* coordinator);

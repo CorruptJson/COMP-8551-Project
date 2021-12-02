@@ -518,23 +518,28 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
     //need to tell opengl which sampler2d to use
     glActiveTexture(GL_TEXTURE0);
 
-    float textWidth = 0;
-    std::string textValue = text->getText();
+    float textWidth = text->getTextWidth();
+    // if textWidth hasn't been init yet
+    // find it then store it => don't have
+    // to recalculate this multiple times.
+    if (textWidth == 0) {
+        text->setTextWidth(findTextWidth(text));
+    }
 
-    std::string::const_iterator c;
-    // get the width of all characters so we can shift it 
-    // later. This will get us center aligned.
-    for (c = textValue.begin(); c != textValue.end(); c++) {
-        Character& ch = characters[*c];
-        textWidth += (ch.Advance >> 6) * text->size;
+    // this offset is used to align the text the way that we wanted
+    float offset = 0;
+    if (text->align == TextAlign::CENTER) {
+        offset = textWidth / 2;
+    }
+    else if (text->align == TextAlign::RIGHT) {
+        offset = textWidth;
     }
 
     // now draw the text.
-    // however, we will shift the x value to the left so that
-    // the middle of the text line is the origin
     float x = 0;
     float y = 0;
-    float offset = textWidth / 2;
+    std::string textValue = text->getText();
+    std::string::const_iterator c;
     for (c = textValue.begin(); c != textValue.end(); c++) {
         Character& ch = characters[*c];
 
@@ -571,6 +576,21 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
 
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     }
+}
+
+int Renderer::findTextWidth(TextComponent* text) {
+    std::string::const_iterator c;
+    string textValue = text->getText();
+    int textWidth = 0;
+
+    // get the width of all characters so we can shift it 
+    // later. This will get us center or right aligned.
+    for (c = textValue.begin(); c != textValue.end(); c++) {
+        Character& ch = characters[*c];
+        textWidth += (ch.Advance >> 6) * text->size;
+    }
+
+    return textWidth;
 }
 
 Animation* Renderer::getAnimation(std::string animName, std::string spriteName)
