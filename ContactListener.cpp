@@ -69,7 +69,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     else if (tagFirst == ENEMY) {
         //cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
-            /*cout << "Platform" << endl;
+            cout << "Platform" << endl;
             cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
             cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
@@ -78,8 +78,15 @@ void ContactListener::BeginContact(b2Contact* contact) {
             StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
 
             float xVel = moveComponent->getVelocity().x;
-            float yVel = moveComponent->getVelocity().y;*/
-
+            float yVel = moveComponent->getVelocity().y;
+            if (moveComponent->getVelocity().x <=0) {
+                if (!renderComponent->flipX) {
+                    moveComponent->setVelocity(2.0f, yVel);
+                }
+                else {
+                    moveComponent->setVelocity(-2.0f, yVel);
+                }
+            }
 
             /*if (contact->GetManifold()->localPoint.x == -0.5) {
                 renderComponent->flipX = false;
