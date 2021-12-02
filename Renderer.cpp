@@ -526,7 +526,7 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
     // later. This will get us center aligned.
     for (c = textValue.begin(); c != textValue.end(); c++) {
         Character& ch = characters[*c];
-        textWidth += ch.size.x * text->size;
+        textWidth += (ch.Advance >> 6) * text->size;
     }
 
     // now draw the text.
@@ -538,27 +538,26 @@ void Renderer::drawText(TextComponent* text, Transform* transform)
     for (c = textValue.begin(); c != textValue.end(); c++) {
         Character& ch = characters[*c];
 
-        float xpos = x + ch.bearing.x * text->size;
+        float xpos = x + ch.bearing.x * text->size - offset;
         float ypos = y - (ch.size.y - ch.bearing.y) * text->size;
 
         float w = ch.size.x * text->size;
         float h = ch.size.y * text->size;
-        textWidth += w;
 
         // top right
-        positionsData[0] = xpos + w - offset;
+        positionsData[0] = xpos + w;
         positionsData[1] = ypos + h;
 
         // bottom right
-        positionsData[3] = xpos + w - offset;
+        positionsData[3] = xpos + w;
         positionsData[4] = ypos;
 
         // bottom left
-        positionsData[6] = xpos - offset;
+        positionsData[6] = xpos;
         positionsData[7] = ypos;
 
         // top left
-        positionsData[9] = xpos - offset;
+        positionsData[9] = xpos;
         positionsData[10] = ypos + h;
 
         //bitshift by 6 to get value in pixels (2^6 = 64)

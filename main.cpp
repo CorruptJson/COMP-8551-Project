@@ -118,18 +118,21 @@ void identifyPlayerAndPlayerSpawner()
 /// <param name="scores">The scores that were gotten.</param>
 void createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores) {
     auto& creator = GameEntityCreator::getInstance();
-    int yPos = 5; // use this so we can change the starting yPos easily
+    float viewHeight = Renderer::getInstance()->getCamera()->getViewHeight();
+    float viewWidth = Renderer::getInstance()->getCamera()->getViewWidth();
+    float yPos = viewHeight / 2 - 2; // use this so we can change the starting yPos easily
 
     // create the panel
-    creator.CreatePanel(0, 0, 6, 6, 0, 0, 0, {Tag::GAME_OVER_UI});
+    // fill 80% of the screen
+    creator.CreatePanel(0, 0, viewHeight * 0.8, viewWidth * 0.6, 0, 0, 0, {Tag::GAME_OVER_UI});
 
     // create the title and user score
-    creator.CreateText("GAME OVER", 0, 5, 1, 1, 1, 1.5, { Tag::GAME_OVER_UI });
+    creator.CreateText("GAME OVER", 0, yPos, 1, 0, 0, 1.5, { Tag::GAME_OVER_UI });
+    yPos -= 0.5;
+    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 0, 0, 1, { Tag::GAME_OVER_UI });
     yPos -= 1;
-    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
-    yPos -= 1.5;
 
-    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+    creator.CreateText("HIGHSCORES", 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
     yPos -= 1;
     int highscoresCount = 5;
     for (int i = 0; i < highscoresCount; i++) {
@@ -149,13 +152,13 @@ void createGameOverOverlay(int playerScore, vector<string> dates, vector<string>
             score = "0";
         }
 
-        creator.CreateText(date, -2, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
-        creator.CreateText(score, 2, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
-        yPos--;
+        creator.CreateText(date, -1, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+        creator.CreateText(score, 3, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+        yPos -= 0.75;
     }
 
     // replay instruction
-    creator.CreateText("Press J to replay, Q to quit", 2, yPos, 1, 1, 1, 1, {Tag::GAME_OVER_UI});
+    creator.CreateText("J to replay. Q to quit", 0, yPos, 1, 0, 0, 1, {Tag::GAME_OVER_UI});
 }
 
 void removeGameOverOverlay() {
@@ -208,10 +211,10 @@ int initialize()
 
     vector<string> scores = {
         "15",
+        "5",
         "15",
         "15",
-        "15",
-        "15",
+        "5",
     };
     createGameOverOverlay(10, dates, scores);
 
