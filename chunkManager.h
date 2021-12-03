@@ -4,12 +4,15 @@
 #include <exception>
 #include <unordered_map>
 #include <vector>
+#include <functional>
 #include "Types.h"
 #include "chunk.h"
 #include "EntityQuery.h"
 #include "ComponentManager.h"
 #include "ISubject.h"
 #include "PhysicsComponent.h"
+
+const static std::string noSprite = "NO_SPRITE";
 
 class ChunkManager : public ISubject
 {
@@ -27,7 +30,8 @@ private:
     Chunk* createChunk(Archetype arch, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
 public:
-
+      
+    //static ChunkManager& getInstance();
     EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void scheduleToDelete(EntityID id);
@@ -52,6 +56,7 @@ public:
     void deactivateAllEntitiesAndPhysicsBodies();
 
     void Notify(Event e, void* args) override;
+    void NotifyToDestroyB2Body(EntityID id, b2Body* bod);
 
     ~ChunkManager();
 };

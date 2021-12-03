@@ -1,6 +1,4 @@
-#include <iostream>
 #include "chunk.h"
-
 
 Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
@@ -9,11 +7,10 @@ Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vec
     this->spritesheet = spriteSheet;
     this->tags = tags;
     addComponentArrays(archetype, sizemap);
-    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
-    {
-        entToDat[i] = -1;
-        datToEnt[i] = i;
-    }
+    std::fill_n(versions, ENTITIES_PER_CHUNK, 0);
+    std::fill_n(entToDat, ENTITIES_PER_CHUNK, -1);
+    std::fill_n(deleteEnt, ENTITIES_PER_CHUNK, false);
+    hasPhysics = archetype.hasComponentType(ComponentManager::GetComponentType<PhysicsComponent>());
 }
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
@@ -59,6 +56,8 @@ EntityID Chunk::assignNewEntity()
                 return id;
             }
         }
+
+        std::cout << "chunk not full, but not slot found? " << id;
     }
     else
     {
@@ -69,7 +68,16 @@ EntityID Chunk::assignNewEntity()
     id.index = -1;
     id.version = -1;
 
-    std::cout << "could not assign entity to chunk";
+    std::cout << "could not assign entity to chunk" << std::endl;
+    std::cout << "chunk id: " << chunkID << std::endl;
+    std::cout << "chunk sprite: " << spritesheet << std::endl;
+    std::cout << "chunk ent count : " << currEnts << std::endl;
+    std::cout << "ent to dat values: ";
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        std::cout << entToDat[i];
+    }
+    std::cout << std::endl;
 
     return id;
 
@@ -83,37 +91,13 @@ void Chunk::releaseEntity(EntityID id)
         throw "trying to delete entity that no longer exists?";
     }
 
-    //int releasedEntDataIndex = entToDat[id.index];
-    //int lastIndex = currEnts - 1;
-    //if (releasedEntDataIndex != lastIndex)
-    //{
-    //    std::vector<ComponentType> componentTypes = arch.getComponentTypeArray();              
+    releaseEntity(id.index);
+}
 
-    //    // must swap data!
-    //    for (int i = 0; i < componentArrays.size(); i++)
-    //    {
-    //        ComponentType type = componentTypes[i];
-    //        ComponentSize c_size = ComponentManager::GetComponentSize(type);
-    //        // these are the starting data indexes for this specific component type
-    //        int releasedCDataIndex = releasedEntDataIndex * c_size;
-    //        int lastCDatIndex = lastIndex * c_size;
-    //        Byte* arr = componentArrays[type];
-    //        for (int j = 0; j < c_size; j++)
-    //        {
-    //            int indexR = releasedCDataIndex + j;
-    //            int indexL = lastCDatIndex + j;
-    //            arr[indexR] = arr[indexL];
-    //        }
-    //    }
-
-    //    // then swap indexes
-    //    int entWithLastData = datToEnt[lastIndex];
-    //    datToEnt[releasedEntDataIndex] = entWithLastData;
-    //    entToDat[entWithLastData] = releasedEntDataIndex;
-    //}
-
-    entToDat[id.index] = -1;
-    versions[id.index] = versions[id.index] + 1;
+void Chunk::releaseEntity(int datIndex)
+{
+    entToDat[datIndex] = -1;
+    versions[datIndex] = versions[datIndex] + 1;
     currEnts--;
 }
 
@@ -142,9 +126,9 @@ bool Chunk::hasTag(Tag tag)
 
 EntityID Chunk::entityAtComponentIndex(int i)
 {
-    int entIndex = datToEnt[i];
+    //int entIndex = datToEnt[i];
 
-    return { chunkID,entIndex,versions[entIndex] };
+    return { chunkID,i,versions[i] };
 }
 
 bool Chunk::doesEntityExist(EntityID id)
@@ -172,4 +156,45 @@ void Chunk::releaseAllEntities()
         }
     }
     currEnts = 0;
+}
+
+void Chunk::flagEntToDelete(EntityID id)
+{
+    deleteEnt[id.index] = true;
+    entitiesToDelete = true;
+}
+
+void Chunk::scheduleAllEntitiesToDelete()
+{
+    if (getCurrEntCount() == 0)
+    {
+        return;
+    }
+    entitiesToDelete = true;
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        if (entToDat[i] != -1)
+        {
+            deleteEnt[i] = true;
+        }        
+    }
+}
+
+void Chunk::releaseFlaggedEntities(ISubject& subject)
+{
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        if (deleteEnt[i])
+        {
+            if (hasPhysics)
+            {
+                EntityID id = { chunkID,i,versions[i] };
+                B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{ id,getComponentReference<PhysicsComponent>(id).box2dBody };
+                subject.Notify(Event::B2BODY_TO_DELETE, (void*)args);
+            }
+            releaseEntity(i);
+            deleteEnt[i] = false;
+        }
+    }
+    entitiesToDelete = false;
 }

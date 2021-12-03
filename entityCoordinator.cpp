@@ -57,32 +57,36 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components and tags
-std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
+shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
     int chunkManagerVersion = chunkManager->getChunkManagerVersion();
     //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
-    std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
+    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
     //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
 
-    size_t hash = query->QueryHash();
+    size_t hash = EntityQuery::QueryParamterHash(compTypes,tags);
     auto find = queryCache.find(hash);
-    if (find != queryCache.end() && find->second->getChunkListVersion() == chunkManagerVersion)
+    if (find != queryCache.end())
     {
         if (find->second->getChunkListVersion() == chunkManagerVersion)
         {
+            // cached query is up to date
             find->second->recountFoundEntities();
             return find->second;
         }
         else
         {
-            query->searchChunks(chunkManager->allChunks);
-            find->second = query;
+            // cached query outdated
+            shared_ptr<EntityQuery> query = find->second;
+            query->searchChunks(chunkManager->allChunks,chunkManagerVersion);
             return query;
         }        
     }
     else
     {
-        query->searchChunks(chunkManager->allChunks);
+        // no cached query found
+        shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes,tags);
+        query->searchChunks(chunkManager->allChunks,chunkManagerVersion);
         queryCache.emplace(hash,query);
         return query;
     }
@@ -118,7 +122,7 @@ bool EntityCoordinator::doesEntityExist(EntityID id)
     return chunkManager->doesEntityExist(id);
 }
 
-std::shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::string spritesheet)
+shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::string spritesheet)
 {
     return chunkManager->entitiesWithSpriteSheet(spritesheet);
 }
@@ -126,4 +130,9 @@ std::shared_ptr<EntityQuery> EntityCoordinator::entitiesWithSpriteSheet(std::str
 void EntityCoordinator::deactivateAllEntitiesAndPhysicsBodies()
 {
     chunkManager->deactivateAllEntitiesAndPhysicsBodies();
+}
+
+std::shared_ptr<ChunkManager> EntityCoordinator::GetChunkManager()
+{
+    return chunkManager;
 }

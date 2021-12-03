@@ -17,7 +17,7 @@ class EntityQuery
 private:
     // entity count
     int entityCount = 0;
-    int chunkListVersion = 0;
+    int chunkListVersion = -1;
 
     // chunks
     std::vector<Chunk*> chunks;
@@ -31,9 +31,8 @@ private:
     // tags to search for
     std::vector<Tag> tags;
 
-    void searchChunks(std::vector<Chunk*>& allChunks);
-    
-    
+    void searchChunks(std::vector<Chunk*>& allChunks, int _chunkListVersion);
+        
 public:
 
     EntityQuery();
@@ -41,9 +40,9 @@ public:
     int chunkCount();
     int getChunkListVersion();
     Chunk* chunk(int i);
-    std::size_t ComponentTypesHash();
-    std::size_t TagsHash();
-    std::size_t QueryHash();
+    //std::size_t ComponentTypesHash();
+    //std::size_t TagsHash();
+    //std::size_t QueryHash();
 
     void recountFoundEntities();
 
@@ -54,7 +53,7 @@ public:
     //EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks, EntityQueryCache& cache);
 
     // entity queries perform their search when they are created
-    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags, int _chunkListVersion);
+    EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags);
 
     // get a vector of pointers for the components of the specified type
     // the components belonging to the entities found in the query
@@ -96,17 +95,10 @@ public:
     }
 
     std::vector<Chunk*> foundChunks();
+    
+    void DeleteFoundEntities();
 
-    //// a component iterator can be used to access the entities found by the query
-    //template<typename T>
-    //ComponentIterator& getComponentIterator()
-    //{
-    //    ComponentType type = ComponentManager::GetComponentType<T>();
-    //    if (std::find(compTypes.begin(), compTypes.end(), type) == compTypes.end())
-    //    {
-    //        throw "cannot get component array from query: query does not contain this type";
-    //    }
-
-
-    //}
+    static std::size_t TagsHash(std::vector<Tag>& tags);
+    static std::size_t ComponentTypesHash(std::vector<ComponentType>& compTypes);
+    static std::size_t QueryParamterHash(std::vector<ComponentType>& compTypes, std::vector<Tag>& tags);
 };

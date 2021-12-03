@@ -1,4 +1,6 @@
 #pragma once
+#include "Types.h"
+
 enum class Event {
     //Input events
     INPUT_JUMP,

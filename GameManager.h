@@ -8,6 +8,7 @@ private:
     EntityID player;
     EntityID playerRespawner;
     int gameFrameCount = 0;
+    bool gamePaused = false;
 public:
     static GameManager& getInstance();
     EntityID PlayerID();
@@ -16,4 +17,7 @@ public:
     void SetPlayerRespawnerID(EntityID);
     void countGameFrame();
     int getCurrGameFrame();
+    bool GameIsPaused();
+    void PauseGame();
+    void UnpauseGame();
 };

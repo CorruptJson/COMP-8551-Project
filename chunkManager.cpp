@@ -21,19 +21,28 @@ Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::v
     }
 
     // see if this sprite is already present in the 'chunksBySprite' map
-    auto findSprite = chunksBySpritesheet.find(spriteSheet);
-    if (findSprite != chunksBySpritesheet.end())
+    if (spriteSheet != noSprite)
     {
-        findSprite->second.push_back(newChunk);
-    }
-    else
-    {
-        chunksBySpritesheet.emplace(spriteSheet, std::vector<Chunk*>());
-        chunksBySpritesheet[spriteSheet].push_back(newChunk);
+        auto findSprite = chunksBySpritesheet.find(spriteSheet);
+        if (findSprite != chunksBySpritesheet.end())
+        {
+            findSprite->second.push_back(newChunk);
+        }
+        else
+        {
+            chunksBySpritesheet.emplace(spriteSheet, std::vector<Chunk*>());
+            chunksBySpritesheet[spriteSheet].push_back(newChunk);
+        }
     }
 
     return newChunk;
 }
+
+//ChunkManager& ChunkManager::getInstance()
+//{
+//    static ChunkManager chunkManager;
+//    return chunkManager;
+//}
 
 EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
@@ -70,7 +79,8 @@ EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::
 
 void ChunkManager::scheduleToDelete(EntityID id)
 {
-    entitiesToDelete.push_back(id);    
+    //entitiesToDelete.push_back(id);    
+    allChunks[id.chunkID]->flagEntToDelete(id);
 };
 
 int ChunkManager::GetEntityCount()
@@ -108,6 +118,12 @@ void ChunkManager::Notify(Event e, void* args)
     }
 }
 
+void ChunkManager::NotifyToDestroyB2Body(EntityID id,b2Body* bod)
+{
+    B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{ id,bod };
+    Notify(Event::B2BODY_TO_DELETE, (void*)args);
+}
+
 ChunkManager::~ChunkManager()
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -122,12 +138,22 @@ int ChunkManager::getChunkCount()
 }
 
 void ChunkManager::deleteScheduledEntities() {
-    for (int i = 0; i < entitiesToDelete.size(); i++)
+    //for (int i = 0; i < entitiesToDelete.size(); i++)
+    //{
+    //    EntityID id = entitiesToDelete[i];
+    //    allChunks[id.chunkID]->releaseEntity(id);
+    //}
+    //entitiesToDelete.clear();
+    for (int i = 0; i < allChunks.size(); i++)
     {
-        EntityID id = entitiesToDelete[i];
-        allChunks[id.chunkID]->releaseEntity(id);
+        if (allChunks[i]->entitiesToDelete)
+        {
+            //ChunkManager lol;
+
+            //std::function<void(Event, void*)> fun = std::bind(&ChunkManager::Notify, lol, std::placeholders::_2);
+            allChunks[i]->releaseFlaggedEntities(*this);
+        }        
     }
-    entitiesToDelete.clear();
 }
 
 bool ChunkManager::doesEntityExist(EntityID id)

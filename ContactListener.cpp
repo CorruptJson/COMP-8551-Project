@@ -125,13 +125,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }
     else if (tagFirst == BULLET) {
         //cout << "Bullet contact with: ";
-        if (tagSecond == PLATFORM) {
+        if (tagSecond == PLATFORM || tagSecond == WALL) {
             //cout << "Platform" << endl;
             ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            //cout << "Bullet x platform" << endl;
         }
         else
         {
-            cout << endl;
+            cout << "unknown bullet collision, other tag is: " << tagSecond << endl;
         }
     }
 }
