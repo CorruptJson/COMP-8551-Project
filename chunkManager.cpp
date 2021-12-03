@@ -21,15 +21,18 @@ Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::v
     }
 
     // see if this sprite is already present in the 'chunksBySprite' map
-    auto findSprite = chunksBySpritesheet.find(spriteSheet);
-    if (findSprite != chunksBySpritesheet.end())
+    if (spriteSheet != noSprite)
     {
-        findSprite->second.push_back(newChunk);
-    }
-    else
-    {
-        chunksBySpritesheet.emplace(spriteSheet, std::vector<Chunk*>());
-        chunksBySpritesheet[spriteSheet].push_back(newChunk);
+        auto findSprite = chunksBySpritesheet.find(spriteSheet);
+        if (findSprite != chunksBySpritesheet.end())
+        {
+            findSprite->second.push_back(newChunk);
+        }
+        else
+        {
+            chunksBySpritesheet.emplace(spriteSheet, std::vector<Chunk*>());
+            chunksBySpritesheet[spriteSheet].push_back(newChunk);
+        }
     }
 
     return newChunk;

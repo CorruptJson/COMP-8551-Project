@@ -28,6 +28,8 @@ private:
 
 public:
 
+    const static std::string noSprite = "NO_SPRITE";
+
     EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void scheduleToDelete(EntityID id);

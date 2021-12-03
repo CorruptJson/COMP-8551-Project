@@ -8,7 +8,7 @@
 #include "ComponentManager.h"
 #include "Tags.h"
 
-const int ENTITIES_PER_CHUNK = 32;
+const int ENTITIES_PER_CHUNK = 16;
 
 class Chunk
 {

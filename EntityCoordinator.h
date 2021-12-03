@@ -18,7 +18,7 @@ class EntityCoordinator
 private:
 
     EntityQueryCache queryCache;
-    const std::string noSprite = "NO_SPRITE";
+    
     //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
     //int queryCacheVersion = 0;
 
