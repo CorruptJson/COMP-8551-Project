@@ -76,7 +76,7 @@ public:
     void LoadScene(std::string filename);
     void LoadPrefabs(std::string filename);
     void CreateEntities();
-    
+    void EmptyEntitiesList();
     
 
 

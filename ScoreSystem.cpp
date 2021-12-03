@@ -7,8 +7,12 @@ void ScoreSystem::UpdateScore()
     EntityCoordinator* ec = &EntityCoordinator::getInstance();
     std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
         ec->GetComponentType<TextComponent>()
-        }, {Tag::TXT_SCORE});
+    }, {Tag::TXT_SCORE});
     
+    if (eq->totalEntitiesFound() < 1) {
+        return;
+    }
+
     ComponentIterator<TextComponent> tci(eq);
 
     //Create score text

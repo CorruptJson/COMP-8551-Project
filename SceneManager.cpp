@@ -4,6 +4,7 @@
 #include "Tags.h"
 #include "MovementComponent.h"
 #include "StateComponent.h"
+#include "PhysicsWorld.h"
 
 // Component Keys
 enum eKeys
@@ -66,8 +67,6 @@ unordered_map <std::string, TextAlign> textAlignMap = {
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-    this->LoadScene("scene.json");
-    this->LoadPrefabs("prefab.json");
 }
 
 
@@ -144,19 +143,7 @@ void SceneManager::CreateEntities() {
             };
         }
 
-        if (ev.physicsComponent) {
-            coordinator->GetComponent<PhysicsComponent>(ent) = {
-                ev.bodyType,
-                0.5f * ev.yScale,
-                0.5f * ev.xScale,
-                ev.xPos,
-                ev.yPos,
-                ev.density,
-                ev.friction,
-                false
-            };
-
-        }
+        
 
         if (ev.animationComponent) {
             coordinator->GetComponent<AnimationComponent>(ent) =
@@ -186,6 +173,20 @@ void SceneManager::CreateEntities() {
                 ev.colorB,
                 ev.align
             );
+        }
+
+        if (ev.physicsComponent) {
+            coordinator->GetComponent<PhysicsComponent>(ent) = {
+                ev.bodyType,
+                0.5f * ev.yScale,
+                0.5f * ev.xScale,
+                ev.xPos,
+                ev.yPos,
+                ev.density,
+                ev.friction,
+                false
+            };
+            PhysicsWorld::getInstance().AddObject(ent);
         }
     }
 }
@@ -321,4 +322,8 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     }
 
+};
+
+void SceneManager::EmptyEntitiesList() {
+    entities = {};
 };

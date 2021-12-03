@@ -46,7 +46,6 @@ FPSCounter fpsCounter = FPSCounter();
 Archetype standardArch;
 
 // special entities
-EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
 
@@ -59,6 +58,15 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
+
+std::string currentScene;
+
+//config files
+const std::string prefabs = "prefab.json";
+const std::string menuScene = "menu.json";
+const std::string gameScene = "scene.json";
+
+
 
 void initComponents()
 {
@@ -94,21 +102,42 @@ void initSystems()
     scoreSys->UpdateScore();
 }
 
+
+
+
+
 void identifyPlayerAndPlayerSpawner()
 {
     for (auto const& e : sceneManager->entities)
     {
-        if (coordinator->entityHasTag(Tag::PLAYER, e))
-        {
-            mike = e;
-            gameManager.SetPlayerID(mike);
-        }
-        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
+        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
         {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
+}
+
+//todo: combine loadGameScene and loadMenuScene
+void loadGameScene() {
+    currentScene = gameScene;
+    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    sceneManager->EmptyEntitiesList();
+    sceneManager->LoadScene(currentScene);
+    sceneManager->CreateEntities();
+    identifyPlayerAndPlayerSpawner();
+
+
+}
+
+
+void loadMenuScene() {
+    currentScene = menuScene;
+    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    sceneManager->EmptyEntitiesList();
+    sceneManager->LoadScene(currentScene);
+    sceneManager->CreateEntities();
+    identifyPlayerAndPlayerSpawner();
 }
 
 /// <summary>
@@ -174,6 +203,9 @@ void removeGameOverOverlay() {
     }
 }
 
+
+
+
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -190,13 +222,13 @@ int initialize()
     playerControl = new PlayerControlSystem();
 
     initComponents();
-
+    currentScene = menuScene;
     sceneManager = new SceneManager();
-    sceneManager->CreateEntities();
-
+    sceneManager->LoadPrefabs(prefabs);
+    loadMenuScene();
     initSystems();
 
-    identifyPlayerAndPlayerSpawner();      
+    //identifyPlayerAndPlayerSpawner();      
 
     //sound test
     std::vector<std::string> music;
@@ -248,12 +280,19 @@ void fixedFrameUpdate()
     //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
     //}
 
+
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
+        loadGameScene();
+    }
+
+
+
     // run physics
     physicsWorld->Update(coordinator);
     // run ECS systems
     coordinator->runSystemUpdates();
 
-    playerControl->processEntity(mike);
+    playerControl->processPlayer();
 
     coordinator->endOfUpdate();
 }
@@ -310,13 +349,6 @@ int teardown()
 int main() {
     initialize();       
 
-    for (auto const& e : sceneManager->entities) {
-        if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
-            
-            physicsWorld->AddObject(e);
-        }
-
-    }
 
     
     //se.playMusic("brionac.wav"); // Play background music on loop
