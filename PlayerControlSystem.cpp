@@ -16,6 +16,7 @@ PlayerControlSystem::PlayerControlSystem()
     isInContactWithEnemy = false;
     isRespawning = false;
     health = maxHealth;
+    isDead = false;
 }
 
 PlayerControlSystem::~PlayerControlSystem()
@@ -24,6 +25,7 @@ PlayerControlSystem::~PlayerControlSystem()
 }
 
 void PlayerControlSystem::processPlayer() {
+    if (isDead) return;
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
     Renderer* renderer = Renderer::getInstance();
@@ -55,9 +57,6 @@ void PlayerControlSystem::processPlayer() {
     MovementComponent* moveComponent = eq->getComponentArray<MovementComponent>()[0];
     StateComponent* stateComponent = eq->getComponentArray<StateComponent>()[0];
     AnimationComponent* animationComponent = eq->getComponentArray<AnimationComponent>()[0];
-
-    
-
 
     //Sound se;
 
@@ -96,11 +95,6 @@ void PlayerControlSystem::processPlayer() {
     //    animationComponent->currAnim = animHurting;
     //    moveComponent->setVelocity(0, 0);
     //}
-    // added to test rotation is working
-    if (input.isKeyJustDown(InputTracker::R)) {
-        int rot = transformComponent->getRotation();
-        transformComponent->setRotation(rot+90.0f);
-    }
     //if (isCollided) {
     //    isReset = true;
     //    jumpCount = 0;
@@ -190,13 +184,14 @@ void PlayerControlSystem::processPlayer() {
 
     // respawn player
     if (health == 0) {
-        respawn();
+        isDead = true;
+        Notify(Event::PLAYER_DIES, {});
+        //respawn();
     }
 }
 
 void PlayerControlSystem::jump()
 {
-    GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     //get player components
     std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
@@ -225,7 +220,6 @@ void PlayerControlSystem::jump()
 
 void PlayerControlSystem::shoot()
 {
-    GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
@@ -306,9 +300,7 @@ void PlayerControlSystem::damaged()
 
 bool PlayerControlSystem::isGrounded()
 {
-    GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-
 
     //get player components
     std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
@@ -337,36 +329,6 @@ bool PlayerControlSystem::isGrounded()
     return false;
 }
 
-bool PlayerControlSystem::isDead()
-{
-    GameManager gm = GameManager::getInstance();
-    EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    //get player components
-    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
-        {
-            coordinator.GetComponentType<PhysicsComponent>()
-
-        }, { Tag::PLAYER }
-    );
-    if (eq->totalEntitiesFound() < 1) {
-        return false;
-    }
-
-    PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
-    b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
-
-    while (contactList != nullptr) {
-        PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
-
-        if (coordinator.entityHasTag(FIRE, physComponetB->entityID)) {
-            return true;
-        }
-
-        contactList = contactList->next;
-    }
-
-    return false;
-}
 
 void PlayerControlSystem::Receive(Event e, void* args)
 {

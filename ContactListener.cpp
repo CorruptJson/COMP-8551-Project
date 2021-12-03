@@ -1,6 +1,5 @@
 #include "ContactListener.h"
 
-int health = 3;
 ContactListener::ContactListener() {
     ec = &EntityCoordinator::getInstance();
 }
@@ -217,13 +216,6 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
 
-}
-
-void ContactListener::Notify(Event e, void* args)
-{
-    for (IObserver* o : observerList) {
-        o->Receive(e, args);
-    }
 }
 
 bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {
