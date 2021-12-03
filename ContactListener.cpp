@@ -128,10 +128,11 @@ void ContactListener::BeginContact(b2Contact* contact) {
         if (tagSecond == PLATFORM) {
             //cout << "Platform" << endl;
             ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+            //cout << "Bullet x platform" << endl;
         }
         else
         {
-            cout << endl;
+            cout << "unknown bullet collision, other tag is: " << tagSecond << endl;
         }
     }
 }

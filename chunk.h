@@ -21,10 +21,10 @@ private:
     std::string spritesheet;
     int currEnts = 0;
     std::unordered_map<ComponentType, Byte*> componentArrays{};
-    int versions[ENTITIES_PER_CHUNK] = {-1};
-    int entToDat[ENTITIES_PER_CHUNK] = {-1};
+    int versions[ENTITIES_PER_CHUNK];
+    int entToDat[ENTITIES_PER_CHUNK];
     //int datToEnt[ENTITIES_PER_CHUNK]{};
-    bool deleteEnt[ENTITIES_PER_CHUNK] = { false };
+    bool deleteEnt[ENTITIES_PER_CHUNK];
     bool entitiesToDelete = false;
 
     Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);

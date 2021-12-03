@@ -92,6 +92,7 @@ EntityQuery::EntityQuery(std::vector<Chunk*> chosenChunks)
 
 void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVersion)
 {
+    chunks.clear();
     for (int i = 0; i < allChunks.size(); i++)
     {
         Chunk* chunk = allChunks[i];
@@ -135,10 +136,9 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVers
         if ((c_search != chunkComps.size() || compTypes.size() == 0)  && (t_search != chunkTags.size() || tags.size() == 0))
         {
             chunks.push_back(allChunks[i]);
-            entityCount += allChunks[i]->getCurrEntCount();
-            //std::cout << "found chunk " << std::endl;
         }
     }
+    recountFoundEntities();
     chunkListVersion = _chunkListVersion;
 }
 

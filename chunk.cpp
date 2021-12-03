@@ -1,6 +1,6 @@
 #include <iostream>
+#include <algorithm>
 #include "chunk.h"
-
 
 Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
@@ -9,6 +9,9 @@ Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vec
     this->spritesheet = spriteSheet;
     this->tags = tags;
     addComponentArrays(archetype, sizemap);
+    std::fill_n(versions, ENTITIES_PER_CHUNK, 0);
+    std::fill_n(entToDat, ENTITIES_PER_CHUNK, -1);
+    std::fill_n(deleteEnt, ENTITIES_PER_CHUNK, false);
     //for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
     //{
     //    datToEnt[i] = i;
@@ -58,6 +61,8 @@ EntityID Chunk::assignNewEntity()
                 return id;
             }
         }
+
+        std::cout << "chunk not full, but not slot found? " << id;
     }
     else
     {
@@ -68,7 +73,16 @@ EntityID Chunk::assignNewEntity()
     id.index = -1;
     id.version = -1;
 
-    std::cout << "could not assign entity to chunk";
+    std::cout << "could not assign entity to chunk" << std::endl;
+    std::cout << "chunk id: " << chunkID << std::endl;
+    std::cout << "chunk sprite: " << spritesheet << std::endl;
+    std::cout << "chunk ent count : " << currEnts << std::endl;
+    std::cout << "ent to dat values: ";
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        std::cout << entToDat[i];
+    }
+    std::cout << std::endl;
 
     return id;
 

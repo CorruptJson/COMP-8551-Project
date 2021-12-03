@@ -223,10 +223,13 @@ void PhysicsWorld::DestoryObject(EntityID id)
 
 void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
 {
+    std::vector<Tag> tags = EntityCoordinator::getInstance().getTagsForEntity(id);
+    std::cout << "destroying body for " << id << " tag: " << tags[0] << "...." << std::endl;
+
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-        std::cout << "trying to delete body that is not active? Ent: " << id << std::endl;
+        std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
     }
     else
     {
@@ -236,7 +239,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        std::cout << "trying to delete an inactive body? Ent: " << id << std::endl;
+        std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
     }
     else
     {
