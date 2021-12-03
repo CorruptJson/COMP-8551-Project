@@ -95,7 +95,8 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     };
     memcpy(configs, tmpConfigs, sizeof(configs));
 
-    thread imgReadThread(&Renderer::loadImages, this);
+    // Thread that loads the images from file
+    thread imgLoadThread(&Renderer::loadImages, this);
 
     window = setupGLFW(windowSize);
     if (window == NULL)
@@ -126,15 +127,16 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
 
 
     // init other OpenGL stuff
-    //loadImages();
-
     prepareGLBuffers();
 
     // init helper classes
     loadTextLibrary();
+    
+    // Puts the images that are being loaded on
+    // the reading thread into the sprites array 
     loadIntoImageData();
 
-    imgReadThread.join();
+    imgLoadThread.join();
 
     textProjectionMat = glm::ortho(-(float)windowWidth / 2, (float)windowWidth / 2, -(float)windowHeight / 2, (float)windowHeight / 2);
     camera.setViewSize(viewWidth, viewHeight);
@@ -276,122 +278,14 @@ void Renderer::resetVerticesData(bool flipUV) {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
-void Renderer::loadImagesOld() {
-    // read config data
-    struct ImgConfig {
-        string name;
-        int rows;
-        int columns;
-        Animation anims[5];
-    };
-
-    ImgConfig configs[]{
-        {
-            "platform.png",
-            6,
-            3,
-            {}
-        },
-        {
-            "bullet.png",
-            1,
-            1,
-            {}
-        },
-        {
-            "Edgar.png",
-            1,
-            11,
-            {
-                Animator::createAnimation("hurt",6,6,0,true,250.0f),
-                Animator::createAnimation("idle",7,8,0,true,500.0f),
-                Animator::createAnimation("falling",9,10,0,true,500.0f),
-                Animator::createAnimation("running",0,5,0,true,150.0f)
-            }
-        },
-        {
-            "Giant_Roach.png",
-            1,
-            3,
-            {
-                Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
-                Animator::createAnimation("run",1,2, 0, true, 300.0f),
-            }
-        },
-        {
-            "star.png",
-            1,
-            13,
-            {
-                Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
-            }
-        },
-        {
-            "fire.png",
-            1,
-            4,
-            {
-                Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
-            }
-        }
-    };
-
-
-    // function for using stbi
-    // this is because OpenGL's y-axis starts from bottoms up
-    // however, images have y-axis starts top down
-    stbi_set_flip_vertically_on_load(true);
-    // opengl clamp tex coord in range [0. 1];
-    const float SPRITESHEET_HEIGHT = 1.f;
-    const float SPRITESHEET_WIDTH = 1.f;
-
-    for (ImgConfig config : configs) {
-        // read the image from the file and store it
-        SpriteInfo info;
-        for (Animation var : config.anims)
-        {
-            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
-        }
-
-
-        int colChannels;
-        stbi_uc* imgData = FileManager::readImageFile(config.name, &info.width, &info.height, &colChannels);
-        if (!imgData) {
-            std::cout << "Failed to load texture: " << config.name << std::endl;
-            return;
-        }
-
-        // create the texture buffer and store its id in info
-        info.id = createTexBuffer(info.height, info.width, imgData);
-        info.rows = config.rows;
-        info.columns = config.columns;
-
-        // calculate the cell size
-        info.cellHeight = SPRITESHEET_HEIGHT / info.rows;
-        info.cellWidth = SPRITESHEET_WIDTH / info.columns;
-
-        // store the new sprite
-        sprites[config.name] = info;
-
-        // delete the data
-        stbi_image_free(imgData);
-    }
-}
-
-
 // Load all images that we need into the sprites map
 // This allows us to specify their row and column number
 // Also accomodate future sprite loading.
+// Split into loadIntoImageData to allow for multithreading
 void Renderer::loadImages() {
     stbi_set_flip_vertically_on_load(true);
     for (ImgConfig* config : configs) {
         imgWriterSem->wait();
-        // read the image from the file and store it
-        SpriteInfo info;
-        for (Animation var : config->anims)
-        {
-            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
-        }
 
         int colChannels;
         stbi_uc * tmpImgData = FileManager::readImageFile(config->name, &config->width, &config->height, &colChannels);
@@ -408,6 +302,7 @@ void Renderer::loadImages() {
     }
 }
 
+// Loads the images into the sprites array after creating a texbuffer for it
 void Renderer::loadIntoImageData() {
 
     // function for using stbi
@@ -449,6 +344,9 @@ void Renderer::loadIntoImageData() {
 
         imgWriterSem->cv.notify_one();
         imgReaderSem->cv.notify_one();
+    }
+    for (ImgConfig* ic : configs) {
+        delete ic;
     }
 }
 

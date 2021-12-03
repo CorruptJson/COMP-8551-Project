@@ -97,10 +97,7 @@ void SceneManager::CreateEntities() {
         // See EntityValue class in the SceneManager.h to add more
         EntityValues ev;
         this->ParseEntityValues(ev, entity.value()); // parses json and updates entityvalue object
-        if (ev.spriteName == "fire.png") {
-            cout << ev.spriteName << endl;
-            cout << ev.xPos << ", " << ev.yPos << endl;
-        }
+        
         // add components to archetype if they're enabled
         if (ev.transformComponent) ev.components.push_back(coordinator->GetComponentType<Transform>());
         if (ev.renderComponent) ev.components.push_back(coordinator->GetComponentType<RenderComponent>());
