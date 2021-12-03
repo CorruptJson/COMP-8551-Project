@@ -32,7 +32,6 @@
             "text": "Press J to play, Q to exit"
         },
         "transform": {
-            "xPos": -0.5,
             "yPos":  -1
         }
     },
@@ -79,8 +78,8 @@
             "text": "WAD: move & jump"
         },
         "transform": {
-            "xPos": -5,
-            "yPos": -4
+            "xPos": -4.5,
+            "yPos": -4.1
         }
     },
     {
@@ -88,7 +87,7 @@
             "text": "J: shoot"
         },
         "transform": {
-            "yPos": -4
+            "yPos": -4.1
         }
     },
     {
@@ -96,8 +95,8 @@
             "text": "Get for points"
         },
         "transform": {
-            "xPos":  4.25,
-            "yPos": -4
+            "xPos":  4.5,
+            "yPos": -4.1
         }
     }
 ]
