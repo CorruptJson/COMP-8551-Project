@@ -26,10 +26,13 @@
 #include "Tags.h"
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
+#include "Sound.h"
+
 #include "FPSCounter.h"
 
 
 EntityCoordinator* coordinator;
+Sound& se = Sound::getInstance();
 SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
@@ -44,7 +47,6 @@ FPSCounter fpsCounter = FPSCounter();
 Archetype standardArch;
 
 // special entities
-EntityID mike;
 EntityID timer;
 EntityID mikeRespawner;
 
@@ -57,6 +59,15 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
+
+std::string currentScene;
+
+//config files
+const std::string prefabs = "prefab.json";
+const std::string menuScene = "menu.json";
+const std::string gameScene = "scene.json";
+
+
 
 void initComponents()
 {
@@ -77,6 +88,7 @@ void initSystems()
 
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
+    inputSys->Attach(renderer);
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
@@ -91,22 +103,109 @@ void initSystems()
     scoreSys->UpdateScore();
 }
 
+
+
+
+
 void identifyPlayerAndPlayerSpawner()
 {
     for (auto const& e : sceneManager->entities)
     {
-        if (coordinator->entityHasTag(Tag::PLAYER, e))
-        {
-            mike = e;
-            gameManager.SetPlayerID(mike);
-        }
-        else if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
+        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
         {
             mikeRespawner = e;
             gameManager.SetPlayerRespawnerID(mikeRespawner);
         }
     }
 }
+
+//todo: combine loadGameScene and loadMenuScene
+void loadGameScene() {
+    currentScene = gameScene;
+    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    sceneManager->EmptyEntitiesList();
+    sceneManager->LoadScene(currentScene);
+    sceneManager->CreateEntities();
+    identifyPlayerAndPlayerSpawner();
+
+
+}
+
+
+void loadMenuScene() {
+    currentScene = menuScene;
+    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    sceneManager->EmptyEntitiesList();
+    sceneManager->LoadScene(currentScene);
+    sceneManager->CreateEntities();
+    identifyPlayerAndPlayerSpawner();
+}
+
+/// <summary>
+/// Create the game over overlay on top of the current scene.
+/// Note that we are only displaying the top 5 highest scores.
+/// </summary>
+/// <param name="dates">The dates the scores were gotten.</param>
+/// <param name="scores">The scores that were gotten.</param>
+void createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores) {
+    auto& creator = GameEntityCreator::getInstance();
+    float viewHeight = Renderer::getInstance()->getCamera()->getViewHeight();
+    float viewWidth = Renderer::getInstance()->getCamera()->getViewWidth();
+    float yPos = viewHeight / 2 - 2; // use this so we can change the starting yPos easily
+
+    // create the panel
+    // fill 80% of the screen
+    creator.CreatePanel(0, 0, viewHeight * 0.8, viewWidth * 0.6, 0, 0, 0, {Tag::GAME_OVER_UI});
+
+    // create the title and user score
+    creator.CreateText("GAME OVER", 0, yPos, 1, 0, 0, 1.5, { Tag::GAME_OVER_UI });
+    yPos -= 0.5;
+    creator.CreateText("SCORE: " + to_string(playerScore), 0, yPos, 1, 0, 0, 1, { Tag::GAME_OVER_UI });
+    yPos -= 1;
+
+    creator.CreateText("HIGHSCORES", 0, yPos, 1, 1, 1, 1, { Tag::GAME_OVER_UI });
+    yPos -= 1;
+    int highscoresCount = 5;
+    for (int i = 0; i < highscoresCount; i++) {
+        string date;
+        try {
+            date = dates.at(i);
+        }
+        catch (out_of_range) {
+            date = "-----";
+        }
+
+        string score;
+        try {
+            score = scores.at(i);
+        }
+        catch (out_of_range) {
+            score = "0";
+        }
+
+        creator.CreateText(date, -3, yPos, 1, 1, 1, 1, TextAlign::LEFT, { Tag::GAME_OVER_UI });
+        creator.CreateText(score, 3, yPos, 1, 1, 1, 1, TextAlign::RIGHT, { Tag::GAME_OVER_UI });
+        yPos -= 0.75;
+    }
+
+    // replay instruction
+    yPos -= 0.5;
+    creator.CreateText("J to replay. Q to quit", 0, yPos, 1, 0, 0, 1, {Tag::GAME_OVER_UI});
+}
+
+void removeGameOverOverlay() {
+    std::shared_ptr<EntityQuery> query = coordinator->GetEntityQuery(
+        { }, { Tag::GAME_OVER_UI });
+
+
+    int uiFound = query->totalEntitiesFound();
+    for (int i = 0; i < uiFound; i++) {
+
+    }
+}
+
+
+
 
 // gets called once when engine starts
 // put initilization code here
@@ -119,10 +218,10 @@ int initialize()
     coordinator = &(EntityCoordinator::getInstance());
 
     initComponents();
-
+    currentScene = menuScene;
     sceneManager = new SceneManager();
 
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::MAXIMIZED_WINDOWED);
     
     thread sceneManagerThread(&SceneManager::CreateEntities, sceneManager);
     renderer->setCamViewSize(VIEW_WIDTH, VIEW_HEIGHT);
@@ -131,13 +230,49 @@ int initialize()
     coordinator->chunkManager->Attach(physicsWorld);
     playerControl = new PlayerControlSystem();
 
+    sceneManager->LoadPrefabs(prefabs);
+    loadMenuScene();
     initSystems();
     sceneManagerThread.join();
 
 
-    identifyPlayerAndPlayerSpawner();
+    //identifyPlayerAndPlayerSpawner();      
+
+    //sound test
+    std::vector<std::string> music;
+    music.push_back("fighting_BGM.wav");
+    
+    std::vector<std::string> sfx;
+    //sfx.push_back("bullet.wav");
+    std::vector<std::string> sfxV;
+    sfxV.push_back("shoot.wav");
+    sfxV.push_back("jump.wav");
+    sfxV.push_back("enemyDeath2.wav");
+    sfxV.push_back("enemyDeath.wav"); // playerDeath
+    sfxV.push_back("flameDeath.wav");
+    se.loadSfx(sfxV);
+    se.loadSfx(sfx);
+    se.loadMusic(music);
 
     prevTime = Clock::now();
+
+    // code to make the game over overlay
+    //vector<string> dates = {
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //    "2020/11/30 11:30",
+    //};
+
+    //vector<string> scores = {
+    //    "15",
+    //    "5",
+    //    "15",
+    //    "15",
+    //    "5",
+    //};
+    //createGameOverOverlay(10, dates, scores);
 
     return 0;
 }
@@ -153,12 +288,19 @@ void fixedFrameUpdate()
     //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
     //}
 
+
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
+        loadGameScene();
+    }
+
+
+
     // run physics
     physicsWorld->Update(coordinator);
     // run ECS systems
     coordinator->runSystemUpdates();
 
-    playerControl->processEntity(mike);
+    playerControl->processPlayer();
 
     coordinator->endOfUpdate();
 }
@@ -215,12 +357,14 @@ int teardown()
 int main() {
     initialize();       
 
-    for (auto const& e : sceneManager->entities) {
-        if (coordinator->entityHasComponent<PhysicsComponent>(e)) {
-            
-            physicsWorld->AddObject(e);
-        }
-    }    
+
+    
+    //se.playMusic("brionac.wav"); // Play background music on loop
+    se.playMusic(0);
+    //se.playSound(0);
+    //se.playSound("bullet.wav"); // Play sound effects once
+
+
 
     while (!glfwWindowShouldClose(window))
     {

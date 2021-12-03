@@ -30,6 +30,11 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>()
         });
 
+    uiArchetype = ec.GetArchetype({
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<Transform>()
+        });
+
     starArchetype = ec.GetArchetype({
         ec.GetComponentType<Transform>()
         });
@@ -41,7 +46,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<DeleteTimer>(),
         });
 
-    StateComponent enemyInitialStates[NUM_OF_ENEMIES];
     enemiesInitialStates[ROACH] = StateComponent {
         0,
         true,
@@ -177,18 +181,11 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
     return ent;
 }
 
-//EntityID GameEntityCreator::CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags)
-//{
-//    EntityCoordinator& ec = EntityCoordinator::getInstance();
-//    EntityID ent = ec.CreateEntity(sceneryArchetype, spriteName, tags);
-//
-//    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
-//    ec.GetComponent<Transform>(ent) = Transform(xPos, yPos, 0, scaleX, scaleY);
-//
-//    return ent;
-//}
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags) {
+    return CreateText(scoreTxt, x, y, r, g, b, size, TextAlign::CENTER, tags);
+}
 
-EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, TextAlign align, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
@@ -198,10 +195,43 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
         size,
         r,
         g,
-        b
+        b,
+        align
     );
 
-    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, 1, 1);
+    // no rotation and we will use size to determine the font size, not scales.
+    Transform transform = Transform(x, y, 0, 1, 1);
+    transform.setInterpolatorX(Renderer::getInstance()->getTextXInterpolator());
+    transform.setInterpolatorY(Renderer::getInstance()->getTextYInterpolator());
+    ec.GetComponent<Transform>(ent) = transform;
+    return ent;
+}
+
+EntityID GameEntityCreator::CreatePanel(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags) {
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+
+    // ensure we always have an UI tag
+    bool hasTag = false;
+    for (auto& tag : tags) {
+        if (tag == Tag::UI) {
+            hasTag = true;
+            break;
+        }
+    }
+    if (!hasTag) tags.push_back(Tag::UI);
+
+    EntityID ent = ec.CreateEntity(uiArchetype, "", tags);
+
+    RenderComponent renderComp = standardRenderComponent("", false);
+
+    // customize the color values
+    renderComp.colorOnly = true;
+    renderComp.color.r = r;
+    renderComp.color.g = g;
+    renderComp.color.b = b;
+    ec.GetComponent<RenderComponent>(ent) = renderComp;
+
+    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, width, height);
     return ent;
 }
 

@@ -4,6 +4,7 @@
 #include "Tags.h"
 #include "MovementComponent.h"
 #include "StateComponent.h"
+#include "PhysicsWorld.h"
 
 // Component Keys
 enum eKeys
@@ -56,12 +57,17 @@ unordered_map <std::string, const char*> spriteMap = {
     {"fire.png", "fire.png"}
 };
 
+unordered_map <std::string, TextAlign> textAlignMap = {
+    {"left", TextAlign::LEFT},
+    {"center", TextAlign::CENTER},
+    {"right", TextAlign::RIGHT}
+};
+
 
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-    this->LoadScene("scene.json");
-    this->LoadPrefabs("prefab.json");
+
 }
 
 void SceneManager::SetupCamera() {
@@ -142,8 +148,8 @@ void SceneManager::CreateEntities() {
             // change the transform so it uses the proper interpolation
             // only if textComponent is included
             if (ev.textComponent) {
-                transform.setInterpolatorX(&textPosInterpolX);
-                transform.setInterpolatorY(&textPosInterpolY);
+                transform.setInterpolatorX(renderer->getTextXInterpolator());
+                transform.setInterpolatorY(renderer->getTextYInterpolator());
             }
             coordinator->GetComponent<Transform>(ent) = transform;
         }
@@ -159,19 +165,7 @@ void SceneManager::CreateEntities() {
             };
         }
 
-        if (ev.physicsComponent) {
-            coordinator->GetComponent<PhysicsComponent>(ent) = {
-                ev.bodyType,
-                0.5f * ev.yScale,
-                0.5f * ev.xScale,
-                ev.xPos,
-                ev.yPos,
-                ev.density,
-                ev.friction,
-                false
-            };
-
-        }
+        
 
         if (ev.animationComponent) {
             coordinator->GetComponent<AnimationComponent>(ent) =
@@ -198,8 +192,23 @@ void SceneManager::CreateEntities() {
                 ev.size,
                 ev.colorR,
                 ev.colorG,
-                ev.colorB
+                ev.colorB,
+                ev.align
             );
+        }
+
+        if (ev.physicsComponent) {
+            coordinator->GetComponent<PhysicsComponent>(ent) = {
+                ev.bodyType,
+                0.5f * ev.yScale,
+                0.5f * ev.xScale,
+                ev.xPos,
+                ev.yPos,
+                ev.density,
+                ev.friction,
+                false
+            };
+            PhysicsWorld::getInstance().AddObject(ent);
         }
     }
 }
@@ -323,6 +332,9 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.size = details.contains("size")
                     ? details["size"].get<float>() : ev.size;
 
+                ev.align = details.contains("align")
+                    ? textAlignMap[details["align"].get<std::string>()] : ev.align;
+
                 break;
             }
 
@@ -332,4 +344,8 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
     }
 
+};
+
+void SceneManager::EmptyEntitiesList() {
+    entities = {};
 };

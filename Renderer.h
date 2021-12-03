@@ -24,11 +24,11 @@ extern GLFWwindow* window;
 
 enum class WindowSize {
     WINDOWED,
-    FULL_WINDOWED,
+    MAXIMIZED_WINDOWED,
     FULLSCREEN
 };
 
-class Renderer
+class Renderer : public IObserver
 {
 public:
 
@@ -40,7 +40,15 @@ public:
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
     int getWindowHeight();
+    Interpolator* getTextXInterpolator();
+    Interpolator* getTextYInterpolator();
+    void setWindowWidth(int width);
+    void setWindowHeight(int height);
     Camera* getCamera();
+
+    // event receiver
+    void Receive(Event e, void* args) override;
+
 private:
     static Renderer* renderer;
     // the vertex array object (VAO)
@@ -80,9 +88,15 @@ private:
     // helper classes
     ShaderFactory shaderFactory;
     Camera camera;
+    // for the texts' transforms
+    // since it relies on screenspace, it fits in Renderer more
+    Interpolator textPosInterpolX;
+    Interpolator textPosInterpolY;
 
-
-    static GLFWwindow* setupGLFW(int *width, int *height, WindowSize windowSize);
+    GLFWwindow* setupGLFW(WindowSize windowSize);
+    static void windowedResizedCallback(GLFWwindow* window, int width, int height);
+    void resizeWindow(int width, int height);
+    void updateInterpolation();
 
     void prepareGLBuffers();
     void resetVerticesData(bool flipUV);
@@ -91,6 +105,7 @@ private:
     void loadImages();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void drawText(TextComponent* text, Transform* transform);
+    int findTextWidth(TextComponent* text);
     void startDrawGameObjectsPhase(EntityCoordinator* coordinator);
     void startDrawUIPhase(EntityCoordinator* coordinator);
     void startDrawTextPhase(EntityCoordinator* coordinator);

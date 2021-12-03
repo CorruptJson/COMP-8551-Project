@@ -80,7 +80,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;*/
 
-
             /*if (contact->GetManifold()->localPoint.x == -0.5) {
                 renderComponent->flipX = false;
                 moveComponent->setVelocity(2.0f, yVel);
@@ -105,11 +104,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
             xVel = renderComponent->flipX ? stateComponent->speed : -stateComponent->speed;
             renderComponent->flipX = renderComponent->flipX ? false : true;
             moveComponent->setVelocity(xVel, yVel);
+            //cout << "testing x velocity touching wall: "<<xVel << endl;
         }
         else if (tagSecond == BULLET) {
-            cout << "Bullet" << endl;
+            //cout << "Bullet" << endl;
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
+
+            ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 0.0f, 0.0f);
 
             if (--stateComponent->health == 0) {
                 ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
@@ -166,6 +168,11 @@ void ContactListener::EndContact(b2Contact* contact) {
             Notify(Event::C_END_PLAYER_ENEMY, nullptr);
         }
     }
+
+    //if (tagFirst == ENEMY) {
+    //    if (tagSecond == BULLET)
+    //        //ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 1.0f, 1.0f);
+    //}
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {

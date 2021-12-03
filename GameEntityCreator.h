@@ -26,10 +26,11 @@ private:
     Archetype platformArchetype;
     Archetype testArchetype;
     Archetype textArchetype;
+    Archetype uiArchetype;
     Archetype starArchetype;
     Archetype physParticleArchetype;
 
-    StateComponent enemiesInitialStates[];
+    StateComponent enemiesInitialStates[NUM_OF_ENEMIES];
 
     GameEntityCreator();
     RenderComponent standardRenderComponent(const char* spriteName, bool flipX);
@@ -40,8 +41,9 @@ public:
     EntityID CreateSmallRoach(float xPos, float yPos, bool facingRight);
     EntityID CreatePlatform(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags, int state);
     EntityID CreateTimer(const char* spriteName, std::vector<Tag> tags);
+    EntityID CreateText(std::string text, float x, float y, float r, float g, float b, float size, TextAlign align, std::vector<Tag> tags);
     EntityID CreateText(std::string text, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags);
+    EntityID CreatePanel(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags);
     EntityID CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
     EntityID CreatePhysParticle(TransformArg t, int frameLife, const char* spriteName);
-    //EntityID CreateScenery(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
 };

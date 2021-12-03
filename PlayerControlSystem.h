@@ -20,7 +20,7 @@ class PlayerControlSystem : public IObserver {
 public:
     PlayerControlSystem();
     ~PlayerControlSystem();
-    void processEntity(EntityID id);
+    void processPlayer();
     void jump();
     void shoot();
     void damaged();

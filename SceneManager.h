@@ -54,6 +54,8 @@ struct EntityValues {
     // share the colors with the RenderComponent
     std::string text = "";
     float size = 1.0;
+    // specify the alignment of the text
+    TextAlign align = TextAlign::CENTER;
 };
 
 // Scene Manager class
@@ -66,15 +68,7 @@ private:
     json prefabJsonArray;
     unordered_map<std::string, json> prefabMap;
 
-    // for the texts
-    Interpolator textPosInterpolX;
-    Interpolator textPosInterpolY;
-
-
     void ParseEntityValues(EntityValues& ev, const json& jsonObject);
-
-
-
 public:
     
     SceneManager();
@@ -83,7 +77,7 @@ public:
     void LoadScene(std::string filename);
     void LoadPrefabs(std::string filename);
     void CreateEntities();
-    
+    void EmptyEntitiesList();
     
 
 

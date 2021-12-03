@@ -39,20 +39,22 @@
     {
         "tag": "healthNum",
         "text": {
-            "text": "X 3"
+            "text": "X 3",
+            "align": "right"
         },
         "transform": {
-            "xPos": -5.5,
+            "xPos": -5,
             "yPos": 4
         }
     },
     {
         "tag": "scoreText",
         "text": {
-            "text": "00000"
+            "text": "00000",
+            "align": "right"
         },
         "transform": {
-            "xPos": 4.5,
+            "xPos": 6,
             "yPos": 4
         }
     },

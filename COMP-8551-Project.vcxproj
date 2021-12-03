@@ -80,11 +80,13 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;$(ProjectDir)\Libraries\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x64;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\lib\x64;$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir)\Libraries\include;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\include;$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\SDL2_mixer-devel-2.0.4-VC\SDL2_mixer-2.0.4\lib\x64;$(ProjectDir)\SDL2-devel-2.0.16-VC\SDL2-2.0.16\lib\x64;$(ProjectDir)\Libraries\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -121,11 +123,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);GLFW_INCLUDE_NONE;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetyped.lib;box2d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;freetyped.lib;box2d.lib;Winmm.lib;SDL2.lib;SDL2main.lib;SDL2_mixer.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -136,12 +140,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glfw3Release.lib;opengl32.lib;freetypedRelease.lib;box2dRelease.lib;Winmm.lib;SDL2.lib;SDL2main.lib;SDL2_mixerRelease.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -173,6 +180,7 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="Sound.cpp" />
     <ClCompile Include="ShaderFactory.cpp" />
     <ClCompile Include="system_manager.cpp" />
     <ClCompile Include="TextComponent.cpp" />
@@ -233,6 +241,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="chunkManager.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="Sound.h" />
     <ClInclude Include="ShaderFactory.h" />
     <ClInclude Include="ScoreSystem.h" />
     <ClInclude Include="SpawnSystem.h" />
@@ -270,6 +279,21 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </Xsd>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="brionac.mp3" />
+    <Media Include="brionac.wav" />
+    <Media Include="bullet.mp3" />
+    <Media Include="bullet.wav" />
+    <Media Include="bullet_short.mp3" />
+    <Media Include="bullet_short.wav" />
+    <Media Include="enemyDeath.wav" />
+    <Media Include="enemyDeath2.wav" />
+    <Media Include="fighting_BGM.wav" />
+    <Media Include="flameDeath.wav" />
+    <Media Include="jump.wav" />
+    <Media Include="shoot.wav" />
+    <Media Include="starShining.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
