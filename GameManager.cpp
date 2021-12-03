@@ -11,15 +11,6 @@ GameManager& GameManager::getInstance()
     return instance;
 }
 
-EntityID GameManager::PlayerID()
-{
-    return player;
-}
-
-void GameManager::SetPlayerID(EntityID id)
-{
-    player = id;
-}
 
 EntityID GameManager::PlayerRespawnerID()
 {
