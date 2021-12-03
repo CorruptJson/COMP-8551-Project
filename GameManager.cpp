@@ -1,7 +1,14 @@
 #include "GameManager.h"
 
+std::string GameManager::menuScene = "menu.json";
+std::string GameManager::gameScene = "scene.json";
+std::string GameManager::prefabs = "prefab.json";
+
 GameManager::GameManager()
 {
+    curScene = menuScene;
+    sceneManager = new SceneManager();
+    sceneManager->LoadPrefabs(prefabs);
 
 }
 
@@ -11,15 +18,20 @@ GameManager& GameManager::getInstance()
     return instance;
 }
 
+void GameManager::identifyPlayerAndPlayerSpawner()
+{
+    //for (auto const& e : sceneManager->entities)
+    //{
+    //    if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
+    //    {
+    //        playerRespawner = e;
+    //    }
+    //}
+}
 
 EntityID GameManager::PlayerRespawnerID()
 {
     return playerRespawner;
-}
-
-void GameManager::SetPlayerRespawnerID(EntityID id)
-{
-    playerRespawner = id;
 }
 
 void GameManager::countGameFrame()
@@ -109,4 +121,18 @@ void GameManager::removeGameOverOverlay() {
 
 void GameManager::Receive(Event e, void* args) {
     if (e == Event::PLAYER_DIES) handleGameOver();
+}
+
+std::string GameManager::getCurScene() {
+    return curScene;
+}
+
+void GameManager::loadScene(std::string scene) {
+    if (scene != GameManager::menuScene && scene != GameManager::gameScene) return;
+    curScene = scene;
+    EntityCoordinator::getInstance().deactivateAllEntitiesAndPhysicsBodies();
+    sceneManager->EmptyEntitiesList();
+    sceneManager->LoadScene(curScene);
+    sceneManager->CreateEntities();
+    identifyPlayerAndPlayerSpawner();
 }

@@ -33,7 +33,6 @@
 InputSystem* inputSystem;
 EntityCoordinator* coordinator;
 Sound& se = Sound::getInstance();
-SceneManager* sceneManager;
 
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
@@ -41,14 +40,13 @@ PlayerControlSystem* playerControl;
 
 Animator animator;
 
-GameManager& gameManager = GameManager::getInstance();
+GameManager* gameManager;
 FPSCounter fpsCounter = FPSCounter();
 
 Archetype standardArch;
 
 // special entities
 EntityID timer;
-EntityID mikeRespawner;
 
 using Clock = std::chrono::high_resolution_clock;
 using Duration = std::chrono::duration<double, std::milli>;
@@ -59,14 +57,6 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
-
-std::string currentScene;
-
-//config files
-const std::string prefabs = "prefab.json";
-const std::string menuScene = "menu.json";
-const std::string gameScene = "scene.json";
-
 
 void initComponents()
 {
@@ -100,45 +90,10 @@ void initSystems()
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
     scoreSys->UpdateScore();
-    playerControl->Attach(&gameManager);
+
+    playerControl->Attach(gameManager);
 
 }
-
-
-
-
-void identifyPlayerAndPlayerSpawner()
-{
-    for (auto const& e : sceneManager->entities)
-    {
-        if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
-        {
-            mikeRespawner = e;
-            gameManager.SetPlayerRespawnerID(mikeRespawner);
-        }
-    }
-}
-
-//todo: combine loadGameScene and loadMenuScene
-void loadGameScene() {
-    currentScene = gameScene;
-    coordinator->deactivateAllEntitiesAndPhysicsBodies();
-    sceneManager->EmptyEntitiesList();
-    sceneManager->LoadScene(currentScene);
-    sceneManager->CreateEntities();
-    identifyPlayerAndPlayerSpawner();
-}
-
-
-void loadMenuScene() {
-    currentScene = menuScene;
-    coordinator->deactivateAllEntitiesAndPhysicsBodies();
-    sceneManager->EmptyEntitiesList();
-    sceneManager->LoadScene(currentScene);
-    sceneManager->CreateEntities();
-    identifyPlayerAndPlayerSpawner();
-}
-
 
 
 // gets called once when engine starts
@@ -147,7 +102,7 @@ int initialize()
 {
     // when the engine starts
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::MAXIMIZED_WINDOWED);
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
     animator = Animator();
 
     coordinator = &(EntityCoordinator::getInstance());
@@ -156,21 +111,17 @@ int initialize()
 
     playerControl = new PlayerControlSystem();
 
+    // game manager can only be init after components are init
     initComponents();
-    currentScene = menuScene;
-    sceneManager = new SceneManager();
-    sceneManager->LoadPrefabs(prefabs);
-    loadMenuScene();
+    gameManager = &GameManager::getInstance();
+    gameManager->loadScene(GameManager::menuScene);
     initSystems();
-
-    //identifyPlayerAndPlayerSpawner();      
 
     //sound test
     std::vector<std::string> music;
     music.push_back("fighting_BGM.wav");
     
     std::vector<std::string> sfx;
-    //sfx.push_back("bullet.wav");
     std::vector<std::string> sfxV;
     sfxV.push_back("shoot.wav");
     sfxV.push_back("jump.wav");
@@ -191,19 +142,13 @@ void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
 
-    // delete all entities when space is pressed
-    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
-    //{
-    //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
+    //    loadGameScene();
     //}
 
-
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
-        loadGameScene();
-    }
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
-        loadGameScene();
-    }
+    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
+    //    loadGameScene();
+    //}
 
     // run physics
     physicsWorld->Update(coordinator);
@@ -238,7 +183,7 @@ int runEngine()
         fixedFrameUpdate();
 
         catchupTime -= MS_PER_FRAME;
-        gameManager.countGameFrame();
+        gameManager->countGameFrame();
     }
         
     // Graphics code runs independently from the fixed-frame game update
@@ -256,8 +201,6 @@ int teardown()
 
     // when the engine closes
     renderer->teardown(false);
-
-    delete sceneManager;
 
     delete playerControl;
 
