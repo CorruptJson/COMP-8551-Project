@@ -93,7 +93,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(BULLET, id)) {
             fixtureDef.filter.categoryBits = C_BULLET;
-            fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY;
+            fixtureDef.filter.maskBits = C_PLATFORM | C_ENEMY | C_WALL;
         }
         else if (coordinator.entityHasTag(FIRE, id)) {
             fixtureDef.filter.categoryBits = C_FIRE;
@@ -113,7 +113,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         else if (coordinator.entityHasTag(WALL, id)) {
             fixtureDef.filter.categoryBits = C_WALL;
-            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY;
+            fixtureDef.filter.maskBits = C_PLAYER | C_ENEMY | C_BULLET;
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
@@ -224,12 +224,12 @@ void PhysicsWorld::DestoryObject(EntityID id)
 void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
 {
     std::vector<Tag> tags = EntityCoordinator::getInstance().getTagsForEntity(id);
-    std::cout << "destroying body for " << id << " tag: " << tags[0] << "...." << std::endl;
+    //std::cout << "destroying body for " << id << " tag: " << tags[0] << "...." << std::endl;
 
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-        std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
+        //std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
     }
     else
     {
@@ -239,7 +239,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
+        //std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
     }
     else
     {
