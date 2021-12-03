@@ -30,7 +30,7 @@ EntityID EntityCoordinator::CreateEntity(Archetype arch, std::string sprite, std
 // Creates entity with no sprite sheet
 EntityID EntityCoordinator::CreateEntity(Archetype arch, std::vector<Tag> tags)
 {
-    return chunkManager->assignNewEntity(arch, ChunkManager::noSprite, tags, componentManager->mComponentSizes);
+    return chunkManager->assignNewEntity(arch, noSprite, tags, componentManager->mComponentSizes);
 }
 
 // get a validated archetype object from a list of component types
