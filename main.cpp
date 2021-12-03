@@ -59,6 +59,8 @@ const double MS_PER_FRAME = (1.0 / 60.0) * 1000;
 const int VIEW_WIDTH = 14;
 const int VIEW_HEIGHT = 10;
 
+std::string currentScene;
+
 //config files
 const std::string prefabs = "prefab.json";
 const std::string menuScene = "menu.json";
@@ -116,10 +118,12 @@ void identifyPlayerAndPlayerSpawner()
     }
 }
 
+//todo: combine loadGameScene and loadMenuScene
 void loadGameScene() {
+    currentScene = gameScene;
     coordinator->deactivateAllEntitiesAndPhysicsBodies();
     sceneManager->EmptyEntitiesList();
-    sceneManager->LoadScene(gameScene);
+    sceneManager->LoadScene(currentScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
 
@@ -128,9 +132,10 @@ void loadGameScene() {
 
 
 void loadMenuScene() {
+    currentScene = menuScene;
     coordinator->deactivateAllEntitiesAndPhysicsBodies();
     sceneManager->EmptyEntitiesList();
-    sceneManager->LoadScene(menuScene);
+    sceneManager->LoadScene(currentScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
 }
@@ -217,15 +222,13 @@ int initialize()
     playerControl = new PlayerControlSystem();
 
     initComponents();
-
+    currentScene = menuScene;
     sceneManager = new SceneManager();
     sceneManager->LoadPrefabs(prefabs);
-    sceneManager->LoadScene(menuScene);
-    sceneManager->CreateEntities();
-
+    loadMenuScene();
     initSystems();
 
-    identifyPlayerAndPlayerSpawner();      
+    //identifyPlayerAndPlayerSpawner();      
 
     //sound test
     std::vector<std::string> music;
@@ -277,13 +280,9 @@ void fixedFrameUpdate()
     //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
     //}
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::ONE)) {
-        loadMenuScene();
-    }
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::TWO)) {
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
         loadGameScene();
-
     }
 
 

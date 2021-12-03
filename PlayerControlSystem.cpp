@@ -371,15 +371,19 @@ bool PlayerControlSystem::isDead()
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     Sound& se = Sound::getInstance();
-
+    std::shared_ptr<EntityQuery> eq = EntityCoordinator::getInstance().GetEntityQuery({}, { Tag::PLAYER });
     switch (e) {
     case(Event::INPUT_JUMP):
-        jump();
-        se.playSound(JUMP);
+        if (eq->totalEntitiesFound() > 0) {
+            jump();
+            se.playSound(JUMP);
+        }
         break;
     case(Event::INPUT_SHOOT):
-        shoot();
-        se.playSound(SHOOT);
+        if (eq->totalEntitiesFound() > 0) {
+            shoot();
+            se.playSound(SHOOT);
+        }
         break;
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
