@@ -9,8 +9,6 @@ InputSystem::InputSystem()
 
 void InputSystem::preUpdate()
 {
-    int currFrame = GameManager::getInstance().getCurrGameFrame();
-
     InputTracker tracker = InputTracker::getInstance();
     if (tracker.isKeyJustDown(InputTracker::W))
     {

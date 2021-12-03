@@ -106,7 +106,7 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVers
         Chunk* chunk = allChunks[i];
         const std::vector<ComponentType>& chunkComps = chunk->getArchetype().getComponentTypeArray();
         std::vector<Tag>& chunkTags = chunk->getAllTags();
-        if (allChunks[i]->getCurrEntCount() == 0 || chunkComps.size() < compTypes.size() || chunkTags.size() < tags.size())
+        if (chunkComps.size() < compTypes.size() || chunkTags.size() < tags.size())
         {
             continue;
         }

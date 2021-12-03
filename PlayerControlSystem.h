@@ -15,7 +15,7 @@ enum playerState {
     STATE_DIE,
 };
 
-class PlayerControlSystem : public IObserver {
+class PlayerControlSystem : public IObserver, public ISubject {
 
 public:
     PlayerControlSystem();
@@ -26,7 +26,6 @@ public:
     void damaged();
     bool isGrounded();
     void checkRespawn();
-    bool isDead();
 
     void Receive(Event e, void* args) override;
     //void Update(EntityCoordinator* coordinator);
@@ -40,6 +39,7 @@ private:
     const int maxHealth = 3;
     const float invincibleLength = 2000; // millisecond
     const float respawningTime = 1000;
+    bool isDead;
 
     void updateContactWithEnemy(bool isContacted);
     void respawn();
