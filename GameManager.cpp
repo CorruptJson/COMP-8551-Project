@@ -1,4 +1,5 @@
 #include "GameManager.h"
+#include "ScoreSystem.h"
 
 std::string GameManager::menuScene = "menu.json";
 std::string GameManager::gameScene = "scene.json";
@@ -77,7 +78,7 @@ void GameManager::handleGameOver() {
         "15",
         "5",
     };
-    createGameOverOverlay(10, dates, scores);
+    createGameOverOverlay(ScoreSystem::score, dates, scores);
 }
 
 /// <summary>
@@ -135,6 +136,7 @@ void GameManager::createGameOverOverlay(int playerScore, vector<string> dates, v
 void GameManager::replay() {
     isGameOver = false;
     hasActiveStar = false;
+    ScoreSystem::score = 0;
     loadScene(gameScene);
     Notify(Event::PLAYER_REPLAY, {});
 }

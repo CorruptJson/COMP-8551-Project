@@ -6,8 +6,8 @@
 class ScoreSystem: public System, public IObserver
 {
 public:
-    ScoreSystem() : score{ 0 } {};
-    int score = 0;
+    static int score;
+    ScoreSystem() {};
     const char* scoreText = "Score: ";
     void UpdateScore();
     void Receive(Event e, void* args) override;
