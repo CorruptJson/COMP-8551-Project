@@ -95,19 +95,9 @@ public:
     }
 
     std::vector<Chunk*> foundChunks();
+    
+    void DeleteFoundEntities();
 
-    //// a component iterator can be used to access the entities found by the query
-    //template<typename T>
-    //ComponentIterator& getComponentIterator()
-    //{
-    //    ComponentType type = ComponentManager::GetComponentType<T>();
-    //    if (std::find(compTypes.begin(), compTypes.end(), type) == compTypes.end())
-    //    {
-    //        throw "cannot get component array from query: query does not contain this type";
-    //    }
-
-
-    //}
     static std::size_t TagsHash(std::vector<Tag>& tags);
     static std::size_t ComponentTypesHash(std::vector<ComponentType>& compTypes);
     static std::size_t QueryParamterHash(std::vector<ComponentType>& compTypes, std::vector<Tag>& tags);

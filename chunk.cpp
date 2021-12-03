@@ -1,5 +1,3 @@
-#include <iostream>
-#include <algorithm>
 #include "chunk.h"
 
 Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap)
@@ -12,10 +10,7 @@ Chunk::Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vec
     std::fill_n(versions, ENTITIES_PER_CHUNK, 0);
     std::fill_n(entToDat, ENTITIES_PER_CHUNK, -1);
     std::fill_n(deleteEnt, ENTITIES_PER_CHUNK, false);
-    //for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
-    //{
-    //    datToEnt[i] = i;
-    //}
+    hasPhysics = archetype.hasComponentType(ComponentManager::GetComponentType<PhysicsComponent>());
 }
 
 void Chunk::addComponentArrays(Archetype t, ComponentSizeMap& sizemap)
@@ -169,12 +164,34 @@ void Chunk::flagEntToDelete(EntityID id)
     entitiesToDelete = true;
 }
 
-void Chunk::releaseFlaggedEntities()
+void Chunk::scheduleAllEntitiesToDelete()
+{
+    if (getCurrEntCount() == 0)
+    {
+        return;
+    }
+    entitiesToDelete = true;
+    for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
+    {
+        if (entToDat[i] != -1)
+        {
+            deleteEnt[i] = true;
+        }        
+    }
+}
+
+void Chunk::releaseFlaggedEntities(ISubject& subject)
 {
     for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
     {
         if (deleteEnt[i])
         {
+            if (hasPhysics)
+            {
+                EntityID id = { chunkID,i,versions[i] };
+                B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{ id,getComponentReference<PhysicsComponent>(id).box2dBody };
+                subject.Notify(Event::B2BODY_TO_DELETE, (void*)args);
+            }
             releaseEntity(i);
             deleteEnt[i] = false;
         }

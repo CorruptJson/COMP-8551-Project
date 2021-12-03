@@ -202,7 +202,7 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
 
             if (physComponent->isFlaggedForDelete) {
 
-                B2DBodyDeleteGuardFunction(physComponent->box2dBody, physComponent->entityID);
+                //B2DBodyDeleteGuardFunction(physComponent->box2dBody, physComponent->entityID);
                 EntityCoordinator::getInstance().scheduleEntityToDelete(physComponent->entityID);
                 continue;
             }
@@ -229,7 +229,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-        //std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
+        std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
     }
     else
     {
@@ -239,7 +239,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        //std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
+        std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
     }
     else
     {

@@ -294,6 +294,12 @@ void fixedFrameUpdate()
         }
     }
 
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::X))
+    {
+        auto query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+        query->DeleteFoundEntities();
+    }
+
     if (!gameManager.GameIsPaused())
     {
         // run physics

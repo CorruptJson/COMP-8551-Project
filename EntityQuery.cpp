@@ -51,6 +51,14 @@ std::vector<Chunk*> EntityQuery::foundChunks()
     return chunks;
 }
 
+void EntityQuery::DeleteFoundEntities()
+{
+    for (int i = 0; i < chunks.size(); i++)
+    {
+        chunks[i]->scheduleAllEntitiesToDelete();
+    }
+}
+
 std::size_t EntityQuery::TagsHash(std::vector<Tag>& tags)
 {
     std::size_t seed = tags.size();

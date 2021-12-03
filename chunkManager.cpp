@@ -38,6 +38,12 @@ Chunk* ChunkManager::createChunk(Archetype arch, std::string spriteSheet, std::v
     return newChunk;
 }
 
+//ChunkManager& ChunkManager::getInstance()
+//{
+//    static ChunkManager chunkManager;
+//    return chunkManager;
+//}
+
 EntityID ChunkManager::assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap)
 {
     std::sort(tags.begin(),tags.end());
@@ -112,6 +118,12 @@ void ChunkManager::Notify(Event e, void* args)
     }
 }
 
+void ChunkManager::NotifyToDestroyB2Body(EntityID id,b2Body* bod)
+{
+    B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{ id,bod };
+    Notify(Event::B2BODY_TO_DELETE, (void*)args);
+}
+
 ChunkManager::~ChunkManager()
 {
     for (int i = 0; i < allChunks.size(); i++)
@@ -136,7 +148,10 @@ void ChunkManager::deleteScheduledEntities() {
     {
         if (allChunks[i]->entitiesToDelete)
         {
-            allChunks[i]->releaseFlaggedEntities();
+            //ChunkManager lol;
+
+            //std::function<void(Event, void*)> fun = std::bind(&ChunkManager::Notify, lol, std::placeholders::_2);
+            allChunks[i]->releaseFlaggedEntities(*this);
         }        
     }
 }

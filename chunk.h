@@ -3,12 +3,17 @@
 #include <unordered_map>
 #include <memory>
 #include <algorithm>
+#include <iostream>
+#include <algorithm>
 #include "Types.h"
 #include "Archetype.h"
 #include "ComponentManager.h"
 #include "Tags.h"
+#include "PhysicsComponent.h"
+#include "ISubject.h"
 
 const int ENTITIES_PER_CHUNK = 16;
+//void func(b2Body*);
 
 class Chunk
 {
@@ -26,6 +31,7 @@ private:
     //int datToEnt[ENTITIES_PER_CHUNK]{};
     bool deleteEnt[ENTITIES_PER_CHUNK];
     bool entitiesToDelete = false;
+    bool hasPhysics;
 
     Chunk(Archetype archetype, int chunkID, std::string spriteSheet, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
@@ -119,8 +125,9 @@ public:
     bool isDataIndexActive(int i);
 
     void releaseAllEntities();
+    void scheduleAllEntitiesToDelete();
     void flagEntToDelete(EntityID id);
-    void releaseFlaggedEntities();
+    void releaseFlaggedEntities(ISubject& subject);
 
     ~Chunk();
 };
