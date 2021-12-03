@@ -23,27 +23,42 @@ PlayerControlSystem::~PlayerControlSystem()
     delete invincibleTimer;
 }
 
-void PlayerControlSystem::processEntity(EntityID id) {
+void PlayerControlSystem::processPlayer() {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
 
+    Renderer* renderer = Renderer::getInstance();
+    InputTracker& input = InputTracker::getInstance();
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
+    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
-    // don't do anything if the player is deleted
-    if (!coordinator.doesEntityExist(id))
-    {
+
+    //init components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        { 
+            coordinator.GetComponentType<PhysicsComponent>(),
+            coordinator.GetComponentType<Transform>(),
+            coordinator.GetComponentType<RenderComponent>(),
+            coordinator.GetComponentType<MovementComponent>(),
+            coordinator.GetComponentType<StateComponent>(),
+            coordinator.GetComponentType<AnimationComponent>(),
+
+        }, { Tag::PLAYER }
+    );
+
+    if (eq->totalEntitiesFound() < 1) {
         return;
     }
 
-    // Getting Components needed for the player
-    Renderer* renderer = Renderer::getInstance();
-    InputTracker& input = InputTracker::getInstance();
-    PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
-    Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
-    RenderComponent* renderComponent = &coordinator.GetComponent<RenderComponent>(id);
-    MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
-    StateComponent* stateComponent = &coordinator.GetComponent<StateComponent>(id);
-    AnimationComponent* animationComponent = &coordinator.GetComponent<AnimationComponent>(id);
-    GameEntityCreator& creator = GameEntityCreator::getInstance();
-    PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+    PhysicsComponent* physComponent = eq->getComponentArray<PhysicsComponent>()[0];
+    Transform* transformComponent = eq->getComponentArray<Transform>()[0];
+    RenderComponent* renderComponent = eq->getComponentArray<RenderComponent>()[0];
+    MovementComponent* moveComponent = eq->getComponentArray<MovementComponent>()[0];
+    StateComponent* stateComponent = eq->getComponentArray<StateComponent>()[0];
+    AnimationComponent* animationComponent = eq->getComponentArray<AnimationComponent>()[0];
+
+    
+
+
     //Sound se;
 
     // Setting animations 
@@ -183,9 +198,22 @@ void PlayerControlSystem::jump()
 {
     GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
+    //get player components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        {
+            coordinator.GetComponentType<StateComponent>(),
+            coordinator.GetComponentType<MovementComponent>()
 
-    MovementComponent& moveComponent = coordinator.GetComponent<MovementComponent>(gm.PlayerID());
+        }, { Tag::PLAYER }
+    );
+    if (eq->totalEntitiesFound() < 1) {
+        return;
+    }
+
+
+    StateComponent& stateComponent = *(eq->getComponentArray<StateComponent>()[0]);
+
+    MovementComponent& moveComponent = *(eq->getComponentArray<MovementComponent>()[0]);
 
     float jumpForce = 1000.0f;
 
@@ -199,10 +227,24 @@ void PlayerControlSystem::shoot()
 {
     GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    StateComponent& stateComponent = coordinator.GetComponent<StateComponent>(gm.PlayerID());
-    Transform& transformComponent = coordinator.GetComponent<Transform>(gm.PlayerID());
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
+
+    //get player components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        {
+            coordinator.GetComponentType<Transform>(),
+            coordinator.GetComponentType<StateComponent>()
+
+        }, { Tag::PLAYER }
+    );
+    if (eq->totalEntitiesFound() < 1) {
+        return;
+    }
+    StateComponent& stateComponent = *(eq->getComponentArray<StateComponent>()[0]);
+    Transform& transformComponent = *(eq->getComponentArray<Transform>()[0]);
+
+
 
     // create a new entity for bullet
     float bulletScaleX = transformComponent.getScale().x * 0.75;
@@ -266,13 +308,26 @@ bool PlayerControlSystem::isGrounded()
 {
     GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+
+
+    //get player components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        {
+            coordinator.GetComponentType<PhysicsComponent>()
+
+        }, { Tag::PLAYER }
+    );
+    if (eq->totalEntitiesFound() < 1) {
+        return false;
+    }
+
+    PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
     b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
     
     while (contactList != nullptr) {
         PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
-        if (coordinator.entityHasTag(PLATFORM, physComponetB->entityID) && contactList->contact->GetManifold()->localPoint.y == -0.5) {
+        if (coordinator.entityHasTag(PLATFORM, physComponetB->entityID) && (contactList->contact->GetManifold()->localPoint.y == -0.5 || contactList->contact->GetManifold()->points[0].localPoint.y == -0.5)) {
             return true;
         }
 
@@ -286,7 +341,18 @@ bool PlayerControlSystem::isDead()
 {
     GameManager gm = GameManager::getInstance();
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    //get player components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        {
+            coordinator.GetComponentType<PhysicsComponent>()
+
+        }, { Tag::PLAYER }
+    );
+    if (eq->totalEntitiesFound() < 1) {
+        return false;
+    }
+
+    PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
     b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
 
     while (contactList != nullptr) {
@@ -305,15 +371,19 @@ bool PlayerControlSystem::isDead()
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     Sound& se = Sound::getInstance();
-
+    std::shared_ptr<EntityQuery> eq = EntityCoordinator::getInstance().GetEntityQuery({}, { Tag::PLAYER });
     switch (e) {
     case(Event::INPUT_JUMP):
-        jump();
-        se.playSound(JUMP);
+        if (eq->totalEntitiesFound() > 0) {
+            jump();
+            se.playSound(JUMP);
+        }
         break;
     case(Event::INPUT_SHOOT):
-        shoot();
-        se.playSound(SHOOT);
+        if (eq->totalEntitiesFound() > 0) {
+            shoot();
+            se.playSound(SHOOT);
+        }
         break;
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
@@ -341,7 +411,17 @@ void PlayerControlSystem::respawn()
     Transform& spawnerTransformComponent = coordinator.GetComponent<Transform>(gm.PlayerRespawnerID());
     float resPosX = spawnerTransformComponent.getPosition().x;
     float resPosY = spawnerTransformComponent.getPosition().y;
-    PhysicsComponent* physComponentA = &coordinator.GetComponent<PhysicsComponent>(gm.PlayerID());
+    //get player components
+    std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
+        {
+            coordinator.GetComponentType<PhysicsComponent>()
+
+        }, { Tag::PLAYER }
+    );
+    if (eq->totalEntitiesFound() < 1) {
+        return;
+    }
+    PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
 
     if (invincibleTimer->GetMilliseconds() > respawningTime)
     {

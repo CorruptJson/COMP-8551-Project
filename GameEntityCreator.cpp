@@ -46,7 +46,6 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<DeleteTimer>(),
         });
 
-    //StateComponent enemyInitialStates[NUM_OF_ENEMIES];
     enemiesInitialStates[ROACH] = StateComponent {
         0,
         true,
