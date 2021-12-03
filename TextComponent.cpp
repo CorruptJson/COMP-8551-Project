@@ -3,12 +3,14 @@
 // init static
 std::vector<std::string> TextComponent::texts;
 
-TextComponent::TextComponent(std::string text, float size, float r, float g, float b) : size(size) {
+TextComponent::TextComponent(std::string text, float size, float r, float g, float b, TextAlign align_=TextAlign::CENTER) : size(size) {
     texts.push_back(text);
     textID = texts.size() - 1; // get the last index.
     color.r = r;
     color.g = g;
     color.b = b;
+    align = align_;
+    textWidth = 0;
 }
 
 void TextComponent::clearTexts() {
@@ -21,4 +23,13 @@ void TextComponent::setText(std::string text) {
 
 std::string TextComponent::getText() {
     return texts[textID];
+}
+
+void TextComponent::setTextWidth(float width) {
+    if (width < 0) return;
+    textWidth = width;
+}
+
+float TextComponent::getTextWidth() {
+    return textWidth;
 }

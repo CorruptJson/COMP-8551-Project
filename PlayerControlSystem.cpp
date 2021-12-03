@@ -301,6 +301,7 @@ bool PlayerControlSystem::isDead()
 
     return false;
 }
+
 void PlayerControlSystem::Receive(Event e, void* args)
 {
     Sound& se = Sound::getInstance();

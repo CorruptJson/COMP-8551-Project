@@ -18,13 +18,9 @@ public:
     void loadSfx(std::vector<std::string> sfxPaths);
     void loadMusic(std::vector<std::string> musicPaths);
     
-    //void playSound();
-
     void playSound(int index);
-    void playSound(const char* path);
 
     void playMusic(int index);
-    void playMusic(const char* path);
 
     void Play_Pause();
     static Sound& getInstance();
