@@ -21,11 +21,11 @@ Sound::Sound()
 
 Sound::~Sound()
 {
-    for (auto p : mSFXBank)
-        delete p;
+    for (Mix_Chunk* p : mSFXBank)
+        Mix_FreeChunk(p);
 
-    for (auto p : mMusicBank)
-        delete p;
+    for (Mix_Music* p : mMusicBank)
+        Mix_FreeMusic(p);
 
     mSFXBank.clear();
     mMusicBank.clear();

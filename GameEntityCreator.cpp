@@ -181,7 +181,11 @@ EntityID GameEntityCreator::CreateTimer(const char* spriteName, std::vector<Tag>
     return ent;
 }
 
-EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags)
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, std::vector<Tag> tags) {
+    return CreateText(scoreTxt, x, y, r, g, b, size, TextAlign::CENTER, tags);
+}
+
+EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, float r, float g, float b, float size, TextAlign align, std::vector<Tag> tags)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(textArchetype, "Text", tags);
@@ -191,17 +195,32 @@ EntityID GameEntityCreator::CreateText(std::string scoreTxt, float x, float y, f
         size,
         r,
         g,
-        b
+        b,
+        align
     );
 
     // no rotation and we will use size to determine the font size, not scales.
-    ec.GetComponent<Transform>(ent) = Transform(x, y, 0, 1, 1);
+    Transform transform = Transform(x, y, 0, 1, 1);
+    transform.setInterpolatorX(Renderer::getInstance()->getTextXInterpolator());
+    transform.setInterpolatorY(Renderer::getInstance()->getTextYInterpolator());
+    ec.GetComponent<Transform>(ent) = transform;
     return ent;
 }
 
-EntityID GameEntityCreator::CreatePanel(float x, float y, float height, float width, float r, float g, float b) {
+EntityID GameEntityCreator::CreatePanel(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(uiArchetype, "", { Tag::UI });
+
+    // ensure we always have an UI tag
+    bool hasTag = false;
+    for (auto& tag : tags) {
+        if (tag == Tag::UI) {
+            hasTag = true;
+            break;
+        }
+    }
+    if (!hasTag) tags.push_back(Tag::UI);
+
+    EntityID ent = ec.CreateEntity(uiArchetype, "", tags);
 
     RenderComponent renderComp = standardRenderComponent("", false);
 

@@ -17,5 +17,6 @@ enum Tag
     ENEMYSPAWNER,
     PLAYERSPAWNER,
     TXT_SCORE,
-    HEALTH_NUM
+    HEALTH_NUM,
+    GAME_OVER_UI
 };

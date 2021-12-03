@@ -11,15 +11,20 @@ void InputSystem::preUpdate()
 {
     int currFrame = GameManager::getInstance().getCurrGameFrame();
 
-    // jump test
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::W))
+    InputTracker tracker = InputTracker::getInstance();
+    if (tracker.isKeyJustDown(InputTracker::W))
     {
         Notify(Event::INPUT_JUMP, nullptr);
     }
 
-    if (InputTracker::getInstance().isKeyJustDown(InputTracker::J))
+    if (tracker.isKeyJustDown(InputTracker::J))
     {
         Notify(Event::INPUT_SHOOT, nullptr);
+    }
+
+    if (tracker.isKeyJustDown(InputTracker::Q))
+    {
+        Notify(Event::INPUT_QUIT, nullptr);
     }
 }
 
