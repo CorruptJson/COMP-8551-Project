@@ -117,6 +117,10 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
+    else
+    {
+        std::cout << "No body when trying to add object?" << std::endl;
+    }
 }
 
 // THIS IS CURRENTLY OUTDATED AND NOT BEING USED

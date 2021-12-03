@@ -98,6 +98,7 @@ void Chunk::releaseEntity(int datIndex)
 {
     entToDat[datIndex] = -1;
     versions[datIndex] = versions[datIndex] + 1;
+    deleteEnt[datIndex] = false;
     currEnts--;
 }
 
@@ -153,8 +154,10 @@ void Chunk::releaseAllEntities()
         {
             entToDat[i] = -1;
             versions[i] = versions[i] + 1;
+            deleteEnt[i] = false;
         }
     }
+    entitiesToDelete = false;
     currEnts = 0;
 }
 
@@ -192,8 +195,7 @@ void Chunk::releaseFlaggedEntities(ISubject& subject)
                 B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{ id,getComponentReference<PhysicsComponent>(id).box2dBody };
                 subject.Notify(Event::B2BODY_TO_DELETE, (void*)args);
             }
-            releaseEntity(i);
-            deleteEnt[i] = false;
+            releaseEntity(i);            
         }
     }
     entitiesToDelete = false;

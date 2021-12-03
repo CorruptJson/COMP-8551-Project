@@ -220,7 +220,7 @@ EntityID GameEntityCreator::CreateUI(float x, float y, float height, float width
     }
     if (!hasTag) tags.push_back(Tag::UI);
 
-    EntityID ent = ec.CreateEntity(uiArchetype, "", tags);
+    EntityID ent = ec.CreateEntity(uiArchetype, tags);
 
     RenderComponent renderComp = standardRenderComponent("", false);
 

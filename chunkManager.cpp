@@ -211,7 +211,7 @@ void ChunkManager::deactivateAllEntitiesAndPhysicsBodies()
                     EntityID id = chunk->entityAtComponentIndex(i);
                     B2BodyDeleteEventArgs* args = new B2BodyDeleteEventArgs{id,comp->box2dBody };
                     Notify(Event::B2BODY_TO_DELETE, (void*)args);
-                    chunk->releaseEntity(id);
+                    //chunk->releaseEntity(id);
                     //physWorld.B2DBodyDeleteGuardFunction(comp->box2dBody, chunk->entityAtComponentIndex(i));
                 }
             }
