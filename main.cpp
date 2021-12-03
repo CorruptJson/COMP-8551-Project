@@ -5,6 +5,7 @@
 #include <ratio>
 #include <chrono>
 #include <string>
+#include <thread>
 #include "Renderer.h"
 #include "PhysicsWorld.h"
 #include "EntityCoordinator.h"
@@ -113,23 +114,28 @@ int initialize()
 {
     // when the engine starts
     glm::fvec4 backgroundColor(81.f / 255, 50.f / 255, 37.f / 255, 1);
-    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
+
     animator = Animator();
-
     coordinator = &(EntityCoordinator::getInstance());
-    physicsWorld = &(PhysicsWorld::getInstance());
-    coordinator->chunkManager->Attach(physicsWorld);
-
-    playerControl = new PlayerControlSystem();
 
     initComponents();
 
     sceneManager = new SceneManager();
-    sceneManager->CreateEntities();
+
+    renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::WINDOWED);
+    
+    thread sceneManagerThread(&SceneManager::CreateEntities, sceneManager);
+    renderer->setCamViewSize(VIEW_WIDTH, VIEW_HEIGHT);
+    sceneManager->SetupCamera();
+    physicsWorld = &(PhysicsWorld::getInstance());
+    coordinator->chunkManager->Attach(physicsWorld);
+    playerControl = new PlayerControlSystem();
 
     initSystems();
+    sceneManagerThread.join();
 
-    identifyPlayerAndPlayerSpawner();      
+
+    identifyPlayerAndPlayerSpawner();
 
     prevTime = Clock::now();
 

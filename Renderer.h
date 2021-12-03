@@ -33,6 +33,7 @@ class Renderer
 public:
 
     int init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize);
+    void setCamViewSize(int viewWidth, int viewHeight);
     int update(EntityCoordinator* coordinator);
     int teardown(bool closeWindow);
     static Renderer* getInstance();
