@@ -109,7 +109,16 @@ void SceneManager::CreateEntities() {
         if (ev.textComponent) ev.components.push_back(coordinator->GetComponentType<TextComponent>());
 
         Archetype arch = coordinator->GetArchetype(ev.components);
-        EntityID ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
+        EntityID ent;
+
+        if (ev.spriteName == "")
+        {
+            ent = coordinator->CreateEntity(arch, ev.tags);
+        }
+        else
+        {
+            ent = coordinator->CreateEntity(arch, ev.spriteName, ev.tags);
+        }
 
         entities.push_back(ent);
 
