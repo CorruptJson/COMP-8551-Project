@@ -9,10 +9,8 @@ void ScoreSystem::UpdateScore()
         ec->GetComponentType<TextComponent>()
     }, {Tag::TXT_SCORE});
     
-    if (eq->totalEntitiesFound() < 1) {
+    if (eq->totalEntitiesFound() < 1)
         return;
-    }
-
     ComponentIterator<TextComponent> tci(eq);
 
     //Create score text

@@ -1530,7 +1530,7 @@
         "_comment": "Star Spawn Top Middle",
         "transform": {
             "xPos": 0,
-            "yPos": 3.5
+            "yPos": -3.5
         }
     }
 ]

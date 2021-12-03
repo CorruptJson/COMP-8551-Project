@@ -235,6 +235,7 @@
     <ClInclude Include="IObserver.h" />
     <ClInclude Include="ISubject.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="NBSemaphore.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlayerControlSystem.h" />
