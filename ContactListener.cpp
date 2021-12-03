@@ -69,7 +69,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     else if (tagFirst == ENEMY) {
         //cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
-            cout << "Platform" << endl;
+            /*cout << "Platform" << endl;
             cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
             cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
@@ -78,15 +78,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
 
             float xVel = moveComponent->getVelocity().x;
-            float yVel = moveComponent->getVelocity().y;
-            if (moveComponent->getVelocity().x <=0) {
-                if (!renderComponent->flipX) {
-                    moveComponent->setVelocity(2.0f, yVel);
-                }
-                else {
-                    moveComponent->setVelocity(-2.0f, yVel);
-                }
-            }
+            float yVel = moveComponent->getVelocity().y;*/
 
             /*if (contact->GetManifold()->localPoint.x == -0.5) {
                 renderComponent->flipX = false;
@@ -109,13 +101,13 @@ void ContactListener::BeginContact(b2Contact* contact) {
             float xVel = moveComponent->getVelocity().x;
             float yVel = moveComponent->getVelocity().y;
 
-            xVel = renderComponent->flipX ? stateComponent->speed + 2 : -stateComponent->speed - 2;
+            xVel = renderComponent->flipX ? stateComponent->speed : -stateComponent->speed;
             renderComponent->flipX = renderComponent->flipX ? false : true;
             moveComponent->setVelocity(xVel, yVel);
-            cout << "testing x velocity touching wall: "<<xVel << endl;
+            //cout << "testing x velocity touching wall: "<<xVel << endl;
         }
         else if (tagSecond == BULLET) {
-            cout << "Bullet" << endl;
+            //cout << "Bullet" << endl;
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
 
