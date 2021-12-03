@@ -30,7 +30,6 @@
 #include "FPSCounter.h"
 
 
-InputSystem* inputSystem;
 EntityCoordinator* coordinator;
 Sound& se = Sound::getInstance();
 
@@ -78,6 +77,7 @@ void initSystems()
     //Subscribe playercontrol to recieve inputSystem events
     inputSys->Attach(playerControl);
     inputSys->Attach(renderer);
+    inputSys->Attach(gameManager);
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
@@ -90,8 +90,8 @@ void initSystems()
     physicsWorld->GetContactListener()->Attach(scoreSys.get());
 
     scoreSys->UpdateScore();
-
     playerControl->Attach(gameManager);
+    gameManager->Attach(playerControl);
 
 }
 
@@ -141,14 +141,6 @@ int initialize()
 void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
-
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
-    //    loadGameScene();
-    //}
-
-    //if (InputTracker::getInstance().isKeyJustReleased(InputTracker::J) && currentScene == menuScene) {
-    //    loadGameScene();
-    //}
 
     // run physics
     physicsWorld->Update(coordinator);

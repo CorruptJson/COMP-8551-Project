@@ -9,7 +9,7 @@ GameManager::GameManager()
     curScene = menuScene;
     sceneManager = new SceneManager();
     sceneManager->LoadPrefabs(prefabs);
-
+    isGameOver = false;
 }
 
 GameManager& GameManager::getInstance()
@@ -20,13 +20,14 @@ GameManager& GameManager::getInstance()
 
 void GameManager::identifyPlayerAndPlayerSpawner()
 {
-    //for (auto const& e : sceneManager->entities)
-    //{
-    //    if (coordinator->entityHasTag(Tag::PLAYERSPAWNER, e))
-    //    {
-    //        playerRespawner = e;
-    //    }
-    //}
+    auto& coordinator = EntityCoordinator::getInstance();
+    for (auto const& e : sceneManager->entities)
+    {
+        if (coordinator.entityHasTag(Tag::PLAYERSPAWNER, e))
+        {
+            playerRespawner = e;
+        }
+    }
 }
 
 EntityID GameManager::PlayerRespawnerID()
@@ -45,6 +46,7 @@ int GameManager::getCurrGameFrame()
 }
 
 void GameManager::handleGameOver() {
+    isGameOver = true;
     vector<string> dates = {
         "2020/11/30 11:30",
         "2020/11/30 11:30",
@@ -115,12 +117,23 @@ void GameManager::createGameOverOverlay(int playerScore, vector<string> dates, v
     creator.CreateText("J to replay. Q to quit", 0, yPos, 1, 0, 0, 1, {Tag::GAME_OVER_UI});
 }
 
-void GameManager::removeGameOverOverlay() {
+void GameManager::replay() {
+    isGameOver = false;
+    loadScene(gameScene);
+    Notify(Event::PLAYER_REPLAY, {});
 }
 
 
 void GameManager::Receive(Event e, void* args) {
-    if (e == Event::PLAYER_DIES) handleGameOver();
+    if (e == Event::INPUT_SHOOT) {
+        if (isGameOver) {
+            replay();
+        }
+        else if (curScene == menuScene) {
+            loadScene(gameScene);
+        }
+    }
+    else if (e == Event::PLAYER_DIES) handleGameOver();
 }
 
 std::string GameManager::getCurScene() {

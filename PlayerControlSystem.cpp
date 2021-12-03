@@ -360,6 +360,10 @@ void PlayerControlSystem::Receive(Event e, void* args)
         health = 0;
         se.playSound(FLAMEDEATH);
         break;
+    case(Event::PLAYER_REPLAY):
+        health = maxHealth;
+        isDead = false;
+        break;
     }
 }
 

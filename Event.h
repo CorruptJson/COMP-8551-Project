@@ -4,7 +4,6 @@ enum class Event {
     INPUT_JUMP,
     INPUT_SHOOT,
     INPUT_QUIT,
-    INPUT_PLAY,
 
     //Spawner Events
     SPAWN_STAR,
@@ -23,7 +22,8 @@ enum class Event {
     B2BODY_TO_DELETE,
 
     // player events
-    PLAYER_DIES
+    PLAYER_DIES,
+    PLAYER_REPLAY
 };
 
 struct B2BodyDeleteEventArgs

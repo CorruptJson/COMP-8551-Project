@@ -6,7 +6,7 @@
 #include "SceneManager.h"
 #include "EntityCoordinator.h"
 
-class GameManager : public IObserver
+class GameManager : public IObserver, public ISubject
 {
 private:
     GameManager();
@@ -15,9 +15,10 @@ private:
     int gameFrameCount = 0;
     std::string curScene;
     SceneManager* sceneManager;
+    bool isGameOver;
 
     void createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores);
-    void removeGameOverOverlay();
+    void replay();
 public:
     // config files
     static std::string menuScene;
