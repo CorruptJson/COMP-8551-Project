@@ -7,13 +7,14 @@ SpawnSystem::SpawnSystem() {
 
 void SpawnSystem::Receive(Event e, void* args)
 {
+    GameManager& gm = GameManager::getInstance();
     switch (e) {
     case Event::SPAWN_STAR:
-        if(!hasActiveStar)
+        if(!gm.hasActiveStar)
             SpawnStar();
         break;
     case Event::STAR_PICKED_UP:
-        hasActiveStar = false;
+        gm.hasActiveStar = false;
         break;
     case Event::SPAWN_ENEMY:
         SpawnEnemy();
@@ -53,7 +54,7 @@ void SpawnSystem::SpawnStar()
     EntityID star = GameEntityCreator::getInstance().CreateStar(xPos, yPos, 1, 1, "star.png", { Tag::STAR });
 
     PhysicsWorld::getInstance().AddObject(star);
-    hasActiveStar = true;
+    GameManager::getInstance().hasActiveStar = true;
 }
 
 void SpawnSystem::SpawnEnemy()
