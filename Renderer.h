@@ -19,6 +19,7 @@
 #include "Animator.h"
 #include "Character.h"
 #include "ShaderFactory.h"
+#include "NBSemaphore.h"
 
 extern GLFWwindow* window;
 
@@ -26,6 +27,16 @@ enum class WindowSize {
     WINDOWED,
     MAXIMIZED_WINDOWED,
     FULLSCREEN
+};
+
+struct ImgConfig {
+    string name;
+    int rows;
+    int columns;
+    Animation anims[5];
+    int width;
+    int height;
+    stbi_uc* imgData;
 };
 
 class Renderer : public IObserver
@@ -37,6 +48,7 @@ public:
     int update(EntityCoordinator* coordinator);
     int teardown(bool closeWindow);
     static Renderer* getInstance();
+    ImgConfig* configs[6];
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
     int getWindowHeight();
@@ -44,6 +56,8 @@ public:
     Interpolator* getTextYInterpolator();
     void setWindowWidth(int width);
     void setWindowHeight(int height);
+    NBSemaphore* imgReaderSem;
+    NBSemaphore* imgWriterSem;
     Camera* getCamera();
 
     // event receiver
@@ -102,7 +116,9 @@ private:
     void resetVerticesData(bool flipUV);
     GLuint createTexBuffer(int height, int width, unsigned char* imgData);
     void loadTextLibrary();
+    void loadImagesOld();
     void loadImages();
+    void loadIntoImageData();
     void updateTexCoord(RenderComponent comp, SpriteInfo& info);
     void drawText(TextComponent* text, Transform* transform);
     int findTextWidth(TextComponent* text);

@@ -222,10 +222,8 @@ int initialize()
     sceneManager = new SceneManager();
 
     renderer->init(VIEW_WIDTH, VIEW_HEIGHT, backgroundColor, WindowSize::MAXIMIZED_WINDOWED);
-    
-    thread sceneManagerThread(&SceneManager::CreateEntities, sceneManager);
-    renderer->setCamViewSize(VIEW_WIDTH, VIEW_HEIGHT);
-    sceneManager->SetupCamera();
+    sceneManager->CreateEntities();
+    //thread sceneManagerThread(&SceneManager::CreateEntities, sceneManager);
     physicsWorld = &(PhysicsWorld::getInstance());
     coordinator->chunkManager->Attach(physicsWorld);
     playerControl = new PlayerControlSystem();
@@ -233,7 +231,8 @@ int initialize()
     sceneManager->LoadPrefabs(prefabs);
     loadMenuScene();
     initSystems();
-    sceneManagerThread.join();
+
+    //sceneManagerThread.join();
 
 
     //identifyPlayerAndPlayerSpawner();      

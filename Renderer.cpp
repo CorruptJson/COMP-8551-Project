@@ -38,6 +38,65 @@ GLFWwindow* window;
 /// <returns></returns>
 int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, WindowSize windowSize) {
     backgroundColor = newBackgroundColor;
+
+    imgReaderSem = new NBSemaphore(0);
+    imgWriterSem = new NBSemaphore(6);
+
+    //Fill configs array with image and animation data
+    ImgConfig* tmpConfigs[]{
+        new ImgConfig{
+            "platform.png",
+            6,
+            3,
+            {}
+        },
+        new ImgConfig{
+            "bullet.png",
+            1,
+            1,
+            {}
+        },
+        new ImgConfig{
+            "Edgar.png",
+            1,
+            11,
+            {
+                Animator::createAnimation("hurt",6,6,0,true,250.0f),
+                Animator::createAnimation("idle",7,8,0,true,500.0f),
+                Animator::createAnimation("falling",9,10,0,true,500.0f),
+                Animator::createAnimation("running",0,5,0,true,150.0f)
+            }
+        },
+        new ImgConfig{
+            "Giant_Roach.png",
+            1,
+            3,
+            {
+                Animator::createAnimation("hurt", 0, 0, 0, true, 250.0f),
+                Animator::createAnimation("run",1,2, 0, true, 300.0f),
+            }
+        },
+        new ImgConfig{
+            "star.png",
+            1,
+            13,
+            {
+                Animator::createAnimation("flicker", 0, 12, 0, true, 100.0f)
+            }
+        },
+        new ImgConfig{
+            "fire.png",
+            1,
+            4,
+            {
+                Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
+            }
+        }
+    };
+    memcpy(configs, tmpConfigs, sizeof(configs));
+
+    thread imgReadThread(&Renderer::loadImages, this);
+
     window = setupGLFW(windowSize);
     if (window == NULL)
     {
@@ -48,6 +107,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     // glad handle the opengl code
     // init it
     gladLoadGL();
+
 
     // tell opengl the size of the viewport (window)
     // we are drawing on
@@ -64,12 +124,18 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glEnable(GL_BLEND);
 
+
     // init other OpenGL stuff
-    loadImages();
+    //loadImages();
+
     prepareGLBuffers();
 
     // init helper classes
     loadTextLibrary();
+    loadIntoImageData();
+
+    imgReadThread.join();
+
     textProjectionMat = glm::ortho(-(float)windowWidth / 2, (float)windowWidth / 2, -(float)windowHeight / 2, (float)windowHeight / 2);
     camera.setViewSize(viewWidth, viewHeight);
     shaderFactory.createAllShaderPrograms();
@@ -210,10 +276,7 @@ void Renderer::resetVerticesData(bool flipUV) {
 	glBufferData(GL_ARRAY_BUFFER, sizeof(texCoordsData), texCoordsData, GL_DYNAMIC_DRAW);
 }
 
-// Load all images that we need into the sprites map
-// This allows us to specify their row and column number
-// Also accomodate future sprite loading.
-void Renderer::loadImages() {
+void Renderer::loadImagesOld() {
     // read config data
     struct ImgConfig {
         string name;
@@ -289,7 +352,7 @@ void Renderer::loadImages() {
         {
             info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
         }
-        
+
 
         int colChannels;
         stbi_uc* imgData = FileManager::readImageFile(config.name, &info.width, &info.height, &colChannels);
@@ -311,7 +374,81 @@ void Renderer::loadImages() {
         sprites[config.name] = info;
 
         // delete the data
-        stbi_image_free(imgData); 
+        stbi_image_free(imgData);
+    }
+}
+
+
+// Load all images that we need into the sprites map
+// This allows us to specify their row and column number
+// Also accomodate future sprite loading.
+void Renderer::loadImages() {
+    stbi_set_flip_vertically_on_load(true);
+    for (ImgConfig* config : configs) {
+        imgWriterSem->wait();
+        // read the image from the file and store it
+        SpriteInfo info;
+        for (Animation var : config->anims)
+        {
+            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
+        }
+
+        int colChannels;
+        stbi_uc * tmpImgData = FileManager::readImageFile(config->name, &config->width, &config->height, &colChannels);
+        config->imgData = tmpImgData;
+        if (!config->imgData) {
+            std::cout << "Failed to load texture: " << config->name << std::endl;
+            return;
+        }
+
+        imgReaderSem->notify();
+
+        imgWriterSem->cv.notify_one();
+        imgReaderSem->cv.notify_one();
+    }
+}
+
+void Renderer::loadIntoImageData() {
+
+    // function for using stbi
+    // this is because OpenGL's y-axis starts from bottoms up
+    // however, images have y-axis starts top down
+    stbi_set_flip_vertically_on_load(true);
+
+    const float SPRITESHEET_HEIGHT = 1.f;
+    const float SPRITESHEET_WIDTH = 1.f;
+    for (ImgConfig* config : configs) {
+        imgReaderSem->wait();
+
+        // read the image from the file and store it
+        SpriteInfo info;
+        for (Animation var : config->anims)
+        {
+            info.animations.insert(std::pair<std::string, Animation>(var.animationName, var));
+        }
+
+        // create the texture buffer and store its id in info
+        info.id = createTexBuffer(config->height, config->width, config->imgData);
+        info.rows = config->rows;
+        info.columns = config->columns;
+
+        // calculate the cell size
+        info.cellHeight = SPRITESHEET_HEIGHT / info.rows;
+        info.cellWidth = SPRITESHEET_WIDTH / info.columns;
+
+        info.width = config->width;
+        info.height = config->height;
+
+        // store the new sprite
+        sprites[config->name] = info;
+
+        // delete the data
+        stbi_image_free(config->imgData);
+
+        imgWriterSem->notify();
+
+        imgWriterSem->cv.notify_one();
+        imgReaderSem->cv.notify_one();
     }
 }
 

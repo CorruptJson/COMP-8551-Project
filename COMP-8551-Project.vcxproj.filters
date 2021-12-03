@@ -395,6 +395,9 @@
     <ClInclude Include="DeleteTimerSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
+    <ClInclude Include="NBSemaphore.h">
+      <Filter>Header Files\Util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="bullet.png">

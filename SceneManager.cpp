@@ -67,25 +67,6 @@ unordered_map <std::string, TextAlign> textAlignMap = {
 SceneManager::SceneManager() {
     coordinator = &(EntityCoordinator::getInstance());
     renderer = Renderer::getInstance();
-
-}
-
-void SceneManager::SetupCamera() {
-
-    // init the view and window size so we can
-    // setup interpolation for text
-    // note that this requires the Renderer to run its init() first
-    Camera* camera = renderer->getCamera();
-    float startDomainX = -(camera->getViewWidth() / 2);
-    float endDomainX = -startDomainX;
-    float startTargetX = -(renderer->getWindowWidth() / 2);
-    float endTargetX = -startTargetX;
-    float startDomainY = -(camera->getViewHeight() / 2);
-    float endDomainY = -startDomainY;
-    float startTargetY = -(renderer->getWindowHeight() / 2);
-    float endTargetY = -startTargetY;
-    textPosInterpolX.setInterpolation(startDomainX, endDomainX, startTargetX, endTargetX);
-    textPosInterpolY.setInterpolation(startDomainY, endDomainY, startTargetY, endTargetY);
 }
 
 

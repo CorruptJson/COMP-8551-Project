@@ -73,7 +73,6 @@ public:
     
     SceneManager();
 
-    void SetupCamera();
     void LoadScene(std::string filename);
     void LoadPrefabs(std::string filename);
     void CreateEntities();
