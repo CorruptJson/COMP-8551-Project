@@ -102,10 +102,6 @@ void initSystems()
     scoreSys->UpdateScore();
 }
 
-
-
-
-
 void identifyPlayerAndPlayerSpawner()
 {
     for (auto const& e : sceneManager->entities)
@@ -126,10 +122,7 @@ void loadGameScene() {
     sceneManager->LoadScene(currentScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
-
-
 }
-
 
 void loadMenuScene() {
     currentScene = menuScene;
@@ -203,9 +196,6 @@ void removeGameOverOverlay() {
     }
 }
 
-
-
-
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -248,6 +238,13 @@ int initialize()
 
     prevTime = Clock::now();
 
+    for (auto const& e : sceneManager->entities)
+    {
+        if (coordinator->entityHasComponent<PhysicsComponent>(e))
+        {
+            physicsWorld->AddObject(e);
+        }
+    }
     // code to make the game over overlay
     //vector<string> dates = {
     //    "2020/11/30 11:30",
@@ -285,16 +282,35 @@ void fixedFrameUpdate()
         loadGameScene();
     }
 
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::P))
+    {
+        if (gameManager.GameIsPaused())
+        {
+            gameManager.UnpauseGame();
+        }
+        else
+        {
+            gameManager.PauseGame();
+        }
+    }
 
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::X))
+    {
+        auto query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
+        query->DeleteFoundEntities();
+    }
 
-    // run physics
-    physicsWorld->Update(coordinator);
-    // run ECS systems
-    coordinator->runSystemUpdates();
+    if (!gameManager.GameIsPaused())
+    {
+        // run physics
+        physicsWorld->Update(coordinator);
+        // run ECS systems
+        coordinator->runSystemUpdates();
 
-    playerControl->processPlayer();
+        playerControl->processPlayer();
 
-    coordinator->endOfUpdate();
+        coordinator->endOfUpdate();
+    }
 }
 
 void graphicsUpdate()
@@ -348,15 +364,11 @@ int teardown()
 
 int main() {
     initialize();       
-
-
     
     //se.playMusic("brionac.wav"); // Play background music on loop
     se.playMusic(0);
     //se.playSound(0);
     //se.playSound("bullet.wav"); // Play sound effects once
-
-
 
     while (!glfwWindowShouldClose(window))
     {
