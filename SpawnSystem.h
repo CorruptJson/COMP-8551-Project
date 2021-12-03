@@ -14,9 +14,7 @@ public:
     SpawnSystem();
     EntityCoordinator* ec;
     GameEntityCreator* gameEntCreator;
-    bool hasActiveStar = false;
-
-
+    
     void Receive(Event e, void* args) override;
     void SpawnStar();
     void SpawnEnemy();

@@ -134,6 +134,7 @@ void GameManager::createGameOverOverlay(int playerScore, vector<string> dates, v
 
 void GameManager::replay() {
     isGameOver = false;
+    hasActiveStar = false;
     loadScene(gameScene);
     Notify(Event::PLAYER_REPLAY, {});
 }

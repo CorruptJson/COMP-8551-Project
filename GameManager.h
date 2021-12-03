@@ -21,6 +21,7 @@ private:
     void createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores);
     void replay();
 public:
+    bool hasActiveStar = false;
     // config files
     static std::string menuScene;
     static std::string gameScene;
