@@ -22,6 +22,10 @@ enum class Event {
 
     //Entity events
     B2BODY_TO_DELETE,
+
+    // player events
+    PLAYER_DIES,
+    PLAYER_REPLAY
 };
 
 struct B2BodyDeleteEventArgs
