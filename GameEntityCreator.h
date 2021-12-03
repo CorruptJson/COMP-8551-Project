@@ -30,7 +30,7 @@ private:
     Archetype starArchetype;
     Archetype physParticleArchetype;
 
-    StateComponent enemiesInitialStates[];
+    StateComponent enemiesInitialStates[NUM_OF_ENEMIES];
 
     GameEntityCreator();
     RenderComponent standardRenderComponent(const char* spriteName, bool flipX);
