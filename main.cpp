@@ -102,10 +102,6 @@ void initSystems()
     scoreSys->UpdateScore();
 }
 
-
-
-
-
 void identifyPlayerAndPlayerSpawner()
 {
     for (auto const& e : sceneManager->entities)
@@ -126,10 +122,7 @@ void loadGameScene() {
     sceneManager->LoadScene(currentScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
-
-
 }
-
 
 void loadMenuScene() {
     currentScene = menuScene;
@@ -202,9 +195,6 @@ void removeGameOverOverlay() {
 
     }
 }
-
-
-
 
 // gets called once when engine starts
 // put initilization code here
@@ -292,16 +282,29 @@ void fixedFrameUpdate()
         loadGameScene();
     }
 
+    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::P))
+    {
+        if (gameManager.GameIsPaused())
+        {
+            gameManager.UnpauseGame();
+        }
+        else
+        {
+            gameManager.PauseGame();
+        }
+    }
 
+    if (!gameManager.GameIsPaused())
+    {
+        // run physics
+        physicsWorld->Update(coordinator);
+        // run ECS systems
+        coordinator->runSystemUpdates();
 
-    // run physics
-    physicsWorld->Update(coordinator);
-    // run ECS systems
-    coordinator->runSystemUpdates();
+        playerControl->processPlayer();
 
-    playerControl->processPlayer();
-
-    coordinator->endOfUpdate();
+        coordinator->endOfUpdate();
+    }
 }
 
 void graphicsUpdate()

@@ -31,3 +31,18 @@ int GameManager::getCurrGameFrame()
 {
     return gameFrameCount;
 }
+
+bool GameManager::GameIsPaused()
+{
+    return gamePaused;
+}
+
+void GameManager::PauseGame()
+{
+    gamePaused = true;
+}
+
+void GameManager::UnpauseGame()
+{
+    gamePaused = false;
+}
