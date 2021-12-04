@@ -63,6 +63,7 @@ void GameManager::UnpauseGame()
 
 void GameManager::handleGameOver() {
     isGameOver = true;
+    PauseGame();
     vector<string> dates = {
         "2020/11/30 11:30",
         "2020/11/30 11:30",
@@ -166,4 +167,5 @@ void GameManager::loadScene(std::string scene) {
     sceneManager->LoadScene(curScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
+    UnpauseGame();
 }
