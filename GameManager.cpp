@@ -73,7 +73,12 @@ void GameManager::handleGameOver() {
 
     std::sort(scoreJsonArray.begin(), scoreJsonArray.end(),
         [](const json& a, const json& b) -> bool {
-            return a["score"] > b["score"];
+            if (a["score"] > b["score"])
+                return true;
+            else if (a["score"] < b["score"])
+                return false;
+            else
+                return a["timestamp"] < b["timestamp"];
         }
     );
 
