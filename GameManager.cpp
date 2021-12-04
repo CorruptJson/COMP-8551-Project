@@ -76,6 +76,11 @@ void GameManager::handleGameOver() {
             return a["score"] > b["score"];
         }
     );
+
+    while (scoreJsonArray.size() > 5) {
+        scoreJsonArray.erase(5);
+    }
+
     FileManager::writeTextFile("scores.json", scoreJsonArray.dump());
 
     PauseGame();
