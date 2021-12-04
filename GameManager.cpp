@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "ScoreSystem.h"
+#include "Sound.h"
 #include <chrono>
 
 std::string GameManager::menuScene = "menu.json";
@@ -54,15 +55,19 @@ bool GameManager::GameIsPaused()
 
 void GameManager::PauseGame()
 {
+    Sound::getInstance().playMusic(THEME);
     gamePaused = true;
 }
 
 void GameManager::UnpauseGame()
 {
+    Sound::getInstance().playMusic(BATTLE);
     gamePaused = false;
 }
 
 void GameManager::handleGameOver() {
+    Sound::getInstance().playMusic(THEME);
+
     isGameOver = true;
     json scoreJsonArray = json::parse(FileManager::readScoreFile("scores.json"));
 

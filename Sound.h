@@ -9,7 +9,16 @@ enum soundEffects {
     JUMP,
     ENEMYDEATH,
     PLAYERDEATH,
-    FLAMEDEATH
+    FLAMEDEATH,
+    COCKROACHHIT,
+    GAMEOVER,
+    STARSHINING,
+    DEATHORHIT,
+    STARGRABBED
+};
+enum background {
+    BATTLE,
+    THEME
 };
 class Sound 
 {

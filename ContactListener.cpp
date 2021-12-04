@@ -39,7 +39,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     if (tagFirst == PLAYER) {
         //cout << "Player contact with: ";
         if (tagSecond == ENEMY) {
-            cout << "Enemy" << endl;
+            //cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
         }
         if (tagSecond == PLATFORM) {
@@ -49,12 +49,12 @@ void ContactListener::BeginContact(b2Contact* contact) {
             //cout << "Platform" << endl;
         }
         else if (tagSecond == STAR) {
-            cout << "Star" << endl;
+            //cout << "Star" << endl;
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             Notify(Event::STAR_PICKED_UP, nullptr);
         }
         else if (tagSecond == FIRE) {
-            cout << "Fire" << endl;
+            //cout << "Fire" << endl;
             Notify(Event::C_PLAYER_FIRE, nullptr);
         }
         //else if (tagSecond == ENEMYSPAWNER) {
@@ -107,12 +107,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == BULLET) {
             //cout << "Bullet" << endl;
+            Notify(Event::ENEMY_BULLET, nullptr);
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
 
             ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 0.0f, 0.0f);
 
             if (--stateComponent->health == 0) {
+                Notify(Event::ENEMY_DEATH, nullptr);
                 ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
             }
 

@@ -484,5 +484,20 @@
     <Media Include="fighting_BGM.wav">
       <Filter>Resource Files</Filter>
     </Media>
+    <Media Include="starGrabbed.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="gameOver.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="deathOrHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="cockroachHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="mainTheme.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
   </ItemGroup>
 </Project>

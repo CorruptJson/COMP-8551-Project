@@ -151,6 +151,7 @@ void PlayerControlSystem::processPlayer() {
     // respawn player
     if (health == 0) {
         isDead = true;
+        Sound::getInstance().playSound(DEATHORHIT);
         Notify(Event::PLAYER_DIES, {});
         //respawn();
     }
@@ -325,6 +326,7 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
         damaged();
+        se.playSound(COCKROACHHIT);
         break;
     case(Event::C_PLAYER_FIRE):
         invincibleTimer->Reset();
