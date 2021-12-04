@@ -9,6 +9,11 @@ InputSystem::InputSystem()
 
 void InputSystem::preUpdate()
 {
+
+}
+
+void InputSystem::update()
+{
     InputTracker tracker = InputTracker::getInstance();
     if (tracker.isKeyJustDown(InputTracker::W))
     {
@@ -24,11 +29,16 @@ void InputSystem::preUpdate()
     {
         Notify(Event::INPUT_QUIT, nullptr);
     }
-}
 
-void InputSystem::update()
-{
+    //if (tracker.isKeyDown(InputTracker::A))
+    //{
+    //    Notify(Event::INPUT_LEFT, nullptr);
+    //}
 
+    //if (tracker.isKeyDown(InputTracker::D))
+    //{
+    //    Notify(Event::INPUT_RIGHT, nullptr);
+    //}
 }
 
 void InputSystem::Notify(Event e, void* args)
