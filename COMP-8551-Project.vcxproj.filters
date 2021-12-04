@@ -225,9 +225,6 @@
     <None Include="DoodleVertShader.vs">
       <Filter>Resource Files\Shaders</Filter>
     </None>
-    <None Include="scores.json">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chunkManager.h">

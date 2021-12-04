@@ -199,7 +199,6 @@
     <None Include="DoodleVertShader.vs" />
     <None Include="prefab.json" />
     <None Include="scene.json" />
-    <None Include="scores.json" />
     <None Include="TextFragShader.fs" />
     <None Include="TextVertShader.vs" />
   </ItemGroup>
