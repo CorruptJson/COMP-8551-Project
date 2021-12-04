@@ -36,7 +36,7 @@ void PlayerControlSystem::processPlayer() {
 
     //init components
     std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
-        { 
+        {
             coordinator.GetComponentType<PhysicsComponent>(),
             coordinator.GetComponentType<Transform>(),
             coordinator.GetComponentType<RenderComponent>(),
@@ -90,7 +90,7 @@ void PlayerControlSystem::processPlayer() {
             stateComponent->state = STATE_MOVING;
         }
     }
-    
+
     //if (input.isKeyDown(InputTracker::S)) {
     //    animationComponent->currAnim = animHurting;
     //    moveComponent->setVelocity(0, 0);
@@ -123,8 +123,11 @@ void PlayerControlSystem::processPlayer() {
 
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
-        animationComponent->currFrame = animationComponent->currAnim->endFrame;
-        animationComponent->currAnim = animIdle;
+
+        if (!(animationComponent->currAnim == animIdle)) {
+            animationComponent->currFrame = animIdle->startFrame;
+            animationComponent->currAnim = animIdle;
+        }
     }
 
     //if (input.isKeyJustDown(InputTracker::J)) {
@@ -152,13 +155,19 @@ void PlayerControlSystem::processPlayer() {
     if (!isRespawning) {
         if (input.isKeyDown(InputTracker::A)) {
             renderComponent->flipX = true;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(-speed, yVelocity);
             stateComponent->faceRight = false;
         }
         if (input.isKeyDown(InputTracker::D)) {
             renderComponent->flipX = false;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(speed, yVelocity);
             stateComponent->faceRight = true;
         }
@@ -170,13 +179,19 @@ void PlayerControlSystem::processPlayer() {
 
     // Update isInvincible boolean and play animation
     if (isInvincible) {
-        animationComponent->currAnim = animHurting;
+        if (!(animationComponent->currAnim == animHurting)) {
+            animationComponent->currAnim = animHurting;
+            animationComponent->currFrame = animHurting->startFrame;
+        }
         isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
 
         renderComponent->shaderName = ShaderName::DOODLE;
 
         if (!isInvincible) {
-            animationComponent->currAnim = animIdle;
+            if (!(animationComponent->currAnim == animIdle)) {
+                animationComponent->currAnim = animIdle;
+                animationComponent->currFrame = animIdle->startFrame;
+            }
             renderComponent->shaderName = ShaderName::DEFAULT;
             if (isInContactWithEnemy) damaged();
         }
@@ -315,7 +330,7 @@ bool PlayerControlSystem::isGrounded()
 
     PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
     b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
-    
+
     while (contactList != nullptr) {
         PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
