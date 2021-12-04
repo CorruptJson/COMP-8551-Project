@@ -6,6 +6,8 @@ enum class Event {
     INPUT_JUMP,
     INPUT_SHOOT,
     INPUT_QUIT,
+    INPUT_LEFT,
+    INPUT_RIGHT,
 
     //Spawner Events
     SPAWN_STAR,

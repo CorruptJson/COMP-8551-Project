@@ -78,6 +78,7 @@ void GameManager::handleGameOver() {
     );
     FileManager::writeTextFile("scores.json", scoreJsonArray.dump());
 
+    PauseGame();
     vector<string> dates = {
         "----/--/-- --:--",
         "----/--/-- --:--",
@@ -192,4 +193,5 @@ void GameManager::loadScene(std::string scene) {
     sceneManager->LoadScene(curScene);
     sceneManager->CreateEntities();
     identifyPlayerAndPlayerSpawner();
+    UnpauseGame();
 }

@@ -37,7 +37,7 @@ Sound& se = Sound::getInstance();
 Renderer* renderer = Renderer::getInstance();
 PhysicsWorld* physicsWorld;
 PlayerControlSystem* playerControl;
-
+InputSystem inputSystem;
 Animator animator;
 
 GameManager* gameManager;
@@ -73,12 +73,12 @@ void initComponents()
 void initSystems()
 {
     coordinator->addSystem<DeleteTimerSystem>();
-    shared_ptr<InputSystem> inputSys = coordinator->addSystem<InputSystem>();
+    inputSystem = InputSystem();
 
     //Subscribe playercontrol to recieve inputSystem events
-    inputSys->Attach(playerControl);
-    inputSys->Attach(renderer);
-    inputSys->Attach(gameManager);
+    inputSystem.Attach(playerControl);
+    inputSystem.Attach(renderer);
+    inputSystem.Attach(gameManager);
 
     shared_ptr<SpawnSystem> spawnSys = coordinator->addSystem<SpawnSystem>();
     coordinator->addSystem<TimerSystem>()->Attach(spawnSys.get());
@@ -140,31 +140,7 @@ int initialize()
 void fixedFrameUpdate()
 {
     InputTracker::getInstance().perFrameUpdate(window);
-
-    // delete all entities when space is pressed
-    //if (InputTracker::getInstance().isKeyJustDown(InputTracker::SPACE))
-    //{
-    //    coordinator->deactivateAllEntitiesAndPhysicsBodies();
-    //}
-
-
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::P))
-    {
-        if (gameManager->GameIsPaused())
-        {
-            gameManager->UnpauseGame();
-        }
-        else
-        {
-            gameManager->PauseGame();
-        }
-    }
-
-    if (InputTracker::getInstance().isKeyJustReleased(InputTracker::X))
-    {
-        auto query = coordinator->GetEntityQuery({}, {Tag::ENEMY});
-        query->DeleteFoundEntities();
-    }
+    inputSystem.update();
 
     if (!gameManager->GameIsPaused())
     {

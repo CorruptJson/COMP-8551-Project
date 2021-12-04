@@ -36,7 +36,7 @@ void PlayerControlSystem::processPlayer() {
 
     //init components
     std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
-        { 
+        {
             coordinator.GetComponentType<PhysicsComponent>(),
             coordinator.GetComponentType<Transform>(),
             coordinator.GetComponentType<RenderComponent>(),
@@ -89,76 +89,36 @@ void PlayerControlSystem::processPlayer() {
         if (xVelocity != 0) {
             stateComponent->state = STATE_MOVING;
         }
-    }
-    
-    //if (input.isKeyDown(InputTracker::S)) {
-    //    animationComponent->currAnim = animHurting;
-    //    moveComponent->setVelocity(0, 0);
-    //}
-    //if (isCollided) {
-    //    isReset = true;
-    //    jumpCount = 0;
-    //}
-    //else {
-    //    isReset = false;
-    //}
-    //if (input.isKeyJustDown(InputTracker::W) && currState != STATE_JUMPING) {
-    //    //if (isReset) {
-    //        if (jumpCount < jumpLimit) {
-    //            moveComponent->addForce(0, jumpForce);
-    //            stateComponent->state = STATE_JUMPING;
-    //            jumpCount++;
-    //        }
-    //    //}
-    //}
+    } 
 
-    //if (input.isKeyJustReleased(InputTracker::S)) {
-    //    moveComponent->setVelocity(xVelocity, 0);
-    //}
-    //if (input.isKeyJustReleased(InputTracker::W)) {
-    //    if (yVelocity > 0) {
-    //        moveComponent->setVelocity(xVelocity, 0);
-    //    }
-    //}
 
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
-        animationComponent->currFrame = animationComponent->currAnim->endFrame;
-        animationComponent->currAnim = animIdle;
+
+        if (!(animationComponent->currAnim == animIdle)) {
+            animationComponent->currFrame = animIdle->startFrame;
+            animationComponent->currAnim = animIdle;
+        }
     }
-
-    //if (input.isKeyJustDown(InputTracker::J)) {
-    //    // create a new entity for bullet
-    //    float xPos = (stateComponent->faceRight) ? transformComponent->getPosition().x + transformComponent->getScale().x/2 : transformComponent->getPosition().x - transformComponent->getScale().x / 2;
-    //    float yPos = transformComponent->getPosition().y;
-    //    EntityID bullet = creator.CreateActor(xPos, yPos, transformComponent->getScale().x / 2, transformComponent->getScale().y / 2, "bullet.png", { Tag::BULLET }, false, 0);
-
-    //    RenderComponent* bulletrenderComp = &coordinator.GetComponent<RenderComponent>(bullet);
-    //    bulletrenderComp->flipX = (stateComponent->faceRight) ? true : false;
-
-    //    physWorld.AddObject(bullet);
-
-    //    // set velocity to the bullet entity
-    //    PhysicsComponent* bulletPhysComp = &coordinator.GetComponent<PhysicsComponent>(bullet);
-    //    b2Vec2 bulletVelocity = (stateComponent->faceRight) ? b2Vec2(5, 0) : b2Vec2(-5, 0);
-    //    bulletPhysComp->box2dBody->SetLinearVelocity(bulletVelocity);
-    //}
-    // Testing output
-    //std::cout << "xVelocity: " << xVelocity << std::endl;
-    //std::cout << "yVelocity: " << yVelocity << std::endl;
 
     // Animation, flip, and velocity
     // Play cannot move when respawning
     if (!isRespawning) {
         if (input.isKeyDown(InputTracker::A)) {
             renderComponent->flipX = true;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(-speed, yVelocity);
             stateComponent->faceRight = false;
         }
         if (input.isKeyDown(InputTracker::D)) {
             renderComponent->flipX = false;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(speed, yVelocity);
             stateComponent->faceRight = true;
         }
@@ -170,13 +130,19 @@ void PlayerControlSystem::processPlayer() {
 
     // Update isInvincible boolean and play animation
     if (isInvincible) {
-        animationComponent->currAnim = animHurting;
+        if (!(animationComponent->currAnim == animHurting)) {
+            animationComponent->currAnim = animHurting;
+            animationComponent->currFrame = animHurting->startFrame;
+        }
         isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
 
         renderComponent->shaderName = ShaderName::DOODLE;
 
         if (!isInvincible) {
-            animationComponent->currAnim = animIdle;
+            if (!(animationComponent->currAnim == animIdle)) {
+                animationComponent->currAnim = animIdle;
+                animationComponent->currFrame = animIdle->startFrame;
+            }
             renderComponent->shaderName = ShaderName::DEFAULT;
             if (isInContactWithEnemy) damaged();
         }
@@ -205,7 +171,6 @@ void PlayerControlSystem::jump()
         return;
     }
 
-
     StateComponent& stateComponent = *(eq->getComponentArray<StateComponent>()[0]);
 
     MovementComponent& moveComponent = *(eq->getComponentArray<MovementComponent>()[0]);
@@ -215,6 +180,7 @@ void PlayerControlSystem::jump()
     if (isGrounded() && !isRespawning) {
         moveComponent.addForce(0, jumpForce);
         stateComponent.state = STATE_JUMPING;
+        Sound::getInstance().playSound(JUMP);
     }
 }
 
@@ -238,8 +204,6 @@ void PlayerControlSystem::shoot()
     StateComponent& stateComponent = *(eq->getComponentArray<StateComponent>()[0]);
     Transform& transformComponent = *(eq->getComponentArray<Transform>()[0]);
 
-
-
     // create a new entity for bullet
     float bulletScaleX = transformComponent.getScale().x * 0.75;
     float bulletScaleY = transformComponent.getScale().y * 0.75;
@@ -262,6 +226,8 @@ void PlayerControlSystem::damaged()
 {
     if (!isInvincible)
     {
+        Sound::getInstance().playSound(PLAYERDEATH);
+
         invincibleTimer->Reset();
         isInvincible = true;
 
@@ -315,7 +281,7 @@ bool PlayerControlSystem::isGrounded()
 
     PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
     b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
-    
+
     while (contactList != nullptr) {
         PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
@@ -332,13 +298,22 @@ bool PlayerControlSystem::isGrounded()
 
 void PlayerControlSystem::Receive(Event e, void* args)
 {
+    if (e == Event::C_END_PLAYER_ENEMY)
+    {
+        isInContactWithEnemy = false;
+    }
+
+    if (GameManager::getInstance().GameIsPaused())
+    {
+        return;
+    }
+
     Sound& se = Sound::getInstance();
     std::shared_ptr<EntityQuery> eq = EntityCoordinator::getInstance().GetEntityQuery({}, { Tag::PLAYER });
     switch (e) {
     case(Event::INPUT_JUMP):
         if (eq->totalEntitiesFound() > 0) {
-            jump();
-            se.playSound(JUMP);
+            jump();            
         }
         break;
     case(Event::INPUT_SHOOT):
@@ -350,10 +325,6 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
         damaged();
-        se.playSound(PLAYERDEATH);
-        break;
-    case(Event::C_END_PLAYER_ENEMY):
-        isInContactWithEnemy = false;
         break;
     case(Event::C_PLAYER_FIRE):
         invincibleTimer->Reset();
@@ -364,6 +335,10 @@ void PlayerControlSystem::Receive(Event e, void* args)
         health = maxHealth;
         isDead = false;
         break;
+    //case(Event::INPUT_LEFT):
+    //    break;
+    //case(Event::INPUT_RIGHT):
+    //    break;
     }
 }
 
