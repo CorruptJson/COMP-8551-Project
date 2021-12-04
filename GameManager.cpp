@@ -64,7 +64,7 @@ void GameManager::UnpauseGame()
 
 void GameManager::handleGameOver() {
     isGameOver = true;
-    json scoreJsonArray = json::parse(FileManager::readTextFile("scores.json"));
+    json scoreJsonArray = json::parse(FileManager::readScoreFile("scores.json"));
 
     json currentScore;
     currentScore["score"] = ScoreSystem::score;
