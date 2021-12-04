@@ -1,5 +1,6 @@
 #include "ScoreSystem.h"
 #include "EntityCoordinator.h"
+#include "Sound.h"
 #include <string>
 #include <algorithm>
 using namespace std;
@@ -28,6 +29,7 @@ void ScoreSystem::Receive(Event e, void* args)
 {
     switch (e) {
     case Event::STAR_PICKED_UP:
+        Sound::getInstance().playSound(STARGRABBED);
         ScoreSystem::score++;
         UpdateScore();
         break;

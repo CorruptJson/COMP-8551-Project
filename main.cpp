@@ -119,16 +119,20 @@ int initialize()
     //sound test
     std::vector<std::string> music;
     music.push_back("fighting_BGM.wav");
+    music.push_back("mainTheme.wav");
     
-    std::vector<std::string> sfx;
     std::vector<std::string> sfxV;
     sfxV.push_back("shoot.wav");
     sfxV.push_back("jump.wav");
     sfxV.push_back("enemyDeath2.wav");
     sfxV.push_back("enemyDeath.wav"); // playerDeath
     sfxV.push_back("flameDeath.wav");
+    sfxV.push_back("cockroachHit.wav");
+    sfxV.push_back("gameOver.wav");
+    sfxV.push_back("starShining.wav");
+    sfxV.push_back("deathOrHit.wav");
+    sfxV.push_back("starGrabbed.wav");
     se.loadSfx(sfxV);
-    se.loadSfx(sfx);
     se.loadMusic(music);
 
     prevTime = Clock::now();
@@ -204,10 +208,7 @@ int teardown()
 int main() {
     initialize();       
     
-    //se.playMusic("brionac.wav"); // Play background music on loop
-    se.playMusic(0);
-    //se.playSound(0);
-    //se.playSound("bullet.wav"); // Play sound effects once
+    se.playMusic(BATTLE);
 
     while (!glfwWindowShouldClose(window))
     {

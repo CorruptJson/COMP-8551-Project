@@ -27,7 +27,11 @@ enum class Event {
 
     // player events
     PLAYER_DIES,
-    PLAYER_REPLAY
+    PLAYER_REPLAY,
+
+    // enemy events with bullets
+    ENEMY_BULLET,
+    ENEMY_DEATH
 };
 
 struct B2BodyDeleteEventArgs
