@@ -419,3 +419,6 @@ FodyWeavers.xsd
 
 #vscode folder
 .vscode/
+
+#etc
+scores.json

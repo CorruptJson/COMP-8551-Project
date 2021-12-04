@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "ScoreSystem.h"
+#include <chrono>
 
 std::string GameManager::menuScene = "menu.json";
 std::string GameManager::gameScene = "scene.json";
@@ -63,21 +64,46 @@ void GameManager::UnpauseGame()
 
 void GameManager::handleGameOver() {
     isGameOver = true;
+    json scoreJsonArray = json::parse(FileManager::readTextFile("scores.json"));
+
+    json currentScore;
+    currentScore["score"] = ScoreSystem::score;
+    currentScore["timestamp"] = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    scoreJsonArray.push_back(currentScore);
+
+    std::sort(scoreJsonArray.begin(), scoreJsonArray.end(),
+        [](const json& a, const json& b) -> bool {
+            return a["score"] > b["score"];
+        }
+    );
+    FileManager::writeTextFile("scores.json", scoreJsonArray.dump());
+
     vector<string> dates = {
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
     };
 
     vector<string> scores = {
-        "15",
-        "5",
-        "15",
-        "15",
-        "5",
+        "0","0","0","0","0"
     };
+
+    for (int i = 0; i < 5; i++) {
+        if (scoreJsonArray.size() > i) {
+            scores[i] = std::to_string(scoreJsonArray[i]["score"].get<int>());
+            std::time_t t = scoreJsonArray[i]["timestamp"].get<int>();
+            std:tm tm;
+            localtime_s(&tm, &t);
+            stringstream s; 
+            s << std::put_time(&tm, "%Y/%m/%d %H:%M");
+            dates[i] = s.str();
+        }
+        
+    }
+
+
     createGameOverOverlay(ScoreSystem::score, dates, scores);
 }
 

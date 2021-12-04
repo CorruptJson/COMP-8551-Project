@@ -31,3 +31,17 @@ std::string FileManager::readTextFile(std::string fileName) {
 std::string FileManager::readShaderFile(std::string fileName) {
     return readTextFile(fileName);
 }
+
+void FileManager::writeTextFile(std::string fileName, std::string text) {
+    std::ofstream file;
+    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    try {
+        file.open(fileName);
+        file << text;
+        file.close();
+    }
+    catch (std::ifstream::failure e) {
+        std::string fileNameStr(fileName);
+        throw std::invalid_argument("Couldn't read file: " + fileNameStr);
+    }
+}
