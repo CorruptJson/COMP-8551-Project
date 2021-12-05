@@ -25,10 +25,8 @@ public:
     void shoot();
     void damaged();
     bool isGrounded();
-    void checkRespawn();
 
     void Receive(Event e, void* args) override;
-    //void Update(EntityCoordinator* coordinator);
 
 private:
     b2Timer* invincibleTimer;
@@ -41,6 +39,5 @@ private:
     const float respawningTime = 1000;
     bool isDead;
 
-    void updateContactWithEnemy(bool isContacted);
     void respawn();
 };
