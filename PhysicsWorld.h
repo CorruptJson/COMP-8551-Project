@@ -34,7 +34,6 @@ private:
     std::set<b2Body*> activeBodies;
     std::set<b2Body*> deactivatedBodies;
 
-    void UpdatePhysicsComponent(PhysicsComponent* physComponent);
     void UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent);
     void UpdateTransform(Transform* transform, PhysicsComponent* physComponent);
 

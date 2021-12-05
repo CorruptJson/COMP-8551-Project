@@ -59,7 +59,8 @@ void PhysicsWorld::AddObject(EntityID id) {
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
-
+        
+        // set physics body fixture
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &dynamicBox;
         fixtureDef.density = physComponent->density;
@@ -109,22 +110,19 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
-    else
-    {
 
-    }
 }
 
+// Update all the physics bodies currently active in the world
 void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
         std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<PhysicsComponent>(),
-        coordinator->GetComponentType<Transform>(),
-        coordinator->GetComponentType<MovementComponent>()
-
-            }, {});
+            coordinator->GetComponentType<PhysicsComponent>(),
+            coordinator->GetComponentType<Transform>(),
+            coordinator->GetComponentType<MovementComponent>()
+        }, {});
 
         int entitiesFound = entityQuery->totalEntitiesFound();
         ComponentIterator<PhysicsComponent> physCompIterator = ComponentIterator<PhysicsComponent>(entityQuery);
@@ -162,7 +160,6 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-
     }
     else
     {
@@ -172,7 +169,6 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-
     }
     else
     {
@@ -187,7 +183,6 @@ void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind != activeBodies.end())
     {
-
     }
     else
     {
@@ -206,12 +201,14 @@ ContactListener* PhysicsWorld::GetContactListener()
     return contactListener;
 }
 
+// Update an entity's movement component based on the physics body
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
     moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
     moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
     moveComponent->update();
 }
 
+// Update an entity's transform component based on the physics body
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
     transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
@@ -226,6 +223,7 @@ void PhysicsWorld::Receive(Event e, void* args)
     }
 }
 
+// delete physics related parts when done
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;
     if (world) delete world;
