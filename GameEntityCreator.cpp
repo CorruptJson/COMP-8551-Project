@@ -46,6 +46,12 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<DeleteTimer>(),
         });
 
+    particleArchetype = ec.GetArchetype({
+        ec.GetComponentType<Transform>(),
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<DeleteTimer>(),
+        });
+
     enemiesInitialStates[ROACH] = StateComponent {
         0,
         true,
@@ -116,7 +122,9 @@ EntityID GameEntityCreator::CreateActor(float xPos, float yPos, float scaleX, fl
 EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID roach = CreateActor(xPos, yPos, 1, 1, "Giant_Roach.png", { Tag::ENEMY }, false, 0);
-    PhysicsWorld::getInstance().AddObject(roach);
+    EntityID* id = &roach;
+    Notify(Event::B2BODY_ADD, (void*)id);
+    //PhysicsWorld::getInstance().AddObject(roach);
     RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
     rendComp.flipX = !facingRight;
 
@@ -133,7 +141,9 @@ EntityID GameEntityCreator::CreateRoach(float xPos, float yPos, bool facingRight
 EntityID GameEntityCreator::CreateSmallRoach(float xPos, float yPos, bool facingRight) {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID roach = CreateActor(xPos, yPos, 0.7, 0.7, "Giant_Roach.png", { Tag::ENEMY }, false, 0);
-    PhysicsWorld::getInstance().AddObject(roach);
+    EntityID* id = &roach;
+    Notify(Event::B2BODY_ADD,(void*)id);
+    //PhysicsWorld::getInstance().AddObject(roach);
     RenderComponent& rendComp = ec.GetComponent<RenderComponent>(roach);
     rendComp.flipX = !facingRight;
     rendComp.color = glm::vec3(1.0f, 0, 0); // red tint
@@ -264,7 +274,7 @@ EntityID GameEntityCreator::CreateStar(float xPos, float yPos, float scaleX, flo
 EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,const char* spriteName)
 {
     EntityCoordinator& ec = EntityCoordinator::getInstance();
-    EntityID ent = ec.CreateEntity(actorArchetype, spriteName, {});
+    EntityID ent = ec.CreateEntity(physParticleArchetype, spriteName, {});
     GameManager& gm = GameManager::getInstance();
     ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
     ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
@@ -280,4 +290,24 @@ EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,con
     false
     };
     return ent;
+}
+
+EntityID GameEntityCreator::CreateParticle(TransformArg t, int frameLife, const char* spriteName) {
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(particleArchetype, spriteName, {});
+    GameManager& gm = GameManager::getInstance();
+    ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
+    ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
+    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
+    return ent;
+}
+
+void GameEntityCreator::Receive(Event e, void* args)
+{
+    if (e == Event::ENEMY_DESTROYED)
+    {
+        Transform* t = (Transform*)args;
+        Position p = t->getPosition();
+        CreateParticle({p.x,p.y,0.25f,0.25f},60, "fire.png");
+    }
 }

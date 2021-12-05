@@ -2,6 +2,7 @@
 
 ContactListener::ContactListener() {
     ec = &EntityCoordinator::getInstance();
+    Attach(&GameEntityCreator::getInstance());
 }
 
 ContactListener::~ContactListener()
@@ -114,6 +115,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
             if (--stateComponent->health == 0) {
                 ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+                Notify(Event::ENEMY_DESTROYED, (void*)(ec->GetComponentPointer<Transform>(entFirst)));
             }
 
         }

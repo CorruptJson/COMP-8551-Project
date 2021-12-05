@@ -27,7 +27,6 @@
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
 #include "Sound.h"
-
 #include "FPSCounter.h"
 
 
@@ -42,8 +41,6 @@ Animator animator;
 
 GameManager* gameManager;
 FPSCounter fpsCounter = FPSCounter();
-
-Archetype standardArch;
 
 // special entities
 EntityID timer;
@@ -68,6 +65,7 @@ void initComponents()
     coordinator->RegisterComponent<StateComponent>();
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();    
+    coordinator->RegisterComponent<DeleteTimer>();
 }
 
 void initSystems()
@@ -107,6 +105,7 @@ int initialize()
 
     coordinator = &(EntityCoordinator::getInstance());
     physicsWorld = &(PhysicsWorld::getInstance());
+
     coordinator->chunkManager->Attach(physicsWorld);
 
     playerControl = new PlayerControlSystem();
@@ -170,6 +169,11 @@ int runEngine()
     prevTime = currTime;
     catchupTime += delta.count();
 
+    if (catchupTime > 500)
+    {
+        catchupTime = 500;
+    }
+
     // Game engine loop
     // this loop runs 60 times a second
     while (catchupTime >= MS_PER_FRAME)
@@ -204,10 +208,7 @@ int teardown()
 int main() {
     initialize();       
     
-    //se.playMusic("brionac.wav"); // Play background music on loop
     se.playMusic(0);
-    //se.playSound(0);
-    //se.playSound("bullet.wav"); // Play sound effects once
 
     while (!glfwWindowShouldClose(window))
     {

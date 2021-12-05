@@ -94,4 +94,9 @@ public:
         currIndex++;
         return comp;
     }
+
+    EntityID getCurrEnt()
+    {
+        return chunks[currChunk]->entityAtComponentIndex(currIndex - 1);
+    }
 };

@@ -69,6 +69,13 @@ public:
     {
         return chunkManager->getComponentRef<T>(entity);
     }
+
+    // get a pointer to an entity's component
+    template<typename T>
+    T* GetComponentPointer(EntityID entity)
+    {
+        return chunkManager->getComponentPointer<T>(entity);
+    }
     
     // returns an entity query, an object which contains the search results upon creation
     // the entity query searches for all entities that contain these components

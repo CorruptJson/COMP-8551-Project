@@ -24,6 +24,8 @@ PhysicsWorld::PhysicsWorld() {
 
     contactListener = new ContactListener();
     world->SetContactListener(contactListener);
+    contactListener->Attach(&GameEntityCreator::getInstance());
+    GameEntityCreator::getInstance().Attach(this);
 }
 
 PhysicsWorld& PhysicsWorld::getInstance()
@@ -295,6 +297,11 @@ void PhysicsWorld::Receive(Event e, void* args)
         B2BodyDeleteEventArgs* eventArgs = (B2BodyDeleteEventArgs*)args;
         B2DBodyDeleteGuardFunction(eventArgs->body, eventArgs->id);
         delete eventArgs;
+    }
+    else if (e == Event::B2BODY_ADD)
+    {
+        EntityID id = *((EntityID*)args);
+        AddObject(id);
     }
 }
 

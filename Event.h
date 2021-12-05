@@ -16,6 +16,7 @@ enum class Event {
 
     //Enemy events
     ENEMY_WALL_BUMP,
+    ENEMY_DESTROYED,
 
     //Collision events
     C_START_PLAYER_ENEMY,
@@ -24,6 +25,7 @@ enum class Event {
 
     //Entity events
     B2BODY_TO_DELETE,
+    B2BODY_ADD,
 
     // player events
     PLAYER_DIES,
