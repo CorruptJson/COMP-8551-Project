@@ -36,13 +36,13 @@ PhysicsWorld& PhysicsWorld::getInstance()
 void PhysicsWorld::AddObject(EntityID id) {
 
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-
+    // get the components of the entity
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
     MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
     moveComponent->physComponent = physComponent;
-
+    // create physics body for entity
     b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
@@ -50,14 +50,12 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
     b2World* world = PhysicsWorld::getInstance().world;
-    if (world == nullptr)
-    {
-        std::cout << "b2 world is nullptr" << std::endl;
-    }
+
     physComponent->box2dBody = world->CreateBody(&bodyDef);
     B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
     physComponent->box2dBody->SetFixedRotation(true);
+
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
@@ -68,7 +66,7 @@ void PhysicsWorld::AddObject(EntityID id) {
         fixtureDef.friction = physComponent->friction;
         fixtureDef.restitution = 0;
 
-        // set collision filter base on tag
+        // set collision filter based on tag
         if (coordinator.entityHasTag(PLAYER, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
             fixtureDef.filter.categoryBits = C_PLAYER;
@@ -113,7 +111,7 @@ void PhysicsWorld::AddObject(EntityID id) {
     }
     else
     {
-        std::cout << "No body when trying to add object?" << std::endl;
+
     }
 }
 
@@ -164,7 +162,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-        std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
+
     }
     else
     {
@@ -174,7 +172,7 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
+
     }
     else
     {
@@ -189,7 +187,7 @@ void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind != activeBodies.end())
     {
-        std::cout << "trying to add body that is already active? Ent: " << id << std::endl;
+
     }
     else
     {

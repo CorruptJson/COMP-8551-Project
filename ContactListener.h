@@ -17,7 +17,4 @@ public:
     void PostSolve(b2Contact* contact, const b2ContactImpulse* impulse);
 private:
     EntityCoordinator* ec;
-
-    bool GetFirstContact(Tag entityTag, EntityID id);
-    bool GetSecondContact(Tag entityTag, EntityID id);
 };

@@ -49,13 +49,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
             Notify(Event::STAR_PICKED_UP, nullptr);
         }
         else if (tagSecond == FIRE) {
-            //cout << "Fire" << endl;
             Notify(Event::C_PLAYER_FIRE, nullptr);
         }
-        else
-        {
-            cout << endl;
-        }
+
     }
     else if (tagFirst == ENEMY) {
         if (tagSecond == PLATFORM) {
@@ -87,7 +83,6 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
         }
         else if (tagSecond == FIRE) {
-            cout << "Fire" << endl;
             ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
     }
@@ -95,10 +90,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         if (tagSecond == PLATFORM || tagSecond == WALL) {
             ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
         }
-        else
-        {
-            cout << "unknown bullet collision, other tag is: " << tagSecond << endl;
-        }
+
     }
 }
 
@@ -179,12 +171,4 @@ void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold
 
 void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impulse) {
 
-}
-
-bool ContactListener::GetFirstContact(Tag entityTag, EntityID id) {
-    return ec->entityHasTag(entityTag, id);
-}
-
-bool ContactListener::GetSecondContact(Tag entityTag, EntityID id) {
-    return ec->entityHasTag(entityTag, id);
 }
