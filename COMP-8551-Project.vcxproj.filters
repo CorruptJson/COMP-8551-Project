@@ -162,9 +162,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="AIControlSystem.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentIterator.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -367,9 +364,6 @@
     </ClInclude>
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="AIControlSystem.h">
-      <Filter>Header Files\Physics</Filter>
     </ClInclude>
     <ClInclude Include="SpawnSystem.h">
       <Filter>Header Files\Systems</Filter>

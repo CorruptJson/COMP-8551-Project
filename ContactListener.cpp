@@ -37,19 +37,14 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
 
     if (tagFirst == PLAYER) {
-        //cout << "Player contact with: ";
         if (tagSecond == ENEMY) {
-            //cout << "Enemy" << endl;
             Notify(Event::C_START_PLAYER_ENEMY, nullptr);
         }
         if (tagSecond == PLATFORM) {
-            //cout << "Platform" << endl;
         }
         else if (tagSecond == WALL) {
-            //cout << "Platform" << endl;
         }
         else if (tagSecond == STAR) {
-            //cout << "Star" << endl;
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             Notify(Event::STAR_PICKED_UP, nullptr);
         }
@@ -57,42 +52,16 @@ void ContactListener::BeginContact(b2Contact* contact) {
             //cout << "Fire" << endl;
             Notify(Event::C_PLAYER_FIRE, nullptr);
         }
-        //else if (tagSecond == ENEMYSPAWNER) {
-        //    cout << "EnemySpawner" << endl;
-        //}
         else
         {
             cout << endl;
         }
     }
     else if (tagFirst == ENEMY) {
-        //cout << "Enemy contact with: ";
         if (tagSecond == PLATFORM) {
-            /*cout << "Platform" << endl;
-            cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
-            cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
 
-            RenderComponent* renderComponent = &EntityCoordinator::getInstance().GetComponent<RenderComponent>(entFirst);
-            MovementComponent* moveComponent = &EntityCoordinator::getInstance().GetComponent<MovementComponent>(entFirst);
-            StateComponent* stateComponent = &EntityCoordinator::getInstance().GetComponent<StateComponent>(entFirst);
-
-            float xVel = moveComponent->getVelocity().x;
-            float yVel = moveComponent->getVelocity().y;*/
-
-            /*if (contact->GetManifold()->localPoint.x == -0.5) {
-                renderComponent->flipX = false;
-                moveComponent->setVelocity(2.0f, yVel);
-            }
-            else if (contact->GetManifold()->localPoint.x == 0.5) {
-                renderComponent->flipX = true;
-                moveComponent->setVelocity(-2.0f, yVel);
-            }*/
         }
         else if (tagSecond == WALL) {
-            //cout << "Wall" << endl;
-            //cout << "X point: " << contact->GetManifold()->localPoint.x << endl;
-            //cout << "Y point: " << contact->GetManifold()->localPoint.y << endl;
-
             RenderComponent* renderComponent = &ec->GetComponent<RenderComponent>(entFirst);
             MovementComponent* moveComponent = &ec->GetComponent<MovementComponent>(entFirst);
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
@@ -103,10 +72,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
             xVel = renderComponent->flipX ? stateComponent->speed : -stateComponent->speed;
             renderComponent->flipX = renderComponent->flipX ? false : true;
             moveComponent->setVelocity(xVel, yVel);
-            //cout << "testing x velocity touching wall: "<<xVel << endl;
         }
         else if (tagSecond == BULLET) {
-            //cout << "Bullet" << endl;
             Notify(Event::ENEMY_BULLET, nullptr);
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
             StateComponent* stateComponent = &ec->GetComponent<StateComponent>(entFirst);
@@ -125,11 +92,8 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
     }
     else if (tagFirst == BULLET) {
-        //cout << "Bullet contact with: ";
         if (tagSecond == PLATFORM || tagSecond == WALL) {
-            //cout << "Platform" << endl;
             ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
-            //cout << "Bullet x platform" << endl;
         }
         else
         {
@@ -171,10 +135,6 @@ void ContactListener::EndContact(b2Contact* contact) {
         }
     }
 
-    //if (tagFirst == ENEMY) {
-    //    if (tagSecond == BULLET)
-    //        //ec->GetComponent<RenderComponent>(entFirst).color = glm::vec3(1.0f, 1.0f, 1.0f);
-    //}
 }
 
 void ContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold) {

@@ -14,7 +14,6 @@ public:
 
     static PhysicsWorld& getInstance();
     void AddObject(EntityID id);
-    void AddObjects(EntityCoordinator* coordinator);
     void Update(EntityCoordinator *coordinator);
     void DestoryObject(EntityID id);
     void B2DBodyDeleteGuardFunction(b2Body* body, EntityID id);
