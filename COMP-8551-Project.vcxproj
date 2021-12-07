@@ -173,6 +173,7 @@
     <ClCompile Include="InputTracker.cpp" />
     <ClCompile Include="Interpolator.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="ParticleMoveSystem.cpp" />
     <ClCompile Include="PhysicsWorld.cpp" />
     <ClCompile Include="PlayerControlSystem.cpp" />
     <ClCompile Include="PlayerState.cpp" />
@@ -234,6 +235,8 @@
     <ClInclude Include="ISubject.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="NBSemaphore.h" />
+    <ClInclude Include="ParticleMove.h" />
+    <ClInclude Include="ParticleMoveSystem.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PhysicsWorld.h" />
     <ClInclude Include="PlayerControlSystem.h" />
@@ -251,6 +254,7 @@
     <ClInclude Include="SpriteInfo.h" />
     <ClInclude Include="StateComponent.h" />
     <ClInclude Include="system.h" />
+    <ClInclude Include="Systems.h" />
     <ClInclude Include="system_manager.h" />
     <ClInclude Include="TagFunctions.h" />
     <ClInclude Include="TagList.h" />

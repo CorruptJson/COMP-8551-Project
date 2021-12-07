@@ -15,6 +15,8 @@ void DeleteTimerSystem::update()
         if (currGameFrame >= component->deletionFrame)
         {
             // delete entity
+            EntityID id = iterator.getCurrEnt();
+            EntityCoordinator::getInstance().scheduleEntityToDelete(id);            
         }
     }
 }

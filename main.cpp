@@ -15,11 +15,7 @@
 #include "InputTracker.h"
 #include "InputComponent.h"
 #include "TextComponent.h"
-#include "inputSystem.h"
-#include "TimerSystem.h"
-#include "SpawnSystem.h"
-#include "ScoreSystem.h"
-#include "DeleteTimerSystem.h"
+#include "systems.h"
 #include "SceneManager.h"
 #include "GameEntityCreator.h"
 #include "Components.h"
@@ -27,9 +23,7 @@
 #include "PlayerControlSystem.h"
 #include "GameManager.h"
 #include "Sound.h"
-
 #include "FPSCounter.h"
-
 
 EntityCoordinator* coordinator;
 Sound& se = Sound::getInstance();
@@ -42,8 +36,6 @@ Animator animator;
 
 GameManager* gameManager;
 FPSCounter fpsCounter = FPSCounter();
-
-Archetype standardArch;
 
 // special entities
 EntityID timer;
@@ -68,12 +60,16 @@ void initComponents()
     coordinator->RegisterComponent<StateComponent>();
     coordinator->RegisterComponent<MovementComponent>();
     coordinator->RegisterComponent<TextComponent>();    
+    coordinator->RegisterComponent<DeleteTimer>();
+    coordinator->RegisterComponent<ParticleMove>();
 }
 
 void initSystems()
 {
     coordinator->addSystem<DeleteTimerSystem>();
     inputSystem = InputSystem();
+
+    coordinator->addSystem<ParticleMoveSystem>();
 
     //Subscribe playercontrol to recieve inputSystem events
     inputSystem.Attach(playerControl);
@@ -95,7 +91,6 @@ void initSystems()
     gameManager->Attach(playerControl);
 }
 
-
 // gets called once when engine starts
 // put initilization code here
 int initialize()
@@ -107,6 +102,7 @@ int initialize()
 
     coordinator = &(EntityCoordinator::getInstance());
     physicsWorld = &(PhysicsWorld::getInstance());
+
     coordinator->chunkManager->Attach(physicsWorld);
 
     playerControl = new PlayerControlSystem();
@@ -136,6 +132,7 @@ int initialize()
     se.loadMusic(music);
 
     prevTime = Clock::now();
+    inputSystem.Attach(&GameEntityCreator::getInstance());
 
     return 0;
 }
@@ -173,6 +170,11 @@ int runEngine()
     Duration delta = currTime - prevTime;
     prevTime = currTime;
     catchupTime += delta.count();
+
+    if (catchupTime > 500)
+    {
+        catchupTime = 500;
+    }
 
     // Game engine loop
     // this loop runs 60 times a second

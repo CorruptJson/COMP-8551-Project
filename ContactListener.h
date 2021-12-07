@@ -4,6 +4,7 @@
 #include "TextComponent.h"
 #include "Libraries/include/box2d/box2d.h"
 #include "EntityUserData.h"
+#include "GameEntityCreator.h"
 
 class ContactListener : public b2ContactListener, public ISubject {
 public:

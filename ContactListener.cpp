@@ -2,6 +2,7 @@
 
 ContactListener::ContactListener() {
     ec = &EntityCoordinator::getInstance();
+    Attach(&GameEntityCreator::getInstance());
 }
 
 ContactListener::~ContactListener()
@@ -46,7 +47,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == STAR) {
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
-            Notify(Event::STAR_PICKED_UP, nullptr);
+            Notify(Event::STAR_PICKED_UP, (void*)(ec->GetComponentPointer<Transform>(entSecond)));
         }
         else if (tagSecond == FIRE) {
             Notify(Event::C_PLAYER_FIRE, nullptr);
@@ -79,6 +80,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
             if (--stateComponent->health == 0) {
                 Notify(Event::ENEMY_DEATH, nullptr);
                 ec->GetComponent<PhysicsComponent>(entFirst).isFlaggedForDelete = true;
+                Notify(Event::ENEMY_DESTROYED, (void*)(ec->GetComponentPointer<Transform>(entFirst)));
             }
 
         }

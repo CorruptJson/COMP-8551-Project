@@ -94,6 +94,30 @@ public:
         T* compArr = getComponentArray<T>();
         return compArr[datIndex];
     }
+    
+    template<typename T>
+    T* getComponentPointer(EntityID id)
+    {
+        if (versions[id.index] != id.version)
+        {
+            std::cout << "trying to get component for entity that no longer exists?" << std::endl;
+            throw "trying to get component for entity that no longer exists?";
+        }
+        if (id.index >= ENTITIES_PER_CHUNK)
+        {
+            // throw error
+            throw "getComponentReference: entity id index too large";
+        }
+        int datIndex = entToDat[id.index];
+        if (datIndex >= ENTITIES_PER_CHUNK)
+        {
+            // throw error
+            throw "getComponentReference: entity data index too large";
+        }
+
+        T* compArr = getComponentArray<T>();
+        return compArr + datIndex;
+    }
 
     template <typename T>
     T* getComponentArray()
@@ -128,6 +152,7 @@ public:
     void scheduleAllEntitiesToDelete();
     void flagEntToDelete(EntityID id);
     void releaseFlaggedEntities(ISubject& subject);
+
 
     ~Chunk();
 };

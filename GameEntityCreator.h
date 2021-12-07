@@ -2,8 +2,10 @@
 #include "EntityCoordinator.h"
 #include "Components.h"
 #include "Renderer.h"
-#include "PhysicsWorld.h"
 #include "GameManager.h"
+#include "IObserver.h"
+#include "Transform.h"
+#include "ISubject.h"
 
 enum Enemies {
     ROACH,
@@ -19,7 +21,7 @@ struct TransformArg
     float yScale;
 };
 
-class GameEntityCreator
+class GameEntityCreator : public IObserver , public ISubject
 {
 private:
     Archetype actorArchetype;
@@ -29,6 +31,8 @@ private:
     Archetype uiArchetype;
     Archetype starArchetype;
     Archetype physParticleArchetype;
+    Archetype particleArchetype;
+    Archetype particleAnimated;
 
     StateComponent enemiesInitialStates[NUM_OF_ENEMIES];
 
@@ -46,4 +50,7 @@ public:
     EntityID CreateUI(float x, float y, float height, float width, float r, float g, float b, std::vector<Tag> tags);
     EntityID CreateStar(float xPos, float yPos, float scaleX, float scaleY, const char* spriteName, std::vector<Tag> tags);
     EntityID CreatePhysParticle(TransformArg t, int frameLife, const char* spriteName);
+    EntityID CreateParticle(TransformArg t, int frameLife, const char* spriteName, float col, float row, ParticleMove move);
+    EntityID CreateSparkle(TransformArg t, int frameLife, int currFrame, ParticleMove move);
+    void Receive(Event e, void* args);
 };

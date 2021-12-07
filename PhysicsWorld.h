@@ -1,10 +1,7 @@
 #pragma once
-
 #include "ContactListener.h"
 #include "EntityUserData.h"
 #include "IObserver.h"
-
-// thompson testing
 #include <set>
 
 class PhysicsWorld : public IObserver {

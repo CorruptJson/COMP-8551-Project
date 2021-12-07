@@ -41,6 +41,12 @@ public:
         return allChunks[ca.chunkID]->getComponentReference<T>(ca);
     };
 
+    template<typename T>
+    T* getComponentPointer(EntityID id)
+    {
+        return allChunks[id.chunkID]->getComponentPointer<T>(id);
+    }
+
     int GetEntityCount();
     int getChunkCount();
 
@@ -57,6 +63,8 @@ public:
 
     void Notify(Event e, void* args) override;
     void NotifyToDestroyB2Body(EntityID id, b2Body* bod);
+
+
 
     ~ChunkManager();
 };

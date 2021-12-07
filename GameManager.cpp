@@ -130,7 +130,7 @@ void GameManager::handleGameOver() {
 /// <param name="dates">The dates the scores were gotten.</param>
 /// <param name="scores">The scores that were gotten.</param>
 void GameManager::createGameOverOverlay(int playerScore, vector<string> dates, vector<string> scores) {
-    auto& creator = GameEntityCreator::getInstance();
+    GameEntityCreator& creator = GameEntityCreator::getInstance();
     float viewHeight = Renderer::getInstance()->getCamera()->getViewHeight();
     float viewWidth = Renderer::getInstance()->getCamera()->getViewWidth();
     float yPos = viewHeight / 2 - 2; // use this so we can change the starting yPos easily
