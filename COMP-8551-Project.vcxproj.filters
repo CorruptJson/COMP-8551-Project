@@ -195,6 +195,9 @@
     <ClCompile Include="EntityQueryParameters.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleMoveSystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -400,6 +403,15 @@
     </ClInclude>
     <ClInclude Include="NBSemaphore.h">
       <Filter>Header Files\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleMove.h">
+      <Filter>Header Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleMoveSystem.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Systems.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

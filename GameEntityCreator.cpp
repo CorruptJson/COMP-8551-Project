@@ -50,6 +50,15 @@ GameEntityCreator::GameEntityCreator()
         ec.GetComponentType<Transform>(),
         ec.GetComponentType<RenderComponent>(),
         ec.GetComponentType<DeleteTimer>(),
+        ec.GetComponentType<ParticleMove>()
+        });
+
+    particleAnimated = ec.GetArchetype({
+        ec.GetComponentType<Transform>(),
+        ec.GetComponentType<RenderComponent>(),
+        ec.GetComponentType<DeleteTimer>(),
+        ec.GetComponentType<ParticleMove>(),
+        ec.GetComponentType<AnimationComponent>(),
         });
 
     enemiesInitialStates[ROACH] = StateComponent {
@@ -292,13 +301,38 @@ EntityID GameEntityCreator::CreatePhysParticle(TransformArg t, int frameLife,con
     return ent;
 }
 
-EntityID GameEntityCreator::CreateParticle(TransformArg t, int frameLife, const char* spriteName) {
+EntityID GameEntityCreator::CreateParticle(TransformArg t, int frameLife, const char* spriteName, float col, float row, ParticleMove move)
+{
     EntityCoordinator& ec = EntityCoordinator::getInstance();
     EntityID ent = ec.CreateEntity(particleArchetype, spriteName, {});
     GameManager& gm = GameManager::getInstance();
     ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
     ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
-    ec.GetComponent<RenderComponent>(ent) = standardRenderComponent(spriteName, false);
+    RenderComponent& r = ec.GetComponent<RenderComponent>(ent);
+    r = standardRenderComponent(spriteName, false);
+    r.rowIndex = row;
+    r.colIndex = col;
+    ec.GetComponent<ParticleMove>(ent) = move;
+    return ent;
+}
+
+EntityID GameEntityCreator::CreateSparkle(TransformArg t, int frameLife, int currFrame, ParticleMove move)
+{
+    const char * spriteName = "sparkles.png";
+    EntityCoordinator& ec = EntityCoordinator::getInstance();
+    EntityID ent = ec.CreateEntity(particleAnimated, "sparkles.png", {});
+    GameManager& gm = GameManager::getInstance();
+    ec.GetComponent<DeleteTimer>(ent) = { gm.getCurrGameFrame() + frameLife };
+    ec.GetComponent<Transform>(ent) = Transform(t.xPos, t.yPos, 0, t.xScale, t.xScale);
+    RenderComponent& r = ec.GetComponent<RenderComponent>(ent);
+    r = standardRenderComponent(spriteName, false);
+    ec.GetComponent<ParticleMove>(ent) = move;
+    ec.GetComponent<AnimationComponent>(ent) = {
+        Renderer::getInstance()->getAnimation("sparkle", spriteName),
+        0.0f, //starts off at zero for currTimeStamp
+        0.0f, //starts off at zero for lastTimeStamp
+        currFrame
+    };
     return ent;
 }
 
@@ -308,6 +342,42 @@ void GameEntityCreator::Receive(Event e, void* args)
     {
         Transform* t = (Transform*)args;
         Position p = t->getPosition();
-        CreateParticle({p.x,p.y,0.25f,0.25f},60, "fire.png");
+        ParticleMove move = { {0,0.05f},{0,-0.0025f} };
+        CreateParticle({ p.x,p.y - 0.05f,0.7f,0.7f }, 45, "particles_01.png", 1, 0, move);
+        move = { {0,0.08f},{0,-0.004f} };
+        CreateParticle({p.x,p.y,0.7f,0.7f},45, "particles_01.png",0,0, move);        
+    }
+    else if (e == Event::INPUT_SHOOT)
+    {
+        EntityCoordinator& coord = EntityCoordinator::getInstance();
+        std::shared_ptr<EntityQuery> eq = coord.GetEntityQuery(
+            {
+                coord.GetComponentType<Transform>(),
+                coord.GetComponentType<StateComponent>(),
+            }, { Tag::PLAYER }
+        );
+        ComponentIterator<Transform> ti = ComponentIterator<Transform>(eq);
+        ComponentIterator<StateComponent> si = ComponentIterator<StateComponent>(eq);
+        if (eq->totalEntitiesFound() > 0)
+        {
+            Transform* playerTransform = ti.nextComponent();
+            StateComponent* playerState = si.nextComponent();
+
+            float face = (playerState->faceRight) ? -1 : 1;
+            ParticleMove move = { {0.02f * face,0.05f},{0,-0.0045f} };
+            Position p = playerTransform->getPosition();
+            CreateParticle({ p.x + 0.4f * face,p.y + 0.04f,0.5f,0.5f }, 29, "particles_01.png", 0, 1, move);
+        }        
+    }
+    else if (e == Event::STAR_PICKED_UP)
+    {
+        Transform* t = (Transform*)args;
+        for (int i = 0; i < 5; i++)
+        {
+            ParticleMove move = { {0,0.017f},{0,0.00025f} };
+            Position p = t->getPosition();
+            float xMod = 0.14f * i - (0.14f * 2.5f);
+            CreateSparkle({ p.x + xMod,p.y - 0.4f,0.7f,0.7f }, 90, i % 4, move);
+        }
     }
 }

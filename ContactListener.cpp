@@ -47,7 +47,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
         }
         else if (tagSecond == STAR) {
             ec->GetComponent<PhysicsComponent>(entSecond).isFlaggedForDelete = true;
-            Notify(Event::STAR_PICKED_UP, nullptr);
+            Notify(Event::STAR_PICKED_UP, (void*)(ec->GetComponentPointer<Transform>(entSecond)));
         }
         else if (tagSecond == FIRE) {
             Notify(Event::C_PLAYER_FIRE, nullptr);

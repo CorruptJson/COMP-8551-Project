@@ -40,7 +40,7 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
     backgroundColor = newBackgroundColor;
 
     imgReaderSem = new NBSemaphore(0);
-    imgWriterSem = new NBSemaphore(6);
+    imgWriterSem = new NBSemaphore(8);
 
     //Fill configs array with image and animation data
     ImgConfig* tmpConfigs[]{
@@ -90,6 +90,20 @@ int Renderer::init(int viewWidth, int viewHeight, glm::vec4 newBackgroundColor, 
             4,
             {
                 Animator::createAnimation("burn", 0, 3, 0, true, 250.0f)
+            }
+        },
+        new ImgConfig{
+            "particles_01.png",
+            2,
+            2,
+            {}
+        },
+        new ImgConfig{
+            "sparkles.png",
+            1,
+            4,
+            {
+                Animator::createAnimation("sparkle", 0, 3, 0, true, 60.0f)
             }
         }
     };

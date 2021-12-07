@@ -48,7 +48,7 @@ public:
     int update(EntityCoordinator* coordinator);
     int teardown(bool closeWindow);
     static Renderer* getInstance();
-    ImgConfig* configs[6];
+    ImgConfig* configs[8];
     Animation* getAnimation(std::string animName, std::string spriteName);
     int getWindowWidth();
     int getWindowHeight();
