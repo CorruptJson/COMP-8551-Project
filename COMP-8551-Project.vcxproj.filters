@@ -162,9 +162,6 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Source Files\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="AIControlSystem.cpp">
-      <Filter>Source Files\Physics</Filter>
-    </ClCompile>
     <ClCompile Include="ComponentIterator.cpp">
       <Filter>Source Files\ECS</Filter>
     </ClCompile>
@@ -368,9 +365,6 @@
     <ClInclude Include="Shader.h">
       <Filter>Header Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="AIControlSystem.h">
-      <Filter>Header Files\Physics</Filter>
-    </ClInclude>
     <ClInclude Include="SpawnSystem.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
@@ -482,6 +476,21 @@
       <Filter>Resource Files</Filter>
     </Media>
     <Media Include="fighting_BGM.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="starGrabbed.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="gameOver.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="deathOrHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="cockroachHit.wav">
+      <Filter>Resource Files</Filter>
+    </Media>
+    <Media Include="mainTheme.wav">
       <Filter>Resource Files</Filter>
     </Media>
   </ItemGroup>

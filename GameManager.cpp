@@ -1,5 +1,7 @@
 #include "GameManager.h"
 #include "ScoreSystem.h"
+#include "Sound.h"
+#include <iomanip>
 
 std::string GameManager::menuScene = "menu.json";
 std::string GameManager::gameScene = "scene.json";
@@ -53,32 +55,71 @@ bool GameManager::GameIsPaused()
 
 void GameManager::PauseGame()
 {
+    Sound::getInstance().playMusic(THEME);
     gamePaused = true;
 }
 
 void GameManager::UnpauseGame()
 {
+    Sound::getInstance().playMusic(BATTLE);
     gamePaused = false;
 }
 
 void GameManager::handleGameOver() {
+    Sound::getInstance().playMusic(THEME);
+
     isGameOver = true;
+    json scoreJsonArray = json::parse(FileManager::readScoreFile("scores.json"));
+
+    json currentScore;
+    currentScore["score"] = ScoreSystem::score;
+    currentScore["timestamp"] = std::chrono::duration_cast<std::chrono::seconds>(std::chrono::system_clock::now().time_since_epoch()).count();
+    scoreJsonArray.push_back(currentScore);
+
+    std::sort(scoreJsonArray.begin(), scoreJsonArray.end(),
+        [](const json& a, const json& b) -> bool {
+            if (a["score"] > b["score"])
+                return true;
+            else if (a["score"] < b["score"])
+                return false;
+            else
+                return a["timestamp"] < b["timestamp"];
+        }
+    );
+
+    while (scoreJsonArray.size() > 5) {
+        scoreJsonArray.erase(5);
+    }
+
+    FileManager::writeTextFile("scores.json", scoreJsonArray.dump());
+
     PauseGame();
     vector<string> dates = {
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
-        "2020/11/30 11:30",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
+        "----/--/-- --:--",
     };
 
     vector<string> scores = {
-        "15",
-        "5",
-        "15",
-        "15",
-        "5",
+        "0","0","0","0","0"
     };
+
+    for (int i = 0; i < 5; i++) {
+        if (scoreJsonArray.size() > i) {
+            scores[i] = std::to_string(scoreJsonArray[i]["score"].get<int>());
+            std::time_t t = scoreJsonArray[i]["timestamp"].get<int>();
+            std:tm tm;
+            localtime_s(&tm, &t);
+            stringstream s; 
+            s << std::put_time(&tm, "%Y/%m/%d %H:%M");
+            dates[i] = s.str();
+        }
+        
+    }
+
+
     createGameOverOverlay(ScoreSystem::score, dates, scores);
 }
 

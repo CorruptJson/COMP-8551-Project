@@ -31,3 +31,30 @@ std::string FileManager::readTextFile(std::string fileName) {
 std::string FileManager::readShaderFile(std::string fileName) {
     return readTextFile(fileName);
 }
+
+std::string FileManager::readScoreFile(std::string fileName) {
+    std::ifstream scoreFile(fileName);
+
+    // if score file does not exist, create one
+    if (scoreFile.fail()) {
+        std::ofstream scoreFile(fileName);
+        scoreFile << "[]";
+        scoreFile.close();
+    }
+
+    return readTextFile(fileName);
+}
+
+void FileManager::writeTextFile(std::string fileName, std::string text) {
+    std::ofstream file;
+    file.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+    try {
+        file.open(fileName);
+        file << text;
+        file.close();
+    }
+    catch (std::ifstream::failure e) {
+        std::string fileNameStr(fileName);
+        throw std::invalid_argument("Couldn't read file: " + fileNameStr);
+    }
+}

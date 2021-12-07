@@ -152,7 +152,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AIControlSystem.cpp" />
     <ClCompile Include="Animator.cpp" />
     <ClCompile Include="Archetype.cpp" />
     <ClCompile Include="ArchetypeManager.cpp" />
@@ -203,7 +202,6 @@
     <None Include="TextVertShader.vs" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AIControlSystem.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AnimationComponent.h" />
     <ClInclude Include="Animator.h" />
@@ -279,9 +277,9 @@
   <ItemGroup>
     <Xsd Include="menu.json">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Xsd>
   </ItemGroup>
   <ItemGroup>
@@ -291,12 +289,17 @@
     <Media Include="bullet.wav" />
     <Media Include="bullet_short.mp3" />
     <Media Include="bullet_short.wav" />
+    <Media Include="cockroachHit.wav" />
+    <Media Include="deathOrHit.wav" />
     <Media Include="enemyDeath.wav" />
     <Media Include="enemyDeath2.wav" />
     <Media Include="fighting_BGM.wav" />
     <Media Include="flameDeath.wav" />
+    <Media Include="gameOver.wav" />
     <Media Include="jump.wav" />
+    <Media Include="mainTheme.wav" />
     <Media Include="shoot.wav" />
+    <Media Include="starGrabbed.wav" />
     <Media Include="starShining.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

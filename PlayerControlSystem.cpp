@@ -33,10 +33,9 @@ void PlayerControlSystem::processPlayer() {
     GameEntityCreator& creator = GameEntityCreator::getInstance();
     PhysicsWorld& physWorld = PhysicsWorld::getInstance();
 
-
     //init components
     std::shared_ptr<EntityQuery> eq = coordinator.GetEntityQuery(
-        { 
+        {
             coordinator.GetComponentType<PhysicsComponent>(),
             coordinator.GetComponentType<Transform>(),
             coordinator.GetComponentType<RenderComponent>(),
@@ -58,8 +57,6 @@ void PlayerControlSystem::processPlayer() {
     StateComponent* stateComponent = eq->getComponentArray<StateComponent>()[0];
     AnimationComponent* animationComponent = eq->getComponentArray<AnimationComponent>()[0];
 
-    //Sound se;
-
     // Setting animations 
     Animation* animRunning = renderer->getAnimation("running", renderComponent->spriteName);
     Animation* animHurting = renderer->getAnimation("hurt", renderComponent->spriteName);
@@ -76,10 +73,8 @@ void PlayerControlSystem::processPlayer() {
     int jumpLimit = 1;
     bool isReset = false;
     // Colliding with Platform count as ground check 
-    //TODO: Improve it with a sensor detector at the bottom of the player to detect if colliding with ground.
     bool isCollided = physComponent->box2dBody->GetContactList();
-    //float force = coordinator->GetComponent<PhysicsComponent>(mike).box2dBody->GetMass() * 10 / (1 / 60.0);
-    //force /= 3;
+
     if (yVelocity == 0) {
         // Change to normal state only if previous state was falling(no mid air jump)
         if (currState == stateComponent->state == STATE_JUMPING) {
@@ -91,10 +86,14 @@ void PlayerControlSystem::processPlayer() {
         }
     } 
 
+
     if (!input.isKeyDown(InputTracker::A) && !input.isKeyDown(InputTracker::D)) {
         moveComponent->setVelocity(0, yVelocity);
-        animationComponent->currFrame = animationComponent->currAnim->endFrame;
-        animationComponent->currAnim = animIdle;
+
+        if (!(animationComponent->currAnim == animIdle)) {
+            animationComponent->currFrame = animIdle->startFrame;
+            animationComponent->currAnim = animIdle;
+        }
     }
 
     // Animation, flip, and velocity
@@ -102,13 +101,19 @@ void PlayerControlSystem::processPlayer() {
     if (!isRespawning) {
         if (input.isKeyDown(InputTracker::A)) {
             renderComponent->flipX = true;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(-speed, yVelocity);
             stateComponent->faceRight = false;
         }
         if (input.isKeyDown(InputTracker::D)) {
             renderComponent->flipX = false;
-            animationComponent->currAnim = animRunning;
+            if (!(animationComponent->currAnim == animRunning)) {
+                animationComponent->currAnim = animRunning;
+                animationComponent->currFrame = animRunning->startFrame;
+            }
             moveComponent->setVelocity(speed, yVelocity);
             stateComponent->faceRight = true;
         }
@@ -120,13 +125,19 @@ void PlayerControlSystem::processPlayer() {
 
     // Update isInvincible boolean and play animation
     if (isInvincible) {
-        animationComponent->currAnim = animHurting;
+        if (!(animationComponent->currAnim == animHurting)) {
+            animationComponent->currAnim = animHurting;
+            animationComponent->currFrame = animHurting->startFrame;
+        }
         isInvincible = invincibleTimer->GetMilliseconds() < invincibleLength;
 
         renderComponent->shaderName = ShaderName::DOODLE;
 
         if (!isInvincible) {
-            animationComponent->currAnim = animIdle;
+            if (!(animationComponent->currAnim == animIdle)) {
+                animationComponent->currAnim = animIdle;
+                animationComponent->currFrame = animIdle->startFrame;
+            }
             renderComponent->shaderName = ShaderName::DEFAULT;
             if (isInContactWithEnemy) damaged();
         }
@@ -135,8 +146,8 @@ void PlayerControlSystem::processPlayer() {
     // respawn player
     if (health == 0) {
         isDead = true;
+        Sound::getInstance().playSound(DEATHORHIT);
         Notify(Event::PLAYER_DIES, {});
-        //respawn();
     }
 }
 
@@ -225,27 +236,8 @@ void PlayerControlSystem::damaged()
         health--;
         std::string healthTxt = "X ";
         tci.nextComponent()->setText(healthTxt + std::to_string(health));
-
-        /*eq = ec->GetEntityQuery({
-            ec->GetComponentType<RenderComponent>()
-            }, { Tag::PLAYER});
-
-        ComponentIterator<RenderComponent> rci(eq);
-
-        rci.nextComponent()->shaderName = ShaderName::DEFAULT;*/
     }
-    else
-    {
-        //EntityCoordinator* ec = &EntityCoordinator::getInstance();
-        //// Player is invincible
-        //std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
-        //    ec->GetComponentType<RenderComponent>()
-        //    }, { Tag::PLAYER });
 
-        //ComponentIterator<RenderComponent> rci(eq);
-
-        //rci.nextComponent()->shaderName = ShaderName::DOODLE;
-    }
 }
 
 bool PlayerControlSystem::isGrounded()
@@ -265,7 +257,7 @@ bool PlayerControlSystem::isGrounded()
 
     PhysicsComponent* physComponentA = eq->getComponentArray<PhysicsComponent>()[0];
     b2ContactEdge* contactList = physComponentA->box2dBody->GetContactList();
-    
+
     while (contactList != nullptr) {
         PhysicsComponent* physComponetB = reinterpret_cast<PhysicsComponent*>(contactList->other->GetUserData().pointer);
 
@@ -309,6 +301,7 @@ void PlayerControlSystem::Receive(Event e, void* args)
     case(Event::C_START_PLAYER_ENEMY):
         isInContactWithEnemy = true;
         damaged();
+        se.playSound(COCKROACHHIT);
         break;
     case(Event::C_PLAYER_FIRE):
         invincibleTimer->Reset();
@@ -319,10 +312,6 @@ void PlayerControlSystem::Receive(Event e, void* args)
         health = maxHealth;
         isDead = false;
         break;
-    //case(Event::INPUT_LEFT):
-    //    break;
-    //case(Event::INPUT_RIGHT):
-    //    break;
     }
 }
 

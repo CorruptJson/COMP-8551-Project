@@ -37,20 +37,14 @@ PhysicsWorld& PhysicsWorld::getInstance()
 // Adds an entity to the physics world by it's ID
 void PhysicsWorld::AddObject(EntityID id) {
 
-    //std::cout << "adding to phys: " << id << std::endl;
-
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
-
+    // get the components of the entity
     PhysicsComponent* physComponent = &coordinator.GetComponent<PhysicsComponent>(id);
     Transform* transformComponent = &coordinator.GetComponent<Transform>(id);
     MovementComponent* moveComponent = &coordinator.GetComponent<MovementComponent>(id);
 
     moveComponent->physComponent = physComponent;
-
-    //EntityUserData* entityUserData = new EntityUserData;
-    //entityUserData->id = id;
-
-    //b2BodyDef bodyDef = b2BodyDef();
+    // create physics body for entity
     b2BodyDef bodyDef = b2BodyDef();
     bodyDef.type = physComponent->bodyType;
     bodyDef.position.Set(physComponent->x, physComponent->y);
@@ -58,25 +52,24 @@ void PhysicsWorld::AddObject(EntityID id) {
 
     bodyDef.bullet = coordinator.entityHasTag(BULLET, id);
     b2World* world = PhysicsWorld::getInstance().world;
-    if (world == nullptr)
-    {
-        std::cout << "b2 world is nullptr" << std::endl;
-    }
+
     physComponent->box2dBody = world->CreateBody(&bodyDef);
     B2DBodyAddGuardFunction(physComponent->box2dBody,id);
     physComponent->entityID = id;
     physComponent->box2dBody->SetFixedRotation(true);
+
     if (physComponent->box2dBody) {
         b2PolygonShape dynamicBox;
         dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
-
+        
+        // set physics body fixture
         b2FixtureDef fixtureDef;
         fixtureDef.shape = &dynamicBox;
         fixtureDef.density = physComponent->density;
         fixtureDef.friction = physComponent->friction;
         fixtureDef.restitution = 0;
 
-        // set collision filter base on tag
+        // set collision filter based on tag
         if (coordinator.entityHasTag(PLAYER, id)) {
             physComponent->box2dBody->SetGravityScale(1.5);
             fixtureDef.filter.categoryBits = C_PLAYER;
@@ -119,87 +112,24 @@ void PhysicsWorld::AddObject(EntityID id) {
         }
         physComponent->box2dBody->CreateFixture(&fixtureDef);
     }
-    else
-    {
-        std::cout << "No body when trying to add object?" << std::endl;
-    }
+
 }
 
-// THIS IS CURRENTLY OUTDATED AND NOT BEING USED
-// Adds all objects in the world using the entity coordinator
-void PhysicsWorld::AddObjects(EntityCoordinator* coordinator) {
-
-    std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-            coordinator->GetComponentType<PhysicsComponent>(),
-            coordinator->GetComponentType<Transform>()
-        }, {});
-
-    int entitiesFound = entityQuery->totalEntitiesFound();
-    cout << "Entities found: " << entitiesFound << endl;
-
-    ComponentIterator<PhysicsComponent> physCompIterator = ComponentIterator<PhysicsComponent>(entityQuery);
-    ComponentIterator<Transform> transformCompIterator = ComponentIterator<Transform>(entityQuery);
-
-    //std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
-    //std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();  
-
-    for (int i = 0; i < entitiesFound; i++) {
-
-        PhysicsComponent* physComponent = physCompIterator.nextComponent();
-        Transform* transform = transformCompIterator.nextComponent();
-
-        b2BodyType type = physComponent->bodyType;
-
-        b2BodyDef bodyDef;
-        bodyDef.type = type;
-        bodyDef.position.Set(physComponent->x, physComponent->y);
-        bodyDef.userData.pointer = reinterpret_cast<uintptr_t>(physComponent);
-
-        physComponent->box2dBody = world->CreateBody(&bodyDef);
-
-        printf("Initial pos X-Pos: %0.2f Y-Pos %0.2f\n", physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
-
-        if (physComponent->box2dBody) {
-
-            b2PolygonShape dynamicBox;
-            dynamicBox.SetAsBox(physComponent->halfWidth, physComponent->halfHeight);
-
-            b2FixtureDef fixtureDef;
-            fixtureDef.shape = &dynamicBox;
-            fixtureDef.density = physComponent->density;
-            fixtureDef.friction = physComponent->friction;
-            fixtureDef.restitution = 0;
-            
-
-            physComponent->box2dBody->CreateFixture(&fixtureDef);
-
-            transform->setPhysicsBody(physComponent->box2dBody);
-
-        }
-    }
-
-    //physComponents[2]->box2dBody->SetLinearVelocity(b2Vec2(0.1, 5.0));
-    
-}
-
+// Update all the physics bodies currently active in the world
 void PhysicsWorld::Update(EntityCoordinator* coordinator) {
     if (world) {
         world->Step(timeStep, velocityIterations, positionIterations);
 
         std::shared_ptr<EntityQuery> entityQuery = coordinator->GetEntityQuery({
-        coordinator->GetComponentType<PhysicsComponent>(),
-        coordinator->GetComponentType<Transform>(),
-        coordinator->GetComponentType<MovementComponent>()
-
-            }, {});
+            coordinator->GetComponentType<PhysicsComponent>(),
+            coordinator->GetComponentType<Transform>(),
+            coordinator->GetComponentType<MovementComponent>()
+        }, {});
 
         int entitiesFound = entityQuery->totalEntitiesFound();
         ComponentIterator<PhysicsComponent> physCompIterator = ComponentIterator<PhysicsComponent>(entityQuery);
         ComponentIterator<Transform> transformCompIterator = ComponentIterator<Transform>(entityQuery);
         ComponentIterator<MovementComponent> moveCompIterator = ComponentIterator<MovementComponent>(entityQuery);
-        //std::vector<PhysicsComponent*> physComponents = entityQuery->getComponentArray<PhysicsComponent>();
-        //std::vector<Transform*> transformComponents = entityQuery->getComponentArray<Transform>();
-        //std::vector<MovementComponent*> moveComponents = entityQuery->getComponentArray<MovementComponent>();
 
         for (int i = 0; i < entitiesFound; i++) {
             PhysicsComponent* physComponent = physCompIterator.nextComponent();
@@ -207,8 +137,6 @@ void PhysicsWorld::Update(EntityCoordinator* coordinator) {
             MovementComponent* moveComponent = moveCompIterator.nextComponent();
 
             if (physComponent->isFlaggedForDelete) {
-
-                //B2DBodyDeleteGuardFunction(physComponent->box2dBody, physComponent->entityID);
                 EntityCoordinator::getInstance().scheduleEntityToDelete(physComponent->entityID);
                 continue;
             }
@@ -230,12 +158,10 @@ void PhysicsWorld::DestoryObject(EntityID id)
 void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
 {
     std::vector<Tag> tags = EntityCoordinator::getInstance().getTagsForEntity(id);
-    //std::cout << "destroying body for " << id << " tag: " << tags[0] << "...." << std::endl;
 
     auto activeFind = activeBodies.find(body);
     if (activeFind == activeBodies.end())
     {
-        std::cout << "\ttrying to delete body that is not active?" << id << std::endl;
     }
     else
     {
@@ -245,7 +171,6 @@ void PhysicsWorld::B2DBodyDeleteGuardFunction(b2Body* body,EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        std::cout << "\ttrying to delete a body that has already been deleted?" << id << std::endl;
     }
     else
     {
@@ -260,7 +185,6 @@ void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
     auto activeFind = activeBodies.find(body);
     if (activeFind != activeBodies.end())
     {
-        std::cout << "trying to add body that is already active? Ent: " << id << std::endl;
     }
     else
     {
@@ -270,7 +194,6 @@ void PhysicsWorld::B2DBodyAddGuardFunction(b2Body* body, EntityID id)
     auto deactiveFind = deactivatedBodies.find(body);
     if (deactiveFind != deactivatedBodies.end())
     {
-        //std::cout << "resuin? Ent: " << id << std::endl;
         deactivatedBodies.erase(body);
     }
 }
@@ -280,12 +203,14 @@ ContactListener* PhysicsWorld::GetContactListener()
     return contactListener;
 }
 
+// Update an entity's movement component based on the physics body
 void PhysicsWorld::UpdateMovementComponent(MovementComponent* moveComponent, PhysicsComponent* physComponent) {
     moveComponent->xVelocity = physComponent->box2dBody->GetLinearVelocity().x;
     moveComponent->yVelocity = physComponent->box2dBody->GetLinearVelocity().y;
     moveComponent->update();
 }
 
+// Update an entity's transform component based on the physics body
 void PhysicsWorld::UpdateTransform(Transform* transform, PhysicsComponent* physComponent) {
     transform->setPosition(physComponent->box2dBody->GetPosition().x, physComponent->box2dBody->GetPosition().y);
 }
@@ -305,6 +230,7 @@ void PhysicsWorld::Receive(Event e, void* args)
     }
 }
 
+// delete physics related parts when done
 PhysicsWorld::~PhysicsWorld() {
     if (gravity) delete gravity;
     if (world) delete world;

@@ -1,5 +1,5 @@
 #include "SpawnSystem.h"
-
+#include "Sound.h"
 SpawnSystem::SpawnSystem() {
     ec = &EntityCoordinator::getInstance();
     gameEntCreator = &GameEntityCreator::getInstance();
@@ -10,14 +10,23 @@ void SpawnSystem::Receive(Event e, void* args)
     GameManager& gm = GameManager::getInstance();
     switch (e) {
     case Event::SPAWN_STAR:
+        Sound::getInstance().playSound(STARSHINING);
         if(!gm.hasActiveStar)
             SpawnStar();
         break;
     case Event::STAR_PICKED_UP:
         gm.hasActiveStar = false;
+        Sound::getInstance().playSound(STARGRABBED);
         break;
     case Event::SPAWN_ENEMY:
+        Sound::getInstance().playSound(COCKROACHHIT);
         SpawnEnemy();
+        break;
+    case Event::ENEMY_BULLET:
+        Sound::getInstance().playSound(DEATHORHIT);
+        break;
+    case Event::ENEMY_DEATH:
+        Sound::getInstance().playSound(ENEMYDEATH);
         break;
     }
 }
