@@ -1,6 +1,8 @@
 
 #include <mutex>
 #include <condition_variable>
+#include <atomic>
+
 class NBSemaphore {
 public:
     NBSemaphore(int count) : counter{ count } { };
