@@ -8,22 +8,22 @@
 #include <nlohmann/json.hpp>
 
 // ECS
-//using Entity = std::uint32_t;
-//const Entity MAX_ENTITIES = 5000;
+
 using ComponentType = std::uint8_t;
 using ComponentSize = std::uint8_t;
 const ComponentType MAX_COMPONENTS = 32;
 
-using Tagset = int;
+//using Tagset = int;
 
 using ComponentSizeMap = std::unordered_map<ComponentType, ComponentSize>;
 
 using ArchetypeType = std::uint16_t;
 
-//using std::string = const char*;
-
 using Byte = unsigned char;
 
+// an entity exists as a specific single index in an object pool chunk
+// "version" refers to which re-used iteration of that index this specific entity existed in
+// version is used to check if an entityID refers to a destroyed entity which is no longer in memory
 
 struct EntityID
 {

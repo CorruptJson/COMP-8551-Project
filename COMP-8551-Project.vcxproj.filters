@@ -189,12 +189,6 @@
     <ClCompile Include="DeleteTimerSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="EntityQueryResults.cpp">
-      <Filter>Source Files\ECS</Filter>
-    </ClCompile>
-    <ClCompile Include="EntityQueryParameters.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ParticleMoveSystem.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -329,9 +323,6 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files\Rendering</Filter>
     </ClInclude>
-    <ClInclude Include="TagFunctions.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
     <ClInclude Include="IObserver.h">
       <Filter>Header Files\Events</Filter>
     </ClInclude>
@@ -354,9 +345,6 @@
       <Filter>Header Files\Sound</Filter>
     </ClInclude>
     <ClInclude Include="ComponentIterator.h">
-      <Filter>Header Files\ECS</Filter>
-    </ClInclude>
-    <ClInclude Include="ECS.h">
       <Filter>Header Files\ECS</Filter>
     </ClInclude>
     <ClInclude Include="Character.h">

@@ -8,7 +8,13 @@
 #include <unordered_map>
 #include <iostream>
 
+// this class associates an ComponentType ID to specific types of components
+// it also records the byte size of different component types, which is used during object pool chunk creation
 
+// ALL COMPONENTS must be registered with the Component Manager at the beginning of engine initialization
+// "getComponentType" is used by many other parts of the engine in many different areas
+
+// the component manager can be interfaced with via the ECSCoordinator
 
 class ComponentManager
 {

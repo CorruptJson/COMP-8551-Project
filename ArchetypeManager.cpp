@@ -7,7 +7,6 @@ ArchetypeType ArchetypeManager::getArchetypeType(std::vector<ComponentType>& com
     auto find = archetypeTypes.find(compTypes);
     if (find == archetypeTypes.end())
     {
-        //std::vector<ComponentType> v2(compTypes);
         ArchetypeType type = typeCounter++;
         archetypeTypes.emplace(compTypes, type);
         return type;

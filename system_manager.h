@@ -3,14 +3,12 @@
 #include <vector>
 #include "system.h"
 
-//using namespace std;
-//class EntityCoordinator;
-//EntityCoordinator& getInstance();
+// this class stores and runs systems
+// systems must be registered with the system manager in order to be automatically run
 
 class SystemManager
 {
 public:
-
     template<typename T>
     shared_ptr<T> addSystem() {
         auto system = std::make_shared<T>();

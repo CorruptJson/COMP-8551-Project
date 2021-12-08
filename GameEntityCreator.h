@@ -7,6 +7,12 @@
 #include "Transform.h"
 #include "ISubject.h"
 
+// this class is used as a centralized place to write specific code to initialize specific types of entities in specific ways
+// "creating" an entity only assigns an index in memory to it
+// this class is used for common data value initialization
+
+// this class also listens for events and can create entities via events
+
 enum Enemies {
     ROACH,
     SMALL_ROACH,
@@ -24,6 +30,7 @@ struct TransformArg
 class GameEntityCreator : public IObserver , public ISubject
 {
 private:
+    // entity creation requires an archetype
     Archetype actorArchetype;
     Archetype platformArchetype;
     Archetype testArchetype;

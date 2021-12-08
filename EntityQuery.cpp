@@ -1,44 +1,11 @@
 #include "EntityQuery.h"
 
-//EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks, EntityQueryCache& cache)
-//{
-//    compTypes = _compTypes;
-//    std::sort(compTypes.begin(), compTypes.end());
-//    tags = {};
-//    chunkListVersion = allChunks.size();    
-//
-//    size_t hash = QueryHash();
-//    auto find = cache.find(hash);
-//    if (find != cache.end() && find->second->getChunkListVersion() == chunkListVersion)
-//    {
-//        chunks = find->second->foundChunks();
-//        entityCount = find->second->totalEntitiesFound();
-//    }
-//    else
-//    {
-//        searchChunks(allChunks);
-//        //cache.emplace(hash,)
-//    }    
-//}
-
 EntityQuery::EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags)
 {
     compTypes = _compTypes;
     std::sort(compTypes.begin(), compTypes.end());
     tags = _tags;
     std::sort(tags.begin(), tags.end());
-
-    //size_t hash = QueryHash();
-    //auto find = cache.find(hash);
-    //if (find != cache.end() && find->second->getChunkListVersion() == chunkListVersion)
-    //{
-    //    chunks = find->second->foundChunks();
-    //    entityCount = find->second->totalEntitiesFound();
-    //}
-    //else
-    //{
-    //    searchChunks(allChunks);
-    //}
 }
 
 EntityQuery::EntityQuery()
@@ -149,36 +116,6 @@ void EntityQuery::searchChunks(std::vector<Chunk*>& allChunks,int _chunkListVers
     recountFoundEntities();
     chunkListVersion = _chunkListVersion;
 }
-
-//std::size_t EntityQuery::ComponentTypesHash()
-//{
-//    std::size_t seed = compTypes.size();
-//    for (int i = 0; i < compTypes.size(); i++)
-//    {
-//        seed ^= compTypes[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-//    }
-//    return seed;
-//}
-//
-//std::size_t EntityQuery::TagsHash()
-//{
-//    std::size_t seed = tags.size();
-//    for (int i = 0; i < tags.size(); i++)
-//    {
-//        seed ^= tags[i] + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-//    }
-//    return seed;
-//}
-//
-//std::size_t EntityQuery::QueryHash()
-//{
-//    std::size_t seed = compTypes.size() + tags.size();
-//    std::size_t hash = ComponentTypesHash();
-//    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-//    hash = TagsHash();
-//    seed ^= hash + 0x9e3779b9 + (seed << 6) + (seed >> 2);
-//    return seed;
-//}
 
 void EntityQuery::recountFoundEntities()
 {
