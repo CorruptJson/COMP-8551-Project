@@ -55,27 +55,27 @@ EntityID Chunk::assignNewEntity()
             }
         }
 
-        std::cout << "chunk not full, but not slot found? " << id;
+        std::cerr << "chunk not full, but not slot found? " << id;
     }
     else
     {
-        std::cout << "chunk is full, ";
+        std::cerr << "chunk is full, ";
     }
 
     id.chunkID = -1;
     id.index = -1;
     id.version = -1;
 
-    std::cout << "could not assign entity to chunk" << std::endl;
-    std::cout << "chunk id: " << chunkID << std::endl;
-    std::cout << "chunk sprite: " << spritesheet << std::endl;
-    std::cout << "chunk ent count : " << currEnts << std::endl;
-    std::cout << "ent to dat values: ";
+    std::cerr << "could not assign entity to chunk" << std::endl;
+    std::cerr << "chunk id: " << chunkID << std::endl;
+    std::cerr << "chunk sprite: " << spritesheet << std::endl;
+    std::cerr << "chunk ent count : " << currEnts << std::endl;
+    std::cerr << "ent to dat values: ";
     for (int i = 0; i < ENTITIES_PER_CHUNK; i++)
     {
-        std::cout << entToDat[i];
+        std::cerr << entToDat[i];
     }
-    std::cout << std::endl;
+    std::cerr << std::endl;
 
     return id;
 
@@ -85,7 +85,7 @@ void Chunk::releaseEntity(EntityID id)
 {
     if (versions[id.index] != id.version)
     {
-        std::cout << "trying to delete entity that no longer exists?" << std::endl;
+        std::cerr << "trying to delete entity that no longer exists?" << std::endl;
         throw "trying to delete entity that no longer exists?";
     }
 

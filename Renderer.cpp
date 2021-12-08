@@ -223,7 +223,7 @@ GLFWwindow* Renderer::setupGLFW(WindowSize windowSize) {
     // pass in monitor for the 4rd param if we want it to be full screen
     GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "Edgar the Exterminator", fullScreenMonitor, NULL);
     if (window == NULL) {
-        std::cout << "Failed to create GLFW window" << std::endl;
+        std::cerr << "Failed to create GLFW window" << std::endl;
         return NULL;
     }
 
@@ -306,7 +306,7 @@ void Renderer::loadImages() {
         stbi_uc * tmpImgData = FileManager::readImageFile(config->name, &config->width, &config->height, &colChannels);
         config->imgData = tmpImgData;
         if (!config->imgData) {
-            std::cout << "Failed to load texture: " << config->name << std::endl;
+            std::cerr << "Failed to load texture: " << config->name << std::endl;
             return;
         }
 
@@ -420,7 +420,7 @@ void Renderer::loadTextLibrary() {
     // init the library
     FT_Library ft;
     if (FT_Init_FreeType(&ft)) {
-        std::cout << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
+        std::cerr << "ERROR::FREETYPE: Could not init FreeType Library" << std::endl;
         return;
     }
 
@@ -428,7 +428,7 @@ void Renderer::loadTextLibrary() {
     FT_Face face;
     if (FT_New_Face(ft, "Pixeboy.ttf", 0, &face))
     {
-        std::cout << "ERROR::FREETYPE: Failed to load font" << std::endl;
+        std::cerr << "ERROR::FREETYPE: Failed to load font" << std::endl;
         return;
     }
     FT_Set_Pixel_Sizes(face, 0, windowWidth / 20);
@@ -440,7 +440,7 @@ void Renderer::loadTextLibrary() {
     for (unsigned char c = 0; c < 128; c++) {
         // load character glyph 
         if (FT_Load_Char(face, c, FT_LOAD_RENDER)) {
-            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+            std::cerr << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
             continue;
         }
 

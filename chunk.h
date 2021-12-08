@@ -88,7 +88,7 @@ public:
     {
         if (versions[id.index] != id.version)
         {
-            std::cout << "trying to get component for entity that no longer exists?" << std::endl;
+            std::cerr << "trying to get component for entity that no longer exists?" << std::endl;
             throw "trying to get component for entity that no longer exists?";
         }
         if (id.index >= ENTITIES_PER_CHUNK)
@@ -112,7 +112,7 @@ public:
     {
         if (versions[id.index] != id.version)
         {
-            std::cout << "trying to get component for entity that no longer exists?" << std::endl;
+            std::cerr << "trying to get component for entity that no longer exists?" << std::endl;
             throw "trying to get component for entity that no longer exists?";
         }
         if (id.index >= ENTITIES_PER_CHUNK)
