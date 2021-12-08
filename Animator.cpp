@@ -1,36 +1,5 @@
 #include "Animator.h"
 
-#pragma region TBD
-//waiting for new ecs system integration
-void Animator::startNewAnim(EntityCoordinator* coordinator, EntityID* ent, std::string animName)
-{
-    //sets the old anim back to to the beginning
-    //entity.animationcomponent.currentAnim.currFrame = 0;
-    coordinator->GetComponent<AnimationComponent>(*ent).currFrame = 0;
-    //Animation newAnim = entity.animationComponent.animList.find(AnimName);
-    //entity.animationcomponent.currentAnim = newAnim;
-    //entity.renderComponent.rowIndex = newAnim.row;
-    //entity.renderComponent.colIndex = newAnim.currFrame;
-}
-
-//plays the currently set animation
-void Animator::playAnim() {
-    //entity.animationComponent.isPlaying = true;
-}
-
-//waiting for new ecs system integration
-void Animator::pauseAnim()
-{
-    //entity.animationComponent.isPlaying = true;
-}
-
-void Animator::setSpeed()
-{
-    //entity.animationComponent.speed = 500.0f;
-}
-
-#pragma endregion TBD
-
 void Animator::updateAnim(EntityCoordinator* coordinator)
 {
 
