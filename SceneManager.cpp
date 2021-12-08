@@ -49,6 +49,7 @@ unordered_map<std::string, Tag> tagMap = {
 
 
 // spritesheet map for converting from string to char
+// todo: find a better way to convert or change spritesheets files to use strings instead
 unordered_map <std::string, const char*> spriteMap = {
     {"platform.png", "platform.png"},
     {"Giant_Roach.png", "Giant_Roach.png"},
@@ -69,11 +70,12 @@ SceneManager::SceneManager() {
     renderer = Renderer::getInstance();
 }
 
-
+// loads from scene json file
 void SceneManager::LoadScene(std::string filename) {
     sceneJsonArray = json::parse(FileManager::readTextFile(filename));
 }
 
+// loads from prefab json file
 void SceneManager::LoadPrefabs(std::string filename) {
     prefabJsonArray = json::parse(FileManager::readTextFile(filename));
     for (auto& prefab : prefabJsonArray.items()) {
@@ -200,9 +202,11 @@ void SceneManager::CreateEntities() {
     }
 }
 
-
+// Parses a json object and creates an entity based off it.
 void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
     // check for prefabs first
+    // does a recursive call if a prefab is found
+    // prefabs can inherit from other prefabs
     if (jsonObject.contains("usePrefab")) {
         json e = prefabMap[jsonObject["usePrefab"].get<std::string>()];
         ParseEntityValues(ev, e);
@@ -278,7 +282,6 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
                 ev.movementComponent = true;
                 ev.stateComponent = true;
 
-                // TODO: do more than just check for one string
                 ev.bodyType = details.contains("b2bodytype") && details["b2bodytype"].get<string>() == "b2_dynamicBody"
                     ? b2_dynamicBody : ev.bodyType;
 
@@ -333,6 +336,7 @@ void SceneManager::ParseEntityValues(EntityValues& ev, const json& jsonObject) {
 
 };
 
+// empties list of entity ids.
 void SceneManager::EmptyEntitiesList() {
     entities = {};
 };
