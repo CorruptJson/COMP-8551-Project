@@ -234,6 +234,7 @@ GLFWwindow* Renderer::setupGLFW(WindowSize windowSize) {
     // set the window's icon
     GLFWimage icon;
     int colChannel;
+    stbi_set_flip_vertically_on_load(false);
     icon.pixels = FileManager::readImageFile("logo.png", &icon.width, &icon.height, &colChannel);
     glfwSetWindowIcon(window, 1, &icon);
     stbi_image_free(icon.pixels); // free memory

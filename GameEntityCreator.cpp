@@ -345,9 +345,9 @@ void GameEntityCreator::Receive(Event e, void* args)
         Transform* t = (Transform*)args;
         Position p = t->getPosition();
         ParticleMove move = { {0,0.05f},{0,-0.0025f} };
-        CreateParticle({ p.x,p.y - 0.05f,0.7f,0.7f }, 45, "particles_01.png", 1, 0, move);
+        CreateParticle({ p.x,p.y - 0.09f,0.6f,0.6f }, 45, "particles_01.png", 1, 0, move);
         move = { {0,0.08f},{0,-0.004f} };
-        CreateParticle({p.x,p.y,0.7f,0.7f},45, "particles_01.png",0,0, move);        
+        CreateParticle({p.x,p.y,0.6f,0.6f},45, "particles_01.png",0,0, move);        
     }
     else if (e == Event::INPUT_SHOOT)
     {
