@@ -1,5 +1,8 @@
 #include "ParticleMoveSystem.h"
 
+// this system moves entities that have the "ParticleMove" component each frame
+//  ParticleMove component has a velocity as well as a constant force to apply to their velocity
+
 void ParticleMoveSystem::update()
 {
     EntityCoordinator& coordinator = EntityCoordinator::getInstance();
@@ -9,6 +12,7 @@ void ParticleMoveSystem::update()
         }, {});
     ComponentIterator<Transform> t_iterator = ComponentIterator<Transform>(query);
     ComponentIterator<ParticleMove> p_iterator = ComponentIterator<ParticleMove>(query);
+
     int entCount = query->totalEntitiesFound();
     for (int i = 0; i < entCount; i++)
     {

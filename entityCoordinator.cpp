@@ -4,13 +4,9 @@ EntityCoordinator::EntityCoordinator()
 {
     // Create pointers to each manager
     componentManager = std::make_shared<ComponentManager>();
-    //mEntityManager = std::make_unique<EntityManager>();
     chunkManager = std::make_shared<ChunkManager>();
     archetypeManager = std::make_shared<ArchetypeManager>();
-    //mChunkManager = std::make_unique<ProtoChunkManager>();
     systemManager = std::make_shared<SystemManager>();
-
-    //initializeSystemManager();
 }
 
 EntityCoordinator& EntityCoordinator::getInstance()
@@ -47,22 +43,12 @@ void EntityCoordinator::scheduleEntityToDelete(EntityID entity)
     chunkManager->scheduleToDelete(entity);
 }
 
-// returns an entity query, an object which contains the search results upon creation
-// the entity query searches for all entities that contain these components
-// searches without checking for tags
-//std::shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes)
-//{
-//    return std::make_shared<EntityQuery>(compTypes, mChunkManager->allChunks, queryCache);
-//}
 
 // returns an entity query, an object which contains the search results upon creation
 // the entity query searches for all entities that contain these components and tags
 shared_ptr<EntityQuery> EntityCoordinator::GetEntityQuery(std::vector<ComponentType> compTypes, std::vector<Tag> tags)
 {
     int chunkManagerVersion = chunkManager->getChunkManagerVersion();
-    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
-    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>(compTypes, tags, chunkManagerVersion);
-    //std::shared_ptr<EntityQuery> query = std::make_shared<EntityQuery>();
 
     size_t hash = EntityQuery::QueryParamterHash(compTypes,tags);
     auto find = queryCache.find(hash);

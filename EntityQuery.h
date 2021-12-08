@@ -7,9 +7,13 @@
 #include "Types.h"
 #include "ComponentManager.h"
 
-// this class stores the result of a search
+// this class stores the result of an entity query
 // it searches for which entities contain the specified components
 // it can be used to access those components of those entities
+
+// entity queries can be cached and later prompted to update their search results
+// entity queries know when they are outdated from their stored "chunkListVersion" value
+
 class EntityQuery
 {
     friend class EntityCoordinator;
@@ -40,32 +44,22 @@ public:
     int chunkCount();
     int getChunkListVersion();
     Chunk* chunk(int i);
-    //std::size_t ComponentTypesHash();
-    //std::size_t TagsHash();
-    //std::size_t QueryHash();
 
     void recountFoundEntities();
 
-    // skip search if you already know the chunks you want
+    // skip search if you already know the chunks this query will store
     EntityQuery(std::vector<Chunk*> chosenChunks);
 
-    // entity queries perform their search when they are created
-    //EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Chunk*> allChunks, EntityQueryCache& cache);
-
-    // entity queries perform their search when they are created
     EntityQuery(std::vector<ComponentType> _compTypes, std::vector<Tag> _tags);
 
-    // get a vector of pointers for the components of the specified type
-    // the components belonging to the entities found in the query
+    // OLD FUNCTION, DO NOT USE
+    // this function is inefficient, it copies a whole array of pointers
+    // use the ComponentIterator to access component data instead
+    // 
+    // I'm leaving this here because PlayerControlSystem still uses it and I don't want to alter the code and risk new bugs this close to release
     template<typename T>
     std::vector<T*> getComponentArray()
     {
-        //ComponentType type = ComponentManager::GetComponentType<T>();
-        //if (std::find(compTypes.begin(),compTypes.end(),type) == compTypes.end())
-        //{
-        //    throw "cannot get component array from query: query does not contain this type";
-        //}
-
         std::vector<T*> list;
 
         for (int i = 0; i < chunks.size(); i++)
