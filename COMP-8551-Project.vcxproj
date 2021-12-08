@@ -208,7 +208,6 @@
     <ClInclude Include="ArchetypeManager.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="chunk.h" />
-    <ClInclude Include="ComponentArray.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="ContactListener.h" />
     <ClInclude Include="DeleteTimer.h" />
@@ -217,7 +216,6 @@
     <ClInclude Include="ComponentManager.h" />
     <ClInclude Include="ComponentIterator.h" />
     <ClInclude Include="EntityQuery.h" />
-    <ClInclude Include="EntityQueryParameters.h" />
     <ClInclude Include="Event.h" />
     <ClInclude Include="EntityUserData.h" />
     <ClInclude Include="file_manager.h" />
@@ -253,7 +251,6 @@
     <ClInclude Include="system.h" />
     <ClInclude Include="Systems.h" />
     <ClInclude Include="system_manager.h" />
-    <ClInclude Include="TagList.h" />
     <ClInclude Include="Tags.h" />
     <ClInclude Include="TextComponent.h" />
     <ClInclude Include="TimerComponent.h" />
