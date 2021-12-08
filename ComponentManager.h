@@ -54,7 +54,7 @@ public:
         std::uint8_t size8 = size;
         mComponentSizes.emplace(ct, size8);
 
-        std::cout << typeid(T).name() << " size: " << size << ", compID: " << (int)(ct) << std::endl;
+        //std::cout << typeid(T).name() << " size: " << size << ", compID: " << (int)(ct) << std::endl;
     }  
 
     ComponentSize getComponentSize(ComponentType t);

@@ -48,7 +48,7 @@ public:
         }
         else
         {
-            std::cout << "no entities for comp iterator" << std::endl;
+            std::cerr << "no entities for comp iterator" << std::endl;
         }
     }
 

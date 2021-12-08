@@ -188,7 +188,9 @@ int runEngine()
         
     // Graphics code runs independently from the fixed-frame game update
     graphicsUpdate();
-    fpsCounter.NextFrame();
+
+    // uncomment to show FPS in console
+    //fpsCounter.NextFrame();
 
     return 0;
 }
@@ -197,7 +199,7 @@ int runEngine()
 // put teardown code here
 int teardown()
 {
-    std::cout << "ending programing" << std::endl;
+    //std::cout << "ending programing" << std::endl;
 
     // when the engine closes
     renderer->teardown(false);

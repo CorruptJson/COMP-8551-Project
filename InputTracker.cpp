@@ -149,5 +149,4 @@ InputTracker& InputTracker::getInstance()
 
 InputTracker::InputTracker()
 {
-    std::cout << "new input tracker" << std::endl;
 }

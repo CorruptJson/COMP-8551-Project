@@ -41,7 +41,7 @@ void Sound::loadSfx(std::vector<std::string> sfxPaths)
         if (sfxMix != nullptr)
             mSFXBank.push_back(sfxMix);
         else
-            std::cout << "Failed to load " << n << std::endl;
+            std::cerr << "Failed to load " << n << std::endl;
     }
 }
 
@@ -53,7 +53,7 @@ void Sound::loadMusic(std::vector<std::string> musicPaths)
         if (musicChunk != nullptr)
             mMusicBank.push_back(musicChunk);
         else
-            std::cout << "Failed to load " << n << std::endl;
+            std::cerr << "Failed to load " << n << std::endl;
     }
 }
 

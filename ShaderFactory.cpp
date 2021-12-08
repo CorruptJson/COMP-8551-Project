@@ -110,7 +110,7 @@ void ShaderFactory::createShaderProgram(ShaderName name, std::string vertPath, s
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+        std::cerr << "Shader Compilation Error: " << infoLog << std::endl;
     }
 
     // do the same thing for the fragment shader
@@ -129,7 +129,7 @@ void ShaderFactory::createShaderProgram(ShaderName name, std::string vertPath, s
     if (!success) {
         char infoLog[512];
         glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-        std::cout << "Shader Compilation Error: " << infoLog << std::endl;
+        std::cerr << "Shader Compilation Error: " << infoLog << std::endl;
     }
 
     // now that we have the shaders, we have to create and 
