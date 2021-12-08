@@ -13,6 +13,7 @@ class Animator
 {
 public:
     Animator() {}
+    void updateAnim(EntityCoordinator* coordinator);
     static AnimationComponent createAnimationComponent(Animation* anim, bool isPlaying);
     static Animation createAnimation(std::string name, int startFrame, int endFrame, int row, bool looping, float speed);
 private:
