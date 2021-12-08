@@ -11,6 +11,11 @@
 #include "system_manager.h"
 #include "ComponentIterator.h"
 
+// this class contains a ComponentManager, a ChunkManager, and a SystemManager
+// this class acts as a centralized ECS interface
+
+// it also stores the entity query cache and is responsible for delivering entity queries
+
 using EntityQueryCache = std::unordered_map<size_t, shared_ptr<EntityQuery> >;
 
 class EntityCoordinator
@@ -18,10 +23,6 @@ class EntityCoordinator
 private:
 
     EntityQueryCache queryCache;
-    
-    //std::unordered_map< std::vector<ComponentType>, EntityQuery> queryCache;
-    //int queryCacheVersion = 0;
-
     EntityCoordinator();
 
 public:
@@ -115,9 +116,8 @@ public:
 
     shared_ptr<EntityQuery> entitiesWithSpriteSheet(std::string spritesheet);
 
+    // Delete. Everything.
     void deactivateAllEntitiesAndPhysicsBodies();
 
-    std::shared_ptr<ChunkManager> GetChunkManager();
-
-    
+    std::shared_ptr<ChunkManager> GetChunkManager();    
 };

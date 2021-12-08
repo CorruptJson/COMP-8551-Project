@@ -48,8 +48,6 @@ EntityID Chunk::assignNewEntity()
                 id.index = i;
                 id.version = versions[i];
                 entToDat[i] = i;
-                //entToDat[i] = currEnts;
-                //datToEnt[currEnts] = i;
 
                 currEnts++;
 

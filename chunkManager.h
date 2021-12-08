@@ -14,6 +14,15 @@
 
 const static std::string noSprite = "NO_SPRITE";
 
+// this class contains chunks, which contain entity component data
+// this class creates new chunks when needed, which is during entity creation when no valid matching chunks are found
+// 
+// chunk manager version is an int used to check for when an Entity query becomes outdated. Queries are outdated when the chunk manager creates new chunks
+
+// chunk manager is also used to interface with chunks, such as getting entity data
+
+// the chunk manager can be interfaced with via the ECSCoordinator
+
 class ChunkManager : public ISubject
 {
     friend class EntityCoordinator;
@@ -31,7 +40,6 @@ private:
 
 public:
       
-    //static ChunkManager& getInstance();
     EntityID assignNewEntity(Archetype arch, std::string sprite, std::vector<Tag> tags, ComponentSizeMap& sizemap);
 
     void scheduleToDelete(EntityID id);

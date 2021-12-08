@@ -4,6 +4,12 @@
 #include "EntityQuery.h"
 #include "chunk.h"
 
+// in order to access the component data of entities found by an Entity query, a componentIterator is used
+// it is not an actual official-style c++ iterator
+// 
+// it hides the actual implementation of object pool chunks away from other developers
+// other developers may treat collections of chunks like a single array, thanks to the componentIterator
+
 template<typename T>
 class ComponentIterator
 {

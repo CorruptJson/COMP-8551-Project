@@ -6,6 +6,8 @@
 #include "SceneManager.h"
 #include "EntityCoordinator.h"
 
+// this class stores data specific to the game itself, and not as relevant to the underlying game engine
+
 class GameManager : public IObserver, public ISubject
 {
 private:

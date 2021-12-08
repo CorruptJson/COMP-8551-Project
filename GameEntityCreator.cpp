@@ -340,6 +340,8 @@ void GameEntityCreator::Receive(Event e, void* args)
 {
     if (e == Event::ENEMY_DESTROYED)
     {
+        // create the bug skeletons particle entities when an enemy dies
+
         Transform* t = (Transform*)args;
         Position p = t->getPosition();
         ParticleMove move = { {0,0.05f},{0,-0.0025f} };
@@ -349,6 +351,8 @@ void GameEntityCreator::Receive(Event e, void* args)
     }
     else if (e == Event::INPUT_SHOOT)
     {
+        // create a shell casing particle when the player shoots
+
         EntityCoordinator& coord = EntityCoordinator::getInstance();
         std::shared_ptr<EntityQuery> eq = coord.GetEntityQuery(
             {
@@ -371,6 +375,8 @@ void GameEntityCreator::Receive(Event e, void* args)
     }
     else if (e == Event::STAR_PICKED_UP)
     {
+        // create a sparkle effect when the player picks up a star
+
         Transform* t = (Transform*)args;
         for (int i = 0; i < 5; i++)
         {

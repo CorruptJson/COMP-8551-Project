@@ -13,7 +13,23 @@
 #include "ISubject.h"
 
 const int ENTITIES_PER_CHUNK = 16;
-//void func(b2Body*);
+
+// a chunk is an object pool of entities
+// entities exist as a slot in a group of component arrays
+// therefore, a chunk is a collection of component arrays
+
+// chunks only store one "archetype" of entity
+// meaning only entities with the same combination of components are stored in the same chunk
+
+// a chunk may have any number of component arrays of different types
+// component data is stored via unsigned chars (which are bytes)
+// the data is cast to the appropriate component type when used
+
+// chunks are also associated with a sprite sheet and a collection of tags
+// all entities in the chunk have the same sprite sheet and the same collection of tags
+
+// chunks can delete (release) entities by flagging the data index as "free" with -1 in the entToDat array
+// the version array is used to keep track of which "reused" iteration a data index is on
 
 class Chunk
 {
@@ -28,7 +44,6 @@ private:
     std::unordered_map<ComponentType, Byte*> componentArrays{};
     int versions[ENTITIES_PER_CHUNK];
     int entToDat[ENTITIES_PER_CHUNK];
-    //int datToEnt[ENTITIES_PER_CHUNK]{};
     bool deleteEnt[ENTITIES_PER_CHUNK];
     bool entitiesToDelete = false;
     bool hasPhysics;
@@ -45,6 +60,7 @@ private:
         componentArrays.insert(typeName, new T[ENTITIES_PER_CHUNK]);
     }
 
+    // used during chunk construction, adds a new component data array to this chunk
     template<typename T, typename ... args>
     void addComponentArray()
     {
@@ -55,10 +71,6 @@ private:
     }
 
 public:
-
-
-    //template<typename T, typename ... args>
-    //static friend Chunk* createChunk(int chunkID, Archetype arch, std::string spriteSheet, ComponentSizeMap& sizemap);
 
     Chunk() = delete;
 
