@@ -7,6 +7,7 @@ using namespace std;
 
 int ScoreSystem::score = 0;
 
+//Updates the score UI text
 void ScoreSystem::UpdateScore()
 {
     EntityCoordinator* ec = &EntityCoordinator::getInstance();
@@ -25,6 +26,7 @@ void ScoreSystem::UpdateScore()
     tci.nextComponent()->setText(*s);
 }
 
+//Receives events
 void ScoreSystem::Receive(Event e, void* args)
 {
     switch (e) {

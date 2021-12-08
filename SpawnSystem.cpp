@@ -1,10 +1,12 @@
 #include "SpawnSystem.h"
 #include "Sound.h"
+
 SpawnSystem::SpawnSystem() {
     ec = &EntityCoordinator::getInstance();
     gameEntCreator = &GameEntityCreator::getInstance();
 }
 
+//Receives events to spawn various entities
 void SpawnSystem::Receive(Event e, void* args)
 {
     GameManager& gm = GameManager::getInstance();
@@ -30,7 +32,7 @@ void SpawnSystem::Receive(Event e, void* args)
         break;
     }
 }
-
+//Spawns a star at one of the spawn locations specified in the scene json
 void SpawnSystem::SpawnStar()
 {
     std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({
@@ -66,6 +68,7 @@ void SpawnSystem::SpawnStar()
     GameManager::getInstance().hasActiveStar = true;
 }
 
+//Spawns an enemy at the enemy spawner entity
 void SpawnSystem::SpawnEnemy()
 {
     std::shared_ptr<EntityQuery> eq = ec->GetEntityQuery({

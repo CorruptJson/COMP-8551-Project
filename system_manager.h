@@ -16,8 +16,6 @@ public:
         return system;
     }
 
-    void addSystem(std::shared_ptr<System> system);
-
     vector<std::shared_ptr<System>> getSystems();
 
     void runUpdates();
